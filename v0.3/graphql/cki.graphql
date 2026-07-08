@@ -89,7 +89,7 @@ interface KredietFeit {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!
@@ -97,7 +97,7 @@ interface Partij {
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!
@@ -534,7 +534,7 @@ type ZakelijkKrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """EUR 1.000."""
   meldingsdrempel: Bedrag!
   """De onderneming waarvoor het krediet is aangegaan; zie deelmodel Bedrijven en instellingen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  tenBehoeveVan: UUID!
+  tenBehoeveVan: KVKnummer!
 }
 
 """Een overige zakelijke financiele verplichting die niet onder zakelijk krediet valt en waarvan op grond van het Algemeen Reglement CKI alleen negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld."""
@@ -641,7 +641,7 @@ type BorgstellingRol {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!

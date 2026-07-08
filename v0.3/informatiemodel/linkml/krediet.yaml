@@ -49,8 +49,6 @@ classes:
       persoon tot het verrichten van een geldelijke prestatie aan een
       tegenpartij, ontstaan uit overeenkomst of uit een wettelijke
       regeling.
-    exact_mappings:
-      - gbobegrip:FinancieleVerplichting
     annotations:
       mim:herkomst: CKI; Wgs
       mim:herkomstDefinitie: >-
@@ -66,6 +64,17 @@ classes:
         KredietOvereenkomst en SchuldhulpverleningTraject: alle in CKI
         of in een gemeentelijke beschikking geformaliseerde geldelijke
         verplichtingen van een natuurlijk of niet-natuurlijk persoon.
+      skos:status: proposed
+      skos:prefLabel_nl: Financiele verplichting
+      skos:altLabel_nl_0_value: Schuld
+      skos:altLabel_nl_0_source: Algemeen taalgebruik; in CKI-context vaak synoniem
+      skos:altLabel_en_0_value: Financial Obligation
+      skos:altLabel_en_0_source: FIBO Financial Obligation (close, niet exact)
+      skos:definition_nl: Een verplichting van een natuurlijk persoon of niet-natuurlijk persoon tot het verrichten van een geldelijke prestatie aan een tegenpartij, ontstaan uit overeenkomst of uit een wettelijke regeling.
+      skos:definitionSource: GBO-Core, afgeleid uit het verbintenisrecht en het Algemeen Reglement CKI
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: closeMatch naar FIBO FinancialObligation scope-vergelijking nog niet handmatig geverifieerd.
+      skos:needsReview_1: 'Verhouding met Burgerlijk Wetboek-verbintenisrecht: nu afgeleid; eventueel als formele bron toevoegen.'
     comments:
       - >-
         Abstract; concrete varianten zijn KredietOvereenkomst en
@@ -106,6 +115,15 @@ classes:
         annotations:
           mim:herkomst: Algemeen Reglement CKI art. 14
 
+    class_uri: gbobegrip:FinancieleVerplichting
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
+      - https://begrippen.gbo-semantiek.nl/id/begrip/SchuldhulpverleningTraject
+    close_mappings:
+      - https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/FinancialObligation
+    aliases:
+      - Schuld
+      - Financial Obligation
   KredietOvereenkomst:
     is_a: FinancieleVerplichting
     abstract: true
@@ -116,8 +134,6 @@ classes:
       onder afgesproken voorwaarden, en die op grond van het Algemeen
       Reglement CKI aan het Centraal Krediet Informatiesysteem wordt
       gemeld.
-    exact_mappings:
-      - gbobegrip:KredietOvereenkomst
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -128,6 +144,22 @@ classes:
         subklassen: alle kredietovereenkomsten die op grond van het
         Algemeen Reglement CKI aan het Centraal Krediet
         Informatiesysteem worden gemeld.
+      skos:status: proposed
+      skos:prefLabel_nl: Krediet overeenkomst
+      skos:altLabel_nl_0_value: Overeenkomst
+      skos:altLabel_nl_0_source: 'Algemeen Reglement CKI art. 15 (titel: Welke overeenkomsten worden gemeld)'
+      skos:altLabel_nl_1_value: Kredietverstrekking
+      skos:altLabel_nl_1_source: Algemeen taalgebruik
+      skos:altLabel_en_0_value: Loan Contract
+      skos:altLabel_en_0_source: FIBO LoanContract (close)
+      skos:altLabel_en_1_value: Credit Agreement
+      skos:altLabel_en_1_source: MCD 2014/17/EU terminologie
+      skos:definition_nl: Een overeenkomst tussen een kredietverstrekker en een kredietnemer waarbij de verstrekker een geldsom of geldbedragen ter beschikking stelt en de nemer zich verbindt tot terugbetaling onder afgesproken voorwaarden, en die op grond van het Algemeen Reglement CKI aan het Centraal Krediet Informatiesysteem wordt gemeld.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 1 en art. 15
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: closeMatch naar FIBO LoanContract scope-vergelijking nog niet handmatig geverifieerd.
+      skos:needsReview_1: Verhouding tot MCD 2014/17/EU (hypothecair krediet richtlijn) voor de hypothecaire subtypen nog niet expliciet gedocumenteerd.
     comments:
       - >-
         Abstract; twaalf concrete kredietvormen volgen art. 16 tot en
@@ -220,6 +252,29 @@ classes:
         annotations:
           mim:kardinaliteit: "1 -> 0..*"
 
+    class_uri: gbobegrip:KredietOvereenkomst
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/FinancieleVerplichting
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/AflopendKrediet
+      - https://begrippen.gbo-semantiek.nl/id/begrip/DoorlopendKrediet
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Saneringskrediet
+      - https://begrippen.gbo-semantiek.nl/id/begrip/HypothecairKredietEigenWoning
+      - https://begrippen.gbo-semantiek.nl/id/begrip/HypothecairKredietOverigeOnroerendeZaken
+      - https://begrippen.gbo-semantiek.nl/id/begrip/RestschuldHypothecairKredietZonderNHG
+      - https://begrippen.gbo-semantiek.nl/id/begrip/RestschuldHypothecairKredietMetNHG
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OperationalAutolease
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OverigeFinancieleVerplichtingPrive
+      - https://begrippen.gbo-semantiek.nl/id/begrip/ZakelijkKrediet
+      - https://begrippen.gbo-semantiek.nl/id/begrip/ZakelijkeOverigeFinancieleVerplichting
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KortKrediet
+    close_mappings:
+      - https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LoanContract
+    aliases:
+      - Overeenkomst
+      - Kredietverstrekking
+      - Loan Contract
+      - Credit Agreement
   KredietFeit:
     abstract: true
     description: >-
@@ -228,8 +283,6 @@ classes:
       Centraal Krediet Informatiesysteem wordt gemeld, zoals het
       ontstaan van een achterstand, het herstel van een achterstand of
       het optreden van een bijzonderheid.
-    exact_mappings:
-      - gbobegrip:KredietFeit
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -240,6 +293,17 @@ classes:
         AchterstandRegistratie, HerstelMelding en
         BijzonderheidsCodering: alle gedurende de looptijd van een
         kredietovereenkomst aan CKI gemelde gebeurtenissen.
+      skos:status: proposed
+      skos:prefLabel_nl: Krediet feit
+      skos:altLabel_nl_0_value: Kredietgebeurtenis
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:altLabel_en_0_value: Credit Event
+      skos:altLabel_en_0_source: FIBO CreditEvent (close)
+      skos:definition_nl: Een tijdens de looptijd van een kredietovereenkomst opgetreden gebeurtenis die op grond van het Algemeen Reglement CKI aan het Centraal Krediet Informatiesysteem wordt gemeld.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 12 en art. 13
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: closeMatch naar FIBO CreditEvent scope-vergelijking nog niet handmatig geverifieerd.
     comments:
       - >-
         Abstract; concrete varianten zijn AchterstandRegistratie,
@@ -259,14 +323,22 @@ classes:
 
   # --- Kredietvormen (art. 16 t/m 26 Algemeen Reglement CKI) ------------------
 
+    class_uri: gbobegrip:KredietFeit
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/AchterstandRegistratie
+      - https://begrippen.gbo-semantiek.nl/id/begrip/HerstelMelding
+      - https://begrippen.gbo-semantiek.nl/id/begrip/BijzonderheidsCodering
+    close_mappings:
+      - https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CreditEvent
+    aliases:
+      - Kredietgebeurtenis
+      - Credit Event
   AflopendKrediet:
     is_a: KredietOvereenkomst
     description: >-
       Een kredietovereenkomst met een vooraf vastgesteld kredietbedrag,
       een vaste looptijd en periodieke aflossingen die het krediet
       stapsgewijs verminderen tot nul aan het einde van de looptijd.
-    exact_mappings:
-      - gbobegrip:AflopendKrediet
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -277,6 +349,13 @@ classes:
         meldingsdrempel van EUR 250, gedurende de looptijd plus de
         bewaartermijn na einddatum.
       skos:notation: AK
+      skos:status: proposed
+      skos:prefLabel_nl: Aflopend krediet
+      skos:altLabel_nl_0_value: Persoonlijke lening
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:definition_nl: Een kredietovereenkomst met een vooraf vastgesteld kredietbedrag, een vaste looptijd en periodieke aflossingen die het krediet stapsgewijs verminderen tot nul aan het einde van de looptijd.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 16
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         De klassieke persoonlijke lening met vaste maandtermijnen. Het
@@ -310,14 +389,17 @@ classes:
         annotations:
           mim:herkomst: Algemeen Reglement CKI art. 16
 
+    class_uri: gbobegrip:AflopendKrediet
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
+    aliases:
+      - Persoonlijke lening
   DoorlopendKrediet:
     is_a: KredietOvereenkomst
     description: >-
       Een kredietovereenkomst waarbij de kredietnemer tot een
       afgesproken kredietlimiet steeds opnieuw kan opnemen en aflossen,
       zonder vaste looptijd en zonder verplicht aflossingsschema.
-    exact_mappings:
-      - gbobegrip:DoorlopendKrediet
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -328,6 +410,13 @@ classes:
         meldingsdrempel van EUR 250 als kredietlimiet, gedurende de
         looptijd plus de bewaartermijn.
       skos:notation: RK
+      skos:status: proposed
+      skos:prefLabel_nl: Doorlopend krediet
+      skos:altLabel_nl_0_value: Revolverend krediet
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:definition_nl: Een kredietovereenkomst waarbij de kredietnemer tot een afgesproken kredietlimiet steeds opnieuw kan opnemen en aflossen, zonder vaste looptijd en zonder verplicht aflossingsschema.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 17
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Revolverend krediet tot de afgesproken kredietlimiet. De
@@ -360,6 +449,11 @@ classes:
         annotations:
           mim:herkomst: art. 17
 
+    class_uri: gbobegrip:DoorlopendKrediet
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
+    aliases:
+      - Revolverend krediet
   Saneringskrediet:
     is_a: KredietOvereenkomst
     description: >-
@@ -367,8 +461,6 @@ classes:
       gemeente aangewezen kredietbank een persoonlijke lening verstrekt
       aan een schuldenaar om bestaande schulden te bundelen en
       gefaseerd af te lossen onder begeleiding van schuldhulpverlening.
-    exact_mappings:
-      - gbobegrip:Saneringskrediet
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -380,6 +472,11 @@ classes:
         door een gemeente of door de gemeente aangewezen kredietbank
         in het kader van schuldhulpverlening.
       skos:notation: SK
+      skos:status: proposed
+      skos:prefLabel_nl: Saneringskrediet
+      skos:definition_nl: Een kredietovereenkomst waarbij een gemeente of door de gemeente aangewezen kredietbank een persoonlijke lening verstrekt aan een schuldenaar om bestaande schulden te bundelen en gefaseerd af te lossen onder begeleiding van schuldhulpverlening.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 18
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Specifieke vorm van aflopend krediet met een
@@ -407,6 +504,9 @@ classes:
         annotations:
           mim:herkomst: art. 18
 
+    class_uri: gbobegrip:Saneringskrediet
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   KortKrediet:
     is_a: KredietOvereenkomst
     description: >-
@@ -414,8 +514,6 @@ classes:
       dan drie maanden, met een betrekkelijk klein kredietbedrag, en
       die op grond van de specifieke bepalingen van het Algemeen
       Reglement CKI in CKI wordt geregistreerd.
-    exact_mappings:
-      - gbobegrip:KortKrediet
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -425,6 +523,16 @@ classes:
         Aan CKI gemelde kortlopende kredieten (dagkredieten,
         mini-leningen) met een looptijd doorgaans korter dan drie
         maanden.
+      skos:status: proposed
+      skos:prefLabel_nl: Kort krediet
+      skos:altLabel_nl_0_value: Mini-lening
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:altLabel_nl_1_value: Flash-lening
+      skos:altLabel_nl_1_source: Algemeen taalgebruik
+      skos:definition_nl: Een kredietovereenkomst met een korte looptijd, doorgaans korter dan drie maanden, met een betrekkelijk klein kredietbedrag.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 26
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
+      skos:needsReview_0: 'Geen tweeletter-code: bevestigen of dit blijvend zo is in CKI of dat er een specifieke aanduiding wordt gebruikt.'
     comments:
       - >-
         Anders dan de overige kredietvormen heeft kort krediet geen
@@ -450,6 +558,12 @@ classes:
         annotations:
           mim:herkomst: art. 26
 
+    class_uri: gbobegrip:KortKrediet
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
+    aliases:
+      - Mini-lening
+      - Flash-lening
   HypothecairKredietEigenWoning:
     is_a: KredietOvereenkomst
     description: >-
@@ -459,7 +573,7 @@ classes:
       CKI uitsluitend negatieve betalingservaringen aan het Centraal
       Krediet Informatiesysteem worden gemeld.
     exact_mappings:
-      - gbobegrip:HypothecairKredietEigenWoning
+      - https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf#page=21
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -473,6 +587,14 @@ classes:
         negatieve betalingservaring aan CKI is gemeld; reguliere
         kredieten zonder achterstand verschijnen niet in CKI.
       skos:notation: HY
+      skos:status: proposed
+      skos:prefLabel_nl: Hypothecair krediet eigen woning
+      skos:altLabel_nl_0_value: Eigenwoningschuld
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:definition_nl: Een kredietovereenkomst tot financiering van de eigen woning van de kredietnemer, waarbij een hypotheekrecht is gevestigd op die onroerende zaak, en waarvan op grond van het Algemeen Reglement CKI uitsluitend negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 19
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
+      skos:needsReview_0: Page-anker voor art. 19 in canonieke PDF te verifieren bij parse-stap.
     comments:
       - >-
         Afwijkend regime ten opzichte van de overige kredietvormen.
@@ -504,6 +626,11 @@ classes:
         annotations:
           mim:kardinaliteit: "n -> 1"
 
+    class_uri: gbobegrip:HypothecairKredietEigenWoning
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
+    aliases:
+      - Eigenwoningschuld
   HypothecairKredietOverigeOnroerendeZaken:
     is_a: KredietOvereenkomst
     description: >-
@@ -512,7 +639,7 @@ classes:
       kredietnemer is, zoals een tweede woning, een verhuurde woning of
       een beleggingspand, en die boven de meldingsdrempel valt.
     exact_mappings:
-      - gbobegrip:HypothecairKredietOverigeOnroerendeZaken
+      - https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf#page=22
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -523,6 +650,12 @@ classes:
         zaken anders dan de eigen woning (tweede woning, verhuurpand,
         beleggingspand) boven de meldingsdrempel van EUR 250.
       skos:notation: HO
+      skos:status: proposed
+      skos:prefLabel_nl: Hypothecair krediet overige onroerende zaken
+      skos:definition_nl: Een kredietovereenkomst waarbij een hypotheekrecht is gevestigd op een onroerende zaak die niet de eigen woning van de kredietnemer is, zoals een tweede woning, een verhuurde woning of een beleggingspand.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 20
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
+      skos:needsReview_0: Page-anker te verifieren bij parse-stap.
     comments:
       - >-
         Reguliere aanlevering bij aangaan, in tegenstelling tot
@@ -556,6 +689,9 @@ classes:
         annotations:
           mim:kardinaliteit: "n -> 1"
 
+    class_uri: gbobegrip:HypothecairKredietOverigeOnroerendeZaken
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   RestschuldHypothecairKredietZonderNHG:
     is_a: KredietOvereenkomst
     description: >-
@@ -564,8 +700,6 @@ classes:
       dekking door de Nationale Hypotheek Garantie, voor zover de
       restschuld boven de meldingsdrempel valt en in CKI wordt
       geregistreerd.
-    exact_mappings:
-      - gbobegrip:RestschuldHypothecairKredietZonderNHG
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -576,6 +710,11 @@ classes:
         onroerende zaak waarop een hypothecair krediet rustte zonder
         dekking door de Nationale Hypotheek Garantie.
       skos:notation: RH
+      skos:status: proposed
+      skos:prefLabel_nl: Restschuld hypothecair krediet zonder NHG
+      skos:definition_nl: Een resterende schuld na verkoop van een onroerende zaak waarop een hypothecair krediet rustte zonder dekking door de Nationale Hypotheek Garantie.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 21
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Zonder NHG-dekking blijft de schuld volledig bij de
@@ -615,6 +754,9 @@ classes:
             Het diagram geeft aan de bronzijde 0..1 (per hypotheek
             hoogstens één restschuld); de relatietabel zegt 1 -> 1.
 
+    class_uri: gbobegrip:RestschuldHypothecairKredietZonderNHG
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   RestschuldHypothecairKredietMetNHG:
     is_a: KredietOvereenkomst
     description: >-
@@ -622,8 +764,6 @@ classes:
       een hypothecair krediet rustte met dekking door de Nationale
       Hypotheek Garantie, voor zover de restschuld boven de
       meldingsdrempel valt en in CKI wordt geregistreerd.
-    exact_mappings:
-      - gbobegrip:RestschuldHypothecairKredietMetNHG
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -634,6 +774,11 @@ classes:
         onroerende zaak waarop een hypothecair krediet rustte met
         dekking door de Nationale Hypotheek Garantie.
       skos:notation: RN
+      skos:status: proposed
+      skos:prefLabel_nl: Restschuld hypothecair krediet met NHG
+      skos:definition_nl: Een resterende schuld na verkoop van een onroerende zaak waarop een hypothecair krediet rustte met dekking door de Nationale Hypotheek Garantie.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 21
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Met NHG-dekking kan de restschuld onder voorwaarden worden
@@ -672,6 +817,9 @@ classes:
             Het diagram geeft aan de bronzijde 0..1 (per hypotheek
             hoogstens één restschuld); de relatietabel zegt 1 -> 1.
 
+    class_uri: gbobegrip:RestschuldHypothecairKredietMetNHG
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   OperationalAutolease:
     is_a: KredietOvereenkomst
     description: >-
@@ -680,8 +828,6 @@ classes:
       leasenemer een maandelijkse vergoeding betaalt voor het gebruik,
       het onderhoud en de afschrijving, en die boven de
       meldingsdrempel valt.
-    exact_mappings:
-      - gbobegrip:OperationalAutolease
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -693,6 +839,13 @@ classes:
         totale contractbedrag boven de meldingsdrempel van EUR 250
         ligt.
       skos:notation: OA
+      skos:status: proposed
+      skos:prefLabel_nl: Operational autolease
+      skos:altLabel_nl_0_value: Private lease
+      skos:altLabel_nl_0_source: Algemeen taalgebruik en Geschillencommissie Private Lease
+      skos:definition_nl: Een leaseovereenkomst voor een personenvoertuig waarbij de leasemaatschappij eigenaar blijft van het voertuig en de leasenemer een maandelijkse vergoeding betaalt voor het gebruik.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 22
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Onderscheid met financial lease. Financial lease leidt tot
@@ -726,6 +879,11 @@ classes:
         annotations:
           mim:herkomst: art. 22
 
+    class_uri: gbobegrip:OperationalAutolease
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
+    aliases:
+      - Private lease
   OverigeFinancieleVerplichtingPrive:
     is_a: KredietOvereenkomst
     description: >-
@@ -734,8 +892,6 @@ classes:
       waarvan op grond van het Algemeen Reglement CKI alleen negatieve
       betalingservaringen aan het Centraal Krediet Informatiesysteem
       worden gemeld.
-    exact_mappings:
-      - gbobegrip:OverigeFinancieleVerplichtingPrive
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -746,6 +902,11 @@ classes:
         natuurlijke personen die niet onder een andere kredietvorm
         vallen, voor zover een negatieve betalingservaring is gemeld.
       skos:notation: RO
+      skos:status: proposed
+      skos:prefLabel_nl: Overige financiele verplichting prive
+      skos:definition_nl: Een overige privefinanciele verplichting van een natuurlijk persoon die niet onder een specifieke kredietvorm valt en waarvan alleen negatieve betalingservaringen worden gemeld.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 23
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Restcategorie voor private verplichtingen die niet in een
@@ -766,14 +927,15 @@ classes:
         annotations:
           mim:herkomst: art. 12
 
+    class_uri: gbobegrip:OverigeFinancieleVerplichtingPrive
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   ZakelijkKrediet:
     is_a: KredietOvereenkomst
     description: >-
       Een kredietovereenkomst aangegaan ten behoeve van een onderneming
       waarbij sprake is van persoonlijke aansprakelijkheid van een of
       meer natuurlijke personen, en die boven de meldingsdrempel valt.
-    exact_mappings:
-      - gbobegrip:ZakelijkKrediet
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -785,6 +947,11 @@ classes:
         personen (typisch ZZP en eenmanszaken, en BV/NV met
         persoonlijke borgstelling).
       skos:notation: ZK
+      skos:status: proposed
+      skos:prefLabel_nl: Zakelijk krediet
+      skos:definition_nl: Een kredietovereenkomst aangegaan ten behoeve van een onderneming waarbij sprake is van persoonlijke aansprakelijkheid van een of meer natuurlijke personen.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 24
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Sleutel-criterium voor opname in CKI is persoonlijke
@@ -825,6 +992,9 @@ classes:
         annotations:
           mim:kardinaliteit: "n -> 1"
 
+    class_uri: gbobegrip:ZakelijkKrediet
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   ZakelijkeOverigeFinancieleVerplichting:
     is_a: KredietOvereenkomst
     description: >-
@@ -832,8 +1002,6 @@ classes:
       zakelijk krediet valt en waarvan op grond van het Algemeen
       Reglement CKI alleen negatieve betalingservaringen aan het
       Centraal Krediet Informatiesysteem worden gemeld.
-    exact_mappings:
-      - gbobegrip:ZakelijkeOverigeFinancieleVerplichting
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -844,6 +1012,11 @@ classes:
         boven EUR 1.000 die niet onder ZakelijkKrediet vallen, voor
         zover een negatieve betalingservaring is gemeld.
       skos:notation: ZO
+      skos:status: proposed
+      skos:prefLabel_nl: Zakelijke overige financiele verplichting
+      skos:definition_nl: Een overige zakelijke financiele verplichting die niet onder ZakelijkKrediet valt en waarvan alleen negatieve betalingservaringen worden gemeld.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 25
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         Zakelijke tegenhanger van de overige financiele verplichting
@@ -866,6 +1039,9 @@ classes:
 
   # --- Kredietfeiten -----------------------------------------------------------
 
+    class_uri: gbobegrip:ZakelijkeOverigeFinancieleVerplichting
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietOvereenkomst
   AchterstandRegistratie:
     is_a: KredietFeit
     description: >-
@@ -874,8 +1050,6 @@ classes:
       zijn verplichtingen onder een specifieke kredietovereenkomst, na
       het verstrijken van de voor die kredietvorm geldende
       achterstandstermijn.
-    exact_mappings:
-      - gbobegrip:AchterstandRegistratie
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -886,6 +1060,13 @@ classes:
         Alle aan CKI gemelde achterstanden op kredietovereenkomsten,
         inclusief inmiddels herstelde voor zover binnen de
         bewaartermijn van vijf jaar.
+      skos:status: proposed
+      skos:prefLabel_nl: Achterstand registratie
+      skos:altLabel_nl_0_value: A-codering
+      skos:altLabel_nl_0_source: Algemeen taalgebruik en CKI-praktijk
+      skos:definition_nl: Een melding aan het Centraal Krediet Informatiesysteem dat een kredietnemer een achterstand heeft opgelopen in de nakoming van zijn verplichtingen onder een specifieke kredietovereenkomst.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 12 lid 1-2
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         De achterstandstermijn start bij de eerste niet of
@@ -938,6 +1119,11 @@ classes:
           mim:authentiek: Basisgegeven
           mim:kardinaliteit: "1 -> 0..*"
 
+    class_uri: gbobegrip:AchterstandRegistratie
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietFeit
+    aliases:
+      - A-codering
   HerstelMelding:
     is_a: KredietFeit
     description: >-
@@ -945,8 +1131,6 @@ classes:
       eerder gemelde achterstand op een kredietovereenkomst is opgelost
       doordat de kredietnemer zijn betalingsverplichtingen weer
       volledig nakomt of de gehele schuld heeft voldaan.
-    exact_mappings:
-      - gbobegrip:HerstelMelding
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -956,6 +1140,13 @@ classes:
         Alle aan CKI gemelde herstellen van eerder geregistreerde
         achterstanden, gedurende de bewaartermijn van de
         oorspronkelijke achterstand.
+      skos:status: proposed
+      skos:prefLabel_nl: Herstel melding
+      skos:altLabel_nl_0_value: H-melding
+      skos:altLabel_nl_0_source: CKI-praktijk
+      skos:definition_nl: Een melding aan het Centraal Krediet Informatiesysteem dat een eerder gemelde achterstand op een kredietovereenkomst is opgelost.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 12 lid 3
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         De melding markeert het einde van de actieve achterstand. Het
@@ -979,6 +1170,11 @@ classes:
         annotations:
           mim:kardinaliteit: "n -> 1"
 
+    class_uri: gbobegrip:HerstelMelding
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietFeit
+    aliases:
+      - H-melding
   BijzonderheidsCodering:
     is_a: KredietFeit
     description: >-
@@ -986,8 +1182,6 @@ classes:
       specifieke bijzonderheid is opgetreden bij de afhandeling van een
       kredietovereenkomst, gecodeerd volgens de waardenset van art. 13
       Algemeen Reglement CKI.
-    exact_mappings:
-      - gbobegrip:BijzonderheidsCodering
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
@@ -996,6 +1190,13 @@ classes:
       mim:populatie: >-
         Alle aan CKI gemelde bijzonderheidscoderingen op
         kredietovereenkomsten, gedurende de bewaartermijn.
+      skos:status: proposed
+      skos:prefLabel_nl: Bijzonderheids codering
+      skos:altLabel_nl_0_value: B-codering
+      skos:altLabel_nl_0_source: CKI-praktijk
+      skos:definition_nl: Een melding aan het Centraal Krediet Informatiesysteem dat een specifieke bijzonderheid is opgetreden bij de afhandeling van een kredietovereenkomst.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 13
+      skos:definitionSourceUri: https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf
     comments:
       - >-
         De vijf codes verwijzen naar aflossingsregeling na
@@ -1041,6 +1242,11 @@ classes:
   # rol-relatie die in CKI alleen indirect verschijnt via een negatieve
   # betalingservaring op de bijbehorende kredietovereenkomst.
 
+    class_uri: gbobegrip:BijzonderheidsCodering
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/KredietFeit
+    aliases:
+      - B-codering
   SchuldhulpverleningTraject:
     is_a: FinancieleVerplichting
     description: >-
@@ -1049,8 +1255,6 @@ classes:
       grond van de Wet gemeentelijke schuldhulpverlening, met als doel
       financiele rust en stapsgewijze oplossing van problematische
       schulden.
-    exact_mappings:
-      - gbobegrip:SchuldhulpverleningTraject
     annotations:
       mim:herkomst: Wgs; CKI
       mim:herkomstDefinitie: >-
@@ -1063,6 +1267,16 @@ classes:
         gemeentelijke schuldhulpverleningstrajecten op grond van de
         Wet gemeentelijke schuldhulpverlening; aangemeld bij CKI
         conform art. 18a Algemeen Reglement CKI.
+      skos:status: proposed
+      skos:prefLabel_nl: Schuldhulpverlening traject
+      skos:altLabel_nl_0_value: WGS-traject
+      skos:altLabel_nl_0_source: Wgs-praktijk
+      skos:altLabel_nl_1_value: Schuldhulptraject
+      skos:altLabel_nl_1_source: Algemeen taalgebruik
+      skos:definition_nl: Een wettelijk schuldhulpverleningstraject dat door een gemeente bij beschikking aan een natuurlijk persoon wordt toegekend op grond van de Wet gemeentelijke schuldhulpverlening.
+      skos:definitionSource: WGS art. 4a en 4b; Algemeen Reglement CKI 2024-07-01 art. 18a
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0031331
+      skos:needsReview_0: Of WGS-traject formeel onder FinancieleVerplichting moet vallen of als eigen wortel; nu gemodelleerd als FinancieleVerplichting-subtype.
     comments:
       - >-
         De Wgs maakt de gemeente verantwoordelijk voor
@@ -1112,14 +1326,18 @@ classes:
         annotations:
           mim:kardinaliteit: "1 -> 0..*"
 
+    class_uri: gbobegrip:SchuldhulpverleningTraject
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/FinancieleVerplichting
+    aliases:
+      - WGS-traject
+      - Schuldhulptraject
   BorgstellingRol:
     description: >-
       De rol van een natuurlijk persoon die zich heeft verbonden tot
       het voldoen van de verplichtingen van een kredietnemer onder een
       specifieke kredietovereenkomst indien de kredietnemer zelf in
       gebreke blijft.
-    exact_mappings:
-      - gbobegrip:BorgstellingRol
     annotations:
       mim:herkomst: CKI; BW
       mim:herkomstDefinitie: >-
@@ -1132,6 +1350,14 @@ classes:
         een kredietovereenkomst; in CKI alleen zichtbaar bij
         activering van de borgstelling via een negatieve
         betalingservaring.
+      skos:status: proposed
+      skos:prefLabel_nl: Borgstelling rol
+      skos:altLabel_nl_0_value: Borg
+      skos:altLabel_nl_0_source: Algemeen Reglement CKI art. 1; BW Boek 7 titel 14
+      skos:definition_nl: De rol van een natuurlijk persoon die zich heeft verbonden tot het voldoen van de verplichtingen van een kredietnemer onder een specifieke kredietovereenkomst indien de kredietnemer zelf in gebreke blijft.
+      skos:definitionSource: Algemeen Reglement CKI 2024-07-01 art. 1; BW 7:850
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005290
+      skos:needsReview_0: 'KREDIET-OQ-002: BorgstellingRol als zelfstandig wortel-concept of via [[gbo-core/concepts/algemeen/rol]] modelleren.'
     comments:
       - >-
         De borg is geen partij bij de hoofdverplichting maar staat
@@ -1178,6 +1404,11 @@ classes:
             Hernoemd vanaf de te generieke wiki-relatienaam "voor";
             zie annotatie mim:relatienaam.
 
+    class_uri: gbobegrip:BorgstellingRol
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Rol
+    aliases:
+      - Borg
 enums:
 
   BijzonderheidsCode:

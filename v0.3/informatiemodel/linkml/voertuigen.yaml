@@ -44,8 +44,6 @@ classes:
       vervoermiddel dat met een uniek kenteken aan het verkeer kan
       deelnemen, met de bij dat kenteken horende technische en
       administratieve kerngegevens.
-    exact_mappings:
-      - gbobegrip:Voertuig
     annotations:
       mim:herkomst: BRV (basisregistratie)
       mim:herkomstDefinitie: >-
@@ -58,6 +56,22 @@ classes:
         Alle voertuigen die in de Basisregistratie Voertuigen zijn
         opgenomen, inclusief geschorste, geëxporteerde en gesloopte
         voertuigen die nog historisch kenbaar zijn.
+      skos:status: proposed
+      skos:prefLabel_nl: Voertuig
+      skos:altLabel_nl_0_value: Kentekenhoudend voertuig
+      skos:altLabel_nl_0_source: '[[gbo-core/registers/brv]]'
+      skos:altLabel_nl_1_value: Motorrijtuig
+      skos:altLabel_nl_1_source: Wegenverkeerswet 1994 art. 1
+      skos:altLabel_en_0_value: Vehicle
+      skos:altLabel_en_0_source: OOTS Data dictionary (hoofdconcept Vehicle)
+      skos:definition_nl: Een voertuig dat in het kentekenregister staat geregistreerd en daarvoor een kenteken heeft gekregen, zoals een personenauto, motorfiets, vrachtwagen, aanhangwagen of bromfiets met kenteken.
+      skos:definitionSource: Wegenverkeerswet 1994 (kentekenregister), Kentekenreglement
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0006622
+      skos:closeMatch_0_reviewed: 'false'
+      skos:relatedMatch_0_reviewed: 'false'
+      skos:needsReview_0: 'closeMatch op Stelselcatalogus-BRV-begrip Voertuig: scope-gelijkheid nog niet handmatig geverifieerd (live pagina is JS-SPA).'
+      skos:needsReview_1: voertuigidentificatienummer (VIN) is een afgeschermd gegeven; niet in de RDW open data, wel in de authentieke BRV. Bevestigen via welk koppelvlak dit voor OOTS beschikbaar is.
+      skos:needsReview_2: 'Codelijst EUVoertuigcategorie: bron-lijst (EU-typegoedkeuring) koppelen aan RDW-veld europese_voertuigcategorie.'
     comments:
       - >-
         Het kenteken is de praktische unieke aanduiding; het
@@ -238,7 +252,7 @@ classes:
         comments:
           - Zie enumeratie Voertuigstatus.
       heeftTenaamstelling:
-        range: Voertuigtenaamstelling
+        range: Kentekentenaamstelling
         multivalued: true
         description: >-
           De tenaamstelling(en) van dit voertuig, historisch en
@@ -250,15 +264,22 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..*"
 
-  Voertuigtenaamstelling:
+    class_uri: gbobegrip:Voertuig
+    close_mappings:
+      - https://opendata.stelselcatalogus.nl/brv/doc/begrip/Voertuig
+    related_mappings:
+      - https://data-models-oots-tdd-8b6791fd33fcb1f29c7d6ad9c6173ba55d28c0a5f9.pages.code.europa.eu/Evidence/EvidenceOfRoadworthiness/releases/0.0.1/
+    aliases:
+      - Kentekenhoudend voertuig
+      - Motorrijtuig
+      - Vehicle
+  Kentekentenaamstelling:
     mixins:
       - Voorkomen
     description: >-
       De geregistreerde rechtsbetrekking tussen een partij en een
       voertuig, waarmee de partij als eigenaar en/of houder van het
       voertuig is geregistreerd.
-    exact_mappings:
-      - gbobegrip:Voertuigtenaamstelling
     annotations:
       mim:herkomst: BRV (basisregistratie)
       mim:herkomstDefinitie: >-
@@ -271,9 +292,24 @@ classes:
         Alle in de Basisregistratie Voertuigen geregistreerde
         tenaamstellingen, historisch en actueel, die een partij aan
         een voertuig koppelen.
+      skos:status: proposed
+      skos:prefLabel_nl: Kentekentenaamstelling
+      skos:altLabel_nl_0_value: Tenaamstelling (voertuig)
+      skos:altLabel_nl_0_source: Kentekenreglement (tenaamstelling van een kenteken)
+      skos:altLabel_nl_1_value: Kentekenhouderschap
+      skos:altLabel_nl_1_source: '[[gbo-core/registers/brv]]'
+      skos:altLabel_en_0_value: Vehicle registration (keepership)
+      skos:altLabel_en_0_source: OOTS hoofdconcept Vehicle (context)
+      skos:definition_nl: De geregistreerde rechtsbetrekking waarbij een kenteken (en daarmee een voertuig) op naam van een partij staat; de partij is daarmee de kentekenhouder.
+      skos:definitionSource: Wegenverkeerswet 1994, Kentekenreglement (tenaamstelling)
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0006622
+      skos:relatedMatch_0_reviewed: 'false'
+      skos:needsReview_0: Stelselcatalogus-BRV-URI voor het tenaamstelling/kentekenhouder-begrip nog niet vastgesteld; closeMatch leeg.
+      skos:needsReview_1: 'Aandeel/mede-houderschap: in de BRK draagt Tenaamstelling een aandeel-attribuut. Bevestigen of de BRV co-tenaamstelling kent en of een aandeel-attribuut nodig is.'
+      skos:needsReview_2: 'datumEinde: bevestigen of het kentekenregister een einddatum per tenaamstelling levert of dat historie via opeenvolgende tenaamstellingen loopt.'
     comments:
       - >-
-        Voertuigtenaamstelling is een verbinding met eigen kenmerken
+        Kentekentenaamstelling is een verbinding met eigen kenmerken
         tussen Partij en Voertuig, vergelijkbaar met Tenaamstelling in
         het deelmodel Onroerende zaken. Een overdracht leidt tot een
         nieuwe tenaamstelling met latere datumTenaamstelling terwijl de
@@ -341,6 +377,13 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "* -> 1"
 
+    class_uri: gbobegrip:Kentekentenaamstelling
+    related_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Tenaamstelling
+    aliases:
+      - Tenaamstelling (voertuig)
+      - Kentekenhouderschap
+      - Vehicle registration (keepership)
 enums:
 
   Voertuigsoort:

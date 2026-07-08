@@ -71,7 +71,7 @@ interface Uitkering implements InkomensOndersteuning {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!
@@ -79,7 +79,7 @@ interface Partij {
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!
@@ -360,7 +360,7 @@ type Arbeidsverhouding {
   """De natuurlijk persoon die als werknemer in de arbeidsverhouding staat."""
   heeftWerknemer: NatuurlijkPersoon!
   """De onderneming die als werkgever in de arbeidsverhouding staat. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  heeftWerkgever: UUID!
+  heeftWerkgever: KVKnummer!
   """De inkomstenverhoudingen waarin deze arbeidsverhouding operationeel tot uiting komt in de loonaangifteketen. (Sleutel-referentie naar Inkomstenverhouding.)"""
   komtTotUitingIn: [String!]
 }
@@ -392,7 +392,7 @@ type Beslissing {
   """De natuurlijk persoon op wie het besluit betrekking heeft."""
   betreft: NatuurlijkPersoon!
   """De uitvoerings-instelling die het besluit heeft genomen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  genomenDoor: UUID!
+  genomenDoor: KVKnummer!
 }
 
 """Het op grond van de Dagloonregels werknemersverzekeringen voor een specifieke uitkering vastgestelde dagloon, dat dient als grondslag voor de hoogte van de uitkering en wordt berekend op basis van de inkomstenopgaven over de referteperiode."""
@@ -425,7 +425,7 @@ type Arbeidsongeschiktheidspercentage {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!

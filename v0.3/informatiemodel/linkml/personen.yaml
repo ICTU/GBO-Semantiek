@@ -41,8 +41,6 @@ classes:
   NatuurlijkPersoon:
     is_a: Partij
     description: Een mens als drager van burgerlijke rechten en plichten.
-    exact_mappings:
-      - gbobegrip:NatuurlijkPersoon
     annotations:
       mim:herkomst: >-
         BRP cat 01 (basis); semantische verbreding voor personen buiten
@@ -64,6 +62,21 @@ classes:
         (opschortingBijhouding, inOnderzoek) als kwaliteitsindicator.
         Voor niet-ingeschrevenen ontbreekt zo'n centrale
         kwaliteitsstempel; bronvermelding per attribuut is dan leidend.
+      skos:status: concept
+      skos:prefLabel_nl: Natuurlijk persoon
+      skos:altLabel_nl_0_value: Persoon
+      skos:altLabel_nl_0_source: '[[gbo-core/sources/rsgb-kern-ggm]]'
+      skos:altLabel_nl_1_value: Mens
+      skos:altLabel_nl_1_source: Burgerlijk Wetboek art. 1:1 BW
+      skos:definition_nl: Een mens als drager van burgerlijke rechten en plichten.
+      skos:definitionSource: Burgerlijk Wetboek art. 1:1 BW
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002656
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: De natuurlijke persoon zoals geregistreerd in de Basisregistratie Personen, met identificerende, naam-, geboorte-, geslachts- en overlijdensgegevens.
+      skos:additional_0_source: '[[gbo-core/sources/logisch-ontwerp-brp]] v4.3.0 §1'
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: closeMatch op cpv:Person nog niet handmatig geverifieerd qua scope
+      skos:needsReview_1: altLabel 'Mens' bron-citatie controleren (art. 1:1 BW gebruikt 'allen die zich in Nederland bevinden', niet letterlijk 'mens')
     comments:
       - >-
         NatuurlijkPersoon omvat zowel mensen die in een Nederlandse
@@ -196,6 +209,14 @@ classes:
             Maximaal 2 ouders per persoon; LinkML kent geen maximum-
             kardinaliteit, zie annotatie mim:kardinaliteit.
 
+    class_uri: gbobegrip:NatuurlijkPersoon
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Partij
+    close_mappings:
+      - http://www.w3.org/ns/person#Person
+    aliases:
+      - Persoon
+      - Mens
   IngeschrevenPersoon:
     is_a: NatuurlijkPersoon
     abstract: true

@@ -58,11 +58,11 @@ type Voertuig {
   """Administratieve status van het voertuig."""
   voertuigstatus: Voertuigstatus!
   """De tenaamstelling(en) van dit voertuig, historisch en actueel."""
-  heeftTenaamstelling: [Voertuigtenaamstelling!]
+  heeftTenaamstelling: [Kentekentenaamstelling!]
 }
 
 """De geregistreerde rechtsbetrekking tussen een partij en een voertuig, waarmee de partij als eigenaar en/of houder van het voertuig is geregistreerd."""
-type Voertuigtenaamstelling {
+type Kentekentenaamstelling {
   """Hoedanigheid waarin de partij is tenaamgesteld: eigenaar, houder of beide."""
   rol: Tenaamstellingsrol!
   """Datum waarop de tenaamstelling is ingegaan."""

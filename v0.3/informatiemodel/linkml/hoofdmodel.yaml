@@ -42,19 +42,23 @@ classes:
         samenkomen.
     attributes:
       ingeschrevenAls:
-        range: Inschrijving
+        range: MaatschappelijkeActiviteit
         multivalued: true
         description: >-
-          De inschrijving(en) van deze partij in het Handelsregister.
+          De inschrijving(en) waarbij deze partij als eigenaar of
+          vennoot betrokken is in het Handelsregister.
         annotations:
           mim:kardinaliteit: "1..* -> 0..*"
         comments:
           - >-
             Hangt aan Partij zodat eenmanszaak (NP-eigenaar), holding
-            (NNP-NNP), VOF (meerdere NP-vennoten) en eenvoudige BV op
+            (NNP-vennoot), VOF (meerdere NP-vennoten) en eenvoudige BV op
             één manier modelleerbaar zijn; zie hoofdmodel.md,
-            Sleutelrelaties. Inschrijving staat in het deelmodel
-            Bedrijven en instellingen.
+            Sleutelrelaties. Dit is de eigenaar-/betrokkenheid-relatie,
+            niet de eigen identiteit: die loopt via
+            NietNatuurlijkPersoon.voertMaatschappelijkeActiviteit (1:1).
+            De inschrijvingseenheid is de MaatschappelijkeActiviteit in
+            het deelmodel Bedrijven en instellingen.
       ID:
         identifier: true
         required: true

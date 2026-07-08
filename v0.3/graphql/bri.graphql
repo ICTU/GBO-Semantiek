@@ -33,7 +33,7 @@ scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!
@@ -70,7 +70,7 @@ type Inkomstenverhouding {
   """De natuurlijk persoon (werknemer) in de IKV."""
   tussenPersoon: NatuurlijkPersoon!
   """De onderneming (werkgever) in de IKV. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  tussenWerkgever: UUID!
+  tussenWerkgever: KVKnummer!
 }
 
 """De aggregatie van loongegevens van een werknemer binnen een aangifte loonheffingen over een aangifteperiode, opgebouwd uit een of meer inkomstenperioden en alle daarop horende loonbestanddelen."""
@@ -126,12 +126,12 @@ type LoonAangifte {
   """Reguliere aangifte of correctie op een eerdere."""
   isCorrectieAangifte: Indicatie!
   """De onderneming (inhoudingsplichtige) die de loonaangifte heeft ingediend. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  ingediendDoor: UUID!
+  ingediendDoor: KVKnummer!
 }
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!
@@ -161,7 +161,7 @@ type NatuurlijkPersoon implements Partij {
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   ID: UUID!

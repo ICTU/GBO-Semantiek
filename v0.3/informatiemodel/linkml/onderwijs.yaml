@@ -47,8 +47,6 @@ classes:
       Een afgebakende periode waarin een MBO-student bij een erkend
       leerbedrijf het beroepspraktijkvorming-deel van een
       MBO-opleiding doorloopt.
-    exact_mappings:
-      - gbobegrip:BeroepspraktijkvormingPeriode
     annotations:
       mim:herkomst: Register Onderwijsdeelnemers, cluster MBO
       mim:herkomstDefinitie: >-
@@ -64,6 +62,19 @@ classes:
         MBO-instelling levert; geldigheid van de BPV-overeenkomst
         wordt geborgd door SBB-erkenning van het leerbedrijf en door
         registratie in ROD.
+      skos:status: proposed
+      skos:prefLabel_nl: Beroepspraktijkvorming periode
+      skos:altLabel_nl_0_value: BPV-periode
+      skos:altLabel_nl_0_source: WEB art. 7.2.8 (afkorting in gangbaar gebruik)
+      skos:altLabel_nl_1_value: Stageperiode
+      skos:altLabel_nl_1_source: WEB-context (informele alias)
+      skos:altLabel_en_0_value: Work-based learning period
+      skos:altLabel_en_0_source: Cedefop terminologie
+      skos:definition_nl: Een afgebakende periode waarin een MBO-student bij een erkend leerbedrijf het beroepspraktijkvorming-deel van een MBO-opleiding doorloopt.
+      skos:definitionSource: GBO Core, afgeleid uit WEB art. 7.2.8 en art. 7.2.9
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0007625
+      skos:needsReview_0: Exacte XSD-elementnaam in PvE ROD MBO bevestigen.
+      skos:needsReview_1: Modellering van leerbedrijf als aparte entiteit (subtype van NNP) of als verwijzing-string?
     comments:
       - >-
         BeroepspraktijkvormingPeriode hangt als component aan een
@@ -146,13 +157,18 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 1"
 
+    class_uri: gbobegrip:BeroepspraktijkvormingPeriode
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OpleidingDeelname
+    aliases:
+      - BPV-periode
+      - Stageperiode
+      - Work-based learning period
   ModuleInschrijving:
     description: >-
       De inschrijving van een student voor een onderwijseenheid
       binnen een lopende opleiding-deelname in het hoger onderwijs,
       met een vastgestelde studielast in ECTS.
-    exact_mappings:
-      - gbobegrip:ModuleInschrijving
     annotations:
       mim:herkomst: Register Onderwijsdeelnemers, cluster HO
       mim:herkomstDefinitie: >-
@@ -169,6 +185,20 @@ classes:
       mim:kwaliteit: >-
         Aangeleverd door de HO-instelling; resultaatstatus volgt de
         instellings-administratie.
+      skos:status: proposed
+      skos:prefLabel_nl: Module inschrijving
+      skos:altLabel_nl_0_value: Onderwijseenheid-inschrijving
+      skos:altLabel_nl_0_source: WHW art. 7.3a (terminologie)
+      skos:altLabel_nl_1_value: MBI
+      skos:altLabel_nl_1_source: PvE ROD HO (afkorting in koppelvlak; te bevestigen)
+      skos:altLabel_en_0_value: Module enrollment
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: De inschrijving van een student voor een onderwijseenheid binnen een opleiding-deelname in het hoger onderwijs, met een vastgestelde studielast in ECTS.
+      skos:definitionSource: GBO Core, afgeleid uit WHW art. 7.3a en PvE ROD HO
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005682
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Exacte XSD-elementnaam in PvE ROD HO bevestigen (vermoedelijk 'BekostigingsRecordOnderwijseenheid' of vergelijkbaar).
+      skos:needsReview_1: Wel/geen aparte ModuleResultaat-objecttype, of resultaat als attribuut op ModuleInschrijving?
     comments:
       - >-
         ModuleInschrijving is een fijnmazige gebeurtenis binnen een
@@ -251,14 +281,21 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 1"
 
+    class_uri: gbobegrip:ModuleInschrijving
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OpleidingDeelname
+    close_mappings:
+      - https://elmo.eu/module-enrollment
+    aliases:
+      - Onderwijseenheid-inschrijving
+      - MBI
+      - Module enrollment
   OnderwijsInstelling:
     is_a: NietNatuurlijkPersoon
     description: >-
       Een door OCW erkende rechtspersoon of bestuurlijke entiteit
       die onderwijs aanbiedt in een of meer Nederlandse
       onderwijssectoren.
-    exact_mappings:
-      - gbobegrip:OnderwijsInstelling
     annotations:
       mim:herkomst: >-
         RIO (instellings-laag); Handelsregister (rechtspersoon-laag)
@@ -278,6 +315,27 @@ classes:
         RIO is autoritatief; BRIN-codes worden door DUO uitgegeven;
         mutaties in bestuurs- of vestigingsstructuur zijn na
         publicatie in RIO bindend.
+      skos:status: proposed
+      skos:prefLabel_nl: Onderwijsinstelling
+      skos:altLabel_nl_0_value: School
+      skos:altLabel_nl_0_source: WPO art. 1 (in PO-context)
+      skos:altLabel_nl_1_value: Onderwijsorganisatie
+      skos:altLabel_nl_1_source: RIO
+      skos:altLabel_nl_2_value: Bevoegd gezag
+      skos:altLabel_nl_2_source: WVO 2020 art. 1.1 (rol-aanduiding)
+      skos:altLabel_en_0_value: Educational Institution
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: Een door OCW erkende rechtspersoon of bestuurlijke entiteit die onderwijs aanbiedt in een of meer Nederlandse onderwijssectoren.
+      skos:definitionSource: GBO Core, afgeleid uit sectorwetten
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: Een instelling in de zin van WHW art. 1.2 is een hogeschool of universiteit die op grond van die wet hoger onderwijs verzorgt.
+      skos:additional_0_source: WHW art. 1.2
+      skos:additional_1_as: scopeNote
+      skos:additional_1_nl: Een school in de zin van WPO art. 1 is een onder een schoolbestuur ressorterende, in de WPO erkende voorziening voor basisonderwijs.
+      skos:additional_1_source: WPO art. 1
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Verhouding tussen Bestuur en Instelling in RIO-hiërarchie modelleren als generalisatie of als compositie?
+      skos:needsReview_1: BRIN-code is historisch gegroeid; voor sommige sectoren ontbreekt deze. Te bevestigen welke sector-fallback geldt.
     comments:
       - >-
         Onderwijsinstelling is een NietNatuurlijkPersoon in een
@@ -372,13 +430,21 @@ classes:
           mim:indicatieFormeleHistorie: false
           mim:kardinaliteit: "1 -> 0..*"
 
+    class_uri: gbobegrip:OnderwijsInstelling
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/NietNatuurlijkPersoon
+    close_mappings:
+      - http://schema.org/EducationalOrganization
+    aliases:
+      - School
+      - Onderwijsorganisatie
+      - Bevoegd gezag
+      - Educational Institution
   Opleiding:
     description: >-
       Een door een bevoegd gezag aangeboden, samenhangend geheel van
       onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld
       kwalificatie- of diplomaniveau leidt.
-    exact_mappings:
-      - gbobegrip:Opleiding
     annotations:
       mim:herkomst: RIO; sector-codelijsten CROHO, CREBO en schoolsoort
       mim:herkomstDefinitie: >-
@@ -396,6 +462,29 @@ classes:
         HO-opleidingen; CREBO-registratie geldt analoog voor MBO.
         Een opleiding zonder geldige registratie geeft geen recht op
         bekostigde diploma-uitreiking.
+      skos:status: proposed
+      skos:prefLabel_nl: Opleiding
+      skos:altLabel_nl_0_value: Onderwijsaanbod
+      skos:altLabel_nl_0_source: RIO (rio-onderwijs.nl)
+      skos:altLabel_nl_1_value: Opleidingseenheid
+      skos:altLabel_nl_1_source: PvE ROD (te bevestigen)
+      skos:altLabel_en_0_value: Programme
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:altLabel_en_1_value: Curriculum
+      skos:altLabel_en_1_source: schema.org Course (gerelateerd)
+      skos:definition_nl: Een door een bevoegd gezag aangeboden, samenhangend geheel van onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld kwalificatie- of diploma-niveau leidt.
+      skos:definitionSource: GBO Core, afgeleid uit WHW art. 7.3 en WEB art. 7.1.3
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005682
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: 'Voor HO: een opleiding leidt op tot graadverlening (bachelor, master, associate degree).'
+      skos:additional_0_source: WHW art. 7.3a
+      skos:additional_1_as: scopeNote
+      skos:additional_1_nl: 'Voor MBO: een opleiding is gekoppeld aan een kwalificatiedossier en leidt tot een MBO-diploma.'
+      skos:additional_1_source: WEB art. 7.1.3
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Codelijsten CROHO/CREBO als aparte enumeratie-pagina onder wiki/gbo-core/enumeraties/ opnemen.
+      skos:needsReview_1: NLQF-niveau-bron en update-frequentie bevestigen (NCP-NLQF maakt de afleiding).
+      skos:needsReview_2: RIO-element-naam voor Opleidingseenheid bevestigen tegen rio-onderwijs.nl-documentatie.
     comments:
       - >-
         Opleiding abstraheert van de sector-eigen
@@ -477,13 +566,21 @@ classes:
           mim:indicatieFormeleHistorie: false
           mim:kardinaliteit: "0..* -> 1..*"
 
+    class_uri: gbobegrip:Opleiding
+    close_mappings:
+      - https://ec.europa.eu/esco/ontology/qualification
+    related_mappings:
+      - http://schema.org/Course
+    aliases:
+      - Onderwijsaanbod
+      - Opleidingseenheid
+      - Programme
+      - Curriculum
   OpleidingDeelname:
     description: >-
       De inschrijving van een natuurlijk persoon voor het volgen van
       een opleiding bij een onderwijsinstelling, geldig binnen een
       afgebakende periode.
-    exact_mappings:
-      - gbobegrip:OpleidingDeelname
     annotations:
       mim:herkomst: Register Onderwijsdeelnemers per sector
       mim:herkomstDefinitie: >-
@@ -503,6 +600,26 @@ classes:
         onderwijsinstelling levert via Edukoppeling. Tijdigheid van
         overgangs- en uitschrijfmeldingen en juistheid van
         peilmoment worden door DUO teruggekoppeld aan de instelling.
+      skos:status: proposed
+      skos:prefLabel_nl: Opleiding deelname
+      skos:altLabel_nl_0_value: Onderwijsdeelname
+      skos:altLabel_nl_0_source: '[[gbo-core/sources/duo-gegevenswoordenboek]] (te bevestigen)'
+      skos:altLabel_nl_1_value: Inschrijving
+      skos:altLabel_nl_1_source: PvE ROD per sector
+      skos:altLabel_nl_2_value: Onderwijsinschrijving
+      skos:altLabel_nl_2_source: PvE ROD HO
+      skos:altLabel_en_0_value: Enrollment
+      skos:altLabel_en_0_source: ELMO 1.4 (te bevestigen)
+      skos:definition_nl: De inschrijving van een natuurlijk persoon voor het volgen van een opleiding bij een onderwijsinstelling, geldig binnen een afgebakende periode.
+      skos:definitionSource: GBO Core, afgeleid uit PvE ROD per sector
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: Vaststelling van het feit dat een leerling/student aan een opleiding bij een onderwijsinstelling deelneemt, op grond van de Wet op het onderwijsnummer en bijbehorende sectorwet.
+      skos:additional_0_source: Wet op het onderwijsnummer art. 1 onder b
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Concrete XSD-elementnaam per sector nog te bevestigen tegen lokale PvE-XSD-bijlage.
+      skos:needsReview_1: altLabel 'Onderwijsdeelname' bron-citatie afhankelijk van Gegevenswoordenboek-DUO-publicatie (zie [[gbo-core/sources/duo-gegevenswoordenboek]], DVTP-DUO-OQ-001).
+      skos:needsReview_2: closeMatch op ELMO-enrollment scope-vergelijking nog niet handmatig geverifieerd.
+      skos:needsReview_3: Generalisatie naar [[gbo-core/concepts/bedrijven-en-instellingen/inschrijving]] te bevestigen als concrete modeleerkeuze.
     comments:
       - >-
         OpleidingDeelname is de centrale registratie van het feit
@@ -643,14 +760,25 @@ classes:
           mim:indicatieFormeleHistorie: false
           mim:kardinaliteit: "0..1 -> 0..*"
 
+    class_uri: gbobegrip:OpleidingDeelname
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Inschrijving
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/ModuleInschrijving
+      - https://begrippen.gbo-semantiek.nl/id/begrip/BeroepspraktijkvormingPeriode
+    close_mappings:
+      - https://elmo.eu/learner-enrollment
+    aliases:
+      - Onderwijsdeelname
+      - Inschrijving
+      - Onderwijsinschrijving
+      - Enrollment
   OpleidingResultaat:
     description: >-
       Het door een natuurlijk persoon behaalde resultaat voor een
       opleiding of onderdeel daarvan bij een onderwijsinstelling,
       blijkend uit een diploma, certificaat, deelcertificaat of
       vergelijkbaar bewijsstuk.
-    exact_mappings:
-      - gbobegrip:OpleidingResultaat
     annotations:
       mim:herkomst: Register Onderwijsdeelnemers per sector
       mim:herkomstDefinitie: >-
@@ -670,6 +798,26 @@ classes:
         via Edukoppeling. Een ten onrechte verstrekt diploma kan via
         een terugkoppelmelding worden ingetrokken; de bijhouding
         registreert dat als correctie.
+      skos:status: proposed
+      skos:prefLabel_nl: Opleiding resultaat
+      skos:altLabel_nl_0_value: Onderwijsresultaat
+      skos:altLabel_nl_0_source: '[[gbo-core/sources/duo-gegevenswoordenboek]] (te bevestigen)'
+      skos:altLabel_nl_1_value: Diploma
+      skos:altLabel_nl_1_source: PvE ROD per sector
+      skos:altLabel_nl_2_value: Examenresultaat
+      skos:altLabel_nl_2_source: PvE ROD VO
+      skos:altLabel_en_0_value: Learner Achievement
+      skos:altLabel_en_0_source: ELMO 1.4 (te bevestigen)
+      skos:definition_nl: Het door een natuurlijk persoon behaalde resultaat voor (een onderdeel van) een opleiding bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk.
+      skos:definitionSource: GBO Core, afgeleid uit PvE ROD per sector
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: Een diploma is een door of namens een onderwijsinstelling verleend bewijsstuk waaruit blijkt dat aan de eisen van een opleiding is voldaan.
+      skos:additional_0_source: WHW art. 7.10a (HO), WEB art. 7.4.6 (MBO), WVO 2020 art. 2.61 (VO), naar betekenis
+      skos:closeMatch_0_reviewed: 'false'
+      skos:closeMatch_1_reviewed: 'false'
+      skos:needsReview_0: Diplomasoort-codelijst per sector bevestigen tegen PvE-bijlage.
+      skos:needsReview_1: 'Verhouding tussen OpleidingResultaat en Getuigschrift (HO) verifiëren: subtype of synoniem?'
+      skos:needsReview_2: closeMatch op schema:EducationalOccupationalCredential scope-vergelijking nog niet handmatig geverifieerd.
     comments:
       - >-
         OpleidingResultaat ontstaat na succesvolle afronding of bij
@@ -782,6 +930,17 @@ classes:
           mim:indicatieFormeleHistorie: false
           mim:kardinaliteit: "0..1 -> 0..1"
 
+    class_uri: gbobegrip:OpleidingResultaat
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Vooropleiding
+    close_mappings:
+      - https://elmo.eu/learner-achievement
+      - http://schema.org/EducationalOccupationalCredential
+    aliases:
+      - Onderwijsresultaat
+      - Diploma
+      - Examenresultaat
+      - Learner Achievement
   VerzuimMelding:
     description: >-
       Een wettelijk verplichte melding door een onderwijsinstelling
@@ -789,8 +948,6 @@ classes:
       kwalificatieplichtige leerling, of van verzuim van een
       achttienplus-deelnemer dat langer dan vier weken
       aaneengesloten duurt.
-    exact_mappings:
-      - gbobegrip:VerzuimMelding
     annotations:
       mim:herkomst: Register Onderwijsdeelnemers, clusters VO en MBO
       mim:herkomstDefinitie: >-
@@ -806,6 +963,17 @@ classes:
         Aanlevering binnen wettelijke termijn (zeven dagen na
         constatering) bepaalt of de melding rechtsgeldig in ROD
         staat.
+      skos:status: proposed
+      skos:prefLabel_nl: Verzuim melding
+      skos:altLabel_nl_0_value: Verzuimmelding
+      skos:altLabel_nl_0_source: Leerplichtwet 1969 art. 21a (één-woord-variant)
+      skos:altLabel_nl_1_value: Melding voortijdig schoolverlater
+      skos:altLabel_nl_1_source: WEB art. 8.1.7 (deeloverlap)
+      skos:definition_nl: Een wettelijk verplichte melding door een onderwijsinstelling van ongeoorloofd verzuim van een leerplichtige of kwalificatieplichtige leerling, of van verzuim van een 18-plus deelnemer dat langer dan vier weken aaneengesloten duurt.
+      skos:definitionSource: GBO Core, afgeleid uit Leerplichtwet art. 21a en WEB art. 8.1.7
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002628
+      skos:needsReview_0: VSV-melding (voortijdig schoolverlater) is gerelateerd maar niet identiek; relatie tot VerzuimMelding modelleren.
+      skos:needsReview_1: Exacte drempelwaardes per regime herverifiëren tegen actuele Leerplichtwet.
     comments:
       - >-
         VerzuimMelding zit niet in het PO-koppelvlak; het
@@ -891,14 +1059,16 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 1"
 
+    class_uri: gbobegrip:VerzuimMelding
+    aliases:
+      - Verzuimmelding
+      - Melding voortijdig schoolverlater
   Vooropleiding:
     is_a: OpleidingResultaat
     description: >-
       Een eerder behaald opleidingsresultaat dat bij een volgende
       onderwijsdeelname wordt aangereikt als bewijs voor de
       toelating tot of de instroompositionering in een opleiding.
-    exact_mappings:
-      - gbobegrip:Vooropleiding
     annotations:
       mim:herkomst: Register Onderwijsdeelnemers per sector
       mim:herkomstDefinitie: >-
@@ -919,6 +1089,18 @@ classes:
         Buitenlandse vooropleidingen worden aangereikt zonder
         ROD-tegenpaar; de instelling staat in voor de
         gelijkstelling.
+      skos:status: proposed
+      skos:prefLabel_nl: Vooropleiding
+      skos:altLabel_nl_0_value: Toelatingsdiploma
+      skos:altLabel_nl_0_source: WHW art. 7.24 (toelatingseisen HO)
+      skos:altLabel_nl_1_value: Instroom-bewijs
+      skos:altLabel_nl_1_source: PvE ROD MBO
+      skos:altLabel_en_0_value: Prior qualification
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: Een eerder behaald opleidingsresultaat dat bij een volgende onderwijsdeelname wordt aangereikt als bewijs voor de toelating tot of de instroom-positionering in een opleiding.
+      skos:definitionSource: GBO Core, afgeleid uit PvE ROD en sectorwetten
+      skos:needsReview_0: 'Verhouding tot OpleidingResultaat: opslaan als zelfstandig record met sterke koppeling, of als view op OpleidingResultaat in een specifieke rol?'
+      skos:needsReview_1: 'Buitenlandse vooropleidingen: aparte codelijst voor gelijkstelling (DUO doet hier gelijkwaardigheidsbepaling) bevestigen.'
     comments:
       - >-
         Vooropleiding is hetzelfde objecttype als
@@ -1015,14 +1197,19 @@ classes:
   # afhankelijk van inzage door de (oud-)student via Mijn DUO of via
   # een door de student gemachtigde dienstverlening.
 
+    class_uri: gbobegrip:Vooropleiding
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OpleidingResultaat
+    aliases:
+      - Toelatingsdiploma
+      - Instroom-bewijs
+      - Prior qualification
   StudieFinanciering:
     description: >-
       Een door DUO aan een student toegekende tegemoetkoming in de
       kosten van levensonderhoud en studie, in de vorm van een
       basisbeurs, aanvullende beurs, studentenreisproduct of
       bestuursbeurs.
-    exact_mappings:
-      - gbobegrip:StudieFinanciering
     annotations:
       mim:herkomst: DUO-administratie studiefinanciering
       mim:herkomstDefinitie: >-
@@ -1041,6 +1228,19 @@ classes:
         in gift) wordt door DUO bijgehouden. Bevestiging aan derden
         alleen via gewaarmerkte burgerinzage of een door de student
         gemachtigde dienstverlening.
+      skos:status: proposed
+      skos:prefLabel_nl: Studie financiering
+      skos:altLabel_nl_0_value: Beurs
+      skos:altLabel_nl_0_source: WSF 2000 hoofdstuk 3 (beurzen)
+      skos:altLabel_nl_1_value: Studentenreisproduct
+      skos:altLabel_nl_1_source: WSF 2000 art. 3.7
+      skos:altLabel_en_0_value: Student grant
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: Een door DUO aan een student toegekende tegemoetkoming in de kosten van levensonderhoud en/of studie, in de vorm van een basisbeurs, aanvullende beurs, studentenreisproduct of bestuursbeurs.
+      skos:definitionSource: GBO Core, afgeleid uit WSF 2000
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011453
+      skos:needsReview_0: Bestaat StudieFinanciering bij dezelfde herkomst-beperking als StudieLening (geen B2B)? Aannemelijk; te verifiëren.
+      skos:needsReview_1: Aanvullende toelage MBO via WTOS apart objecttype of subtype?
     comments:
       - >-
         StudieFinanciering omvat de beurscomponent en het
@@ -1131,14 +1331,17 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "0..1 -> 1"
 
+    class_uri: gbobegrip:StudieFinanciering
+    aliases:
+      - Beurs
+      - Studentenreisproduct
+      - Student grant
   StudieLening:
     description: >-
       Het door een (oud-)student bij DUO opgebouwde renteloze of
       laagrentende leningbedrag op grond van de Wet
       studiefinanciering 2000, samen met de aflosregeling waaronder
       het bedrag moet worden terugbetaald.
-    exact_mappings:
-      - gbobegrip:StudieLening
     annotations:
       mim:herkomst: DUO-administratie studielening
       mim:herkomstDefinitie: >-
@@ -1153,6 +1356,19 @@ classes:
         DUO is autoritatief; aflosregeling-cohort bepaalt
         aflostermijn en renteregime. Gegevenskwaliteit voor derden
         is afhankelijk van de gebruikte alternatieve route.
+      skos:status: proposed
+      skos:prefLabel_nl: Studie lening
+      skos:altLabel_nl_0_value: Studieschuld
+      skos:altLabel_nl_0_source: WSF 2000 hoofdstuk 6 (gangbaar gebruik)
+      skos:altLabel_nl_1_value: DUO-schuld
+      skos:altLabel_nl_1_source: Algemeen taalgebruik
+      skos:altLabel_en_0_value: Student loan
+      skos:altLabel_en_0_source: OECD terminologie
+      skos:definition_nl: Het door een (oud-)student bij DUO opgebouwde renteloze of laagrentende leningbedrag op grond van de Wet studiefinanciering 2000, samen met de aflosregeling waaronder het bedrag moet worden terugbetaald.
+      skos:definitionSource: GBO Core, afgeleid uit WSF 2000 hoofdstuk 6
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011453
+      skos:needsReview_0: Of het zinvol is leen-cohort als eigen objecttype te modelleren (verschillen tussen oude regeling, leenstelsel, na-leenstelsel zijn aanzienlijk).
+      skos:needsReview_1: Of de 'OV-schuld' (uit niet-omgezet reisproduct) een aparte StudieLening-instance is of een component-attribuut.
     comments:
       - >-
         Het aflosregime hangt af van het leenstelsel-cohort
@@ -1272,6 +1488,11 @@ classes:
         comments:
           - Zie deelmodel Personen.
 
+    class_uri: gbobegrip:StudieLening
+    aliases:
+      - Studieschuld
+      - DUO-schuld
+      - Student loan
 enums:
 
   Beurssoort:

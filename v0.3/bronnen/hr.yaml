@@ -11,38 +11,36 @@
 #   python3 tools/genereer_bronschema.py v0.2/bronnen/hr.yaml
 #
 # Partij (supertype van NietNatuurlijkPersoon) gaat automatisch mee;
-# diens relatie ingeschrevenAls -> Inschrijving valt binnen dit
-# profiel en blijft dus een echte relatie. De koppeling van Vestiging
-# naar de BAG loopt via het datatype-attribuut adresseerbaarObjectId
-# (NEN3610ID), niet via een klasse-relatie.
+# diens relatie ingeschrevenAls -> MaatschappelijkeActiviteit valt
+# binnen dit profiel en blijft dus een echte relatie. De koppeling van
+# Vestiging naar de BAG loopt via het datatype-attribuut
+# adresseerbaarObjectId (NEN3610ID), niet via een klasse-relatie.
 # =============================================================================
 bron: HR
 titel: Handelsregister
 beschrijving: >-
-  Bedrijven en instellingen uit het Handelsregister: inschrijvingen
-  met hun vestigingen, naamgevingen, activiteiten en rechtstoestand,
-  de maatschappelijke activiteit (onderneming) en de
-  niet-natuurlijke-persoon-hiërarchie.
+  Bedrijven en instellingen uit het Handelsregister: de
+  niet-natuurlijke persoon met zijn inschrijving
+  (MaatschappelijkeActiviteit, kvk-nummer-drager), de onderneming, en
+  de vestigingen, namen, handelsnamen, activiteiten en rechtstoestand
+  die daaraan hangen. De functionele indeling
+  (Bedrijf/Instelling/...) is een afgeleide classificatie op de NNP,
+  geen apart objecttype.
 schemabestand: ../informatiemodel/linkml/gbo.yaml
 
 # Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
 ingangen:
-  - Inschrijving
+  - NietNatuurlijkPersoon
   - MaatschappelijkeActiviteit
   - Vestiging
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:
   - NietNatuurlijkPersoon
-  - Bedrijf
-  - BuitenlandseEntiteit
-  - Instelling
-  - MaatschappelijkeInstelling
-  - Overheidsinstelling
-  - OverigeNietNatuurlijkPersoon
   - MaatschappelijkeActiviteit
-  - Inschrijving
+  - Onderneming
   - Vestiging
   - Naamgeving
+  - Handelsnaam
   - Rechtstoestand
   - Activiteit

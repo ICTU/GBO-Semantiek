@@ -11,7 +11,7 @@
 #   python3 tools/genereer_bronschema.py v0.2/bronnen/brv.yaml
 #
 # De tenaamgestelde is een Partij uit het hoofdmodel. Partij staat niet
-# in dit profiel; de relatie Voertuigtenaamstelling.tenaamgesteldeOp ->
+# in dit profiel; de relatie Kentekentenaamstelling.tenaamgesteldeOp ->
 # Partij wordt daarom een sleutel-referentie naar partijnummer (UUID).
 # =============================================================================
 bron: BRV
@@ -29,4 +29,4 @@ ingangen:
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:
   - Voertuig
-  - Voertuigtenaamstelling
+  - Kentekentenaamstelling

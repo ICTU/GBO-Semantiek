@@ -55,9 +55,9 @@ uitsluitingen:
 # Afwijkende afhandeling van relaties buiten het profiel; zonder
 # vermelding geldt de default "sleutel". Hier:
 #   Inkomstenverhouding.tussenWerkgever -> sleutel
-#       (MaatschappelijkeActiviteit.identificatie)
+#       (MaatschappelijkeActiviteit.kvkNummer)
 #   LoonAangifte.ingediendDoor          -> sleutel (idem)
-#   Partij.ingeschrevenAls              -> sleutel (Inschrijving.kvkNummer)
+#   Partij.ingeschrevenAls              -> sleutel (MaatschappelijkeActiviteit.kvkNummer)
 # De persoonslijst-categorieën zijn BRP-terrein en vervallen geheel:
 relatieAfhandeling:
   - objecttype: IngeschrevenPersoon
