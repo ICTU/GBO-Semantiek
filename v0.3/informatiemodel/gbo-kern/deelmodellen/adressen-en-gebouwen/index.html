@@ -2154,7 +2154,7 @@ diagram af.</p>
 </tr>
 <tr>
 <td>Unieke aanduiding</td>
-<td><code>adresId</code> (UUID, GBO-eigen)</td>
+<td><code>adresId</code> (op de concrete subtypen)</td>
 </tr>
 <tr>
 <td>Populatie</td>
@@ -2178,17 +2178,6 @@ diagram af.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>adresId</code></td>
-<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">UUID</a></td>
-<td>1</td>
-<td>Overig</td>
-<td>Nee</td>
-<td>Nee</td>
-<td>GBO-eigen sleutel voor één adres-instantie.</td>
-<td>GBO</td>
-<td>Voorkomt fragmentatie van adres-referenties bij BAG-mutaties.</td>
-</tr>
 <tr>
 <td><code>volledigAdres</code></td>
 <td>CharacterString</td>
@@ -2232,7 +2221,7 @@ diagram af.</p>
 </tr>
 <tr>
 <td>Unieke aanduiding</td>
-<td><code>adresId</code> (geërfd)</td>
+<td><code>adresId</code> (BAGID, gelijk aan de Nummeraanduiding)</td>
 </tr>
 <tr>
 <td>Populatie</td>
@@ -2256,6 +2245,17 @@ diagram af.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>adresId</code></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">BAGID</a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>De identificatie van dit adres: de BAG-identificatie van de Nummeraanduiding die het adres vormt.</td>
+<td>BAG (Nummeraanduiding)</td>
+<td>Gelijk aan de identificatie uit <code>wordtGevormdDoor</code>; geen eigen GBO-sleutel.</td>
+</tr>
 <tr>
 <td><code>straatnaam</code></td>
 <td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">AN80</a></td>
@@ -2379,7 +2379,7 @@ diagram af.</p>
 </tr>
 <tr>
 <td>Unieke aanduiding</td>
-<td><code>adresId</code> (geërfd)</td>
+<td><code>adresId</code> (UUID, GBO-eigen)</td>
 </tr>
 <tr>
 <td>Populatie</td>
@@ -2403,6 +2403,17 @@ diagram af.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>adresId</code></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">UUID</a></td>
+<td>1</td>
+<td>Overig</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>GBO-eigen sleutel voor één adres-instantie.</td>
+<td>GBO</td>
+<td>Er is geen externe authentieke identifier voor deze adresvorm.</td>
+</tr>
 <tr>
 <td><code>adresregel1</code></td>
 <td>CharacterString</td>
@@ -2479,7 +2490,7 @@ diagram af.</p>
 </tr>
 <tr>
 <td>Unieke aanduiding</td>
-<td><code>adresId</code> (geërfd)</td>
+<td><code>adresId</code> (UUID, GBO-eigen)</td>
 </tr>
 <tr>
 <td>Populatie</td>
@@ -2503,6 +2514,17 @@ diagram af.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>adresId</code></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">UUID</a></td>
+<td>1</td>
+<td>Overig</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>GBO-eigen sleutel voor één adres-instantie.</td>
+<td>GBO</td>
+<td>Er is geen externe authentieke identifier voor deze adresvorm.</td>
+</tr>
 <tr>
 <td><code>omschrijving</code></td>
 <td>CharacterString</td>
@@ -2557,7 +2579,7 @@ diagram af.</p>
 </tr>
 <tr>
 <td>Unieke aanduiding</td>
-<td><code>adresId</code> (geërfd)</td>
+<td><code>adresId</code> (UUID, GBO-eigen)</td>
 </tr>
 <tr>
 <td>Populatie</td>
@@ -2581,6 +2603,17 @@ diagram af.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>adresId</code></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">UUID</a></td>
+<td>1</td>
+<td>Overig</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>GBO-eigen sleutel voor één adres-instantie.</td>
+<td>GBO</td>
+<td>Er is geen externe authentieke identifier voor deze adresvorm.</td>
+</tr>
 <tr>
 <td><code>briefbusnummer</code></td>
 <td>CharacterString</td>
@@ -2657,7 +2690,7 @@ diagram af.</p>
 </tr>
 <tr>
 <td>Unieke aanduiding</td>
-<td><code>adresId</code> (geërfd)</td>
+<td><code>adresId</code> (UUID, GBO-eigen)</td>
 </tr>
 <tr>
 <td>Populatie</td>
@@ -2681,6 +2714,17 @@ diagram af.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>adresId</code></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">UUID</a></td>
+<td>1</td>
+<td>Overig</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>GBO-eigen sleutel voor één adres-instantie.</td>
+<td>GBO</td>
+<td>Er is geen externe authentieke identifier voor deze adresvorm.</td>
+</tr>
 <tr>
 <td><code>datumIngangOnbekend</code></td>
 <td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Datum</a></td>

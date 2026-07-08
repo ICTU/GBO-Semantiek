@@ -1703,8 +1703,10 @@ intern nummer:</p>
   (CROHO/CREBO) voor <code>Opleiding</code>.</li>
 <li><code>Partij</code> is een abstract supertype en wordt niet rechtstreeks
   geïdentificeerd; de entree loopt via de concrete types. GBO-eigen UUID's
-  (<code>ID</code>, <code>adresId</code>) blijven interne sleutels en worden niet als
-  externe identifier gebruikt.</li>
+  (<code>id</code>, en <code>adresId</code> van de niet-BAG-adresvormen) blijven interne
+  sleutels en worden niet als externe identifier gebruikt; het
+  <code>adresId</code> van <code>Binnenlandsadres</code> is de BAG-identificatie van de
+  Nummeraanduiding en daarmee wel extern bruikbaar.</li>
 </ul>
 <h3 id="voorkomen-mixin-bitemporaliteit">Voorkomen-mixin (bitemporaliteit)<a class="headerlink" href="#voorkomen-mixin-bitemporaliteit" title="Permanent link">&para;</a></h3>
 <p><code>Voorkomen</code> is <strong>geen klasse</strong> maar een <strong>mixin van attributen</strong> die elk

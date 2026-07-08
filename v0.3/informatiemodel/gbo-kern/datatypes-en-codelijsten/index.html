@@ -1794,7 +1794,7 @@ MIM-equivalent bestaat is de notatie GBO-specifiek of BRP-specifiek.</p>
 <td><code>Identificatie</code></td>
 <td>BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10).</td>
 <td><a href="https://www.kadaster.nl/-/bag-objecten">BAG-objecten (Kadaster)</a></td>
-<td>Gebruikt voor de BAG-objecten Pand, Verblijfsobject, Standplaats, Ligplaats, Nummeraanduiding, Openbare ruimte en Woonplaats, en voor verwijzingen daarnaar (zoals <code>adresseerbaarObjectId</code>).</td>
+<td>Gebruikt voor de BAG-objecten Pand, Verblijfsobject, Standplaats, Ligplaats, Nummeraanduiding, Openbare ruimte en Woonplaats, voor verwijzingen daarnaar (zoals <code>adresseerbaarObjectId</code>), en voor <code>Binnenlandsadres.adresId</code> (gelijk aan de identificatie van de Nummeraanduiding).</td>
 </tr>
 <tr>
 <td><code>NEN3610ID</code></td>
@@ -1808,7 +1808,7 @@ MIM-equivalent bestaat is de notatie GBO-specifiek of BRP-specifiek.</p>
 <td>(geen)</td>
 <td>Universally Unique Identifier conform <a href="https://datatracker.ietf.org/doc/html/rfc4122">RFC 4122</a> (128 bits, hex-genotat).</td>
 <td><a href="https://datatracker.ietf.org/doc/html/rfc4122">RFC 4122</a></td>
-<td>Interne GBO-identifier voor objecten zonder externe authentieke identifier: <code>ID</code>, <code>adresId</code>, <code>MaatschappelijkeActiviteit.identificatie</code>.</td>
+<td>Interne GBO-identifier voor objecten zonder externe authentieke identifier: <code>id</code>, <code>MaatschappelijkeActiviteit.identificatie</code> en het <code>adresId</code> van de niet-BAG-adresvormen (Buitenlandsadres, Locatie, Postadres, VerblijfplaatsOnbekend).</td>
 </tr>
 <tr>
 <td><code>BSN</code></td>
@@ -1851,6 +1851,13 @@ MIM-equivalent bestaat is de notatie GBO-specifiek of BRP-specifiek.</p>
 <td>BRIN-nummer van een onderwijsinstelling: twee cijfers gevolgd door twee hoofdletters.</td>
 <td>DUO (BRIN)</td>
 <td>Natuurlijke sleutel van <code>OnderwijsInstelling</code>.</td>
+</tr>
+<tr>
+<td><code>Aangifteperiode</code></td>
+<td><code>Tekst</code> + patroon <code>^[0-9]{4}(-[MW][0-9]{2})?$</code></td>
+<td>Aanduiding van het aangiftetijdvak loonheffingen: jaar plus tijdvak-code, bijvoorbeeld <code>2026-M01</code> (maand) of <code>2026-W04</code> (vier weken); de kale jaarvorm (<code>2026</code>) duidt een jaaraggregaat aan, zoals de vooringevulde aangifte die levert.</td>
+<td>Gegevensspecificaties aangifte loonheffingen</td>
+<td>Gebruikt voor <code>Inkomstenopgave.aangifteperiode</code> en <code>LoonAangifte.aangifteperiode</code>.</td>
 </tr>
 <tr>
 <td><code>Codelijst~bron</code></td>

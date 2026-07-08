@@ -2,237 +2,237 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/architectuur/gegevensarchitectuur/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/architectuur/gegevenscomponenten/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/architectuur/gegevenstoepassing/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/architectuur/raamwerk/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/begrippen/beheer/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/begrippen/gbo-begrippenkader/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/begrippen/inleiding/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/begrippen/kader/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/begrippen/relatie_informatiemodel/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/begrippen/structuur/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/bijlagen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/bijlagen/tooling/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/bijlagen/uri-namespace/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/bijlagen/woordenlijst/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/implementatie/deployment/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/implementatie/naamgeving/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/implementatie/publicatie/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/implementatie/uri-strategie/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-voorzieningen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/informatiemodel/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/bronnenprioritering/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/datatypes-en-codelijsten/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/hoofdmodel-compact/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/hoofdmodel/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/adressen-en-gebouwen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/bedrijven-en-instellingen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/belastingen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/krediet/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/onderwijs/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/onroerende-zaken/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/personen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/voertuigen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/informatiemodel/gbo-kern/deelmodellen/werk-en-inkomen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/json-ld/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/json-ld/api-patronen/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/json-ld/context/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/json-ld/framing/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/json-ld/meerdere-contexts/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/ontologie/inleiding/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/ontologie/kwaliteit/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/ontologie/publicatie/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/ontologie/skos/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/uitgangspunten/inspiratie/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/uitgangspunten/kaders_standaarden/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ictu.github.io/gbo-semantiek/v0.3/uitgangspunten/ontwerpprincipes/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
