@@ -879,15 +879,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#europeeskiesrecht" class="md-nav__link">
-    <span class="md-ellipsis">
-      EuropeesKiesrecht
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geslacht" class="md-nav__link">
     <span class="md-ellipsis">
       Geslacht
@@ -918,15 +909,6 @@
   <a href="#soortverbintenis" class="md-nav__link">
     <span class="md-ellipsis">
       SoortVerbintenis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uitsluitingkiesrecht" class="md-nav__link">
-    <span class="md-ellipsis">
-      UitsluitingKiesrecht
     </span>
   </a>
   
@@ -1794,15 +1776,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#europeeskiesrecht" class="md-nav__link">
-    <span class="md-ellipsis">
-      EuropeesKiesrecht
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geslacht" class="md-nav__link">
     <span class="md-ellipsis">
       Geslacht
@@ -1833,15 +1806,6 @@
   <a href="#soortverbintenis" class="md-nav__link">
     <span class="md-ellipsis">
       SoortVerbintenis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uitsluitingkiesrecht" class="md-nav__link">
-    <span class="md-ellipsis">
-      UitsluitingKiesrecht
     </span>
   </a>
   
@@ -2088,7 +2052,7 @@ objecttype.</p>
 </tr>
 <tr>
 <td><code>uitsluitingKiesrecht</code></td>
-<td><a href="#uitsluitingkiesrecht"><code>UitsluitingKiesrecht</code></a></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes"><code>IndicatieJaNee</code></a></td>
 <td>0..1</td>
 <td>Basisgegeven</td>
 <td>Ja</td>
@@ -2099,7 +2063,7 @@ objecttype.</p>
 </tr>
 <tr>
 <td><code>europeesKiesrecht</code></td>
-<td><a href="#europeeskiesrecht"><code>EuropeesKiesrecht</code></a></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes"><code>IndicatieJaNee</code></a></td>
 <td>0..1</td>
 <td>Basisgegeven</td>
 <td>Ja</td>
@@ -3212,59 +3176,6 @@ IND-codelijst; de cross-walk naar LT 56 ondersteunt BRP-equivalentie.</p>
 ingeschreven persoon geen regulier adres heeft. Beide zijn formeel
 gedefinieerd in <a href="../adressen-en-gebouwen/">Adressen en gebouwen</a>.</p>
 <h2 id="enumeraties">Enumeraties<a class="headerlink" href="#enumeraties" title="Permanent link">&para;</a></h2>
-<h3 id="europeeskiesrecht">EuropeesKiesrecht<a class="headerlink" href="#europeeskiesrecht" title="Permanent link">&para;</a></h3>
-<p><strong>Definitie</strong>: Indicatie of een EU-burger in Nederland is geregistreerd voor het kiesrecht voor het Europees Parlement.</p>
-<p><strong>Herkomst definitie</strong>: Kieswet hoofdstuk Y (kiesrecht Europees Parlement, registratie EU-burgers in andere lidstaat); Logisch Ontwerp BRP v4.3.0 cat 13.</p>
-<p><strong>Toelichting</strong>: Geldt alleen voor EU-burgers met andere nationaliteit dan de Nederlandse die in Nederland wonen. Zij kunnen voor EP-verkiezingen kiezen tussen stemrecht in Nederland en in hun land van nationaliteit. Voor Nederlanders is dit veld niet van toepassing en mag de waarde ontbreken. Opgezet als Ja/Nee-keuzelijst zodat "geen waarde" (niet geregistreerd of niet van toepassing) onderscheidbaar blijft van "Nee" (expliciet niet gekozen voor NL-registratie).</p>
-<table>
-<thead>
-<tr>
-<th>MIM-veld</th>
-<th>Waarde</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Naam</td>
-<td>EuropeesKiesrecht</td>
-</tr>
-<tr>
-<td>Begrip (URI)</td>
-<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/EuropeesKiesrecht</code></td>
-</tr>
-<tr>
-<td>Herkomst</td>
-<td>BRP cat 13 Kiesrecht</td>
-</tr>
-<tr>
-<td>Datum opname</td>
-<td>2026-04-28</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Gebruikt door</strong>: <code>IngeschrevenPersoon.europeesKiesrecht</code>.</p>
-<p><strong>Waarden</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Naam</th>
-<th>Definitie</th>
-<th>Toelichting</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Ja</td>
-<td>De persoon is geregistreerd voor EP-kiesrecht in Nederland.</td>
-<td></td>
-</tr>
-<tr>
-<td>Nee</td>
-<td>De persoon is niet geregistreerd voor EP-kiesrecht in Nederland.</td>
-<td>"Geen waarde" betekent niet van toepassing (Nederlander, of registratie niet vastgesteld).</td>
-</tr>
-</tbody>
-</table>
 <h3 id="geslacht">Geslacht<a class="headerlink" href="#geslacht" title="Permanent link">&para;</a></h3>
 <p><strong>Definitie</strong>: Geregistreerde geslachtsaanduiding van een natuurlijk persoon.</p>
 <p><strong>Herkomst definitie</strong>: Logisch Ontwerp BRP v4.3.0 §4.6 element 04.10 (groep 04 Geslacht op de persoonslijst); juridische grondslag Wet BRP en Burgerlijk Wetboek Boek 1.</p>
@@ -3504,59 +3415,6 @@ gedefinieerd in <a href="../adressen-en-gebouwen/">Adressen en gebouwen</a>.</p>
 <td>GeregistreerdPartnerschap</td>
 <td>Verbintenis volgens BW Boek 1 titel 5A.</td>
 <td>Sinds 1998 in Nederland mogelijk.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="uitsluitingkiesrecht">UitsluitingKiesrecht<a class="headerlink" href="#uitsluitingkiesrecht" title="Permanent link">&para;</a></h3>
-<p><strong>Definitie</strong>: Indicatie of een persoon door rechterlijke uitspraak is uitgesloten van het kiesrecht voor de Tweede Kamer en provinciale staten.</p>
-<p><strong>Herkomst definitie</strong>: Kieswet art. B 5 en J 25 (gronden voor uitsluiting kiesrecht); Logisch Ontwerp BRP v4.3.0 cat 13 Kiesrecht.</p>
-<p><strong>Toelichting</strong>: Opgezet als Ja/Nee-keuzelijst en niet als algemene <code>Indicatie</code>, omdat afnemers het onderscheid tussen "geen waarde" (niet vastgesteld of niet relevant, bijvoorbeeld onder de stemgerechtigde leeftijd) en "Nee" (expliciet niet uitgesloten) moeten kunnen maken. De einddatum van een rechterlijke uitsluiting wordt elders op de persoonslijst vastgelegd, niet in deze keuzelijst.</p>
-<table>
-<thead>
-<tr>
-<th>MIM-veld</th>
-<th>Waarde</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Naam</td>
-<td>UitsluitingKiesrecht</td>
-</tr>
-<tr>
-<td>Begrip (URI)</td>
-<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/UitsluitingKiesrecht</code></td>
-</tr>
-<tr>
-<td>Herkomst</td>
-<td>BRP cat 13 Kiesrecht</td>
-</tr>
-<tr>
-<td>Datum opname</td>
-<td>2026-04-28</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Gebruikt door</strong>: <code>IngeschrevenPersoon.uitsluitingKiesrecht</code>.</p>
-<p><strong>Waarden</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Naam</th>
-<th>Definitie</th>
-<th>Toelichting</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Ja</td>
-<td>De persoon is uitgesloten van het kiesrecht.</td>
-<td></td>
-</tr>
-<tr>
-<td>Nee</td>
-<td>De persoon is expliciet niet uitgesloten van het kiesrecht.</td>
-<td>"Geen waarde" betekent niet vastgesteld.</td>
 </tr>
 </tbody>
 </table>
