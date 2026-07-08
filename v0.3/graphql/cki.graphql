@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel CKI, gegenereerd uit gbo-bron-cki.yaml.
 # Regenereer met: task generate:graphql
+#
+# Geregistreerde kredieten en financiële verplichtingen per persoon, met
+# achterstanden, herstelmeldingen, bijzonderheidscoderingen,
+# borgstellingsrollen en schuldhulpverleningstrajecten.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -74,7 +78,7 @@ interface KredietOvereenkomst implements FinancieleVerplichting {
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -89,18 +93,18 @@ interface KredietFeit {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -125,6 +129,12 @@ type IngeschrevenPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De kredietovereenkomsten die deze persoon is aangegaan."""
+  heeftKredietOvereenkomst: [KredietOvereenkomst!]
+  """De schuldhulpverleningstrajecten van deze persoon."""
+  heeftSchuldhulpverleningTraject: [SchuldhulpverleningTraject!]
+  """De borgstellingen die deze persoon draagt."""
+  heeftBorgstellingRol: [BorgstellingRol!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het interne BRP-administratienummer."""
@@ -180,7 +190,7 @@ type AflopendKrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -214,7 +224,7 @@ type DoorlopendKrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -250,7 +260,7 @@ type Saneringskrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -284,7 +294,7 @@ type KortKrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -318,7 +328,7 @@ type HypothecairKredietEigenWoning implements KredietOvereenkomst & FinancieleVe
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -352,7 +362,7 @@ type HypothecairKredietOverigeOnroerendeZaken implements KredietOvereenkomst & F
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -388,7 +398,7 @@ type RestschuldHypothecairKredietZonderNHG implements KredietOvereenkomst & Fina
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -424,7 +434,7 @@ type RestschuldHypothecairKredietMetNHG implements KredietOvereenkomst & Financi
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -460,7 +470,7 @@ type OperationalAutolease implements KredietOvereenkomst & FinancieleVerplichtin
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -494,7 +504,7 @@ type OverigeFinancieleVerplichtingPrive implements KredietOvereenkomst & Financi
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -526,7 +536,7 @@ type ZakelijkKrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -534,7 +544,7 @@ type ZakelijkKrediet implements KredietOvereenkomst & FinancieleVerplichting {
   """EUR 1.000."""
   meldingsdrempel: Bedrag!
   """De onderneming waarvoor het krediet is aangegaan; zie deelmodel Bedrijven en instellingen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  tenBehoeveVan: UUID!
+  tenBehoeveVan: KVKnummer!
 }
 
 """Een overige zakelijke financiele verplichting die niet onder zakelijk krediet valt en waarvan op grond van het Algemeen Reglement CKI alleen negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld."""
@@ -562,7 +572,7 @@ type ZakelijkeOverigeFinancieleVerplichting implements KredietOvereenkomst & Fin
   """De kredietnemer; zie deelmodel Personen."""
   aangegaanDoor: NatuurlijkPersoon!
   """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  verstrektDoor: UUID!
+  verstrektDoor: String!
   """Achterstanden op deze overeenkomst."""
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
@@ -620,7 +630,7 @@ type SchuldhulpverleningTraject implements FinancieleVerplichting {
   """De persoon aan wie het traject is toegekend; zie deelmodel Personen."""
   toegekendAan: NatuurlijkPersoon!
   """De gemeente als verlenend bevoegd gezag. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
-  beschikkingDoor: UUID!
+  beschikkingDoor: String!
   """Eventueel onderdeel; niet verplicht."""
   omvat: [Saneringskrediet!]
 }
@@ -641,10 +651,10 @@ type BorgstellingRol {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -669,6 +679,12 @@ type NatuurlijkPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De kredietovereenkomsten die deze persoon is aangegaan."""
+  heeftKredietOvereenkomst: [KredietOvereenkomst!]
+  """De schuldhulpverleningstrajecten van deze persoon."""
+  heeftSchuldhulpverleningTraject: [SchuldhulpverleningTraject!]
+  """De borgstellingen die deze persoon draagt."""
+  heeftBorgstellingRol: [BorgstellingRol!]
 }
 
 """Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
@@ -783,6 +799,4 @@ enum Geslacht {
 type Query {
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
-  """Alle voorkomens van IngeschrevenPersoon."""
-  ingeschrevenPersoonLijst: [IngeschrevenPersoon!]
 }

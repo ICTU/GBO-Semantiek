@@ -55,6 +55,8 @@ classes:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         Wet WOZ art. 24 e.v. (bekendmaking beschikking), Algemene wet
         bestuursrecht art. 1:2 (algemeen belanghebbende-begrip) en de
         LV-WOZ-catalogus.
@@ -77,6 +79,10 @@ classes:
         rol-aanduiding (Eigenaar, Gebruiker, EigenaarEnGebruiker), in
         plaats van twee afzonderlijke velden op het WOZ-object zoals
         in HC-WOZ.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     unique_keys:
       samengesteldeAanduiding:
         unique_key_slots: [isPartij, vanWOZObject, rolBelanghebbende, datumIngang]
@@ -132,6 +138,9 @@ classes:
         required: true
         description: WOZ-object waarop de rol betrekking heeft.
         annotations:
+          gbo:inverseNaam: heeftBelanghebbende
+          gbo:inverseBeschrijving: >-
+            De belanghebbenden bij dit WOZ-object.
           mim:relatienaam: van
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
@@ -163,8 +172,11 @@ classes:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
-        Uitvoeringsregeling instructie waardebepaling Wet WOZ en de
-        Waarderingsinstructie van de Waarderingskamer.
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer); deelobjecten via het
+        StUF-WOZ-koppelvlak. Wettelijke grondslag: Uitvoeringsregeling
+        instructie waardebepaling Wet WOZ en de Waarderingsinstructie van
+        de Waarderingskamer.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: deelobjectnummer binnen WOZObject
       mim:populatie: >-
@@ -185,6 +197,10 @@ classes:
         binnen het omvattende WOZ-object en de relatie naar WOZObject
         is inkomend (WOZObject.bevat); zie annotatie
         mim:uniekeAanduiding.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     attributes:
       deelobjectnummer:
         range: Numeriek
@@ -230,6 +246,8 @@ classes:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         Wet WOZ art. 16 (object-afbakening), Uitvoeringsbesluit Wet
         WOZ en de LV-WOZ-catalogus.
       mim:datumOpname: "2026-04-28"
@@ -253,6 +271,10 @@ classes:
       - >-
         Draagt het Voorkomen-mixin (bitemporeel patroon; zie
         hoofdmodel, sectie Patronen).
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     attributes:
       wozObjectnummer:
         range: Numeriek
@@ -386,6 +408,8 @@ classes:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         Wet WOZ art. 17 en 18 (waardebepaling), art. 22 (beschikking),
         de Uitvoeringsregeling instructie waardebepaling Wet WOZ en de
         LV-WOZ-catalogus.
@@ -422,6 +446,10 @@ classes:
         waardepeildatum) is in LinkML niet als unique_keys
         uitdrukbaar: de relatie naar WOZObject is inkomend; zie
         annotatie mim:uniekeAanduiding.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     attributes:
       vastgesteldeWaarde:
         range: Bedrag
@@ -519,6 +547,8 @@ enums:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         Wet WOZ art. 22 en art. 24 e.v. (beschikking en bekendmaking),
         Algemene wet bestuursrecht hoofdstuk 6 en 7 (bezwaar en
         beroep) en de LV-WOZ-catalogus.
@@ -529,6 +559,10 @@ enums:
         naast de actuele status ook eerdere stadia traceerbaar
         blijven. Een nieuwe beschikkingsstatus voegt een rij toe aan
         de keten en vervangt geen eerdere waarde.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     permissible_values:
       Beroep:
         description: >-
@@ -578,6 +612,8 @@ enums:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         Wet WOZ art. 24 (bekendmaking beschikking aan belanghebbenden)
         en de LV-WOZ-catalogus.
       mim:datumOpname: "2026-04-28"
@@ -588,6 +624,10 @@ enums:
         op het WOZ-object. Eén partij kan tegelijk eigenaar en
         gebruiker zijn; dat wordt met de gecombineerde waarde
         uitgedrukt.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     permissible_values:
       Eigenaar:
         description: >-
@@ -619,6 +659,8 @@ enums:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         LV-WOZ-catalogus en de Waarderingsinstructie van de
         Waarderingskamer.
       mim:datumOpname: "2026-04-28"
@@ -628,6 +670,10 @@ enums:
         WOZ-administratie of buiten gebruik is gesteld voor de WOZ.
         Een vervallen WOZ-object blijft in de historie aanwezig voor
         terugkijk-bevragingen.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     permissible_values:
       Actief:
         description: >-
@@ -650,6 +696,8 @@ enums:
     annotations:
       mim:herkomst: WOZ
       mim:herkomstDefinitie: >-
+        Bron: LV-WOZ-catalogus (formeel informatiemodel van de Landelijke
+        Voorziening WOZ, beheer Waarderingskamer). Wettelijke grondslag:
         Wet WOZ art. 22 (beschikking), de Uitvoeringsregeling
         instructie waardebepaling Wet WOZ en de LV-WOZ-catalogus.
       mim:datumOpname: "2026-04-28"
@@ -660,6 +708,10 @@ enums:
         welke waarde rechtsgeldig is. Een gewijzigde waarde na bezwaar
         of beroep leidt tot een nieuwe WOZ-waarde met een eigen
         status.
+      - >-
+        needs_review, brondocument-versie te verifieren; er is geen publieke
+        WOZ-Catalogus met citeerbare versie of datum (zie
+        bronnenprioritering).
     permissible_values:
       DefinitiefVastgesteld:
         description: >-

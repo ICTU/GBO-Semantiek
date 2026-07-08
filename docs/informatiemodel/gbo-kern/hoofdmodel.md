@@ -658,8 +658,10 @@ intern nummer:
   (CROHO/CREBO) voor `Opleiding`.
 - `Partij` is een abstract supertype en wordt niet rechtstreeks
   geïdentificeerd; de entree loopt via de concrete types. GBO-eigen UUID's
-  (`ID`, `adresId`) blijven interne sleutels en worden niet als
-  externe identifier gebruikt.
+  (`id`, en `adresId` van de niet-BAG-adresvormen) blijven interne
+  sleutels en worden niet als externe identifier gebruikt; het
+  `adresId` van `Binnenlandsadres` is de BAG-identificatie van de
+  Nummeraanduiding en daarmee wel extern bruikbaar.
 
 ### Voorkomen-mixin (bitemporaliteit)
 

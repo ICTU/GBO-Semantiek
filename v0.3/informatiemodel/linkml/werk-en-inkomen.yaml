@@ -53,8 +53,6 @@ classes:
       verstrekte financiele bijdrage met als doel
       inkomensondersteuning, in de vorm van een inkomensafhankelijke
       regeling of een sociale-zekerheidsuitkering.
-    exact_mappings:
-      - gbobegrip:InkomensOndersteuning
     annotations:
       mim:herkomst: Cross-domein abstractie
       mim:herkomstDefinitie: >-
@@ -68,6 +66,10 @@ classes:
         inkomensondersteuning, omvattende zowel toeslagen (Awir) als
         sociale-zekerheidsuitkeringen (werknemers- en
         volksverzekeringen).
+      skos:status: proposed
+      skos:prefLabel_nl: Inkomens ondersteuning
+      skos:definition_nl: Een door of namens de overheid aan een natuurlijk persoon verstrekte financiele bijdrage met als doel inkomensondersteuning.
+      skos:definitionSource: GBO-Core abstractie boven Awir en sociale-zekerheidsregelingen
     comments:
       - >-
         Cross-domein algemene categorie boven Toeslag (in Belastingen)
@@ -107,6 +109,10 @@ classes:
         annotations:
           mim:herkomst: per regeling
 
+    class_uri: gbobegrip:InkomensOndersteuning
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Toeslag
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Uitkering
   Uitkering:
     is_a: InkomensOndersteuning
     abstract: true
@@ -115,24 +121,33 @@ classes:
       toegekende periodieke uitkering op grond van een
       werknemersverzekering of volksverzekering, ter vervanging of
       aanvulling van loon.
-    exact_mappings:
-      - gbobegrip:Uitkering
     annotations:
       mim:herkomst: SGR cluster Uitkering
       mim:herkomstDefinitie: >-
-        Wet SUWI plus de afzonderlijke werknemers- en
-        volksverzekeringswetten (Werkloosheidswet, Ziektewet, Wet WIA,
-        Wajong, AOW).
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet SUWI plus de afzonderlijke werknemers-
+        en volksverzekeringswetten (Werkloosheidswet, Ziektewet, Wet
+        WIA, Wajong, AOW).
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan natuurlijke personen toegekende periodieke
         uitkeringen op grond van een werknemersverzekering (WW, ZW,
         WIA, IVA, WGA, Wajong) of volksverzekering (AOW), uitgevoerd
         door UWV of SVB.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering
+      skos:altLabel_nl_0_value: Sociale-zekerheidsuitkering
+      skos:altLabel_nl_0_source: Wet SUWI
+      skos:definition_nl: Een door of namens de overheid aan een natuurlijk persoon toegekende periodieke uitkering op grond van een werknemersverzekering of volksverzekering, ter vervanging of aanvulling van loon.
+      skos:definitionSource: Wet SUWI; SGR-cluster Uitkering
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0013060
     comments:
       - >-
         Zeven concrete varianten, uitgevoerd door UWV (WW, ZW, WIA,
         IVA, WGA, Wajong) of SVB (AOW).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       soortUitkering:
         range: SoortUitkering
@@ -168,6 +183,9 @@ classes:
           De natuurlijk persoon aan wie de uitkering is toegekend (de
           uitkeringsgerechtigde).
         annotations:
+          gbo:inverseNaam: heeftUitkering
+          gbo:inverseBeschrijving: >-
+            De uitkeringen die aan deze persoon zijn toegekend.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -197,29 +215,50 @@ classes:
             semantisch omgekeerd (het dagloon vormt de grondslag voor
             de uitkeringshoogte, niet andersom).
 
+    class_uri: gbobegrip:Uitkering
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/InkomensOndersteuning
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWW
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringZW
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWIA
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringIVA
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWGA
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWajong
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringAOW
+    aliases:
+      - Sociale-zekerheidsuitkering
   UitkeringWW:
     is_a: Uitkering
     description: >-
       Een door UWV aan een werkloze werknemer toegekende periodieke
       uitkering op grond van de Werkloosheidswet, ter vervanging van
       het weggevallen loon.
-    exact_mappings:
-      - gbobegrip:UitkeringWW
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Werkloosheidswet hoofdstukken II en III.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Werkloosheidswet hoofdstukken II en III.
       mim:datumOpname: "2026-05-19"
       skos:notation: WW
       mim:populatie: >-
         Alle door UWV aan werkloze werknemers toegekende
         WW-uitkeringen ter vervanging van weggevallen loon, op grond
         van de Werkloosheidswet.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering WW
+      skos:definition_nl: Een door UWV aan een werkloze werknemer toegekende periodieke uitkering op grond van de Werkloosheidswet, ter vervanging van het weggevallen loon.
+      skos:definitionSource: Werkloosheidswet hoofdstuk II
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0004045
     comments:
       - >-
         Hoogte gebaseerd op het dagloon vermenigvuldigd met een
         percentage dat in de tijd kan dalen. Duur afhankelijk van
         arbeidsverledenjaren (basis-WW plus eventueel verlengde
         uitkering).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -243,17 +282,20 @@ classes:
             De wiki noemt het type Geheel; dat datatype ontbreekt in
             datatypes.yaml, daarom Numeriek (geheel getal) gebruikt.
 
+    class_uri: gbobegrip:UitkeringWW
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Uitkering
   UitkeringZW:
     is_a: Uitkering
     description: >-
       Een door UWV aan een zieke werknemer of vangnetter toegekende
       periodieke uitkering op grond van de Ziektewet, ter vervanging
       van het door ziekte weggevallen loon.
-    exact_mappings:
-      - gbobegrip:UitkeringZW
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Ziektewet.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Ziektewet.
       mim:datumOpname: "2026-05-19"
       skos:notation: ZW
       mim:populatie: >-
@@ -261,6 +303,11 @@ classes:
         en vangnetters (uitzendkrachten, oproepkrachten, werklozen,
         werknemers zonder doorbetalingsplichtige werkgever) ter
         vervanging van weggevallen loon.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering ZW
+      skos:definition_nl: Een door UWV aan een zieke werknemer of vangnetter toegekende periodieke uitkering op grond van de Ziektewet.
+      skos:definitionSource: Ziektewet
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0001888
     comments:
       - >-
         ZW dekt het vangnet-deel van de ziektevoorziening:
@@ -268,6 +315,9 @@ classes:
         zonder doorbetalingsplichtige werkgever. Werknemers met een
         doorbetalingsplichtige werkgever krijgen loondoorbetaling van
         die werkgever en vallen niet onder ZW.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -282,6 +332,9 @@ classes:
         annotations:
           mim:herkomst: ZW art. 29
 
+    class_uri: gbobegrip:UitkeringZW
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Uitkering
   UitkeringWIA:
     is_a: Uitkering
     description: >-
@@ -289,11 +342,11 @@ classes:
       arbeidsvermogen toegekende periodieke uitkering aan een
       werknemer die na een wachttijd van twee jaar van ziekte
       gedeeltelijk of volledig arbeidsongeschikt is.
-    exact_mappings:
-      - gbobegrip:UitkeringWIA
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Wet WIA.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet WIA.
       mim:datumOpname: "2026-05-19"
       skos:notation: WIA
       mim:populatie: >-
@@ -301,6 +354,11 @@ classes:
         de wachttijd van twee jaar ziekte gedeeltelijk of volledig
         arbeidsongeschikt zijn; concreet uitgesplitst naar
         UitkeringIVA en UitkeringWGA.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering WIA
+      skos:definition_nl: Een door UWV op grond van de Wet werk en inkomen naar arbeidsvermogen toegekende periodieke uitkering aan een werknemer die na een wachttijd van twee jaar van ziekte gedeeltelijk of volledig arbeidsongeschikt is.
+      skos:definitionSource: Wet WIA
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0019057
     comments:
       - >-
         De WIA splitst zich in IVA (volledig duurzaam
@@ -308,6 +366,9 @@ classes:
         arbeidsongeschikt). UitkeringWIA is in dit deelmodel de
         gemeenschappelijke aanwijzing; concrete varianten zijn
         UitkeringIVA en UitkeringWGA.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -322,29 +383,43 @@ classes:
         annotations:
           mim:herkomst: WIA-beschikking
 
+    class_uri: gbobegrip:UitkeringWIA
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Uitkering
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringIVA
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWGA
   UitkeringIVA:
     is_a: UitkeringWIA
     description: >-
       De Inkomensvoorziening Volledig Arbeidsongeschikten op grond van
       de WIA, toegekend aan werknemers die duurzaam minder dan twintig
       procent van hun oude loon kunnen verdienen.
-    exact_mappings:
-      - gbobegrip:UitkeringIVA
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Wet WIA hoofdstuk IV (IVA-regeling).
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet WIA hoofdstuk IV (IVA-regeling).
       mim:datumOpname: "2026-05-19"
       skos:notation: IVA
       mim:populatie: >-
         Alle door UWV toegekende IVA-uitkeringen aan werknemers die
         duurzaam minder dan twintig procent van hun oude loon kunnen
         verdienen, op grond van hoofdstuk IV van de Wet WIA.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering IVA
+      skos:definition_nl: De Inkomensvoorziening Volledig Arbeidsongeschikten op grond van de WIA, toegekend aan werknemers die duurzaam minder dan 20% van hun oude loon kunnen verdienen.
+      skos:definitionSource: Wet WIA hoofdstuk IV
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0019057
     comments:
       - >-
         IVA-criterium: minder dan 20% van het oude loon kunnen
         verdienen en geen herstel verwacht. De uitkering is hoger en
         stabieler dan WGA omdat het duurzaamheids-criterium is
         gehaald.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -359,6 +434,9 @@ classes:
         annotations:
           mim:herkomst: Wet WIA
 
+    class_uri: gbobegrip:UitkeringIVA
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWIA
   UitkeringWGA:
     is_a: UitkeringWIA
     description: >-
@@ -366,17 +444,22 @@ classes:
       de WIA, toegekend aan werknemers die vijfendertig procent tot
       tachtig procent arbeidsongeschikt zijn, of volledig
       arbeidsongeschikt maar niet duurzaam.
-    exact_mappings:
-      - gbobegrip:UitkeringWGA
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Wet WIA hoofdstuk VII (WGA-regeling).
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet WIA hoofdstuk VII (WGA-regeling).
       mim:datumOpname: "2026-05-19"
       skos:notation: WGA
       mim:populatie: >-
         Alle door UWV toegekende WGA-uitkeringen aan werknemers die 35
         tot 80 procent arbeidsongeschikt zijn, of volledig maar niet
         duurzaam, verdeeld over de fasen LGU, LAU en VVU.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering WGA
+      skos:definition_nl: De Werkhervatting Gedeeltelijk Arbeidsongeschikten op grond van de WIA, toegekend aan werknemers die 35% tot 80% arbeidsongeschikt zijn, of volledig arbeidsongeschikt maar niet duurzaam.
+      skos:definitionSource: Wet WIA hoofdstuk VII
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0019057
     comments:
       - >-
         Drie fasen: LGU (loongerelateerde uitkering, op basis van
@@ -384,6 +467,9 @@ classes:
         uitkering minus resterende verdiencapaciteit boven een drempel
         uitkomt) en VVU (vervolguitkering, gerelateerd aan
         minimumloon-percentages).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -403,6 +489,9 @@ classes:
         annotations:
           mim:herkomst: SGR
 
+    class_uri: gbobegrip:UitkeringWGA
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/UitkeringWIA
   UitkeringWajong:
     is_a: Uitkering
     description: >-
@@ -410,25 +499,32 @@ classes:
       arbeidsongeschiktheidsvoorziening jonggehandicapten toegekende
       periodieke uitkering aan jonggehandicapten die door
       arbeidsongeschiktheid niet of beperkt kunnen werken.
-    exact_mappings:
-      - gbobegrip:UitkeringWajong
     annotations:
       mim:herkomst: SGR cluster Uitkering
       mim:herkomstDefinitie: >-
-        Wajong (drie generaties: oude Wajong, Wajong 2010,
-        Wajong 2015).
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wajong (drie generaties: oude Wajong,
+        Wajong 2010, Wajong 2015).
       mim:datumOpname: "2026-05-19"
       skos:notation: Wajong
       mim:populatie: >-
         Alle door UWV toegekende Wajong-uitkeringen aan
         jonggehandicapten, verdeeld over de drie generaties oude
         Wajong (toekenningen voor 2010), Wajong 2010 en Wajong 2015.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering Wajong
+      skos:definition_nl: Een door UWV op grond van de Wet arbeidsongeschiktheidsvoorziening jonggehandicapten toegekende periodieke uitkering aan jonggehandicapten.
+      skos:definitionSource: Wajong
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0008657
     comments:
       - >-
         Drie historische generaties met eigen voorwaarden: oude Wajong
         (toekenningen voor 2010), Wajong 2010 (instroom 2010-2014, met
         werkregeling) en Wajong 2015 (vanaf 2015, uitsluitend voor
         duurzaam volledig arbeidsongeschikten).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       wajongGeneratie:
         range: Tekst
@@ -442,6 +538,9 @@ classes:
         annotations:
           mim:herkomst: Wajong-beschikking
 
+    class_uri: gbobegrip:UitkeringWajong
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Uitkering
   UitkeringAOW:
     is_a: Uitkering
     description: >-
@@ -449,17 +548,24 @@ classes:
       periodieke uitkering aan personen vanaf de AOW-gerechtigde
       leeftijd, gebaseerd op de in Nederland opgebouwde verzekerde
       jaren.
-    exact_mappings:
-      - gbobegrip:UitkeringAOW
     annotations:
       mim:herkomst: SGR (ontsluiting); SVB (uitvoering)
-      mim:herkomstDefinitie: Algemene Ouderdomswet (AOW).
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (ontsluiting); uitvoering door SVB. Wettelijke grondslag:
+        Algemene Ouderdomswet (AOW).
       mim:datumOpname: "2026-05-19"
       skos:notation: AOW
       mim:populatie: >-
         Alle door SVB op grond van de Algemene Ouderdomswet toegekende
         periodieke uitkeringen aan natuurlijke personen vanaf de
         AOW-gerechtigde leeftijd.
+      skos:status: proposed
+      skos:prefLabel_nl: Uitkering AOW
+      skos:definition_nl: Een door SVB op grond van de Algemene Ouderdomswet toegekende periodieke uitkering aan personen vanaf de AOW-gerechtigde leeftijd.
+      skos:definitionSource: Algemene Ouderdomswet
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002221
+      skos:needsReview_0: 'WERK-INKOMEN-OQ-004: SGR-attributen voor AOW-administratie te verifieren; eventueel WERK-INKOMEN-GAP-001 voor SVB-detail-data zonder SGR-ontsluiting.'
     comments:
       - >-
         Anders dan de overige uitkeringen, die UWV uitvoert, wordt AOW
@@ -467,6 +573,9 @@ classes:
         deel van de AOW-administratie voor afnemers in het
         SUWI-stelsel; voor het volledige beeld is mogelijk een directe
         SVB-aansluiting nodig.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       aowGerechtigdeLeeftijd:
         range: Numeriek
@@ -495,24 +604,35 @@ classes:
 
   # --- Objecttypen: arbeid en besluitvorming ----------------------------------
 
+    class_uri: gbobegrip:UitkeringAOW
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Uitkering
   Arbeidsverhouding:
     description: >-
       De juridische en feitelijke relatie tussen een natuurlijk
       persoon als werknemer en een werkgever op grond waarvan arbeid
       wordt verricht tegen beloning, gedurende een bepaalde of
       onbepaalde periode.
-    exact_mappings:
-      - gbobegrip:Arbeidsverhouding
     annotations:
       mim:herkomst: SGR cluster Arbeidsverhouding
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 7 titel 10 (arbeidsovereenkomst); Wet
-        SUWI voor het SUWI-aspect.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Burgerlijk Wetboek Boek 7 titel 10
+        (arbeidsovereenkomst); Wet SUWI voor het SUWI-aspect.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle juridische en feitelijke arbeidsrelaties tussen een
         natuurlijk persoon als werknemer en een onderneming als
         werkgever die zichtbaar zijn in het Suwi Gegevensregister.
+      skos:status: proposed
+      skos:prefLabel_nl: Arbeidsverhouding
+      skos:altLabel_nl_0_value: Dienstverband
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:altLabel_nl_1_value: Arbeidsrelatie
+      skos:altLabel_nl_1_source: Algemeen taalgebruik
+      skos:definition_nl: De juridische en feitelijke relatie tussen een natuurlijk persoon als werknemer en een werkgever op grond waarvan arbeid wordt verricht tegen beloning.
+      skos:definitionSource: BW Boek 7 titel 10; SGR-cluster Arbeidsverhouding
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005290
     comments:
       - >-
         Arbeidsverhouding ligt boven Inkomstenverhouding in
@@ -522,6 +642,9 @@ classes:
         Arbeidsverhouding-attributen leggen de afspraak vast; de
         bijbehorende inkomstenverhoudingen leggen de uitvoering en de
         aangifte loonheffingen vast.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       soortDienstverband:
         range: CodeAardArbeidsverhouding
@@ -554,9 +677,11 @@ classes:
         description: Functie of vakgebied.
         annotations:
           mim:herkomst: SGR
-      codeRedenEinde:
+      redenEinde:
         range: CodeRedenEindeArbeidsverhouding
         description: Reden van einde.
+        aliases:
+          - codeRedenEinde
         annotations:
           mim:herkomst: Loonheffingen bijlage
         comments:
@@ -575,6 +700,9 @@ classes:
           De natuurlijk persoon die als werknemer in de
           arbeidsverhouding staat.
         annotations:
+          gbo:inverseNaam: heeftArbeidsverhouding
+          gbo:inverseBeschrijving: >-
+            De arbeidsverhoudingen waarin deze persoon werknemer is.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -602,25 +730,35 @@ classes:
         comments:
           - Zie deelmodel Belastingen.
 
+    class_uri: gbobegrip:Arbeidsverhouding
+    aliases:
+      - Dienstverband
+      - Arbeidsrelatie
   ArbeidsverledenFeit:
     description: >-
       Een afzonderlijk feit in het arbeids- of inkomensverleden van
       een natuurlijk persoon, zoals een periode in dienst, een periode
       met uitkering of een leerwerk-periode, dat relevant is voor de
       berekening van werknemersverzekerings-rechten.
-    exact_mappings:
-      - gbobegrip:ArbeidsverledenFeit
     annotations:
       mim:herkomst: SGR cluster Arbeidsverhouding
       mim:herkomstDefinitie: >-
-        Werkloosheidswet (refertes 26-uit-36-weken en 4-uit-5-jaren);
-        SGR cluster Arbeidsverhouding.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Arbeidsverhouding). Wettelijke grondslag:
+        Werkloosheidswet (refertes 26-uit-36-weken en 4-uit-5-jaren).
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle afzonderlijke feiten in het arbeids- of inkomensverleden
         van een natuurlijk persoon (dienstverband, uitkeringsperiode,
         leerwerk-periode of periode zelfstandig werk) die relevant
         zijn voor de berekening van werknemersverzekerings-rechten.
+      skos:status: proposed
+      skos:prefLabel_nl: Arbeidsverleden feit
+      skos:altLabel_nl_0_value: Loonhistorie-element
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:definition_nl: Een afzonderlijk feit in het arbeids- of inkomensverleden van een natuurlijk persoon dat relevant is voor de berekening van werknemersverzekerings-rechten.
+      skos:definitionSource: Werkloosheidswet jo. SGR-cluster Arbeidsverhouding
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0004045
     comments:
       - >-
         Arbeidsverleden bepaalt onder andere de WW-duur.
@@ -628,6 +766,9 @@ classes:
         arbeidsverleden-overzicht kan opstellen, met feit-typen voor
         dienstverband, uitkeringsperiode, leerwerk-periode en periode
         van zelfstandig werk.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       soortFeit:
         range: Tekst
@@ -662,35 +803,50 @@ classes:
           De natuurlijk persoon op wiens arbeids- of inkomensverleden
           het feit betrekking heeft.
         annotations:
+          gbo:inverseNaam: heeftArbeidsverledenFeit
+          gbo:inverseBeschrijving: >-
+            De arbeidsverleden-feiten over deze persoon.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
 
+    class_uri: gbobegrip:ArbeidsverledenFeit
+    aliases:
+      - Loonhistorie-element
   Beslissing:
     description: >-
       Een door een uitvoerings-instelling in het SUWI-stelsel genomen
       besluit over het recht op, de hoogte van of de beeindiging van
       een uitkering of een andere voorziening voor een natuurlijk
       persoon.
-    exact_mappings:
-      - gbobegrip:Beslissing
     annotations:
       mim:herkomst: SGR cluster Beslissing
       mim:herkomstDefinitie: >-
-        Wet SUWI; Algemene wet bestuursrecht (Awb) hoofdstuk 4
-        (beschikking); de afzonderlijke werknemers- en
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet SUWI; Algemene wet bestuursrecht (Awb)
+        hoofdstuk 4 (beschikking); de afzonderlijke werknemers- en
         volksverzekeringswetten.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door een SUWI-uitvoeringsinstelling (UWV, SVB) genomen
         besluiten over het recht op, de hoogte van of de beeindiging
         van een uitkering of voorziening voor een natuurlijk persoon.
+      skos:status: proposed
+      skos:prefLabel_nl: Beslissing
+      skos:altLabel_nl_0_value: Beschikking
+      skos:altLabel_nl_0_source: Algemene wet bestuursrecht hoofdstuk 4
+      skos:definition_nl: Een door een uitvoerings-instelling in het SUWI-stelsel genomen besluit over het recht op, de hoogte van of de beeindiging van een uitkering of een andere voorziening voor een natuurlijk persoon.
+      skos:definitionSource: Wet SUWI jo. Algemene wet bestuursrecht
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005537
     comments:
       - >-
         Beslissing is de juridische grondslag onder een uitkering. Een
         uitkering bestaat alleen als er een geldige beschikking onder
         ligt. Wijzigingen (verhoging, verlaging, beeindiging) zijn elk
         afzonderlijke beschikkingen.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       beschikkingsnummer:
         range: Tekst
@@ -725,6 +881,9 @@ classes:
         description: >-
           De natuurlijk persoon op wie het besluit betrekking heeft.
         annotations:
+          gbo:inverseNaam: heeftBeslissing
+          gbo:inverseBeschrijving: >-
+            De beslissingen die deze persoon betreffen.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -746,30 +905,42 @@ classes:
             NietNatuurlijkPersoon-instanties. Harmonisatie van de
             wiki-pagina is een openstaand punt.
 
+    class_uri: gbobegrip:Beslissing
+    aliases:
+      - Beschikking
   Dagloon:
     description: >-
       Het op grond van de Dagloonregels werknemersverzekeringen voor
       een specifieke uitkering vastgestelde dagloon, dat dient als
       grondslag voor de hoogte van de uitkering en wordt berekend op
       basis van de inkomstenopgaven over de referteperiode.
-    exact_mappings:
-      - gbobegrip:Dagloon
     annotations:
       mim:herkomst: SGR cluster Uitkering
       mim:herkomstDefinitie: >-
-        Dagloonregels werknemersverzekeringen 2015 (ministeriele
-        regeling); Werkloosheidswet, Ziektewet en Wet WIA.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Dagloonregels werknemersverzekeringen 2015
+        (ministeriele regeling); Werkloosheidswet, Ziektewet en Wet WIA.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door UWV vastgestelde daglonen die als grondslag dienen
         voor de hoogte van een werknemersverzekerings-uitkering,
         berekend uit de inkomstenopgaven over de referteperiode.
+      skos:status: proposed
+      skos:prefLabel_nl: Dagloon
+      skos:altLabel_nl_0_value: Uitkeringsdagloon
+      skos:altLabel_nl_0_source: Algemeen taalgebruik
+      skos:definition_nl: Het op grond van de Dagloonregels werknemersverzekeringen voor een specifieke uitkering vastgestelde dagloon, dat dient als grondslag voor de hoogte van de uitkering en wordt berekend op basis van de inkomstenopgaven over de referteperiode.
+      skos:definitionSource: Dagloonregels werknemersverzekeringen 2015
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0034857
     comments:
       - >-
         Het dagloon wordt door UWV berekend uit de
         loonaangifteketen-data (Inkomstenopgave-records in de
         referteperiode, doorgaans een jaar). Het wordt gemaximeerd op
         het wettelijk maximumdagloon, jaarlijks door SZW vastgesteld.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -812,30 +983,43 @@ classes:
         comments:
           - Zie deelmodel Belastingen.
 
+    class_uri: gbobegrip:Dagloon
+    aliases:
+      - Uitkeringsdagloon
   Arbeidsongeschiktheidspercentage:
     description: >-
       Het door een verzekeringsarts en arbeidsdeskundige vastgestelde
       percentage waarmee de verdiencapaciteit van een werknemer ten
       opzichte van zijn oude loon is verminderd, op grond waarvan de
       WIA-uitkering wordt geclassificeerd in IVA of WGA met hun fasen.
-    exact_mappings:
-      - gbobegrip:Arbeidsongeschiktheidspercentage
     annotations:
       mim:herkomst: SGR cluster Beslissing
       mim:herkomstDefinitie: >-
-        Schattingsbesluit arbeidsongeschiktheidswetten; Wet werk en
-        inkomen naar arbeidsvermogen.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Schattingsbesluit
+        arbeidsongeschiktheidswetten; Wet werk en inkomen naar
+        arbeidsvermogen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door UWV vastgestelde arbeidsongeschiktheidspercentages
         die de basis vormen voor classificatie van een WIA-uitkering
         in IVA of WGA, inclusief herzieningen.
+      skos:status: proposed
+      skos:prefLabel_nl: Arbeidsongeschiktheidspercentage
+      skos:altLabel_nl_0_value: AO-percentage
+      skos:altLabel_nl_0_source: WIA-praktijk
+      skos:definition_nl: Het door een verzekeringsarts en arbeidsdeskundige vastgestelde percentage waarmee de verdiencapaciteit van een werknemer ten opzichte van zijn oude loon is verminderd.
+      skos:definitionSource: Schattingsbesluit arbeidsongeschiktheidswetten
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011478
     comments:
       - >-
         Het percentage bepaalt de uitkeringstak: 80% of meer duurzaam
         geeft IVA; 35% tot 80% of 80% of meer niet-duurzaam geeft WGA;
         minder dan 35% geeft geen recht op WIA. Een herziening kan
         leiden tot een wijziging van uitkeringssoort en hoogte.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       percentage:
         range: Decimaal
@@ -862,8 +1046,14 @@ classes:
           De beslissing waarbij het arbeidsongeschiktheidspercentage
           is vastgesteld.
         annotations:
+          gbo:inverseNaam: heeftArbeidsongeschiktheidspercentage
+          gbo:inverseBeschrijving: >-
+            De arbeidsongeschiktheidspercentages die met deze beslissing zijn bepaald.
           mim:kardinaliteit: "0..* -> 1"
 
+    class_uri: gbobegrip:Arbeidsongeschiktheidspercentage
+    aliases:
+      - AO-percentage
 enums:
 
   BeslissingSoort:
@@ -874,9 +1064,14 @@ enums:
       - gbobegrip:BeslissingSoort
     annotations:
       mim:herkomst: SGR
-      mim:herkomstDefinitie: SGR cluster Beslissing.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Beslissing).
       mim:datumOpname: "2026-05-19"
     comments:
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
       - >-
         De waardenset onderscheidt de juridisch relevante
         beslissoorten die een uitkering doen ontstaan, wijzigen of
@@ -940,12 +1135,17 @@ enums:
       - gbobegrip:RedenEindeUitkering
     annotations:
       mim:herkomst: SGR
-      mim:herkomstDefinitie: SGR cluster Uitkering.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Uitkering).
       mim:datumOpname: "2026-05-19"
     comments:
       - >-
         Top 10 weergegeven; volledige set te bevestigen tegen
         SGR-publicatie.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
       - "Gebruikt door: Uitkering.redenEinde."
     permissible_values:
       WerkHervat:
@@ -1025,9 +1225,14 @@ enums:
       - gbobegrip:SoortUitkering
     annotations:
       mim:herkomst: SGR
-      mim:herkomstDefinitie: SGR cluster Uitkering.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Uitkering).
       mim:datumOpname: "2026-05-19"
     comments:
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
       - >-
         De waardenset dekt de zeven concrete uitkerings-takken die
         binnen het SUWI-stelsel worden uitgevoerd door UWV (WW, ZW,

@@ -213,7 +213,7 @@ loonheffingen vast.
 | `einddatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einddatum dienstverband. | SGR |
 | `proeftijdEinddatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einde proeftijd. | SGR |
 | `beroep` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Functie of vakgebied. | SGR |
-| `codeRedenEinde` | CodeRedenEindeArbeidsverhouding | 0..1 | Reden van einde. | Loonheffingen bijlage |
+| `redenEinde` | CodeRedenEindeArbeidsverhouding | 0..1 | Reden van einde. | Loonheffingen bijlage |
 | `overnameIndicatie` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Onderneming in overnameproces. | SGR |
 
 ### ArbeidsverledenFeit

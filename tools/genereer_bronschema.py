@@ -16,10 +16,17 @@ Regels:
 - Relaties naar objecttypen buiten het profiel worden default
   vervangen door de identificerende sleutel van het doelobject
   (afhandeling "sleutel"); met afhandeling "weglaten" vervalt de
-  relatie geheel.
+  relatie geheel; met afhandeling "vernauwen" (veld "naar") wordt de
+  range vernauwd naar een subtype dat wél in het profiel staat.
 - Uitsluitingen gelden op het objecttype waar het attribuut is
   gedeclareerd; geërfde attributen kunnen niet per subtype worden
   uitgesloten (LinkML-beperking).
+- Insluitingen (whitelist) werken op eigen én geërfde attributen; de
+  overerving wordt daarbij uitgevlakt (is_a/mixins vervallen en
+  supertypen worden niet automatisch meegenomen).
+- Relaties met de annotatie gbo:inverseNaam krijgen op het doelobject
+  een gematerialiseerde inverse (multivalued), zodat de SDL-navigatie
+  ook van doel naar bron kan lopen.
 
 Gebruik:
     python3 tools/genereer_bronschema.py v0.2/bronnen/brp.yaml \
@@ -37,6 +44,7 @@ import yaml
 
 AFHANDELING_SLEUTEL = "sleutel"
 AFHANDELING_WEGLATEN = "weglaten"
+AFHANDELING_VERNAUWEN = "vernauwen"
 DATATYPE_STEREOTYPE = "DataType"
 
 
@@ -135,8 +143,38 @@ class Modelindex:
                     return naam, (attr or {}).get("range", "string")
         return None
 
+    def sleutel_slot(self, klasse: str) -> tuple[str, str] | None:
+        """Natuurlijke sleutel voor een sleutel-referentie.
+
+        Zelfde prioriteit als de zoeksleutel van de Query-ingangen in
+        genereer_graphql: (1) een eigen identifier op de klasse zelf;
+        anders (2) een enkelvoudige unique_key (eigen of geërfd) als
+        natuurlijke sleutel, zo krijgt een verwijzing naar
+        NietNatuurlijkPersoon de rsin in plaats van de geërfde
+        technische id; anders (3) de geërfde identifier."""
+        for naam, attr in self.eigen_attributen(klasse).items():
+            if (attr or {}).get("identifier"):
+                return naam, (attr or {}).get("range", "string")
+        induced = self.induced_attributen(klasse)
+        for kandidaat in [klasse] + self.voorouders(klasse):
+            for uk in ((self.classes.get(kandidaat) or {})
+                       .get("unique_keys") or {}).values():
+                slots = uk.get("unique_key_slots") or []
+                if len(slots) == 1 and slots[0] in induced:
+                    attr = induced[slots[0]] or {}
+                    return slots[0], attr.get("range", "string")
+        return self.identifier_slot(klasse)
+
     def eigen_attributen(self, klasse: str) -> dict:
         return self.classes.get(klasse, {}).get("attributes") or {}
+
+    def induced_attributen(self, klasse: str) -> dict:
+        """Eigen plus geërfde attributen; eigen definitie wint."""
+        resultaat: dict[str, dict] = {}
+        for voorouder in reversed(self.voorouders(klasse)):
+            resultaat.update(self.eigen_attributen(voorouder))
+        resultaat.update(self.eigen_attributen(klasse))
+        return resultaat
 
 
 def valideer_profiel(profiel: dict, index: Modelindex) -> None:
@@ -175,6 +213,22 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
                          f"laat de hele klasse weg")
             fout(f"uitsluiting '{klasse}.{attr}': attribuut bestaat niet")
 
+    uitgesloten_typen = {u.get("objecttype")
+                         for u in profiel.get("uitsluitingen") or []}
+    for insluiting in profiel.get("insluitingen") or []:
+        klasse = insluiting.get("objecttype")
+        if klasse not in profiel["objecttypen"]:
+            fout(f"insluiting verwijst naar objecttype '{klasse}' dat "
+                 f"niet in het profiel staat")
+        if klasse in uitgesloten_typen:
+            fout(f"objecttype '{klasse}' staat in insluitingen én "
+                 f"uitsluitingen; kies één mechanisme")
+        induced = index.induced_attributen(klasse)
+        for attr in insluiting.get("attributen") or []:
+            if attr not in induced:
+                fout(f"insluiting '{klasse}.{attr}': attribuut bestaat "
+                     f"niet (eigen noch geërfd)")
+
     for regel in profiel.get("relatieAfhandeling") or []:
         klasse = regel.get("objecttype")
         relatie = regel.get("relatie")
@@ -185,18 +239,42 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
         if relatie not in index.eigen_attributen(klasse):
             fout(f"relatieAfhandeling '{klasse}.{relatie}': relatie "
                  f"bestaat niet op dit objecttype")
-        if wijze not in (AFHANDELING_SLEUTEL, AFHANDELING_WEGLATEN):
+        if wijze not in (AFHANDELING_SLEUTEL, AFHANDELING_WEGLATEN,
+                         AFHANDELING_VERNAUWEN):
             fout(f"relatieAfhandeling '{klasse}.{relatie}': onbekende "
                  f"afhandeling '{wijze}'")
+        if wijze == AFHANDELING_VERNAUWEN:
+            naar = regel.get("naar")
+            doel = (index.eigen_attributen(klasse).get(relatie)
+                    or {}).get("range")
+            if not naar:
+                fout(f"relatieAfhandeling '{klasse}.{relatie}': "
+                     f"afhandeling 'vernauwen' vereist het veld 'naar'")
+            if naar not in profiel["objecttypen"]:
+                fout(f"relatieAfhandeling '{klasse}.{relatie}': "
+                     f"'naar: {naar}' staat niet in objecttypen")
+            if naar != doel and naar not in index.afstammelingen(doel):
+                fout(f"relatieAfhandeling '{klasse}.{relatie}': "
+                     f"'{naar}' is geen subtype van '{doel}'")
 
 
 def bepaal_selectie(profiel: dict, index: Modelindex) -> list[str]:
-    """Objecttypen plus automatisch meegenomen voorouders en mixins."""
+    """Objecttypen plus automatisch meegenomen voorouders en mixins.
+
+    Objecttypen met een insluiting (whitelist) worden uitgevlakt: hun
+    geërfde attributen materialiseren op het objecttype zelf, dus hun
+    supertypen en mixins worden niet meegenomen."""
+    ingesloten = {i["objecttype"]
+                  for i in profiel.get("insluitingen") or []}
     selectie: list[str] = []
     for klasse in profiel["objecttypen"]:
         if klasse not in selectie:
             selectie.append(klasse)
     for klasse in list(selectie):
+        if klasse in ingesloten:
+            melding("INFO", f"insluiting op '{klasse}': overerving "
+                            f"uitgevlakt, supertypen niet meegenomen")
+            continue
         for ouder in index.voorouders(klasse):
             if ouder not in selectie:
                 selectie.append(ouder)
@@ -211,8 +289,10 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
     uitsluitingen = {(u["objecttype"], a)
                      for u in profiel.get("uitsluitingen") or []
                      for a in u.get("attributen") or []}
-    afhandeling = {(r["objecttype"], r["relatie"]): r["afhandeling"]
+    afhandeling = {(r["objecttype"], r["relatie"]): r
                    for r in profiel.get("relatieAfhandeling") or []}
+    insluitingen = {i["objecttype"]: set(i.get("attributen") or [])
+                    for i in profiel.get("insluitingen") or []}
 
     resultaat: dict[str, dict] = {}
     wachtrij = list(selectie)
@@ -221,15 +301,34 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
         if klasse in resultaat:
             continue
         definitie = copy.deepcopy(index.classes[klasse])
-        attributen = definitie.get("attributes") or {}
+        if klasse in insluitingen:
+            # Overerving uitvlakken: geërfde attributen materialiseren
+            # op de klasse zelf; de is_a/mixins-koppeling vervalt.
+            attributen = copy.deepcopy(index.induced_attributen(klasse))
+            definitie.pop("is_a", None)
+            definitie.pop("mixins", None)
+        else:
+            attributen = definitie.get("attributes") or {}
         nieuwe_attributen = {}
 
         for naam, attr in attributen.items():
             attr = attr or {}
+            if klasse in insluitingen \
+                    and naam not in insluitingen[klasse]:
+                continue
             if (klasse, naam) in uitsluitingen:
                 melding("INFO", f"uitgesloten: {klasse}.{naam}")
                 continue
             doel = attr.get("range")
+            regel = afhandeling.get((klasse, naam))
+            if regel and regel["afhandeling"] == AFHANDELING_VERNAUWEN:
+                attr["range"] = regel["naar"]
+                attr.setdefault("comments", []).append(
+                    f"Range vernauwd van {doel} naar {regel['naar']} "
+                    f"binnen dit bronprofiel (populatie-beperking).")
+                melding("INFO", f"vernauwd: {klasse}.{naam}: "
+                                f"{doel} -> {regel['naar']}")
+                doel = regel["naar"]
             if doel in index.classes and doel not in selectie:
                 if index.is_datatype_klasse(doel):
                     # Gestructureerd datatype: automatisch meenemen.
@@ -238,14 +337,14 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
                         selectie.append(doel)
                         melding("INFO", f"gestructureerd datatype "
                                         f"'{doel}' automatisch meegenomen")
-                elif afhandeling.get((klasse, naam),
-                                     AFHANDELING_SLEUTEL) \
+                elif (regel or {}).get("afhandeling",
+                                       AFHANDELING_SLEUTEL) \
                         == AFHANDELING_WEGLATEN:
                     melding("INFO", f"weggelaten relatie: {klasse}.{naam} "
                                     f"-> {doel}")
                     continue
                 else:
-                    ident = index.identifier_slot(doel)
+                    ident = index.sleutel_slot(doel)
                     if ident is None:
                         melding("INFO",
                                 f"{klasse}.{naam}: doelobjecttype "
@@ -267,6 +366,10 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
                                     + (f".{slotnaam}" if slotnaam else ""))
             nieuwe_attributen[naam] = attr
 
+        if klasse in insluitingen:
+            melding("INFO", f"insluiting {klasse}: "
+                            f"{len(nieuwe_attributen)} van "
+                            f"{len(attributen)} attributen geleverd")
         if nieuwe_attributen:
             definitie["attributes"] = nieuwe_attributen
         else:
@@ -276,16 +379,47 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
         for sleutelnaam, sleutel in list(
                 (definitie.get("unique_keys") or {}).items()):
             slots = sleutel.get("unique_key_slots") or []
-            if any(s not in nieuwe_attributen
-                   and (klasse, s) in uitsluitingen for s in slots):
+            if klasse in insluitingen:
+                vervalt = any(s not in nieuwe_attributen for s in slots)
+            else:
+                vervalt = any(s not in nieuwe_attributen
+                              and (klasse, s) in uitsluitingen
+                              for s in slots)
+            if vervalt:
                 melding("WAARSCHUWING",
                         f"unique_key '{sleutelnaam}' op {klasse} vervalt: "
-                        f"verwijst naar een uitgesloten attribuut")
+                        f"verwijst naar een niet-geleverd attribuut")
                 del definitie["unique_keys"][sleutelnaam]
         if not definitie.get("unique_keys"):
             definitie.pop("unique_keys", None)
 
         resultaat[klasse] = definitie
+
+    # Inverse relaties materialiseren (annotatie gbo:inverseNaam) zodat
+    # de navigatie ook van doel naar bron kan lopen; nodig nu de
+    # Query-root van een profiel tot de natuurlijke sleutel beperkt kan
+    # zijn (lijstQueries: false).
+    for klasse in list(resultaat):
+        for naam, attr in list(
+                (resultaat[klasse].get("attributes") or {}).items()):
+            ann = (attr or {}).get("annotations") or {}
+            inverse = ann.get("gbo:inverseNaam")
+            doel = (attr or {}).get("range")
+            if not inverse or doel not in resultaat:
+                continue
+            doel_attrs = resultaat[doel].setdefault("attributes", {})
+            if inverse in doel_attrs:
+                fout(f"inverse '{doel}.{inverse}' botst met een "
+                     f"bestaand attribuut")
+            doel_attrs[inverse] = {
+                "range": klasse,
+                "multivalued": True,
+                "description": ann.get("gbo:inverseBeschrijving")
+                or f"Inverse van {klasse}.{naam}.",
+                "annotations": {"gbo:inverseVan": f"{klasse}.{naam}"},
+            }
+            melding("INFO", f"inverse gematerialiseerd: "
+                            f"{doel}.{inverse} <- {klasse}.{naam}")
 
     # Abstracte klassen zonder concreet subtype in het profiel.
     for klasse in resultaat:
@@ -342,6 +476,8 @@ def bouw_schema(profiel: dict, index: Modelindex, klassen: dict,
         "annotations": {
             "gbo:bron": bron,
             "gbo:ingangen": ", ".join(profiel["ingangen"]),
+            "gbo:objecttypen": ", ".join(profiel["objecttypen"]),
+            "gbo:lijstQueries": bool(profiel.get("lijstQueries", True)),
         },
         "classes": klassen,
     }

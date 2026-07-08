@@ -1,0 +1,70 @@
+# =============================================================================
+# Bron-profiel BRI-plus — de uitgebreide inkomenslevering van de
+# Belastingdienst, bovenop het authentieke gegeven uit de
+# Basisregistratie Inkomen (profiel bri.yaml).
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel bri-plus.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.3/bronnen/bri-plus.yaml
+#
+# Naast het volledige authentieke gegeven (AuthentiekInkomen, inclusief
+# vaststellingsdatum en vaststellingsbron) ontsluit dit profiel de
+# volledige inkomensketen (Inkomstenverhouding, Inkomstenopgave,
+# Inkomstenperiode, LoonBestanddeel, LoonAangifte) — ook al is bekend
+# dat die bestanddelen later uit andere bronnen (loonketen UWV /
+# Belastingdienst) kunnen komen; de profielen worden dan herverdeeld.
+# =============================================================================
+bron: BRI-plus
+titel: Basisregistratie Inkomen — uitgebreide levering (BRI-plus)
+beschrijving: >-
+  De uitgebreide inkomenslevering: het authentiek inkomensgegeven
+  (volledig, met vaststellingsdatum en vaststellingsbron) plus de
+  onderliggende inkomensbestanddelen uit de loonketen:
+  inkomstenverhoudingen, inkomstenopgaven, inkomstenperioden,
+  loonbestanddelen en loonaangiften. Levert uitsluitend gegevens voor
+  ingeschreven personen (personen met een BSN) en uitsluitend over
+  voorgaande, afgesloten belastingjaren; gegevens over het lopende
+  jaar worden niet geleverd. De opvraagdatum is leveringsmetadata en
+  staat in de antwoord-envelop van de levering, niet in het schema.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
+# lijst-query. Alle inkomensgegevens zijn navigeerbaar vanuit de
+# persoon via de gematerialiseerde inverse relaties.
+ingangen:
+  - IngeschrevenPersoon
+lijstQueries: false
+
+objecttypen:
+  - AuthentiekInkomen
+  - Inkomstenverhouding
+  - Inkomstenopgave
+  - Inkomstenperiode
+  - LoonBestanddeel
+  - LoonAangifte
+  - IngeschrevenPersoon
+
+# Persoonsgegevens zijn BRP-terrein; dit profiel levert van de persoon
+# alleen de BSN, plus de gematerialiseerde inverse relaties naar de
+# inkomensgegevens.
+insluitingen:
+  - objecttype: IngeschrevenPersoon
+    attributen:
+      - bsn
+
+# Binnen de BRI is elke persoon een ingeschreven persoon (BSN-plicht).
+# Relaties naar de onderneming (werkgever, inhoudingsplichtige) blijven
+# default sleutel-referenties (MaatschappelijkeActiviteit.kvkNummer).
+relatieAfhandeling:
+  - objecttype: AuthentiekInkomen
+    relatie: gegrondvestOp
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: Inkomstenverhouding
+    relatie: tussenPersoon
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon

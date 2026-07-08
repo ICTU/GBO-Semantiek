@@ -55,7 +55,7 @@ classes:
         Woonplaats); BRP Logisch Ontwerp §5.8 (woon- en
         briefadres-context); RSGB-Kern (overkoepelend type Adres).
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
+      mim:uniekeAanduiding: adresId (op de concrete subtypen)
       mim:populatie: >-
         Alle adressen die voor een overheidsorganisatie als
         adresseerbaarheid of correspondentiepunt relevant zijn.
@@ -69,20 +69,6 @@ classes:
         gebruiker (NatuurlijkPersoon, Vestiging), niet als kenmerk van
         Adres zelf.
     attributes:
-      adresId:
-        identifier: true
-        required: true
-        range: UUID
-        description: GBO-eigen sleutel voor één adres-instantie.
-        annotations:
-          mim:authentiek: Overig
-          mim:indicatieMaterieleHistorie: false
-          mim:indicatieFormeleHistorie: false
-          mim:herkomst: GBO
-        comments:
-          - >-
-            Voorkomt fragmentatie van adres-referenties bij
-            BAG-mutaties.
       volledigAdres:
         range: Tekst
         description: >-
@@ -105,10 +91,11 @@ classes:
     annotations:
       mim:herkomst: BAG (afgeleid uit de Nummeraanduiding-keten)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1 (Nummeraanduiding, OpenbareRuimte, Woonplaats);
-        Catalogus BAG 2018; RSGB-Kern Binnenlandsadres.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1 (Nummeraanduiding, OpenbareRuimte, Woonplaats); Catalogus
+        BAG 2018; RSGB-Kern Binnenlandsadres.
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: adresId (geërfd)
+      mim:uniekeAanduiding: adresId (BAGID, gelijk aan de Nummeraanduiding)
       mim:populatie: >-
         Alle Nederlandse adressen waarvoor een Nummeraanduiding is
         uitgegeven en die als woon-, bezoek- of correspondentieadres
@@ -120,6 +107,23 @@ classes:
         Nummeraanduiding en de bovenliggende keten op moment van
         vorming.
     attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: BAGID
+        description: >-
+          De identificatie van dit adres: de BAG-identificatie van de
+          Nummeraanduiding die het adres vormt.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (Nummeraanduiding)
+        comments:
+          - >-
+            Gelijk aan de identificatie van de Nummeraanduiding uit de
+            relatie wordtGevormdDoor; het binnenlandsadres heeft geen
+            eigen GBO-sleutel.
       straatnaam:
         range: Tekst
         required: true
@@ -202,7 +206,7 @@ classes:
         BRP Logisch Ontwerp §5.8 (buitenlandse adresregels van een
         niet-ingezetene); RSGB-Kern Buitenlandsadres.
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: adresId (geërfd)
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
       mim:populatie: >-
         Alle adressen in het buitenland die voor een Nederlandse
         afnemer als verblijf-, post- of zeteladres relevant zijn.
@@ -212,6 +216,20 @@ classes:
         Geen BAG-koppeling; geen authentieke bron in Nederland. Land
         verwijst naar de internationale lijst ISO 3166.
     attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
       adresregel1:
         range: Tekst
         required: true
@@ -262,7 +280,7 @@ classes:
         BRP Logisch Ontwerp categorie 08 (verblijfplaats zonder
         regulier vast adres); RSGB-Kern (Aanduiding vrije locatie).
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: adresId (geërfd)
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
       mim:populatie: >-
         Plekken die als adres dienen zonder dat het bevoegde gezag er
         een Nummeraanduiding aan heeft toegekend.
@@ -273,6 +291,20 @@ classes:
         RNI-inschrijvingen, een kraam, een bouwplaats of een tijdelijk
         verkooppunt.
     attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
       omschrijving:
         range: Tekst
         required: true
@@ -309,7 +341,7 @@ classes:
         NEN 5825 (notatie van postadressen); PostNL Postcodeboek /
         Postbusbesluit; BRP Logisch Ontwerp §5.8 (briefadres).
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: adresId (geërfd)
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
       mim:populatie: >-
         Postbussen, antwoordnummers en overige briefbus-aanduidingen
         voor correspondentie van personen of organisaties.
@@ -319,6 +351,20 @@ classes:
         verblijf; afnemers gebruiken het naast een woon- of
         bezoekadres.
     attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
       briefbusnummer:
         range: Tekst
         description: Het postbus- of antwoordnummer.
@@ -373,7 +419,7 @@ classes:
         BRP Logisch Ontwerp categorie 08 (verblijfplaats; vertrek naar
         onbekende bestemming, "Land van vertrek onbekend").
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: adresId (geërfd)
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
       mim:populatie: >-
         Ingeschreven personen van wie de feitelijke verblijfplaats op
         een bepaalde datum onbekend is geworden.
@@ -382,6 +428,20 @@ classes:
         BRP-specifieke variant. Geen adres in strikte zin, wel een
         geldige adres-rol bij vertrek naar onbekende bestemming.
     attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
       datumIngangOnbekend:
         range: Datum
         required: true
@@ -417,8 +477,9 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.5, §2.7; IMBAG (gedeeld patroon
-        voor Verblijfsobject, Ligplaats en Standplaats).
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.5, §2.7; IMBAG (gedeeld patroon voor
+        Verblijfsobject, Ligplaats en Standplaats).
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -502,7 +563,8 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.6; IMBAG Ligplaats.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.6; IMBAG Ligplaats.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -552,8 +614,8 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.3; IMBAG
-        Nummeraanduiding.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.3; IMBAG Nummeraanduiding.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -685,7 +747,8 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.4; IMBAG Pand.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.4; IMBAG Pand.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -761,7 +824,8 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.7; IMBAG Standplaats.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.7; IMBAG Standplaats.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -813,8 +877,8 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.5; IMBAG
-        Verblijfsobject.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.5; IMBAG Verblijfsobject.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -1065,8 +1129,9 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.2; IMBAG Openbare
-        ruimte; NEN 5825 (verkorte naam).
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.2; IMBAG Openbare ruimte; NEN 5825
+        (verkorte naam).
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -1241,7 +1306,8 @@ classes:
     annotations:
       mim:herkomst: BAG (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet BAG art. 1; Catalogus BAG 2018 §2.1; IMBAG Woonplaats.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.1; IMBAG Woonplaats.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie (BAGID)
       mim:populatie: >-
@@ -1321,8 +1387,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.5; IMBAG-attribuutdomein
-        Gebruiksdoel.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.5; IMBAG-attribuutdomein Gebruiksdoel.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1421,8 +1487,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.5, §2.6, §2.7;
-        IMBAG-attribuutdomein.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.5, §2.6, §2.7; IMBAG-attribuutdomein.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1486,7 +1552,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.3; IMBAG-attribuutdomein.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.3; IMBAG-attribuutdomein.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1511,7 +1578,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.2; IMBAG-attribuutdomein.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.2; IMBAG-attribuutdomein.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1536,7 +1604,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.4; IMBAG-attribuutdomein.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.4; IMBAG-attribuutdomein.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1580,7 +1649,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.1; IMBAG-attribuutdomein.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.1; IMBAG-attribuutdomein.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1629,8 +1699,8 @@ enums:
     annotations:
       mim:herkomst: BAG
       mim:herkomstDefinitie: >-
-        Wet BAG; Catalogus BAG 2018 §2.2; IMBAG-attribuutdomein
-        TypeOpenbareRuimte.
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.2; IMBAG-attribuutdomein TypeOpenbareRuimte.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-

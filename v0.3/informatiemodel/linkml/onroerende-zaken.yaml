@@ -55,8 +55,10 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Kadasterwet art. 17; Burgerlijk Wetboek Boek 6 (kwalitatieve
-        verplichting); BRK-Catalogus (objecttype Aantekening).
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet art. 17; Burgerlijk Wetboek Boek 6
+        (kwalitatieve verplichting); BRK-Catalogus (objecttype
+        Aantekening).
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
@@ -110,6 +112,9 @@ classes:
         description: >-
           Kadastrale onroerende zaak waarop de aantekening rust.
         annotations:
+          gbo:inverseNaam: heeftAantekening
+          gbo:inverseBeschrijving: >-
+            De aantekeningen op deze onroerende zaak.
           mim:relatienaam: op
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
@@ -129,7 +134,8 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v.);
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v.);
         Kadasterwet; BRK-Catalogus (objecttype Appartementsrecht);
         IMKAD.
       mim:datumOpname: "2026-04-28"
@@ -196,8 +202,9 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v., splitsing in
-        appartementsrechten); Kadasterwet; BRK-Catalogus.
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v.,
+        splitsing in appartementsrechten); Kadasterwet; BRK-Catalogus.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: documentnummer
       mim:populatie: >-
@@ -267,6 +274,9 @@ classes:
         description: >-
           Onderliggende percelen die door de splitsing worden geraakt.
         annotations:
+          gbo:inverseNaam: heeftAppartementsrechtsplitsing
+          gbo:inverseBeschrijving: >-
+            De appartementsrechtsplitsingen op dit perceel.
           mim:relatienaam: op
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: false
@@ -288,8 +298,9 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Kadasterwet art. 1; BRK-Catalogus (abstract supertype
-        KadastraalOnroerendeZaak); IMKAD.
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet art. 1; BRK-Catalogus (abstract
+        supertype KadastraalOnroerendeZaak); IMKAD.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
@@ -369,7 +380,8 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Kadasterwet art. 1; BRK-Catalogus (objecttype
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet art. 1; BRK-Catalogus (objecttype
         KadastraalPerceel); IMKAD.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: kadastraleAanduiding
@@ -451,9 +463,10 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wet kenbaarheid publiekrechtelijke beperkingen onroerende
-        zaken (Wkpb) art. 1; Kadasterwet; BRK-Catalogus (objecttype
-        PubliekrechtelijkeBeperking).
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Wet kenbaarheid publiekrechtelijke beperkingen
+        onroerende zaken (Wkpb) art. 1; Kadasterwet; BRK-Catalogus
+        (objecttype PubliekrechtelijkeBeperking).
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
@@ -555,6 +568,9 @@ classes:
         description: >-
           Kadastrale onroerende zaak waarop de beperking rust.
         annotations:
+          gbo:inverseNaam: heeftPubliekrechtelijkeBeperking
+          gbo:inverseBeschrijving: >-
+            De publiekrechtelijke beperkingen op deze onroerende zaak.
           mim:relatienaam: op
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
@@ -574,9 +590,10 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Kadasterwet; Burgerlijk Wetboek Boek 3 (registergoederen,
-        mede-eigendom art. 166 e.v.); BRK-Catalogus (associatieklasse
-        Tenaamstelling).
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet; Burgerlijk Wetboek Boek 3
+        (registergoederen, mede-eigendom art. 166 e.v.); BRK-Catalogus
+        (associatieklasse Tenaamstelling).
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: >-
         Samengesteld uit (Partij, ZakelijkRecht, datumIngang)
@@ -664,6 +681,9 @@ classes:
         required: true
         description: Zakelijk recht waarvoor de tenaamstelling geldt.
         annotations:
+          gbo:inverseNaam: heeftTenaamstelling
+          gbo:inverseBeschrijving: >-
+            De tenaamstellingen van dit zakelijk recht.
           mim:relatienaam: voor
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
@@ -683,10 +703,11 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 5 (zakelijke rechten, art. 1 e.v.,
-        art. 85 t/m 105); Burgerlijk Wetboek Boek 3 (registergoederen,
-        art. 10 e.v.); Kadasterwet; BRK-Catalogus (objecttype
-        ZakelijkRecht).
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 (zakelijke rechten,
+        art. 1 e.v., art. 85 t/m 105); Burgerlijk Wetboek Boek 3
+        (registergoederen, art. 10 e.v.); Kadasterwet; BRK-Catalogus
+        (objecttype ZakelijkRecht).
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
@@ -780,6 +801,9 @@ classes:
         description: >-
           Kadastrale onroerende zaken waarop het recht rust.
         annotations:
+          gbo:inverseNaam: heeftZakelijkRecht
+          gbo:inverseBeschrijving: >-
+            De zakelijke rechten die op deze onroerende zaak zijn gevestigd.
           mim:relatienaam: op
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
@@ -798,7 +822,8 @@ classes:
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 3 titel 9 (recht van pand en
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 3 titel 9 (recht van pand en
         hypotheek); Wetboek van Burgerlijke Rechtsvordering
         (beslagregels); Kadasterwet; BRK-Catalogus.
       mim:datumOpname: "2026-04-28"
@@ -869,6 +894,9 @@ classes:
         description: >-
           Kadastrale onroerende zaken waarop het zekerheidsrecht rust.
         annotations:
+          gbo:inverseNaam: heeftZekerheidsrecht
+          gbo:inverseBeschrijving: >-
+            De zekerheidsrechten die op deze onroerende zaak zijn gevestigd.
           mim:relatienaam: op
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
@@ -886,8 +914,10 @@ enums:
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
-        Wetboek van Burgerlijke Rechtsvordering (beslagregels);
-        Invorderingswet 1990 (fiscaal beslag); BRK-Catalogus.
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Wetboek van Burgerlijke Rechtsvordering
+        (beslagregels); Invorderingswet 1990 (fiscaal beslag);
+        BRK-Catalogus.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -933,9 +963,10 @@ enums:
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 5 (zakelijke rechten, art. 1 e.v.,
-        art. 85 t/m 105); Burgerlijk Wetboek Boek 3 (registergoederen);
-        BRK-Catalogus.
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 (zakelijke rechten,
+        art. 1 e.v., art. 85 t/m 105); Burgerlijk Wetboek Boek 3
+        (registergoederen); BRK-Catalogus.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1008,7 +1039,8 @@ enums:
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
-        BRK-Catalogus (Kadaster); Kadasterwet.
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: BRK-Catalogus (Kadaster); Kadasterwet.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1040,7 +1072,8 @@ enums:
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
-        BRK-Catalogus (Kadaster); Kadasterwet.
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: BRK-Catalogus (Kadaster); Kadasterwet.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1080,9 +1113,10 @@ enums:
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
-        Wet kenbaarheid publiekrechtelijke beperkingen onroerende
-        zaken (Wkpb); Monumentenwet 1988 / Erfgoedwet; Wet ruimtelijke
-        ordening (voorkeursrecht); Onteigeningswet; Wet
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Wet kenbaarheid publiekrechtelijke beperkingen
+        onroerende zaken (Wkpb); Monumentenwet 1988 / Erfgoedwet; Wet
+        ruimtelijke ordening (voorkeursrecht); Onteigeningswet; Wet
         bodembescherming; BRK-Catalogus.
       mim:datumOpname: "2026-04-28"
     comments:
@@ -1151,7 +1185,8 @@ enums:
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 3 titel 9 (recht van pand en
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 3 titel 9 (recht van pand en
         hypotheek); Wetboek van Burgerlijke Rechtsvordering (beslag);
         BRK-Catalogus.
       mim:datumOpname: "2026-04-28"

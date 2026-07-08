@@ -31,6 +31,7 @@ ingangen:
   - Pand
   - Nummeraanduiding
   - Binnenlandsadres
+lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:

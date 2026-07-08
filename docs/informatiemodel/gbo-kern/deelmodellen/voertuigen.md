@@ -9,7 +9,7 @@ Voertuigen uit de [Basisregistratie Voertuigen](https://www.rdw.nl/) (BRV,
 beheerd door de RDW) en hun tenaamstelling op een partij. Het deelmodel
 beschrijft de administratieve en technische kerngegevens van een voertuig
 (`Voertuig`) en de rechtsbetrekking tot de eigenaar of houder
-(`Voertuigtenaamstelling`).
+(`Kentekentenaamstelling`).
 
 De tenaamgestelde is een `Partij` uit het [hoofdmodel](../hoofdmodel.md):
 een natuurlijk persoon (deelmodel [Personen](personen.md)) of een
@@ -50,18 +50,18 @@ abstract class Partij <<algemeen>>
 
 together {
   class Voertuig <<voertuigen>>
-  class Voertuigtenaamstelling <<voertuigen>>
+  class Kentekentenaamstelling <<voertuigen>>
 }
 
-Voertuig "1" --> "0..*" Voertuigtenaamstelling : heeft
-Voertuigtenaamstelling "*" --> "1" Partij : tenaamgesteld op
+Voertuig "1" --> "0..*" Kentekentenaamstelling : heeft
+Kentekentenaamstelling "*" --> "1" Partij : tenaamgesteld op
 
 note right of Partij
   Supertype uit het hoofdmodel
   (natuurlijk of niet-natuurlijk persoon).
 end note
 
-note bottom of Voertuigtenaamstelling
+note bottom of Kentekentenaamstelling
   Relatieklasse: eigen kenmerken
   tussen Partij en Voertuig.
   Inverse van heeft is voor.
@@ -124,9 +124,9 @@ kenbaar.
 
 | Naam | Doel | Kard. (bron→doel) | Authentiek | Mat. hist. | Form. hist. | Toelichting |
 |---|---|---|---|---|---|---|
-| heeft | Voertuigtenaamstelling | 1 → 0..* | Authentiek | Ja | Ja | De tenaamstelling(en) van dit voertuig, historisch en actueel. |
+| heeft | Kentekentenaamstelling | 1 → 0..* | Authentiek | Ja | Ja | De tenaamstelling(en) van dit voertuig, historisch en actueel. |
 
-### Voertuigtenaamstelling
+### Kentekentenaamstelling
 
 **Definitie**: De geregistreerde rechtsbetrekking tussen een partij en
 een voertuig, waarmee de partij als eigenaar en/of houder van het
@@ -135,7 +135,7 @@ voertuig is geregistreerd.
 **Herkomst definitie**: Wegenverkeerswet 1994 (tenaamstelling, art. 42
 e.v.); Kentekenreglement; RDW Kentekenregister.
 
-**Toelichting**: `Voertuigtenaamstelling` is een verbinding met eigen
+**Toelichting**: `Kentekentenaamstelling` is een verbinding met eigen
 kenmerken tussen `Partij` en `Voertuig`, vergelijkbaar met
 `Tenaamstelling` in het deelmodel [Onroerende zaken](onroerende-zaken.md).
 Een overdracht leidt tot een nieuwe tenaamstelling met latere
@@ -144,9 +144,9 @@ historie en eigendomsverloop modelleerbaar.
 
 | MIM-veld | Waarde |
 |---|---|
-| Naam | Voertuigtenaamstelling |
+| Naam | Kentekentenaamstelling |
 | MIM-element | Relatieklasse |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Voertuigtenaamstelling` |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Kentekentenaamstelling` |
 | Herkomst | BRV (basisregistratie) |
 | Datum opname | 2026-06-16 |
 | Unieke aanduiding | Samengesteld uit (Partij, Voertuig, datumTenaamstelling) |
@@ -283,7 +283,7 @@ leasemaatschappij doorgaans eigenaar en de leasenemer houder.
 | Herkomst | RDW |
 | Datum opname | 2026-06-16 |
 
-**Gebruikt door**: `Voertuigtenaamstelling.rol`.
+**Gebruikt door**: `Kentekentenaamstelling.rol`.
 
 **Waarden**:
 
@@ -306,10 +306,10 @@ Deelmodel-specifieke codelijsten; extern beheerd en daarom als
 ## Stelselkoppelingen
 
 - → [Personen](personen.md): `NatuurlijkPersoon` als tenaamgestelde via
-  `Voertuigtenaamstelling`.
+  `Kentekentenaamstelling`.
 - → [Bedrijven en instellingen](bedrijven-en-instellingen.md):
   `NietNatuurlijkPersoon` als tenaamgestelde via
-  `Voertuigtenaamstelling`. Beide takken via het `Partij`-supertype uit
+  `Kentekentenaamstelling`. Beide takken via het `Partij`-supertype uit
   het [hoofdmodel](../hoofdmodel.md).
 
 ## Bron

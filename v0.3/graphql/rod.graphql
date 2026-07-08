@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel ROD, gegenereerd uit gbo-bron-rod.yaml.
 # Regenereer met: task generate:graphql
+#
+# Opleidingen, opleidingsdeelnames en -resultaten, module-
+# inschrijvingen, beroepspraktijkvorming, verzuim, vooropleidingen en
+# studiefinanciering per onderwijsdeelnemer en onderwijsinstelling.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -24,6 +28,8 @@ scalar CodelijstDiplomasoort
 scalar CodelijstISO3166 @restrictie(patroon: "^[A-Z]{2}$")
 """Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
 scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+"""Eén gedeelde KVK-rechtsvormcodelijst voor alle niet-natuurlijke personen, gebruikt door NietNatuurlijkPersoon.rechtsvorm. Omvat de KVK-rechtsvorm-enumeraties: RechtsvormRechtspersoon (BV, NV, Coöperatie, OWM, Stichting, Vereniging, VvE, Kerkgenootschap, EESV, SE, SCE, Publiekrechtelijke Rechtspersoon, Overige Privaatrechtelijke Rechtspersoon), RechtsvormSamenwerkingsverband (VOF, CV, Maatschap, Rederij), RechtsvormPubliekrechtelijk (Staat, Provincie, Gemeente, Waterschap, ZBO, RWT, Adviescollege, Wgr-openbaar lichaam, ...), RechtsvormOverigePrivaatrechtelijke en de eenmanszaak-rechtsvormen. De functionele classificatie (Bedrijf/Instelling/...) wordt hieruit afgeleid via een partitiefunctie; zie NietNatuurlijkPersoon.classificatie."""
+scalar CodelijstKVKRechtsvorm
 """Gemeentecode conform BRP-Landelijke Tabel 33 Gemeenten. Formeel een BRP-codelijst, feitelijk de stelselbrede gemeente-codering inclusief historische gemeenten met einddatum."""
 scalar CodelijstLT33 @restrictie(patroon: "^[0-9]{4}$")
 """Adellijke titel / predicaat conform BRP-Landelijke Tabel 38."""
@@ -32,6 +38,8 @@ scalar CodelijstLT38
 scalar CodelijstNLQF
 """RedenUitschrijving per sector, beheerd door DUO via PvE ROD per sector; gebruikt voor OpleidingDeelname.redenUitschrijving. Mutatieritme: sporadisch."""
 scalar CodelijstRedenUitschrijving
+"""TOOI-waardelijsten uit het Register van Overheidsorganisaties (KOOP/Logius); gebruikt voor onder andere Overheidsinstelling.bevoegdGezagCode."""
+scalar CodelijstTOOI
 """Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
 scalar Datum
 """Datum waarin jaar, maand of dag elk afzonderlijk onbekend kan zijn. Formaten: jjjj, jjjj-mm of jjjj-mm-dd; nullen op de onbekende positie."""
@@ -45,42 +53,18 @@ scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-}
-
-"""Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
-interface NietNatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
-  ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  voertUit: [UUID!]!
+  id: UUID!
 }
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -105,6 +89,16 @@ type IngeschrevenPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De opleidingsdeelnames van deze persoon."""
+  heeftOpleidingDeelname: [OpleidingDeelname!]
+  """De opleidingsresultaten die deze persoon heeft behaald."""
+  heeftOpleidingResultaat: [OpleidingResultaat!]
+  """De verzuimmeldingen over deze persoon."""
+  heeftVerzuimMelding: [VerzuimMelding!]
+  """De studiefinanciering die deze persoon ontvangt of ontving."""
+  heeftStudieFinanciering: [StudieFinanciering!]
+  """De studieleningen waarvoor deze persoon schuldenaar is."""
+  heeftStudieLening: [StudieLening!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het interne BRP-administratienummer."""
@@ -136,27 +130,53 @@ type IngeschrevenPersoon implements Partij {
 }
 
 """Een door OCW erkende rechtspersoon of bestuurlijke entiteit die onderwijs aanbiedt in een of meer Nederlandse onderwijssectoren."""
-type OnderwijsInstelling implements NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+type OnderwijsInstelling implements Partij {
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
+  id: UUID!
+  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
+  """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
+  kvkNummer: KVKnummer
+  """Juridische vorm van de NNP volgens de KVK-rechtsvormtabel."""
+  rechtsvorm: CodelijstKVKRechtsvorm!
+  """Vrije-tekst-aanduiding van de rechtsvorm wanneer geen codelijst-waarde bestaat (nieuw gemelde overige privaatrechtelijke rechtsvorm)."""
+  rechtsvormOmschrijving: String
+  """Functionele indeling van de NNP, afgeleid uit de rechtsvorm."""
+  classificatie: NietNatuurlijkPersoonClassificatie!
+  """Geeft aan of de NNP een onderneming voert."""
+  heeftOnderneming: Indicatie
   """De officiële benaming van de instelling."""
   naam: String!
   """Statutaire vestigingsplaats."""
   zetel: String
   """Afgeleide SBI-hoofdactiviteit."""
   hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
   """Binnen- of buitenlandse herkomst."""
   herkomst: Herkomst!
   """Aansprakelijkheidskarakter van de rechtsvorm."""
   aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  voertUit: [UUID!]!
+  """Bestuurlijke typering; van toepassing bij classificatie = Overheidsinstelling."""
+  typeOverheid: TypeOverheid
+  """URI-koppeling naar het TOOI-register; van toepassing bij classificatie = Overheidsinstelling."""
+  bevoegdGezagCode: CodelijstTOOI
+  """Sectorale typering; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  typeMaatschappelijk: TypeMaatschappelijk
+  """ANBI-erkenning door de Belastingdienst; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  anbiStatus: Indicatie
+  """Land waarin de entiteit is opgericht; van toepassing bij classificatie = BuitenlandseEntiteit."""
+  landVanOprichting: CodelijstISO3166
+  """Buitenlandse juridische vorm (vrije tekst); van toepassing bij classificatie = BuitenlandseEntiteit."""
+  rechtsvormBuitenland: String
+  """De eigen inschrijving van de NNP in het Handelsregister; één per NNP. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  voertMaatschappelijkeActiviteit: KVKnummer!
+  """Statutaire naam en alternatieve benamingen van de NNP, met geldigheidsperiode. (Sleutel-referentie naar Naamgeving.)"""
+  heeftNaamgeving: [String!]!
+  """Actuele juridische/administratieve status van de NNP. (Sleutel-referentie naar Rechtstoestand.)"""
+  heeftRechtstoestand: String!
+  """SBI-gecodeerde activiteiten van een rechtspersoon zonder vestiging (Activiteiten-Rechtspersoon-pad). (Sleutel-referentie naar Activiteit.)"""
+  heeftActiviteit: [String!]
   """De vier-tekens-code waarmee een onderwijsinstelling historisch wordt aangeduid."""
   brincode: BRINcode
   """De uitgebreide instellingscode in RIO."""
@@ -213,6 +233,8 @@ type OpleidingDeelname {
   kent: [BeroepspraktijkvormingPeriode!]
   """Resultaten die uit de deelname zijn voortgekomen."""
   leidtTot: [OpleidingResultaat!]
+  """De vooropleidingen die als toelatingsbewijs bij deze deelname gelden."""
+  heeftVooropleiding: [Vooropleiding!]
 }
 
 """Het door een natuurlijk persoon behaalde resultaat voor een opleiding of onderdeel daarvan bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk."""
@@ -359,10 +381,10 @@ type StudieLening {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -387,6 +409,66 @@ type NatuurlijkPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De opleidingsdeelnames van deze persoon."""
+  heeftOpleidingDeelname: [OpleidingDeelname!]
+  """De opleidingsresultaten die deze persoon heeft behaald."""
+  heeftOpleidingResultaat: [OpleidingResultaat!]
+  """De verzuimmeldingen over deze persoon."""
+  heeftVerzuimMelding: [VerzuimMelding!]
+  """De studiefinanciering die deze persoon ontvangt of ontving."""
+  heeftStudieFinanciering: [StudieFinanciering!]
+  """De studieleningen waarvoor deze persoon schuldenaar is."""
+  heeftStudieLening: [StudieLening!]
+}
+
+"""Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
+type NietNatuurlijkPersoon implements Partij {
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
+  id: UUID!
+  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
+  rsin: String
+  """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
+  kvkNummer: KVKnummer
+  """Juridische vorm van de NNP volgens de KVK-rechtsvormtabel."""
+  rechtsvorm: CodelijstKVKRechtsvorm!
+  """Vrije-tekst-aanduiding van de rechtsvorm wanneer geen codelijst-waarde bestaat (nieuw gemelde overige privaatrechtelijke rechtsvorm)."""
+  rechtsvormOmschrijving: String
+  """Functionele indeling van de NNP, afgeleid uit de rechtsvorm."""
+  classificatie: NietNatuurlijkPersoonClassificatie!
+  """Geeft aan of de NNP een onderneming voert."""
+  heeftOnderneming: Indicatie
+  """Werknaam van de NNP; bij rechtspersonen met statuten gelijk aan de statutaire naam."""
+  naam: String!
+  """Statutaire vestigingsplaats."""
+  zetel: String
+  """Afgeleide SBI-hoofdactiviteit."""
+  hoofdSbiCode: CodelijstCBSSBI
+  """Binnen- of buitenlandse herkomst."""
+  herkomst: Herkomst!
+  """Aansprakelijkheidskarakter van de rechtsvorm."""
+  aansprakelijkheid: Aansprakelijkheid!
+  """Bestuurlijke typering; van toepassing bij classificatie = Overheidsinstelling."""
+  typeOverheid: TypeOverheid
+  """URI-koppeling naar het TOOI-register; van toepassing bij classificatie = Overheidsinstelling."""
+  bevoegdGezagCode: CodelijstTOOI
+  """Sectorale typering; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  typeMaatschappelijk: TypeMaatschappelijk
+  """ANBI-erkenning door de Belastingdienst; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  anbiStatus: Indicatie
+  """Land waarin de entiteit is opgericht; van toepassing bij classificatie = BuitenlandseEntiteit."""
+  landVanOprichting: CodelijstISO3166
+  """Buitenlandse juridische vorm (vrije tekst); van toepassing bij classificatie = BuitenlandseEntiteit."""
+  rechtsvormBuitenland: String
+  """De eigen inschrijving van de NNP in het Handelsregister; één per NNP. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  voertMaatschappelijkeActiviteit: KVKnummer!
+  """Statutaire naam en alternatieve benamingen van de NNP, met geldigheidsperiode. (Sleutel-referentie naar Naamgeving.)"""
+  heeftNaamgeving: [String!]!
+  """Actuele juridische/administratieve status van de NNP. (Sleutel-referentie naar Rechtstoestand.)"""
+  heeftRechtstoestand: String!
+  """SBI-gecodeerde activiteiten van een rechtspersoon zonder vestiging (Activiteiten-Rechtspersoon-pad). (Sleutel-referentie naar Activiteit.)"""
+  heeftActiviteit: [String!]
 }
 
 """Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
@@ -579,16 +661,18 @@ enum Geslacht {
   VastgesteldOnbekend
 }
 
-"""Functionele sector-classificatie van een niet-natuurlijke persoon, gericht op de maatschappelijke rol: commercieel, publiek, maatschappelijk of overig."""
-enum Sector {
-  """Privaatrechtelijke entiteit met winstoogmerk."""
-  Commercieel
-  """Privaatrechtelijke entiteit zonder winstoogmerk, werkzaam in een maatschappelijke sector."""
-  Maatschappelijk
-  """Publiekrechtelijke entiteit met publieke taak."""
-  Overheid
-  """Restcategorie voor entiteiten die niet onder de drie hoofdsectoren vallen."""
-  Overig
+"""Functionele indeling van een niet-natuurlijke persoon, deterministisch afgeleid uit de rechtsvorm. Vervangt de vroegere subtype-hiërarchie."""
+enum NietNatuurlijkPersoonClassificatie {
+  """Commerciële entiteit (BV, NV, coöperatie, OWM, eenmanszaak, VOF, CV, maatschap, EESV, SE, SCE)."""
+  Bedrijf
+  """Publiekrechtelijke rechtspersoon met publieke taak."""
+  Overheidsinstelling
+  """Privaatrechtelijke non-profit-entiteit (stichting, vereniging, kerkgenootschap, VvE, overige niet-commerciële privaatrechtelijke rechtsvorm)."""
+  MaatschappelijkeInstelling
+  """Entiteit met een buitenlandse rechtsvorm en activiteit in Nederland."""
+  BuitenlandseEntiteit
+  """Restcategorie voor entiteiten zonder codelijst-waarde (vrije-tekst-rechtsvorm) of die niet elders landen."""
+  Overige
 }
 
 """Aanduiding of een niet-natuurlijke persoon van Nederlandse of buitenlandse herkomst is, gemeten naar de plaats van oprichting of statutaire zetel."""
@@ -611,14 +695,50 @@ enum Aansprakelijkheid {
   Publiek
 }
 
+"""Bestuurlijke typering van een overheidsinstelling: het bestuurlijke niveau of de bestuursvorm waaraan zij toebehoort."""
+enum TypeOverheid {
+  """Centrale overheid als geheel."""
+  Rijksoverheid
+  """Departement van de Rijksoverheid."""
+  Ministerie
+  """Provinciaal bestuur."""
+  Provincie
+  """Gemeentelijk bestuur."""
+  Gemeente
+  """Functioneel bestuur voor waterbeheer."""
+  Waterschap
+  """Zelfstandig bestuursorgaan (Kaderwet ZBO)."""
+  ZBO
+  """Rechtspersoon met een wettelijke taak."""
+  RWT
+  """Uitvoeringsorganisatie binnen een ministerie met eigen baten-lasten-administratie."""
+  Agentschap
+  """Overige publiekrechtelijke entiteit die niet onder de overige typen valt."""
+  OverigeOverheid
+}
+
+"""Sectorale typering van een maatschappelijke instelling: het maatschappelijke veld waarin zij hoofdzakelijk werkzaam is."""
+enum TypeMaatschappelijk {
+  """Instelling werkzaam in onderwijs of onderwijsondersteuning."""
+  Onderwijs
+  """Instelling werkzaam in gezondheidszorg, jeugdzorg of langdurige zorg."""
+  Zorg
+  """Instelling met religieus of levensbeschouwelijk doel."""
+  Religie
+  """Instelling werkzaam in sport, kunst of cultuur."""
+  Sport_Cultuur
+  """Instelling werkzaam in welzijn, maatschappelijke ondersteuning of armoedebestrijding."""
+  Welzijn
+  """Instelling die belangen behartigt van een branche of beroepsgroep."""
+  BrancheBelangen
+  """Overige maatschappelijke instelling die niet onder de overige typen valt."""
+  OverigMaatschappelijk
+}
+
 """Query-ingangen van dit bronprofiel."""
 type Query {
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
-  """Alle voorkomens van IngeschrevenPersoon."""
-  ingeschrevenPersoonLijst: [IngeschrevenPersoon!]
   """Eén OnderwijsInstelling op instellingscodeRIO."""
   onderwijsInstelling(instellingscodeRIO: Identificatie!): OnderwijsInstelling
-  """Alle voorkomens van OnderwijsInstelling."""
-  onderwijsInstellingLijst: [OnderwijsInstelling!]
 }

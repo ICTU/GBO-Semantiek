@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel BD, gegenereerd uit gbo-bron-bd.yaml.
 # Regenereer met: task generate:graphql
+#
+# Belastingaangiften (inkomstenbelasting, schenk- en erfbelasting),
+# vermogensbestanddelen in Box 3, schulden, aftrekposten, de eigen
+# woning, fiscaal partnerschap, toeslagen en renseignering.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -87,6 +91,10 @@ interface VermogensBestanddeel implements FiscaalFeit {
   waardePeildatum: Bedrag!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
 }
 
 """Een door de belastingplichtige in de IH-aangifte op te voeren betaalde uitgave die op grond van Wet IB 2001 het belastbaar inkomen verlaagt."""
@@ -99,6 +107,8 @@ interface Aftrekpost implements FiscaalFeit {
   categorie: AftrekpostCategorie!
   """Bedrag van de aftrek in het belastingjaar."""
   bedragJaar: Bedrag!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: NatuurlijkPersoon!
 }
 
 """Een inkomensafhankelijke bijdrage die op grond van de Algemene wet inkomensafhankelijke regelingen door Belastingdienst en Toeslagen aan een natuurlijk persoon wordt toegekend voor een specifiek doel."""
@@ -123,10 +133,10 @@ interface Toeslag implements InkomensOndersteuning {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
 """Een door of namens de overheid aan een natuurlijk persoon verstrekte financiele bijdrage met als doel inkomensondersteuning, in de vorm van een inkomensafhankelijke regeling of een sociale-zekerheidsuitkering."""
@@ -143,10 +153,10 @@ interface InkomensOndersteuning {
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -171,6 +181,20 @@ type IngeschrevenPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De belastingaangiften die deze persoon heeft ingediend."""
+  heeftBelastingjaarAangifte: [BelastingjaarAangifte!]
+  """De vermogensbestanddelen die deze persoon houdt."""
+  heeftVermogensBestanddeel: [VermogensBestanddeel!]
+  """De aftrekposten die deze persoon opvoert."""
+  heeftAftrekpost: [Aftrekpost!]
+  """De eigen woningen van deze persoon onder het eigenwoning-regime."""
+  heeftEigenWoning: [EigenWoning!]
+  """De fiscale partnerschappen waarin deze persoon partij is."""
+  heeftFiscalePartner: [FiscalePartner!]
+  """De toeslagen die aan deze persoon zijn toegekend."""
+  heeftToeslag: [Toeslag!]
+  """De renseigneringen die over deze persoon zijn aangeleverd."""
+  heeftRenseignering: [Renseignering!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het interne BRP-administratienummer."""
@@ -297,6 +321,10 @@ type BankSpaartegoed implements VermogensBestanddeel & FiscaalFeit {
   waardePeildatum: Bedrag!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
   """Internationaal banknummer."""
   iban: String
   """Valuta-code."""
@@ -319,12 +347,20 @@ type Belegging implements VermogensBestanddeel & FiscaalFeit {
   waardePeildatum: Bedrag!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
   """Aandelen, obligaties, fondsen of derivaten."""
   categorieEffect: String!
+  """Internationaal rekeningnummer van de effectenrekening."""
+  iban: String
   """Marktwaarde op 1 januari."""
   marktwaardePeildatum: Bedrag!
   """Valuta-code."""
   valuta: String!
+  """Land van de effecteninstelling."""
+  land: CodelijstISO3166
 }
 
 """Een in Box 3 op te geven vermogensbestanddeel dat bestaat uit een digitale valuta of cryptotegoed, vastgesteld op marktwaarde per peildatum 1 januari."""
@@ -339,6 +375,10 @@ type Cryptovaluta implements VermogensBestanddeel & FiscaalFeit {
   waardePeildatum: Bedrag!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
   """Bijvoorbeeld BTC, ETH, USDC."""
   tokenSymbool: String!
   """Marktwaarde op 1 januari in euro."""
@@ -357,6 +397,10 @@ type OnroerendeZaakOverigBezit implements VermogensBestanddeel & FiscaalFeit {
   waardePeildatum: Bedrag!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
   """Gemeentelijke WOZ-vaststelling."""
   wozWaarde: Bedrag
   """Marktwaarde voor zover relevant."""
@@ -379,6 +423,10 @@ type Schuld implements VermogensBestanddeel & FiscaalFeit {
   waardePeildatum: Bedrag!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
   """Familie, schenking op papier, SVn, overig."""
   schuldsoort: String!
   """Saldo op 1 januari belastingjaar."""
@@ -399,6 +447,8 @@ type Hypotheekrenteaftrek implements Aftrekpost & FiscaalFeit {
   categorie: AftrekpostCategorie!
   """Bedrag van de aftrek in het belastingjaar."""
   bedragJaar: Bedrag!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: NatuurlijkPersoon!
   """Betaalde rente in het belastingjaar."""
   renteJaar: Bedrag!
   """Schuld bij begin van het jaar."""
@@ -421,6 +471,8 @@ type AlimentatieAftrek implements Aftrekpost & FiscaalFeit {
   categorie: AftrekpostCategorie!
   """Het betaalde bedrag."""
   bedragJaar: Bedrag!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: NatuurlijkPersoon!
   """Aanduiding van de gewezen partner."""
   ontvangendePartner: String
 }
@@ -435,6 +487,8 @@ type LijfrenteAftrek implements Aftrekpost & FiscaalFeit {
   categorie: AftrekpostCategorie!
   """Betaalde lijfrente-premie."""
   bedragJaar: Bedrag!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: NatuurlijkPersoon!
   """Maximaal aftrekbaar in dit jaar."""
   jaarruimte: Bedrag
   """Maximaal benutbaar uit voorgaande zeven jaar."""
@@ -451,6 +505,8 @@ type GiftenAftrek implements Aftrekpost & FiscaalFeit {
   categorie: AftrekpostCategorie!
   """Het gegeven bedrag in het belastingjaar."""
   bedragJaar: Bedrag!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: NatuurlijkPersoon!
   """Periodiek (geen drempel of plafond) of eenmalig."""
   isPeriodiekeGift: Indicatie!
   """Naam van de ANBI."""
@@ -469,6 +525,8 @@ type EigenWoning {
   ingangsdatumRegime: Datum
   """De kadastraal onroerende zaak waaraan de eigen woning is gekoppeld; precies een per eigen woning. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
   gekoppeldAan: NEN3610ID!
+  """De belastingplichtige voor wie de woning als hoofdverblijf onder het eigenwoning-regime valt."""
+  bewoonbaarVoor: NatuurlijkPersoon!
 }
 
 """Een relatie tussen twee natuurlijke personen die op grond van Wet IB 2001 art. 5a fiscaal als partners worden aangemerkt en gezamenlijk gemeenschappelijke inkomensbestanddelen en aftrekposten kunnen toedelen tussen de boxen."""
@@ -586,15 +644,17 @@ type Renseignering {
   """Datum van aanlevering."""
   renseigneringsdatum: Datum!
   """De renseigneringsplichtige onderneming die de melding heeft aangeleverd. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  aangeleverdDoor: UUID!
+  aangeleverdDoor: KVKnummer!
+  """De belastingplichtige op wie de gerenseigneerde gegevens betrekking hebben."""
+  betreft: NatuurlijkPersoon!
 }
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -619,6 +679,20 @@ type NatuurlijkPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De belastingaangiften die deze persoon heeft ingediend."""
+  heeftBelastingjaarAangifte: [BelastingjaarAangifte!]
+  """De vermogensbestanddelen die deze persoon houdt."""
+  heeftVermogensBestanddeel: [VermogensBestanddeel!]
+  """De aftrekposten die deze persoon opvoert."""
+  heeftAftrekpost: [Aftrekpost!]
+  """De eigen woningen van deze persoon onder het eigenwoning-regime."""
+  heeftEigenWoning: [EigenWoning!]
+  """De fiscale partnerschappen waarin deze persoon partij is."""
+  heeftFiscalePartner: [FiscalePartner!]
+  """De toeslagen die aan deze persoon zijn toegekend."""
+  heeftToeslag: [Toeslag!]
+  """De renseigneringen die over deze persoon zijn aangeleverd."""
+  heeftRenseignering: [Renseignering!]
 }
 
 """Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
@@ -753,6 +827,4 @@ enum Geslacht {
 type Query {
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
-  """Alle voorkomens van IngeschrevenPersoon."""
-  ingeschrevenPersoonLijst: [IngeschrevenPersoon!]
 }

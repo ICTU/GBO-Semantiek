@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel UWV, gegenereerd uit gbo-bron-uwv.yaml.
 # Regenereer met: task generate:graphql
+#
+# Uitkeringen (WW, ZW, WIA/IVA/WGA, Wajong) en AOW (SVB), met de
+# onderliggende arbeidsverhoudingen, het arbeidsverleden, beslissingen,
+# daglonen en arbeidsongeschiktheidspercentages.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -71,18 +75,18 @@ interface Uitkering implements InkomensOndersteuning {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -107,6 +111,14 @@ type IngeschrevenPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De uitkeringen die aan deze persoon zijn toegekend."""
+  heeftUitkering: [Uitkering!]
+  """De arbeidsverhoudingen waarin deze persoon werknemer is."""
+  heeftArbeidsverhouding: [Arbeidsverhouding!]
+  """De arbeidsverleden-feiten over deze persoon."""
+  heeftArbeidsverledenFeit: [ArbeidsverledenFeit!]
+  """De beslissingen die deze persoon betreffen."""
+  heeftBeslissing: [Beslissing!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het interne BRP-administratienummer."""
@@ -354,13 +366,13 @@ type Arbeidsverhouding {
   """Functie of vakgebied."""
   beroep: String
   """Reden van einde."""
-  codeRedenEinde: CodeRedenEindeArbeidsverhouding
+  redenEinde: CodeRedenEindeArbeidsverhouding
   """Onderneming in overnameproces."""
   overnameIndicatie: Indicatie
   """De natuurlijk persoon die als werknemer in de arbeidsverhouding staat."""
   heeftWerknemer: NatuurlijkPersoon!
   """De onderneming die als werkgever in de arbeidsverhouding staat. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  heeftWerkgever: UUID!
+  heeftWerkgever: KVKnummer!
   """De inkomstenverhoudingen waarin deze arbeidsverhouding operationeel tot uiting komt in de loonaangifteketen. (Sleutel-referentie naar Inkomstenverhouding.)"""
   komtTotUitingIn: [String!]
 }
@@ -392,7 +404,9 @@ type Beslissing {
   """De natuurlijk persoon op wie het besluit betrekking heeft."""
   betreft: NatuurlijkPersoon!
   """De uitvoerings-instelling die het besluit heeft genomen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
-  genomenDoor: UUID!
+  genomenDoor: KVKnummer!
+  """De arbeidsongeschiktheidspercentages die met deze beslissing zijn bepaald."""
+  heeftArbeidsongeschiktheidspercentage: [Arbeidsongeschiktheidspercentage!]
 }
 
 """Het op grond van de Dagloonregels werknemersverzekeringen voor een specifieke uitkering vastgestelde dagloon, dat dient als grondslag voor de hoogte van de uitkering en wordt berekend op basis van de inkomstenopgaven over de referteperiode."""
@@ -425,10 +439,10 @@ type Arbeidsongeschiktheidspercentage {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister. (Sleutel-referentie naar Inschrijving.)"""
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -453,6 +467,14 @@ type NatuurlijkPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De uitkeringen die aan deze persoon zijn toegekend."""
+  heeftUitkering: [Uitkering!]
+  """De arbeidsverhoudingen waarin deze persoon werknemer is."""
+  heeftArbeidsverhouding: [Arbeidsverhouding!]
+  """De arbeidsverleden-feiten over deze persoon."""
+  heeftArbeidsverledenFeit: [ArbeidsverledenFeit!]
+  """De beslissingen die deze persoon betreffen."""
+  heeftBeslissing: [Beslissing!]
 }
 
 """Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
@@ -631,6 +653,4 @@ enum Geslacht {
 type Query {
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
-  """Alle voorkomens van IngeschrevenPersoon."""
-  ingeschrevenPersoonLijst: [IngeschrevenPersoon!]
 }

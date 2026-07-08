@@ -1,6 +1,13 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel HR, gegenereerd uit gbo-bron-hr.yaml.
 # Regenereer met: task generate:graphql
+#
+# Bedrijven en instellingen uit het Handelsregister: de niet-natuurlijke
+# persoon met zijn inschrijving (MaatschappelijkeActiviteit, kvk-nummer-
+# drager), de onderneming, en de vestigingen, namen, handelsnamen,
+# activiteiten en rechtstoestand die daaraan hangen. De functionele
+# indeling (Bedrijf/Instelling/...) is een afgeleide classificatie op de
+# NNP, geen apart objecttype.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -18,10 +25,8 @@ scalar BAGID @restrictie(patroon: "^[0-9]{16}$")
 scalar CodelijstCBSSBI
 """Landcode conform ISO 3166-1 alpha-2. Stelselbreed voor land- en nationaliteit-typering; cross-walks naar BRP-LT 32 (nationaliteit) en BRP-LT 34 (landen) staan in de documentatie."""
 scalar CodelijstISO3166 @restrictie(patroon: "^[A-Z]{2}$")
-"""KVK Rechtsvormen (Bedrijf); gebruikt door Bedrijf.rechtsvorm. Omvat onder meer: BeslotenVennootschap (BV), NaamlozeVennootschap (NV), Eenmanszaak, EenmanszaakMetMeerdereEigenaren, VennootschapOnderFirma (VOF), CommanditaireVennootschap (CV), Maatschap, Coöperatie, OnderlingeWaarborgmaatschappij, RechtspersoonInOprichting."""
-scalar CodelijstKVKBedrijf
-"""KVK Rechtsvormen (Instelling); gebruikt door Instelling.rechtsvorm. Omvat: PubliekrechtelijkeRechtspersoon (PBR), Stichting, Vereniging, VerenigingMetVolledigeRechtsbevoegdheid, VerenigingZonderVolledigeRechtsbevoegdheid, Kerkgenootschap."""
-scalar CodelijstKVKInstelling
+"""Eén gedeelde KVK-rechtsvormcodelijst voor alle niet-natuurlijke personen, gebruikt door NietNatuurlijkPersoon.rechtsvorm. Omvat de KVK-rechtsvorm-enumeraties: RechtsvormRechtspersoon (BV, NV, Coöperatie, OWM, Stichting, Vereniging, VvE, Kerkgenootschap, EESV, SE, SCE, Publiekrechtelijke Rechtspersoon, Overige Privaatrechtelijke Rechtspersoon), RechtsvormSamenwerkingsverband (VOF, CV, Maatschap, Rederij), RechtsvormPubliekrechtelijk (Staat, Provincie, Gemeente, Waterschap, ZBO, RWT, Adviescollege, Wgr-openbaar lichaam, ...), RechtsvormOverigePrivaatrechtelijke en de eenmanszaak-rechtsvormen. De functionele classificatie (Bedrijf/Instelling/...) wordt hieruit afgeleid via een partitiefunctie; zie NietNatuurlijkPersoon.classificatie."""
+scalar CodelijstKVKRechtsvorm
 """TOOI-waardelijsten uit het Register van Overheidsorganisaties (KOOP/Logius); gebruikt voor onder andere Overheidsinstelling.bevoegdGezagCode."""
 scalar CodelijstTOOI
 """Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
@@ -37,210 +42,94 @@ scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 """Identificatie van een vestiging in het Handelsregister: 12 cijfers."""
 scalar Vestigingsnummer @restrictie(patroon: "^[0-9]{12}$")
 
-"""Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
-interface NietNatuurlijkPersoon implements Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-}
-
-"""Niet-commerciële niet-natuurlijke persoon, hetzij publiekrechtelijk (overheidsorgaan) hetzij privaatrechtelijk maar zonder winstoogmerk (zoals stichting, vereniging, kerkgenootschap)."""
-interface Instelling implements NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-  """Juridische vorm van de instelling."""
-  rechtsvorm: CodelijstKVKInstelling!
-}
-
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister."""
+  ingeschrevenAls: [MaatschappelijkeActiviteit!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
-"""Privaatrechtelijke commerciële entiteit die als ondernemer in het Handelsregister staat ingeschreven. Omvat rechtspersonen (BV, NV, coöperatie, OWM) en niet-rechtspersonen (eenmanszaak, VOF, CV, maatschap)."""
-type Bedrijf implements NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
+"""Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
+type NietNatuurlijkPersoon implements Partij {
+  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister."""
+  ingeschrevenAls: [MaatschappelijkeActiviteit!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
+  id: UUID!
+  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
-  """Werknaam."""
+  """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
+  kvkNummer: KVKnummer
+  """Juridische vorm van de NNP volgens de KVK-rechtsvormtabel."""
+  rechtsvorm: CodelijstKVKRechtsvorm!
+  """Vrije-tekst-aanduiding van de rechtsvorm wanneer geen codelijst-waarde bestaat (nieuw gemelde overige privaatrechtelijke rechtsvorm)."""
+  rechtsvormOmschrijving: String
+  """Functionele indeling van de NNP, afgeleid uit de rechtsvorm."""
+  classificatie: NietNatuurlijkPersoonClassificatie!
+  """Geeft aan of de NNP een onderneming voert."""
+  heeftOnderneming: Indicatie
+  """Werknaam van de NNP; bij rechtspersonen met statuten gelijk aan de statutaire naam."""
   naam: String!
   """Statutaire vestigingsplaats."""
   zetel: String
   """Afgeleide SBI-hoofdactiviteit."""
   hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
   """Binnen- of buitenlandse herkomst."""
   herkomst: Herkomst!
   """Aansprakelijkheidskarakter van de rechtsvorm."""
   aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-  """Juridische vorm van het bedrijf."""
-  rechtsvorm: CodelijstKVKBedrijf!
-}
-
-"""Niet-natuurlijke persoon met hoofdvestiging buiten Nederland en één of meer Nederlandse vestigingen of aanwijzingen die inschrijving in het Handelsregister vereisen."""
-type BuitenlandseEntiteit implements NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-  """Land waarin de entiteit is opgericht."""
-  landVanOprichting: CodelijstISO3166!
-  """Buitenlandse juridische vorm, vrije tekst."""
-  rechtsvormBuitenland: String
-  """Typering van de Nederlandse aanwezigheid."""
-  typeBuitenlandseEntiteit: TypeBuitenlandseEntiteit!
-}
-
-"""Privaatrechtelijke niet-natuurlijke persoon zonder winstoogmerk, werkzaam in een maatschappelijke sector zoals onderwijs, zorg, religie, sport en cultuur, welzijn of belangenbehartiging."""
-type MaatschappelijkeInstelling implements Instelling & NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-  """Juridische vorm van de instelling."""
-  rechtsvorm: CodelijstKVKInstelling!
-  """Sectorale typering van de maatschappelijke instelling."""
-  typeMaatschappelijk: TypeMaatschappelijk!
-  """ANBI-erkenning door de Belastingdienst."""
-  anbiStatus: Indicatie!
-}
-
-"""Publiekrechtelijke niet-natuurlijke persoon belast met een publieke taak, zoals Rijksoverheid, ministerie, provincie, gemeente, waterschap, zelfstandig bestuursorgaan (ZBO) of rechtspersoon met een wettelijke taak (RWT)."""
-type Overheidsinstelling implements Instelling & NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-  """Juridische vorm van de instelling."""
-  rechtsvorm: CodelijstKVKInstelling!
-  """Bestuurlijke typering van de overheidsinstelling."""
-  typeOverheid: TypeOverheid!
-  """URI-koppeling naar het TOOI-register."""
+  """Bestuurlijke typering; van toepassing bij classificatie = Overheidsinstelling."""
+  typeOverheid: TypeOverheid
+  """URI-koppeling naar het TOOI-register; van toepassing bij classificatie = Overheidsinstelling."""
   bevoegdGezagCode: CodelijstTOOI
+  """Sectorale typering; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  typeMaatschappelijk: TypeMaatschappelijk
+  """ANBI-erkenning door de Belastingdienst; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  anbiStatus: Indicatie
+  """Land waarin de entiteit is opgericht; van toepassing bij classificatie = BuitenlandseEntiteit."""
+  landVanOprichting: CodelijstISO3166
+  """Buitenlandse juridische vorm (vrije tekst); van toepassing bij classificatie = BuitenlandseEntiteit."""
+  rechtsvormBuitenland: String
+  """De eigen inschrijving van de NNP in het Handelsregister; één per NNP."""
+  voertMaatschappelijkeActiviteit: MaatschappelijkeActiviteit!
+  """Statutaire naam en alternatieve benamingen van de NNP, met geldigheidsperiode."""
+  heeftNaamgeving: [Naamgeving!]!
+  """Actuele juridische/administratieve status van de NNP."""
+  heeftRechtstoestand: Rechtstoestand!
+  """SBI-gecodeerde activiteiten van een rechtspersoon zonder vestiging (Activiteiten-Rechtspersoon-pad)."""
+  heeftActiviteit: [Activiteit!]
 }
 
-"""Restcategorie voor niet-natuurlijke personen die niet eenduidig onder bedrijf, instelling of buitenlandse entiteit vallen, bedoeld voor migratie- en historische gevallen."""
-type OverigeNietNatuurlijkPersoon implements NietNatuurlijkPersoon & Partij {
-  """De inschrijving(en) van deze partij in het Handelsregister."""
-  ingeschrevenAls: [Inschrijving!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
-  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer."""
-  rsin: String
-  """Werknaam."""
-  naam: String!
-  """Statutaire vestigingsplaats."""
-  zetel: String
-  """Afgeleide SBI-hoofdactiviteit."""
-  hoofdSbiCode: CodelijstCBSSBI
-  """Functionele sector-classificatie."""
-  sector: Sector!
-  """Binnen- of buitenlandse herkomst."""
-  herkomst: Herkomst!
-  """Aansprakelijkheidskarakter van de rechtsvorm."""
-  aansprakelijkheid: Aansprakelijkheid!
-  """Eén NNP voert één of meer ondernemingen."""
-  voertUit: [MaatschappelijkeActiviteit!]!
-  """Reden van plaatsing in deze restcategorie."""
-  omschrijving: String!
-}
-
-"""Een onderneming binnen een niet-natuurlijke persoon, het samenhangend geheel van bedrijfsactiviteiten dat onder één economische identiteit wordt gevoerd en dat tot precies één inschrijving in het Handelsregister leidt."""
+"""De in het Handelsregister ingeschreven eenheid van een natuurlijke of niet-natuurlijke persoon, dragend van het KVK-nummer; het geheel van activiteiten dat onder één inschrijving wordt gevoerd."""
 type MaatschappelijkeActiviteit {
-  """GBO-eigen sleutel voor de ondernemings-eenheid."""
+  """Het identificerende gegeven van de inschrijving."""
+  kvkNummer: KVKnummer!
+  """Datum waarop de inschrijving voor het eerst bij KVK is geregistreerd."""
+  datumEersteInschrijving: Datum
+  """Startdatum van de inschrijving."""
+  startdatum: DatumIncompleet
+  """Einddatum (uitschrijving) van de inschrijving."""
+  einddatum: DatumIncompleet
+  """Datum van de oprichtingsakte of meest recente wijzigingsakte."""
+  documentdatum: Datum
+  """Akte-nummer van de oprichtings- of wijzigingsakte."""
+  documentnummer: Identificatie
+  """Naam of eerste handelsnaam van de inschrijving (afgeleid)."""
+  naam: String
+  """Geeft aan of de adresgegevens niet voor mailing-doeleinden beschikbaar worden gesteld."""
+  nonMailing: Indicatie
+  """De economische onderneming binnen deze inschrijving, indien aanwezig."""
+  voertOnderneming: Onderneming
+  """De vestigingen onder deze inschrijving; nul of meer, waaronder ten hoogste één hoofdvestiging op enig moment."""
+  heeftVestiging: [Vestiging!]
+}
+
+"""Een voldoende zelfstandig optredende organisatorische eenheid waarin door inbreng van arbeid of middelen goederen of diensten aan derden worden geleverd met het oogmerk materieel voordeel te behalen."""
+type Onderneming {
+  """GBO-eigen sleutel voor de onderneming."""
   identificatie: UUID!
+  """KVK-nummer van de omvattende inschrijving (afgeleid)."""
+  kvkNummer: KVKnummer
   """Aanvangsdatum van de onderneming."""
   startdatum: Datum
   """Beëindigingsdatum van de onderneming."""
@@ -249,79 +138,69 @@ type MaatschappelijkeActiviteit {
   hoofdSbiCode: CodelijstCBSSBI
   """Korte beschrijving van de ondernemings-activiteit."""
   omschrijving: String
-  """Elke MA leidt tot precies één HR-Inschrijving."""
-  geregistreerdVia: Inschrijving!
+  """Eén of meer handelsnamen waaronder de onderneming naar buiten treedt."""
+  heeftHandelsnaam: [Handelsnaam!]!
 }
 
-"""Een geregistreerde economische of juridische eenheid in het Handelsregister, identificeerbaar via het KVK-nummer, waaraan vestigingen, naamgevingen, activiteiten en rechtstoestand zijn gekoppeld."""
-type Inschrijving {
-  """Primaire identifier van de inschrijving."""
-  kvkNummer: KVKnummer!
-  """Startdatum van de inschrijving."""
-  startdatum: DatumIncompleet
-  """Einddatum van de inschrijving."""
-  einddatum: DatumIncompleet
-  """Datum waarop de inschrijving voor het eerst bij KVK is geregistreerd."""
-  datumEersteInschrijving: Datum
-  """Datum van de oprichtingsakte of meest recente wijzigingsakte."""
-  documentdatum: Datum
-  """Akte-nummer van de oprichtings- of wijzigingsakte."""
-  documentnummer: Identificatie
-  """Eén Inschrijving heeft één of meer Vestigingen, waaronder precies één hoofdvestiging op enig moment."""
-  heeftVestiging: [Vestiging!]!
-  """Naamlagen (statutair, handelsnaam, alternatief) per Inschrijving."""
-  heeftNaamgeving: [Naamgeving!]!
-  """SBI-gecodeerde activiteiten op onderneming-brede classificatie."""
-  heeftActiviteit: [Activiteit!]!
-  """Precies één actuele rechtstoestand per Inschrijving."""
-  heeftRechtstoestand: Rechtstoestand!
-}
-
-"""Een fysieke of functionele locatie waar een onderneming activiteiten uitvoert, geïdentificeerd door een vestigingsnummer en optioneel gekoppeld aan een BAG-adresseerbaar object."""
+"""Een fysieke of functionele locatie waar onder een inschrijving activiteiten worden uitgevoerd, geïdentificeerd door een vestigingsnummer en optioneel gekoppeld aan een BAG-adresseerbaar object."""
 type Vestiging {
   """Primaire identifier van de vestiging."""
   vestigingsnummer: Vestigingsnummer!
   """Onderscheid hoofd- en nevenvestiging."""
   typeVestiging: TypeVestiging!
   """Startdatum van de vestiging."""
-  datumAanvang: Datum!
+  datumAanvang: DatumIncompleet!
   """Einddatum van de vestiging."""
-  datumEinde: Datum
+  datumEinde: DatumIncompleet
   """Koppeling naar AdresseerbaarObject in BAG; zie deelmodel Adressen en gebouwen."""
   adresseerbaarObjectId: BAGID
   """Locatie-specifieke SBI-uitvoering per vestiging."""
   heeftActiviteit: [Activiteit!]
+  """Vestiging-specifieke handelsnamen, met volgorde en geldigheidsperiode."""
+  heeftHandelsnaam: [Handelsnaam!]
 }
 
-"""De meerlagige naamstructuur van een inschrijving in het Handelsregister, omvattend de statutaire naam, één of meer handelsnamen en eventueel alternatieve benamingen, elk met een eigen geldigheidstermijn."""
+"""De statutaire naam en alternatieve benamingen van een niet-natuurlijke persoon, elk met een eigen geldigheidstermijn."""
 type Naamgeving {
   """Naam zoals vastgelegd in de geregistreerde statuten."""
   statutaireNaam: String
-  """Werknaam onder maatschappelijke activiteit."""
+  """Naam van de rechtspersoon, het samenwerkingsverband of de niet-commerciële vestiging."""
   naam: String!
   """Alternatieve benaming."""
   ookGenoemd: String
-  """Eén of meer handelsnamen waaronder de onderneming naar buiten treedt."""
-  handelsnamen: [String!]
   """Datum vanaf wanneer deze naamrepresentatie geldt."""
   startdatum: Datum!
   """Datum tot wanneer deze naamrepresentatie geldt."""
   einddatum: Datum
 }
 
-"""De juridische en administratieve status van een inschrijving in het Handelsregister, beschrijvend of de inschrijving actief is, of er insolventie-omstandigheden zijn en of de entiteit is ontbonden."""
+"""Een naam waaronder een onderneming of een vestiging van een onderneming naar buiten handelt, met volgorde en geldigheidstermijn."""
+type Handelsnaam {
+  """De handelsnaam zelf."""
+  naam: String!
+  """Rangorde van de handelsnaam; 0 is de primaire handelsnaam."""
+  volgorde: Int
+  """Datum vanaf wanneer de handelsnaam geldt."""
+  startdatum: Datum!
+  """Datum tot wanneer de handelsnaam geldt."""
+  einddatum: Datum
+}
+
+"""De juridische en administratieve status van een niet-natuurlijke persoon: of zij actief is, of er een insolventie-omstandigheid geldt en of de entiteit is ontbonden."""
 type Rechtstoestand {
   """Geeft aan of de inschrijving actief is."""
   actief: Indicatie!
-  """Code voor insolventie-omstandigheid."""
-  insolventieCode: String
+  """Aard van de insolventie-omstandigheid."""
+  soortInsolventie: SoortInsolventie
+  """Voorlopige of definitieve status van de insolventie."""
+  insolventieStatus: StatusInsolventie
   """Ingangsdatum van de insolventie-omstandigheid."""
   datumInsolventie: Datum
   """Geeft aan of de entiteit is ontbonden."""
   ontbonden: Indicatie!
 }
 
-"""Een geregistreerde bedrijfsactiviteit die in het Handelsregister wordt vastgelegd, gecodeerd volgens de CBS Standaard Bedrijfsindeling (SBI), met onderscheid tussen hoofd- en nevenactiviteit per inschrijving of per vestiging."""
+"""Een geregistreerde bedrijfsactiviteit die in het Handelsregister wordt vastgelegd, gecodeerd volgens de CBS Standaard Bedrijfsindeling (SBI), met onderscheid tussen hoofd- en nevenactiviteit per drager."""
 type Activiteit {
   """SBI-codering volgens CBS Standaard Bedrijfsindeling."""
   sbiCode: CodelijstCBSSBI!
@@ -335,16 +214,28 @@ type Activiteit {
   isHoofdactiviteit: Indicatie
 }
 
-"""Functionele sector-classificatie van een niet-natuurlijke persoon, gericht op de maatschappelijke rol: commercieel, publiek, maatschappelijk of overig."""
-enum Sector {
-  """Privaatrechtelijke entiteit met winstoogmerk."""
-  Commercieel
-  """Privaatrechtelijke entiteit zonder winstoogmerk, werkzaam in een maatschappelijke sector."""
-  Maatschappelijk
-  """Publiekrechtelijke entiteit met publieke taak."""
-  Overheid
-  """Restcategorie voor entiteiten die niet onder de drie hoofdsectoren vallen."""
-  Overig
+"""Functionele indeling van een niet-natuurlijke persoon, deterministisch afgeleid uit de rechtsvorm. Vervangt de vroegere subtype-hiërarchie."""
+enum NietNatuurlijkPersoonClassificatie {
+  """Commerciële entiteit (BV, NV, coöperatie, OWM, eenmanszaak, VOF, CV, maatschap, EESV, SE, SCE)."""
+  Bedrijf
+  """Publiekrechtelijke rechtspersoon met publieke taak."""
+  Overheidsinstelling
+  """Privaatrechtelijke non-profit-entiteit (stichting, vereniging, kerkgenootschap, VvE, overige niet-commerciële privaatrechtelijke rechtsvorm)."""
+  MaatschappelijkeInstelling
+  """Entiteit met een buitenlandse rechtsvorm en activiteit in Nederland."""
+  BuitenlandseEntiteit
+  """Restcategorie voor entiteiten zonder codelijst-waarde (vrije-tekst-rechtsvorm) of die niet elders landen."""
+  Overige
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
 }
 
 """Aanduiding of een niet-natuurlijke persoon van Nederlandse of buitenlandse herkomst is, gemeten naar de plaats van oprichting of statutaire zetel."""
@@ -367,18 +258,26 @@ enum Aansprakelijkheid {
   Publiek
 }
 
-"""Typering van de Nederlandse aanwezigheid van een entiteit met hoofdvestiging buiten Nederland."""
-enum TypeBuitenlandseEntiteit {
-  """Onzelfstandig onderdeel van een buitenlandse entiteit dat in Nederland actief is."""
-  Filiaal
-  """Bestuurlijk centrum van een buitenlandse entiteit gevestigd in Nederland."""
-  Hoofdkantoor
-  """Met andere buitenlandse entiteit gelieerde NL-vennootschap zonder moeder-dochter-relatie."""
-  Zustermaatschappij
-  """Vaste inrichting van een buitenlandse entiteit voor zakelijke activiteit in Nederland."""
-  PermanenteVestiging
-  """Overige Nederlandse aanwezigheid van een buitenlandse entiteit."""
-  OverigBuitenlands
+"""Bestuurlijke typering van een overheidsinstelling: het bestuurlijke niveau of de bestuursvorm waaraan zij toebehoort."""
+enum TypeOverheid {
+  """Centrale overheid als geheel."""
+  Rijksoverheid
+  """Departement van de Rijksoverheid."""
+  Ministerie
+  """Provinciaal bestuur."""
+  Provincie
+  """Gemeentelijk bestuur."""
+  Gemeente
+  """Functioneel bestuur voor waterbeheer."""
+  Waterschap
+  """Zelfstandig bestuursorgaan (Kaderwet ZBO)."""
+  ZBO
+  """Rechtspersoon met een wettelijke taak."""
+  RWT
+  """Uitvoeringsorganisatie binnen een ministerie met eigen baten-lasten-administratie."""
+  Agentschap
+  """Overige publiekrechtelijke entiteit die niet onder de overige typen valt."""
+  OverigeOverheid
 }
 
 """Sectorale typering van een maatschappelijke instelling: het maatschappelijke veld waarin zij hoofdzakelijk werkzaam is."""
@@ -399,36 +298,6 @@ enum TypeMaatschappelijk {
   OverigMaatschappelijk
 }
 
-"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
-enum Indicatie {
-  """Waar."""
-  Ja
-  """Onwaar."""
-  Nee
-  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
-  Onbekend
-}
-
-"""Bestuurlijke typering van een overheidsinstelling: het bestuurlijke niveau of de bestuursvorm waaraan zij toebehoort."""
-enum TypeOverheid {
-  """Centrale overheid als geheel."""
-  Rijksoverheid
-  """Departement van de Rijksoverheid."""
-  Ministerie
-  """Provinciaal bestuur."""
-  Provincie
-  """Gemeentelijk bestuur."""
-  Gemeente
-  """Functioneel bestuur voor waterbeheer."""
-  Waterschap
-  """Zelfstandig bestuursorgaan of rechtspersoon met een wettelijke taak."""
-  ZBO_RWT
-  """Uitvoeringsorganisatie binnen een ministerie met eigen baten-lasten-administratie."""
-  Agentschap
-  """Overige publiekrechtelijke entiteit die niet onder de overige typen valt."""
-  OverigeOverheid
-}
-
 """Onderscheid tussen hoofd- en nevenvestiging binnen een inschrijving in het Handelsregister."""
 enum TypeVestiging {
   """Vestiging die binnen een inschrijving als hoofdvestiging is aangewezen."""
@@ -437,7 +306,23 @@ enum TypeVestiging {
   Nevenvestiging
 }
 
-"""Aanduiding of een geregistreerde activiteit een hoofd- of nevenactiviteit is binnen de inschrijving of vestiging waarop zij is vastgelegd."""
+"""Aard van een in het Handelsregister geregistreerde insolventie-omstandigheid van een niet-natuurlijke persoon."""
+enum SoortInsolventie {
+  """Gerechtelijk beslag op en vereffening van het gehele vermogen van de schuldenaar."""
+  Faillissement
+  """Gerechtelijk verleend uitstel van betaling."""
+  SurseanceVanBetaling
+}
+
+"""Status van een insolventie-omstandigheid: voorlopig of definitief."""
+enum StatusInsolventie {
+  """Voorlopig uitgesproken omstandigheid."""
+  Voorlopig
+  """Definitief uitgesproken omstandigheid."""
+  Definitief
+}
+
+"""Aanduiding of een geregistreerde activiteit een hoofd- of nevenactiviteit is binnen de vestiging of rechtspersoon waarop zij is vastgelegd."""
 enum SoortActiviteit {
   """Activiteit die als hoofdactiviteit op de drager geldt."""
   Hoofd
@@ -447,16 +332,10 @@ enum SoortActiviteit {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén Inschrijving op kvkNummer."""
-  inschrijving(kvkNummer: KVKnummer!): Inschrijving
-  """Alle voorkomens van Inschrijving."""
-  inschrijvingLijst: [Inschrijving!]
-  """Eén MaatschappelijkeActiviteit op identificatie."""
-  maatschappelijkeActiviteit(identificatie: UUID!): MaatschappelijkeActiviteit
-  """Alle voorkomens van MaatschappelijkeActiviteit."""
-  maatschappelijkeActiviteitLijst: [MaatschappelijkeActiviteit!]
+  """Eén NietNatuurlijkPersoon op rsin."""
+  nietNatuurlijkPersoon(rsin: String!): NietNatuurlijkPersoon
+  """Eén MaatschappelijkeActiviteit op kvkNummer."""
+  maatschappelijkeActiviteit(kvkNummer: KVKnummer!): MaatschappelijkeActiviteit
   """Eén Vestiging op vestigingsnummer."""
   vestiging(vestigingsnummer: Vestigingsnummer!): Vestiging
-  """Alle voorkomens van Vestiging."""
-  vestigingLijst: [Vestiging!]
 }

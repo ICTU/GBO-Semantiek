@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel BRV, gegenereerd uit gbo-bron-brv.yaml.
 # Regenereer met: task generate:graphql
+#
+# Voertuigen uit de Basisregistratie Voertuigen (RDW): kerngegevens van
+# het voertuig (kenteken, soort, merk, brandstof, massa, APK) en de
+# tenaamstelling op een partij (eigenaar/houder).
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -58,11 +62,11 @@ type Voertuig {
   """Administratieve status van het voertuig."""
   voertuigstatus: Voertuigstatus!
   """De tenaamstelling(en) van dit voertuig, historisch en actueel."""
-  heeftTenaamstelling: [Voertuigtenaamstelling!]
+  heeftTenaamstelling: [Kentekentenaamstelling!]
 }
 
 """De geregistreerde rechtsbetrekking tussen een partij en een voertuig, waarmee de partij als eigenaar en/of houder van het voertuig is geregistreerd."""
-type Voertuigtenaamstelling {
+type Kentekentenaamstelling {
   """Hoedanigheid waarin de partij is tenaamgesteld: eigenaar, houder of beide."""
   rol: Tenaamstellingsrol!
   """Datum waarop de tenaamstelling is ingegaan."""
@@ -149,6 +153,4 @@ enum Tenaamstellingsrol {
 type Query {
   """Eén Voertuig op kenteken."""
   voertuig(kenteken: Kenteken!): Voertuig
-  """Alle voorkomens van Voertuig."""
-  voertuigLijst: [Voertuig!]
 }

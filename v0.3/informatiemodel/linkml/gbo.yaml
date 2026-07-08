@@ -102,7 +102,7 @@ todos:
     MIM-RDF-vocabulaire van Geonovum.
   - >-
     (bronnen) Sleutel-referenties gebruiken de model-identifier
-    (zoals ID); een optioneel veld sleutelSlot per
+    (zoals id); een optioneel veld sleutelSlot per
     relatieAfhandeling (bijvoorbeeld bsn) is een mogelijke
     uitbreiding van het bronprofiel-schema.
 
