@@ -93,7 +93,7 @@ interface KredietFeit {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -101,7 +101,7 @@ interface Partij {
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -147,10 +147,10 @@ type IngeschrevenPersoon implements Partij {
   gemeenteVanInschrijving: CodelijstLT33
   """Reden waarom bijhouding van de persoonslijst is opgeschort."""
   opschortingBijhouding: OpschortingBijhouding
-  """Aanduiding dat de persoon van het kiesrecht is uitgesloten."""
-  uitsluitingKiesrecht: UitsluitingKiesrecht
+  """Aanduiding dat de persoon door rechterlijke uitspraak van het kiesrecht voor de Tweede Kamer en provinciale staten is uitgesloten."""
+  uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
-  europeesKiesrecht: EuropeesKiesrecht
+  europeesKiesrecht: IndicatieJaNee
   """Datum en bron van de laatste gegevensverificatie."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
@@ -651,7 +651,7 @@ type BorgstellingRol {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -707,19 +707,11 @@ enum OpschortingBijhouding {
   FoutAangelegdOfFraude
 }
 
-"""Indicatie of een persoon door rechterlijke uitspraak is uitgesloten van het kiesrecht voor de Tweede Kamer en provinciale staten."""
-enum UitsluitingKiesrecht {
-  """De persoon is uitgesloten van het kiesrecht."""
+"""Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de afwezigheid van een waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing) en dus onderscheiden moet blijven van een expliciet Nee. Anders dan Indicatie kent dit type bewust geen waarde Onbekend."""
+enum IndicatieJaNee {
+  """Waar."""
   Ja
-  """De persoon is expliciet niet uitgesloten van het kiesrecht."""
-  Nee
-}
-
-"""Indicatie of een EU-burger in Nederland is geregistreerd voor het kiesrecht voor het Europees Parlement."""
-enum EuropeesKiesrecht {
-  """De persoon is geregistreerd voor EP-kiesrecht in Nederland."""
-  Ja
-  """De persoon is niet geregistreerd voor EP-kiesrecht in Nederland."""
+  """Expliciet onwaar; te onderscheiden van een afwezige waarde (niet vastgesteld of niet van toepassing)."""
   Nee
 }
 

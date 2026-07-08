@@ -39,6 +39,7 @@ objecttypen:
   - Gezagsverhouding
   - Immigratie
   - Binnenlandsadres
+  - Buitenlandsadres
 
 # Attributen die deze bron niet levert.
 uitsluitingen:
@@ -47,13 +48,19 @@ uitsluitingen:
       - aNummer    # intern BRP-administratienummer, niet voor afnemers
 
 # Afwijkende afhandeling van relaties buiten het profiel; zonder
-# vermelding geldt de default "sleutel". Hier:
-#   NietIngezetene.woontOp          -> sleutel (Buitenlandsadres.adresId)
-#   Binnenlandsadres.wordtGevormdDoor -> sleutel
-#       (Nummeraanduiding.identificatie, de BAG-koppeling)
-# Ingezetene.woontOp blijft een echte relatie: Binnenlandsadres zit
-# in dit profiel.
+# vermelding geldt de default "sleutel".
+# woontOp gedraagt zich op beide persoonssoorten hetzelfde: het levert
+# een echt adres-objecttype (Ingezetene -> Binnenlandsadres,
+# NietIngezetene -> Buitenlandsadres; beide in dit profiel).
 relatieAfhandeling:
   - objecttype: Ingezetene
     relatie: heeftBriefadres
     afhandeling: weglaten    # briefadres wordt via de adressen-bron ontsloten
+  - objecttype: Binnenlandsadres
+    relatie: wordtGevormdDoor
+    afhandeling: weglaten
+    # Zou als sleutel-referentie exact dezelfde BAG-code dragen als
+    # adresId (dat per definitie gelijk is aan de identificatie van de
+    # Nummeraanduiding); de dubbeling verwart afnemers. In de
+    # BAG-bron, waar Nummeraanduiding wél in het profiel zit, blijft
+    # het een echte relatie.

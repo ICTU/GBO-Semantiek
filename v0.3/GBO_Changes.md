@@ -19,17 +19,56 @@
 
 ### Toegevoegde codelijsten/enumeraties
 
+- `IndicatieJaNee`
 - `NietNatuurlijkPersoonClassificatie`
 - `SoortInsolventie`
 - `StatusInsolventie`
+- `VaststellingsbronInkomen`
 
 ### Verwijderde codelijsten/enumeraties
 
+- `EuropeesKiesrecht`
 - `Sector`
 - `TypeBuitenlandseEntiteit`
+- `UitsluitingKiesrecht`
 
 ### Gewijzigde objecttypen (attributen)
 
+**Adres**
+  - − `adresId`
+**Aftrekpost**
+  - + `opgevoerdDoor`
+**Arbeidsverhouding**
+  - + `redenEinde`
+  - − `codeRedenEinde`
+**Belegging**
+  - + `iban`
+  - + `land`
+**Binnenlandsadres**
+  - + `adresId`
+**Buitenlandsadres**
+  - + `adresId`
+**EigenWoning**
+  - + `bewoonbaarVoor`
+**Inkomstenopgave**
+  - + `binnenLoonAangifte`
+**Inkomstenverhouding**
+  - + `aardArbeidsverhouding`
+  - + `begindatum`
+  - + `einddatum`
+  - + `redenEinde`
+  - + `soortInkomstenverhouding`
+  - − `begindatumIkv`
+  - − `codeAardArbeidsverhouding`
+  - − `codeRedenEinde`
+  - − `codeSoortInkomstenverhouding`
+  - − `einddatumIkv`
+**Locatie**
+  - + `adresId`
+**LoonBestanddeel**
+  - + `soortInkomen`
+  - − `codeSoortInkomen`
+  - − `valuta`
 **MaatschappelijkeActiviteit**
   - + `datumEersteInschrijving`
   - + `documentdatum`
@@ -64,11 +103,20 @@
   - − `sector`
   - − `voertUit`
 **Partij**
-  - + `ID`
+  - + `id`
   - − `partijnummer`
+**Postadres**
+  - + `adresId`
 **Rechtstoestand**
   - + `insolventieStatus`
   - + `soortInsolventie`
   - − `insolventieCode`
+**Renseignering**
+  - + `betreft`
+**VerblijfplaatsOnbekend**
+  - + `adresId`
+**VermogensBestanddeel**
+  - + `bronInstelling`
+  - + `productId`
 **Vestiging**
   - + `heeftHandelsnaam`

@@ -425,3 +425,25 @@ enums:
         description: >-
           Onbekend; volgt de BRP-conventie voor afwezigheid en is geen
           MIM-Boolean-waarde.
+
+  IndicatieJaNee:
+    description: >-
+      Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de
+      afwezigheid van een waarde zelf betekenis draagt (niet
+      vastgesteld of niet van toepassing) en dus onderscheiden moet
+      blijven van een expliciet Nee. Anders dan Indicatie kent dit
+      type bewust geen waarde Onbekend.
+    annotations:
+      mim:herkomst: Logisch Ontwerp BRP (Ja/Nee-keuzelijsten, o.a. cat 13 Kiesrecht)
+    comments:
+      - >-
+        Gebruikt voor de kiesrecht-aanduidingen op IngeschrevenPersoon;
+        vervangt de eerdere aparte enums UitsluitingKiesrecht en
+        EuropeesKiesrecht (2026-07-08), die identieke waarden hadden.
+    permissible_values:
+      Ja:
+        description: Waar.
+      Nee:
+        description: >-
+          Expliciet onwaar; te onderscheiden van een afwezige waarde
+          (niet vastgesteld of niet van toepassing).

@@ -44,7 +44,7 @@ scalar Vestigingsnummer @restrictie(patroon: "^[0-9]{12}$")
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister."""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is."""
   ingeschrevenAls: [MaatschappelijkeActiviteit!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -52,7 +52,7 @@ interface Partij {
 
 """Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
 type NietNatuurlijkPersoon implements Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister."""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is."""
   ingeschrevenAls: [MaatschappelijkeActiviteit!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
