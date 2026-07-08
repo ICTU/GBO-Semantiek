@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel BRK, gegenereerd uit gbo-bron-brk.yaml.
 # Regenereer met: task generate:graphql
+#
+# Kadastrale onroerende zaken (percelen en appartementsrechten),
+# zakelijke en zekerheidsrechten, tenaamstellingen, publiekrechtelijke
+# beperkingen en aantekeningen uit het Kadaster.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -43,6 +47,14 @@ interface KadastraleOnroerendeZaak {
   soortGrootte: SoortGrootte!
   """Levensfase-status van de kadastrale onroerende zaak."""
   kadastraalOnroerendeZaakStatus: KOZStatus!
+  """De zakelijke rechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZakelijkRecht: [ZakelijkRecht!]
+  """De zekerheidsrechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZekerheidsrecht: [Zekerheidsrecht!]
+  """De publiekrechtelijke beperkingen op deze onroerende zaak."""
+  heeftPubliekrechtelijkeBeperking: [PubliekrechtelijkeBeperking!]
+  """De aantekeningen op deze onroerende zaak."""
+  heeftAantekening: [Aantekening!]
 }
 
 """Een kadastraal afgebakend en als zelfstandige eenheid in de Basisregistratie Kadaster geregistreerd stuk grond, identificeerbaar via de kadastrale aanduiding (kadastrale gemeente, sectie, perceelnummer)."""
@@ -55,6 +67,14 @@ type Perceel implements KadastraleOnroerendeZaak {
   soortGrootte: SoortGrootte!
   """Levensfase-status van de kadastrale onroerende zaak."""
   kadastraalOnroerendeZaakStatus: KOZStatus!
+  """De zakelijke rechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZakelijkRecht: [ZakelijkRecht!]
+  """De zekerheidsrechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZekerheidsrecht: [Zekerheidsrecht!]
+  """De publiekrechtelijke beperkingen op deze onroerende zaak."""
+  heeftPubliekrechtelijkeBeperking: [PubliekrechtelijkeBeperking!]
+  """De aantekeningen op deze onroerende zaak."""
+  heeftAantekening: [Aantekening!]
   """Kadastrale gemeente waarin het perceel ligt."""
   kadastraleGemeente: CodelijstKadaster!
   """Sectie-letter binnen de kadastrale gemeente."""
@@ -63,6 +83,8 @@ type Perceel implements KadastraleOnroerendeZaak {
   perceelnummer: Int!
   """Kadastrale oppervlakte in vierkante meters."""
   oppervlakte: Int
+  """De appartementsrechtsplitsingen op dit perceel."""
+  heeftAppartementsrechtsplitsing: [Appartementsrechtsplitsing!]
 }
 
 """Een aandeel in een door splitsing ontstane onroerende zaak dat recht geeft op het uitsluitend gebruik van een specifiek aangewezen privégedeelte, samen met een aandeel in de gemeenschap; geregistreerd in de Basisregistratie Kadaster als kadastraal onroerende zaak."""
@@ -75,6 +97,14 @@ type Appartementsrecht implements KadastraleOnroerendeZaak {
   soortGrootte: SoortGrootte!
   """Levensfase-status van de kadastrale onroerende zaak."""
   kadastraalOnroerendeZaakStatus: KOZStatus!
+  """De zakelijke rechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZakelijkRecht: [ZakelijkRecht!]
+  """De zekerheidsrechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZekerheidsrecht: [Zekerheidsrecht!]
+  """De publiekrechtelijke beperkingen op deze onroerende zaak."""
+  heeftPubliekrechtelijkeBeperking: [PubliekrechtelijkeBeperking!]
+  """De aantekeningen op deze onroerende zaak."""
+  heeftAantekening: [Aantekening!]
   """Volgnummer binnen een appartementsrechtsplitsing dat het privégedeelte aanduidt."""
   indexnummer: String!
   """Adresseerbaar object (verblijfsobject of standplaats) dat met het appartementsrecht samenvalt. (Sleutel-referentie naar AdresseerbaarObject.)"""
@@ -115,6 +145,8 @@ type ZakelijkRecht {
   documentnummer: Identificatie!
   """Kadastrale onroerende zaken waarop het recht rust."""
   opKadastraleOnroerendeZaak: [KadastraleOnroerendeZaak!]!
+  """De tenaamstellingen van dit zakelijk recht."""
+  heeftTenaamstelling: [Tenaamstelling!]
 }
 
 """Een op een kadastraal onroerende zaak rustend recht dat strekt tot zekerheid van een schuldvordering, te weten een hypotheek of een beslag."""
@@ -277,6 +309,4 @@ enum TypePubliekrechtelijkeBeperking {
 type Query {
   """Eén KadastraleOnroerendeZaak op identificatie."""
   kadastraleOnroerendeZaak(identificatie: NEN3610ID!): KadastraleOnroerendeZaak
-  """Alle voorkomens van KadastraleOnroerendeZaak."""
-  kadastraleOnroerendeZaakLijst: [KadastraleOnroerendeZaak!]
 }

@@ -33,6 +33,7 @@ ingangen:
   - NietNatuurlijkPersoon
   - MaatschappelijkeActiviteit
   - Vestiging
+lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:

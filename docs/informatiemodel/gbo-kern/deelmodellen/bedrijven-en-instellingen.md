@@ -2,7 +2,7 @@
 title: "Deelmodel: Bedrijven en instellingen"
 description: "Niet-natuurlijke personen (bedrijven, overheidsinstellingen, maatschappelijke instellingen, buitenlandse entiteiten) en hun keten in het Handelsregister: maatschappelijke activiteit, onderneming, vestiging, handelsnaam, naamgeving, activiteit en rechtstoestand."
 ---
-
+GSP
 # Deelmodel: Bedrijven en instellingen
 
 Niet-natuurlijke personen zoals ingeschreven in het Handelsregister, met de

@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel BRP, gegenereerd uit gbo-bron-brp.yaml.
 # Regenereer met: task generate:graphql
+#
+# Persoonsgegevens uit de BRP (GBA en RNI), inclusief de persoonslijst-
+# categorieën nationaliteit, huwelijk, verblijfstitel, gezagsverhouding
+# en immigratie, en het binnenlandse verblijfadres.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -46,7 +50,7 @@ interface IngeschrevenPersoon implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -71,6 +75,8 @@ interface IngeschrevenPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De huwelijken of geregistreerde partnerschappen van deze persoon."""
+  heeftHuwelijk: [Huwelijk!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het persoonsnummer dat een ander land aan deze persoon heeft toegekend."""
@@ -104,13 +110,11 @@ interface Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
 """Een leesbare aanduiding van een locatie of correspondentiepunt waarmee een persoon of organisatie kan worden bereikt of waarop een rechtsbetrekking is gevestigd, samengesteld uit elementen van de bronregisters BAG, RSGB en BRP."""
 interface Adres {
-  """GBO-eigen sleutel voor één adres-instantie."""
-  adresId: UUID!
   """Gedenormaliseerde, leesbare projectie van het adres."""
   volledigAdres: String
 }
@@ -120,7 +124,7 @@ type NatuurlijkPersoon implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -145,6 +149,8 @@ type NatuurlijkPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De huwelijken of geregistreerde partnerschappen van deze persoon."""
+  heeftHuwelijk: [Huwelijk!]
 }
 
 """Een ingeschreven persoon die zijn adres heeft op het grondgebied van een Nederlandse gemeente en daar door die gemeente in de basisregistratie wordt bijgehouden."""
@@ -152,7 +158,7 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -177,6 +183,8 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De huwelijken of geregistreerde partnerschappen van deze persoon."""
+  heeftHuwelijk: [Huwelijk!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het persoonsnummer dat een ander land aan deze persoon heeft toegekend."""
@@ -216,7 +224,7 @@ type NietIngezetene implements IngeschrevenPersoon & Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -241,6 +249,8 @@ type NietIngezetene implements IngeschrevenPersoon & Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De huwelijken of geregistreerde partnerschappen van deze persoon."""
+  heeftHuwelijk: [Huwelijk!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het persoonsnummer dat een ander land aan deze persoon heeft toegekend."""
@@ -339,10 +349,10 @@ type Immigratie {
 
 """Een Nederlands adres dat via een BAG-Nummeraanduiding en de bijbehorende openbare ruimte en woonplaats wordt opgebouwd."""
 type Binnenlandsadres implements Adres {
-  """GBO-eigen sleutel voor één adres-instantie."""
-  adresId: UUID!
   """Gedenormaliseerde, leesbare projectie van het adres."""
   volledigAdres: String
+  """De identificatie van dit adres: de BAG-identificatie van de Nummeraanduiding die het adres vormt."""
+  adresId: BAGID!
   """Volledige naam van de openbare ruimte."""
   straatnaam: String!
   """Het huisnummer-deel van de Nummeraanduiding."""
@@ -443,6 +453,4 @@ enum IndicatieGezag {
 type Query {
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
-  """Alle voorkomens van IngeschrevenPersoon."""
-  ingeschrevenPersoonLijst: [IngeschrevenPersoon!]
 }

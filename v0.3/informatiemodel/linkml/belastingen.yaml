@@ -63,6 +63,8 @@ classes:
     annotations:
       mim:herkomst: AWR; SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Algemene wet inzake rijksbelastingen art. 6 tot en met 9;
         SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
@@ -116,6 +118,8 @@ classes:
     annotations:
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         AWR art. 9 jo. de materiele belastingwetten; SBR-NT NT20
         entrypoints per belastingsoort en jaar.
       mim:datumOpname: "2026-05-19"
@@ -163,6 +167,9 @@ classes:
           De natuurlijk persoon door of namens wie de aangifte is
           ingediend.
         annotations:
+          gbo:inverseNaam: heeftBelastingjaarAangifte
+          gbo:inverseBeschrijving: >-
+            De belastingaangiften die deze persoon heeft ingediend.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -185,6 +192,8 @@ classes:
       skos:notation: IH
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Wet IB 2001; SBR-NT NT20 entrypoint Aangifte
         inkomstenbelasting 2025.
       mim:datumOpname: "2026-05-19"
@@ -249,7 +258,11 @@ classes:
     annotations:
       skos:notation: Schenk
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Successiewet 1956; SBR-NT NT20 1e extensie.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie
+        (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Successiewet 1956; SBR-NT NT20 1e
+        extensie.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle ingediende aangiften schenkbelasting per schenking,
@@ -301,7 +314,11 @@ classes:
     annotations:
       skos:notation: Erf
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Successiewet 1956; SBR-NT NT20 1e extensie.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie
+        (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Successiewet 1956; SBR-NT NT20 1e
+        extensie.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle ingediende aangiften erfbelasting per nalatenschap, met
@@ -351,6 +368,8 @@ classes:
     annotations:
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         SBR-NT NT20; Wet IB 2001 en Successiewet 1956 voor de
         inhoudelijke grondslag.
       mim:datumOpname: "2026-05-19"
@@ -403,7 +422,10 @@ classes:
       de aangifte wordt opgevoerd.
     annotations:
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 hoofdstuk 5; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 hoofdstuk 5; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle bezittingen en schulden die op peildatum 1 januari onder
@@ -445,9 +467,32 @@ classes:
           De natuurlijk persoon die houder is van het
           vermogensbestanddeel.
         annotations:
+          gbo:inverseNaam: heeftVermogensBestanddeel
+          gbo:inverseBeschrijving: >-
+            De vermogensbestanddelen die deze persoon houdt.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
+      bronInstelling:
+        range: NietNatuurlijkPersoon
+        description: >-
+          De instelling (bank, verzekeraar, pensioenuitvoerder) die
+          het vermogensbestanddeel administreert en de gegevens aan de
+          Belastingdienst renseigneert.
+        annotations:
+          mim:herkomst: GSP IH-VIH 2026 (RSIN bron)
+          mim:kardinaliteit: "0..* -> 0..1"
+        comments:
+          - >-
+            In bron-profielen zonder NietNatuurlijkPersoon wordt dit
+            een RSIN-sleutelreferentie; zie deelmodel Personen.
+      productId:
+        range: Identificatie
+        description: >-
+          De product-identificatie die de bron-instelling aan dit
+          vermogensbestanddeel heeft toegekend.
+        annotations:
+          mim:herkomst: GSP IH-VIH 2026 (productid)
 
     class_uri: gbobegrip:VermogensBestanddeel
     broad_mappings:
@@ -469,7 +514,10 @@ classes:
     annotations:
       skos:notation: BS
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 5.3; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 5.3; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in Box 3 opgegeven bank- en spaartegoeden van een
@@ -522,7 +570,10 @@ classes:
     annotations:
       skos:notation: BE
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 5.3; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 5.3; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in Box 3 opgegeven beleggingen van een natuurlijk persoon
@@ -539,6 +590,12 @@ classes:
         description: Aandelen, obligaties, fondsen of derivaten.
         annotations:
           mim:herkomst: SBR-NT
+      iban:
+        range: Tekst
+        description: >-
+          Internationaal rekeningnummer van de effectenrekening.
+        annotations:
+          mim:herkomst: GSP IH-VIH 2026 (rekeningnummer)
       marktwaardePeildatum:
         range: Bedrag
         required: true
@@ -551,6 +608,11 @@ classes:
         description: Valuta-code.
         annotations:
           mim:herkomst: SBR-NT
+      land:
+        range: CodelijstISO3166
+        description: Land van de effecteninstelling.
+        annotations:
+          mim:herkomst: GSP IH-VIH 2026 (buitenland-indicatie)
 
     class_uri: gbobegrip:Belegging
     broad_mappings:
@@ -564,7 +626,10 @@ classes:
     annotations:
       skos:notation: CR
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 5.3; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 5.3; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in Box 3 opgegeven cryptotegoeden van een natuurlijk
@@ -605,7 +670,10 @@ classes:
     annotations:
       skos:notation: OZ-overig
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 5.3; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 5.3; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in Box 3 opgegeven onroerende zaken die niet de eigen
@@ -671,6 +739,8 @@ classes:
       skos:notation: SC
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Wet IB 2001 art. 5.3 jo. art. 5.5 (schulddrempel); SBR-NT
         NT20.
       mim:datumOpname: "2026-05-19"
@@ -730,6 +800,8 @@ classes:
     annotations:
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Wet IB 2001 hoofdstuk 6 (persoonsgebonden aftrek) en
         hoofdstuk 3 (eigenwoning); SBR Nederlandse Taxonomie NT20.
       mim:datumOpname: "2026-05-19"
@@ -762,6 +834,20 @@ classes:
           - >-
             Verbijzondert FiscaalFeit.categorie (Tekst) naar een
             enum-range, conform de wiki.
+      opgevoerdDoor:
+        range: NatuurlijkPersoon
+        required: true
+        description: >-
+          De belastingplichtige die de aftrekpost in de IH-aangifte
+          opvoert.
+        annotations:
+          mim:herkomst: Wet IB hoofdstuk 6
+          mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftAftrekpost
+          gbo:inverseBeschrijving: >-
+            De aftrekposten die deze persoon opvoert.
+        comments:
+          - Zie deelmodel Personen.
 
     class_uri: gbobegrip:Aftrekpost
     broad_mappings:
@@ -780,7 +866,10 @@ classes:
       eigenwoning-regime van toepassing is.
     annotations:
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 3.120; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 3.120; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in een belastingjaar in Box 1 aftrekbare rentebetalingen
@@ -840,7 +929,10 @@ classes:
       belastingjaar aan een gewezen partner heeft betaald.
     annotations:
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 6.3 jo. art. 6.4; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 6.3 jo. art. 6.4; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in een belastingjaar door de belastingplichtige aan een
@@ -884,6 +976,8 @@ classes:
     annotations:
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Wet IB 2001 art. 3.124 tot en met 3.130; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
@@ -936,7 +1030,10 @@ classes:
       zover binnen de drempel- en plafondbedragen.
     annotations:
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 6.32 en 6.33; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 6.32 en 6.33; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in een belastingjaar aan ANBI's en culturele instellingen
@@ -984,6 +1081,8 @@ classes:
     annotations:
       mim:herkomst: SBR-NT NT20
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Wet IB 2001 art. 3.111 en volgende; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
@@ -1034,6 +1133,21 @@ classes:
           mim:kardinaliteit: "1 -> 1"
         comments:
           - Zie deelmodel Onroerende zaken.
+      bewoonbaarVoor:
+        range: NatuurlijkPersoon
+        required: true
+        description: >-
+          De belastingplichtige voor wie de woning als hoofdverblijf
+          onder het eigenwoning-regime valt.
+        annotations:
+          mim:herkomst: Wet IB art. 3.111
+          mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftEigenWoning
+          gbo:inverseBeschrijving: >-
+            De eigen woningen van deze persoon onder het
+            eigenwoning-regime.
+        comments:
+          - Zie deelmodel Personen; de wiki documenteerde deze relatie al.
 
     class_uri: gbobegrip:EigenWoning
   FiscalePartner:
@@ -1044,7 +1158,10 @@ classes:
       aftrekposten kunnen toedelen tussen de boxen.
     annotations:
       mim:herkomst: SBR-NT NT20
-      mim:herkomstDefinitie: Wet IB 2001 art. 5a; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 art. 5a; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle in een belastingjaar geldende
@@ -1094,6 +1211,9 @@ classes:
           De twee natuurlijke personen tussen wie het fiscaal
           partnerschap geldt.
         annotations:
+          gbo:inverseNaam: heeftFiscalePartner
+          gbo:inverseBeschrijving: >-
+            De fiscale partnerschappen waarin deze persoon partij is.
           mim:kardinaliteit: "0..* -> 2"
         comments:
           - >-
@@ -1115,8 +1235,10 @@ classes:
     annotations:
       mim:herkomst: BRI; Stelselcatalogus
       mim:herkomstDefinitie: >-
-        Wet basisregistratie inkomen; Stelselcatalogus BRI, begrip
-        authentiek_inkomen_gegeven.
+        Bron: Stelselcatalogus BRI-begrippen (Logius/Belastingdienst,
+        SKOS-publicatie, geraadpleegd 2026-05-19). Wettelijke
+        grondslag: Wet basisregistratie inkomen; Stelselcatalogus BRI,
+        begrip authentiek_inkomen_gegeven.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door de Belastingdienst vastgestelde authentieke
@@ -1152,6 +1274,7 @@ classes:
         description: Het jaar waarop het inkomen betrekking heeft.
         annotations:
           mim:herkomst: Wet BRI
+          gbo:filterbaar: true
       vaststellingsdatum:
         range: Datum
         required: true
@@ -1159,7 +1282,7 @@ classes:
         annotations:
           mim:herkomst: Wet BRI
       vaststellingsbron:
-        range: Tekst
+        range: VaststellingsbronInkomen
         required: true
         description: IH-aangifte of loonaangifte.
         annotations:
@@ -1172,6 +1295,10 @@ classes:
           gegrondvest.
         annotations:
           mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftAuthentiekInkomen
+          gbo:inverseBeschrijving: >-
+            De authentieke inkomens die voor deze persoon zijn
+            vastgesteld, één per belastingjaar.
         comments:
           - Zie deelmodel Personen.
 
@@ -1194,9 +1321,11 @@ classes:
     annotations:
       mim:herkomst: Awir
       mim:herkomstDefinitie: >-
-        Awir; per toeslag de materiele wet (Wet op de huurtoeslag,
-        Zorgverzekeringswet, Wet kinderopvang, Wet op het kindgebonden
-        budget); SBR-NT NT20 Servicebericht Toeslagen.
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie, Servicebericht
+        Toeslagen 2026 (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Awir; per toeslag de materiele wet (Wet op
+        de huurtoeslag, Zorgverzekeringswet, Wet kinderopvang, Wet op het
+        kindgebonden budget); SBR-NT NT20 Servicebericht Toeslagen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door Belastingdienst en Toeslagen aan natuurlijke
@@ -1251,6 +1380,9 @@ classes:
         required: true
         description: De natuurlijk persoon aan wie de toeslag is toegekend.
         annotations:
+          gbo:inverseNaam: heeftToeslag
+          gbo:inverseBeschrijving: >-
+            De toeslagen die aan deze persoon zijn toegekend.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -1273,8 +1405,11 @@ classes:
       skos:notation: HT
       mim:herkomst: Awir
       mim:herkomstDefinitie: >-
-        Wet op de huurtoeslag; Algemene wet inkomensafhankelijke
-        regelingen; SBR-NT NT20 Servicebericht Toeslagen.
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie, Servicebericht
+        Toeslagen 2026 (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Wet op de huurtoeslag; Algemene wet
+        inkomensafhankelijke regelingen; SBR-NT NT20 Servicebericht
+        Toeslagen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan huurders toegekende huurtoeslagen op grond van de Wet
@@ -1309,8 +1444,10 @@ classes:
       skos:notation: ZT
       mim:herkomst: Awir
       mim:herkomstDefinitie: >-
-        Wet op de zorgtoeslag; Awir; SBR-NT NT20 Servicebericht
-        Toeslagen.
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie, Servicebericht
+        Toeslagen 2026 (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Wet op de zorgtoeslag; Awir; SBR-NT NT20
+        Servicebericht Toeslagen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan natuurlijke personen toegekende zorgtoeslagen op
@@ -1341,7 +1478,10 @@ classes:
       skos:notation: KOT
       mim:herkomst: Awir
       mim:herkomstDefinitie: >-
-        Wet kinderopvang; Awir; SBR-NT NT20 Servicebericht Toeslagen.
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie, Servicebericht
+        Toeslagen 2026 (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Wet kinderopvang; Awir; SBR-NT NT20
+        Servicebericht Toeslagen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle toegekende kinderopvangtoeslagen op grond van de Wet
@@ -1389,8 +1529,10 @@ classes:
       skos:notation: KGB
       mim:herkomst: Awir
       mim:herkomstDefinitie: >-
-        Wet op het kindgebonden budget; Awir; SBR-NT NT20
-        Servicebericht Toeslagen.
+        Bron: SBR Nederlandse Taxonomie NT20 1e extensie, Servicebericht
+        Toeslagen 2026 (release NT20_20260218.a, 2026-02-18, alfaversie).
+        Wettelijke grondslag: Wet op het kindgebonden budget; Awir;
+        SBR-NT NT20 Servicebericht Toeslagen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle toegekende kindgebonden budgetten op grond van de Wet op
@@ -1434,7 +1576,9 @@ classes:
     annotations:
       mim:herkomst: Loonheffingen 2026
       mim:herkomstDefinitie: >-
-        Wet LB 1964; Wfsv; Besluit SUWI art. 5.1;
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Wet LB 1964; Wfsv; Besluit SUWI art. 5.1;
         Gegevensspecificaties aangifte loonheffingen 2026.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
@@ -1459,32 +1603,42 @@ classes:
         description: Uniek nummer voor de IKV.
         annotations:
           mim:herkomst: Loonheffingen rubriek 010300
-      begindatumIkv:
+      begindatum:
         range: Datum
         required: true
         description: Begindatum van de IKV.
+        aliases:
+          - begindatumIkv
         annotations:
           mim:herkomst: Loonheffingen
-      einddatumIkv:
+      einddatum:
         range: Datum
         description: Einddatum van de IKV.
+        aliases:
+          - einddatumIkv
         annotations:
           mim:herkomst: Loonheffingen
-      codeAardArbeidsverhouding:
+      aardArbeidsverhouding:
         range: CodeAardArbeidsverhouding
         required: true
         description: Aard van de arbeidsverhouding.
+        aliases:
+          - codeAardArbeidsverhouding
         annotations:
           mim:herkomst: Loonheffingen bijlage
-      codeSoortInkomstenverhouding:
+      soortInkomstenverhouding:
         range: CodeSoortInkomstenverhouding
         required: true
         description: Soort IKV.
+        aliases:
+          - codeSoortInkomstenverhouding
         annotations:
           mim:herkomst: Loonheffingen bijlage
-      codeRedenEinde:
+      redenEinde:
         range: CodeRedenEindeArbeidsverhouding
         description: Reden van einde IKV.
+        aliases:
+          - codeRedenEinde
         annotations:
           mim:herkomst: Loonheffingen bijlage
       tussenPersoon:
@@ -1493,6 +1647,10 @@ classes:
         description: De natuurlijk persoon (werknemer) in de IKV.
         annotations:
           mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftInkomstenverhouding
+          gbo:inverseBeschrijving: >-
+            De inkomstenverhoudingen waarin deze persoon als werknemer
+            staat.
         comments:
           - Zie deelmodel Personen.
       tussenWerkgever:
@@ -1519,7 +1677,9 @@ classes:
     annotations:
       mim:herkomst: Loonheffingen 2026
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Gegevensspecificaties aangifte loonheffingen 2026.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aggregaties van loongegevens van een werknemer binnen een
@@ -1537,7 +1697,7 @@ classes:
         inhoudingsplichtige.
     attributes:
       aangifteperiode:
-        range: Tekst
+        range: Aangifteperiode
         required: true
         description: Bijvoorbeeld 2026-M01, 2026-W04.
         annotations:
@@ -1565,6 +1725,27 @@ classes:
         annotations:
           mim:relatienaam: binnen
           mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftInkomstenopgave
+          gbo:inverseBeschrijving: >-
+            De inkomstenopgaven binnen deze inkomstenverhouding, één
+            per aangifteperiode.
+      binnenLoonAangifte:
+        range: LoonAangifte
+        required: true
+        description: >-
+          De loonaangifte waarmee deze inkomstenopgave is aangeleverd.
+        annotations:
+          mim:relatienaam: binnen
+          mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: omvatInkomstenopgave
+          gbo:inverseBeschrijving: >-
+            De inkomstenopgaven die met deze loonaangifte zijn
+            aangeleverd.
+        comments:
+          - >-
+            Een inkomstenopgave wordt altijd in precies één (versie van
+            een) loonaangifte aangeleverd; bij een correctie-aangifte
+            ontstaan nieuwe inkomstenopgave-voorkomens.
 
     class_uri: gbobegrip:Inkomstenopgave
   Inkomstenperiode:
@@ -1576,7 +1757,9 @@ classes:
     annotations:
       mim:herkomst: Loonheffingen 2026
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Gegevensspecificaties aangifte loonheffingen 2026.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle tijdvakken binnen een inkomstenopgave waarin specifieke
@@ -1622,6 +1805,9 @@ classes:
         annotations:
           mim:relatienaam: binnen
           mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftInkomstenperiode
+          gbo:inverseBeschrijving: >-
+            De inkomstenperioden binnen deze inkomstenopgave.
 
     class_uri: gbobegrip:Inkomstenperiode
   LoonBestanddeel:
@@ -1632,7 +1818,9 @@ classes:
     annotations:
       mim:herkomst: Loonheffingen 2026
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Gegevensspecificaties aangifte loonheffingen 2026.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle afzonderlijke loon-componenten binnen een
@@ -1653,10 +1841,12 @@ classes:
         fietsleaseplan, pensioenpremie-eigen-bijdrage en meer. Per
         soort gelden eigen fiscale regels.
     attributes:
-      codeSoortInkomen:
+      soortInkomen:
         range: CodeSoortInkomen
         required: true
         description: Aanduiding van het loonbestanddeel-type.
+        aliases:
+          - codeSoortInkomen
         annotations:
           mim:herkomst: Loonheffingen bijlage
       bedrag:
@@ -1665,15 +1855,13 @@ classes:
         description: Bedrag van het loonbestanddeel.
         annotations:
           mim:herkomst: Loonheffingen
+        comments:
+          - >-
+            De valuta zit in het datatype Bedrag (ISO 4217, default
+            EUR); een apart valuta-attribuut is er bewust niet.
       omschrijving:
         range: Tekst
         description: Vrije omschrijving.
-        annotations:
-          mim:herkomst: Loonheffingen
-      valuta:
-        range: Tekst
-        required: true
-        description: Valuta-code.
         annotations:
           mim:herkomst: Loonheffingen
       onderdeelVan:
@@ -1683,6 +1871,9 @@ classes:
           De inkomstenopgave waarvan dit loonbestanddeel onderdeel is.
         annotations:
           mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftLoonBestanddeel
+          gbo:inverseBeschrijving: >-
+            De loonbestanddelen binnen deze inkomstenopgave.
 
     class_uri: gbobegrip:LoonBestanddeel
     aliases:
@@ -1697,8 +1888,10 @@ classes:
     annotations:
       mim:herkomst: Loonheffingen 2026
       mim:herkomstDefinitie: >-
-        Wet LB 1964 art. 28; Wfsv; Gegevens-specificaties aangifte
-        loonheffingen 2026.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Wet LB 1964 art. 28; Wfsv; Gegevens-specificaties
+        aangifte loonheffingen 2026.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle periodieke aangiften loonheffingen die
@@ -1719,7 +1912,7 @@ classes:
         levert ze door aan Belastingdienst.
     attributes:
       aangifteperiode:
-        range: Tekst
+        range: Aangifteperiode
         required: true
         description: Aangifteperiode-aanduiding.
         annotations:
@@ -1768,8 +1961,11 @@ classes:
     annotations:
       mim:herkomst: ODB; AWR art. 53
       mim:herkomstDefinitie: >-
-        Algemene wet inzake rijksbelastingen art. 53; Ondersteunend
-        Dossier Bestand Belastingdienst.
+        Bron: Ondersteunend Dossier Bestand (ODB) Belastingdienst,
+        koppelvlak-specificaties renseignering (index publiek,
+        detailspecs gated). Wettelijke grondslag: Algemene wet inzake
+        rijksbelastingen art. 53; Ondersteunend Dossier Bestand
+        Belastingdienst.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door renseigneringsplichtige derden (banken,
@@ -1790,6 +1986,10 @@ classes:
         renseigneringssoort een specificatie. Detail-specs zijn echter
         gated achter een ondersteuningsabonnement; voor het
         GBO-Kern-model is dat geen blokkade.
+      - >-
+        needs_review brondocument-versie te verifiëren; ODB is
+        permanent gated en de source-pagina noemt geen versie of
+        publicatiedatum.
     attributes:
       renseigneringsjaar:
         range: Numeriek
@@ -1823,6 +2023,20 @@ classes:
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Bedrijven en instellingen.
+      betreft:
+        range: NatuurlijkPersoon
+        required: true
+        description: >-
+          De belastingplichtige op wie de gerenseigneerde gegevens
+          betrekking hebben.
+        annotations:
+          mim:herkomst: AWR art. 53
+          mim:kardinaliteit: "0..* -> 1"
+          gbo:inverseNaam: heeftRenseignering
+          gbo:inverseBeschrijving: >-
+            De renseigneringen die over deze persoon zijn aangeleverd.
+        comments:
+          - Zie deelmodel Personen; de wiki documenteerde deze relatie al.
 
     class_uri: gbobegrip:Renseignering
 enums:
@@ -1836,6 +2050,8 @@ enums:
     annotations:
       mim:herkomst: Wet IB 2001 + SBR-NT
       mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Wet IB 2001 hoofdstuk 6 (persoonsgebonden aftrek) en
         hoofdstuk 3 (eigenwoning); SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
@@ -1910,7 +2126,10 @@ enums:
     annotations:
       mim:herkomst: Loonheffingen 2026 bijlage
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026 bijlage.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026, bijlage
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Gegevensspecificaties aangifte loonheffingen 2026
+        bijlage.
       mim:datumOpname: "2026-05-19"
     comments:
       - Circa 25 waarden; opgenomen is de top 10.
@@ -1966,7 +2185,10 @@ enums:
     annotations:
       mim:herkomst: Loonheffingen 2026 bijlage
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026 bijlage.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026, bijlage
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Gegevensspecificaties aangifte loonheffingen 2026
+        bijlage.
       mim:datumOpname: "2026-05-19"
     comments:
       - Circa 25 waarden; opgenomen is de top 10.
@@ -2025,8 +2247,10 @@ enums:
     annotations:
       mim:herkomst: Loonheffingen 2026 + UWV
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026 bijlage;
-        UWV-Werkgeversadministratie.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026, bijlage
+        (Belastingdienst/UWV, jaargang 2026, definitief). Wettelijke
+        grondslag: Gegevensspecificaties aangifte loonheffingen 2026
+        bijlage; UWV-Werkgeversadministratie.
       mim:datumOpname: "2026-05-19"
     comments:
       - Doorgaans ruim 60 sectoren; opgenomen is de top 10.
@@ -2086,6 +2310,10 @@ enums:
     annotations:
       mim:herkomst: Loonheffingen 2026 + SBR-NT VIA
       mim:herkomstDefinitie: >-
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026, bijlage
+        (Belastingdienst/UWV, jaargang 2026, definitief) en SBR
+        Nederlandse Taxonomie NT20 hoofdrelease, VIA-onderdeel
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
         Gegevensspecificaties aangifte loonheffingen 2026 bijlage;
         SBR-NT NT20 VIA-onderdeel.
       mim:datumOpname: "2026-05-19"
@@ -2138,63 +2366,292 @@ enums:
 
   CodeSoortInkomstenverhouding:
     description: >-
-      De codelijst voor de soort inkomstenverhouding voor gebruik in
-      de aangifte loonheffingen.
+      De officiële codelijst voor de soort inkomstenverhouding (SIV)
+      zoals vastgesteld door de werkgever of uitkerende instantie,
+      voor gebruik in de aangifte loonheffingen en de vooringevulde
+      aangifte.
     exact_mappings:
       - gbobegrip:CodeSoortInkomstenverhouding
     annotations:
       mim:herkomst: Loonheffingen 2026 bijlage
       mim:herkomstDefinitie: >-
-        Gegevensspecificaties aangifte loonheffingen 2026 bijlage.
+        Bron: Gegevensspecificaties aangifte loonheffingen 2026,
+        bijlage (Belastingdienst/UWV, jaargang 2026, definitief);
+        codes en betekenissen geverifieerd tegen GSP IH-VIH 2026 v1
+        (Belastingdienst, 2026-05-28), tabellen codes soort
+        inkomstenverhouding.
       mim:datumOpname: "2026-05-19"
     comments:
-      - Circa 30 waarden; opgenomen is de top 10.
+      - >-
+        Volledige officiële lijst (33 codes); de numerieke code staat
+        per waarde als skos:notation. De GSP IH-VIH partitioneert de
+        codes naar context (tegenwoordige respectievelijk vroegere
+        arbeid); die context staat per waarde in het commentaar.
+      - >-
+        Vervangt de eerdere benoemde top-10-selectie (2026-07-08);
+        de oude waarden waren abstracties zonder officiële code.
     permissible_values:
-      InkomstenUitTegenwoordigeDienstbetrekking:
-        description: Lopend dienstverband met actieve arbeid.
-        comments:
-          - Code 11.
-      InkomstenUitVroegereDienstbetrekking:
+      LoonAmbtenaren:
         description: >-
-          Inkomsten uit beeindigde dienstbetrekking (bijv. pensioen,
-          VUT).
+          Loon of salaris ambtenaren in de zin van de Ambtenarenwet.
+        annotations:
+          skos:notation: "11"
         comments:
-          - Code 13.
-      WajongUitkering:
+          - "Context: tegenwoordige arbeid."
+      LoonDirecteurNvBvVerzekerd:
         description: >-
-          Uitkering Wet arbeidsongeschiktheidsvoorziening
-          jonggehandicapten.
+          Loon of salaris directeuren van een nv/bv, wel verzekerd voor
+          de werknemersverzekeringen.
+        annotations:
+          skos:notation: "13"
         comments:
-          - Code 15.
-      ZiektewetUitkering:
-        description: Uitkering Ziektewet.
-        comments:
-          - Code 17.
-      WIAUitkering:
+          - "Context: tegenwoordige arbeid."
+      LoonOverig:
         description: >-
-          Uitkering Wet werk en inkomen naar arbeidsvermogen.
+          Loon of salaris niet onder te brengen onder code 11, 13 of 17.
+        annotations:
+          skos:notation: "15"
         comments:
-          - Code 21.
-      WWUitkering:
-        description: Uitkering Werkloosheidswet.
+          - "Context: tegenwoordige arbeid."
+      LoonDirecteurGrootaandeelhouder:
+        description: >-
+          Loon of salaris directeur-grootaandeelhouder van een nv/bv,
+          niet verzekerd voor de werknemersverzekeringen.
+        annotations:
+          skos:notation: "17"
         comments:
-          - Code 22.
-      Bijstandsuitkering:
-        description: Uitkering Participatiewet.
+          - "Context: tegenwoordige arbeid."
+      WachtgeldOverheid:
+        description: >-
+          Wachtgeld van een overheidsinstelling.
+        annotations:
+          skos:notation: "18"
         comments:
-          - Code 23.
-      AOWUitkering:
-        description: Algemene Ouderdomswet-uitkering.
+          - "Context: vroegere arbeid."
+      UitkeringAOW:
+        description: >-
+          Uitkering in het kader van de Algemene Ouderdomswet (AOW).
+        annotations:
+          skos:notation: "22"
         comments:
-          - Code 31.
-      ANWUitkering:
-        description: Algemene nabestaandenwet-uitkering.
+          - "Context: vroegere arbeid."
+      OorlogsEnVerzetspensioen:
+        description: >-
+          Oorlogs- en verzetspensioenen.
+        annotations:
+          skos:notation: "23"
         comments:
-          - Code 33.
-      PensioenUitkering:
-        description: Tweede-pijler-pensioenuitkering.
+          - "Context: vroegere arbeid."
+      UitkeringANW:
+        description: >-
+          Uitkering in het kader van de Algemene nabestaandenwet (ANW).
+        annotations:
+          skos:notation: "24"
         comments:
-          - Code 41.
+          - "Context: vroegere arbeid."
+      UitkeringZW:
+        description: >-
+          Uitkering in het kader van de Ziektewet (ZW), vrijwillige
+          verzekering Ziektewet en Wet arbeid en zorg (WAZO).
+        annotations:
+          skos:notation: "31"
+        comments:
+          - "Context: tegenwoordige en vroegere arbeid."
+      UitkeringWAO:
+        description: >-
+          Uitkering in het kader van de Wet op de
+          arbeidsongeschiktheidsverzekering (WAO) en particuliere
+          verzekering ziekte, invaliditeit en ongeval.
+        annotations:
+          skos:notation: "32"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringWW:
+        description: >-
+          Uitkering in het kader van de Nieuwe Werkloosheidswet (nWW).
+        annotations:
+          skos:notation: "33"
+        comments:
+          - "Context: tegenwoordige en vroegere arbeid."
+      UitkeringIOAW:
+        description: >-
+          Uitkering in het kader van de Wet inkomensvoorziening oudere
+          en gedeeltelijk arbeidsongeschikte werkloze werknemers (IOAW).
+        annotations:
+          skos:notation: "34"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringWaz:
+        description: >-
+          Uitkering in het kader van de Wet
+          arbeidsongeschiktheidsverzekering zelfstandigen (Waz).
+        annotations:
+          skos:notation: "36"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringWajong:
+        description: >-
+          Uitkering in het kader van de Wet
+          arbeidsongeschiktheidsvoorziening jonggehandicapten (Wajong).
+        annotations:
+          skos:notation: "37"
+        comments:
+          - "Context: vroegere arbeid."
+      SamenloopWajong:
+        description: >-
+          Samenloop (gelijktijdig of volgtijdelijk) van uitkeringen van
+          Wajong met Waz, WAO/IVA of WGA.
+        annotations:
+          skos:notation: "38"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringIVA:
+        description: >-
+          Uitkering in het kader van de Regeling inkomensvoorziening
+          volledig arbeidsongeschikten (IVA).
+        annotations:
+          skos:notation: "39"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringWGA:
+        description: >-
+          Uitkering in het kader van de Regeling werkhervatting
+          gedeeltelijk arbeidsgeschikten (WGA).
+        annotations:
+          skos:notation: "40"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringBbz:
+        description: >-
+          Uitkering in het kader van het Bijstandsbesluit zelfstandigen
+          (Bbz).
+        annotations:
+          skos:notation: "42"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringParticipatiewet:
+        description: >-
+          Uitkering in het kader van de Participatiewet (voorheen WWB).
+        annotations:
+          skos:notation: "43"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringIOAZ:
+        description: >-
+          Uitkering in het kader van de Wet inkomensvoorziening oudere
+          en gedeeltelijk arbeidsongeschikte gewezen zelfstandigen
+          (IOAZ).
+        annotations:
+          skos:notation: "45"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringToeslagenwet:
+        description: >-
+          Uitkering uit hoofde van de Toeslagenwet.
+        annotations:
+          skos:notation: "46"
+        comments:
+          - "Context: tegenwoordige en vroegere arbeid."
+      UitkeringOverigeSocialeVerzekeringswetten:
+        description: >-
+          Uitkeringen in het kader van overige sociale
+          verzekeringswetten, waaronder de Ongevallenwet 1921, de Land-
+          en tuinbouwongevallenwet 1922 en de Zee-ongevallenwet 1919.
+        annotations:
+          skos:notation: "50"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringIOW:
+        description: >-
+          Uitkering in het kader van de Wet inkomensvoorziening oudere
+          werklozen (IOW).
+        annotations:
+          skos:notation: "52"
+        comments:
+          - "Context: vroegere arbeid."
+      UitkeringVervroegdeUittreding:
+        description: >-
+          Uitkeringen in het kader van vervroegde uittreding.
+        annotations:
+          skos:notation: "53"
+        comments:
+          - "Context: tegenwoordige en vroegere arbeid."
+      UitkeringAPPA:
+        description: >-
+          Uitkering in het kader van de Algemene Pensioenwet Politieke
+          Ambtsdragers (APPA).
+        annotations:
+          skos:notation: "55"
+        comments:
+          - "Context: vroegere arbeid."
+      Ouderdomspensioen:
+        description: >-
+          Ouderdomspensioen dat via de werkgever is opgebouwd, of
+          opgebouwd via een verplichte beroeps- of
+          bedrijfstakpensioenregeling.
+        annotations:
+          skos:notation: "56"
+        comments:
+          - "Context: vroegere arbeid."
+      Nabestaandenpensioen:
+        description: >-
+          Nabestaandenpensioen dat via de werkgever is opgebouwd, of
+          opgebouwd via een verplichte beroeps- of
+          bedrijfstakpensioenregeling.
+        annotations:
+          skos:notation: "57"
+        comments:
+          - "Context: vroegere arbeid."
+      Arbeidsongeschiktheidspensioen:
+        description: >-
+          Arbeidsongeschiktheidspensioen dat via de werkgever is
+          opgebouwd, of opgebouwd via een verplichte beroeps- of
+          bedrijfstakpensioenregeling.
+        annotations:
+          skos:notation: "58"
+        comments:
+          - "Context: vroegere arbeid."
+      LijfrenteArbeidsovereenkomst:
+        description: >-
+          Lijfrenten afgesloten in het kader van een individuele of
+          collectieve arbeidsovereenkomst.
+        annotations:
+          skos:notation: "59"
+        comments:
+          - "Context: vroegere arbeid."
+      LijfrenteOverig:
+        description: >-
+          Lijfrenten die niet zijn afgesloten in het kader van een
+          individuele of collectieve arbeidsovereenkomst.
+        annotations:
+          skos:notation: "60"
+        comments:
+          - "Context: vroegere arbeid."
+      AanvullingWerkgeverNaEindeDienstbetrekking:
+        description: >-
+          Aanvullingen van de werkgever aan een werknemer op een
+          uitkering werknemersverzekeringen, terwijl de dienstbetrekking
+          is beëindigd.
+        annotations:
+          skos:notation: "61"
+        comments:
+          - "Context: vroegere arbeid."
+      OntslagOfTransitievergoeding:
+        description: >-
+          Ontslagvergoeding of transitievergoeding.
+        annotations:
+          skos:notation: "62"
+        comments:
+          - "Context: vroegere arbeid."
+      OverigPensioenOfSamenloop:
+        description: >-
+          Overige, niet hiervoor aangegeven, pensioenen of samenloop van
+          meerdere pensioenen/lijfrenten of een betaling op grond van
+          een afspraak na einde dienstbetrekking.
+        annotations:
+          skos:notation: "63"
+        comments:
+          - "Context: vroegere arbeid."
 
   ToeslagSoort:
     description: >-
@@ -2230,6 +2687,32 @@ enums:
         comments:
           - Code KGB; Wet op het kindgebondenbudget.
 
+  VaststellingsbronInkomen:
+    description: >-
+      De bron waaruit het authentieke inkomensgegeven is vastgesteld:
+      de aanslag inkomstenbelasting of, bij het ontbreken daarvan, de
+      loonaangifteketen.
+    exact_mappings:
+      - gbobegrip:VaststellingsbronInkomen
+    annotations:
+      mim:herkomst: Wet BRI
+      mim:herkomstDefinitie: >-
+        Bron: Wet basisregistratie inkomen (Wet BRI) art. 4:
+        verzamelinkomen indien een aanslag inkomstenbelasting is of
+        wordt vastgesteld, anders het belastbaar jaarloon uit de
+        loonaangifteketen.
+      mim:datumOpname: "2026-07-08"
+    permissible_values:
+      IHAangifte:
+        description: >-
+          Vastgesteld op basis van de aanslag inkomstenbelasting:
+          het verzamelinkomen.
+      Loonaangifte:
+        description: >-
+          Vastgesteld op basis van de loonaangifteketen: het belastbaar
+          jaarloon, gebruikt wanneer geen aanslag inkomstenbelasting
+          wordt vastgesteld.
+
   VermogensBestanddeelCategorie:
     description: >-
       De categorieen waarin Box-3-vermogensbestanddelen worden
@@ -2239,7 +2722,10 @@ enums:
       - gbobegrip:VermogensBestanddeelCategorie
     annotations:
       mim:herkomst: Wet IB 2001 + SBR-NT
-      mim:herkomstDefinitie: Wet IB 2001 hoofdstuk 5; SBR-NT NT20.
+      mim:herkomstDefinitie: >-
+        Bron: SBR Nederlandse Taxonomie NT20 hoofdrelease
+        (release NT20_20251210, 2025-12-10). Wettelijke grondslag:
+        Wet IB 2001 hoofdstuk 5; SBR-NT NT20.
       mim:datumOpname: "2026-05-19"
     comments:
       - Circa 10 waarden.

@@ -104,6 +104,17 @@ types:
       Tijdsduur in ISO 8601-periode-notatie (P5Y, P3M, P7D).
     aliases: ["Duration"]
 
+  Aangifteperiode:
+    typeof: Tekst
+    description: >-
+      Aanduiding van het aangiftetijdvak loonheffingen: jaar plus
+      tijdvak-code, bijvoorbeeld 2026-M01 (maand) of 2026-W04 (vier
+      weken). De kale jaarvorm (2026) duidt een jaaraggregaat aan,
+      zoals de vooringevulde aangifte die per inkomstenbron levert.
+    pattern: "^[0-9]{4}(-[MW][0-9]{2})?$"
+    annotations:
+      mim:herkomst: Gegevensspecificaties aangifte loonheffingen
+
   URI:
     typeof: uri
     description: >-

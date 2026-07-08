@@ -1,6 +1,13 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel HR, gegenereerd uit gbo-bron-hr.yaml.
 # Regenereer met: task generate:graphql
+#
+# Bedrijven en instellingen uit het Handelsregister: de niet-natuurlijke
+# persoon met zijn inschrijving (MaatschappelijkeActiviteit, kvk-nummer-
+# drager), de onderneming, en de vestigingen, namen, handelsnamen,
+# activiteiten en rechtstoestand die daaraan hangen. De functionele
+# indeling (Bedrijf/Instelling/...) is een afgeleide classificatie op de
+# NNP, geen apart objecttype.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -40,7 +47,7 @@ interface Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister."""
   ingeschrevenAls: [MaatschappelijkeActiviteit!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
 """Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
@@ -48,7 +55,7 @@ type NietNatuurlijkPersoon implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister."""
   ingeschrevenAls: [MaatschappelijkeActiviteit!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
   """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
@@ -327,14 +334,8 @@ enum SoortActiviteit {
 type Query {
   """Eén NietNatuurlijkPersoon op rsin."""
   nietNatuurlijkPersoon(rsin: String!): NietNatuurlijkPersoon
-  """Alle voorkomens van NietNatuurlijkPersoon."""
-  nietNatuurlijkPersoonLijst: [NietNatuurlijkPersoon!]
   """Eén MaatschappelijkeActiviteit op kvkNummer."""
   maatschappelijkeActiviteit(kvkNummer: KVKnummer!): MaatschappelijkeActiviteit
-  """Alle voorkomens van MaatschappelijkeActiviteit."""
-  maatschappelijkeActiviteitLijst: [MaatschappelijkeActiviteit!]
   """Eén Vestiging op vestigingsnummer."""
   vestiging(vestigingsnummer: Vestigingsnummer!): Vestiging
-  """Alle voorkomens van Vestiging."""
-  vestigingLijst: [Vestiging!]
 }

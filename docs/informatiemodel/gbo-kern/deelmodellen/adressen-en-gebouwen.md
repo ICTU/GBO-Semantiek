@@ -119,14 +119,13 @@ end note
 | Herkomst | GBO (samengestelde view boven BAG, RSGB en BRP) |
 | Datum opname | 2026-04-28 |
 | Indicatie abstract object | Ja |
-| Unieke aanduiding | `adresId` (UUID, GBO-eigen) |
+| Unieke aanduiding | `adresId` (op de concrete subtypen) |
 | Populatie | Alle adressen die voor een overheidsorganisatie als adresseerbaarheid of correspondentiepunt relevant zijn. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
-| `adresId` | [UUID](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Overig | Nee | Nee | GBO-eigen sleutel voor één adres-instantie. | GBO | Voorkomt fragmentatie van adres-referenties bij BAG-mutaties. |
 | `volledigAdres` | CharacterString | 0..1 | Overig | Nee | Nee | Gedenormaliseerde, leesbare projectie van het adres. | GBO (afgeleid) | Pre-formatted leesregel; afgeleid uit subtype-attributen. |
 
 ### Binnenlandsadres
@@ -143,13 +142,14 @@ end note
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Binnenlandsadres` |
 | Herkomst | BAG (afgeleid uit de Nummeraanduiding-keten) |
 | Datum opname | 2026-04-28 |
-| Unieke aanduiding | `adresId` (geërfd) |
+| Unieke aanduiding | `adresId` (BAGID, gelijk aan de Nummeraanduiding) |
 | Populatie | Alle Nederlandse adressen waarvoor een Nummeraanduiding is uitgegeven en die als woon-, bezoek- of correspondentieadres voor een afnemer relevant zijn. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
+| `adresId` | [BAGID](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Authentiek | Nee | Nee | De identificatie van dit adres: de BAG-identificatie van de Nummeraanduiding die het adres vormt. | BAG (Nummeraanduiding) | Gelijk aan de identificatie uit `wordtGevormdDoor`; geen eigen GBO-sleutel. |
 | `straatnaam` | [AN80](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Volledige naam van de openbare ruimte. | BAG (afgeleid OpenbareRuimte) | Authentiek op OR-bron, hier gedenormaliseerd. |
 | `huisnummer` | [N5](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Het huisnummer-deel van de Nummeraanduiding. | BAG (Nummeraanduiding) | |
 | `huisletter` | CharacterString | 0..1 | Basisgegeven | Nee | Nee | De huisletter bij het huisnummer. | BAG (Nummeraanduiding) | |
@@ -177,13 +177,14 @@ end note
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Buitenlandsadres` |
 | Herkomst | GBO / BRP (RNI-context) |
 | Datum opname | 2026-04-28 |
-| Unieke aanduiding | `adresId` (geërfd) |
+| Unieke aanduiding | `adresId` (UUID, GBO-eigen) |
 | Populatie | Alle adressen in het buitenland die voor een Nederlandse afnemer als verblijf-, post- of zeteladres relevant zijn. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
+| `adresId` | [UUID](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Overig | Nee | Nee | GBO-eigen sleutel voor één adres-instantie. | GBO | Er is geen externe authentieke identifier voor deze adresvorm. |
 | `adresregel1` | CharacterString | 1 | Overig | Nee | Nee | Eerste regel van het buitenlandse adres. | GBO / BRP | |
 | `adresregel2` | CharacterString | 0..1 | Overig | Nee | Nee | Tweede regel van het buitenlandse adres. | GBO / BRP | |
 | `adresregel3` | CharacterString | 0..1 | Overig | Nee | Nee | Derde regel van het buitenlandse adres. | GBO / BRP | |
@@ -203,13 +204,14 @@ end note
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Locatie` |
 | Herkomst | GBO / BRP (RNI-context) |
 | Datum opname | 2026-04-28 |
-| Unieke aanduiding | `adresId` (geërfd) |
+| Unieke aanduiding | `adresId` (UUID, GBO-eigen) |
 | Populatie | Plekken die als adres dienen zonder dat het bevoegde gezag er een Nummeraanduiding aan heeft toegekend. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
+| `adresId` | [UUID](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Overig | Nee | Nee | GBO-eigen sleutel voor één adres-instantie. | GBO | Er is geen externe authentieke identifier voor deze adresvorm. |
 | `omschrijving` | CharacterString | 1 | Overig | Nee | Nee | Vrije tekstuele omschrijving van de locatie. | GBO | Max 255 tekens. |
 | `land` | [`Codelijst~ISO3166`](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 0..1 | Basisgegeven | Nee | Nee | Landaanduiding volgens ISO 3166. | ISO 3166 / LT34 | Default `NL` als omschrijving een NL-locatie betreft. |
 
@@ -227,13 +229,14 @@ end note
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Postadres` |
 | Herkomst | GBO / NEN 5825 / PostNL |
 | Datum opname | 2026-04-28 |
-| Unieke aanduiding | `adresId` (geërfd) |
+| Unieke aanduiding | `adresId` (UUID, GBO-eigen) |
 | Populatie | Postbussen, antwoordnummers en overige briefbus-aanduidingen voor correspondentie van personen of organisaties. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
+| `adresId` | [UUID](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Overig | Nee | Nee | GBO-eigen sleutel voor één adres-instantie. | GBO | Er is geen externe authentieke identifier voor deze adresvorm. |
 | `briefbusnummer` | CharacterString | 0..1 | Overig | Nee | Nee | Het postbus- of antwoordnummer. | GBO / PostNL | |
 | `postcode` | [Postcode](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Overig | Nee | Nee | Postcode behorend bij het postadres. | GBO / PostNL | Pattern `[1-9][0-9]{3}[A-Z]{2}`. |
 | `plaats` | [AN80](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Overig | Nee | Nee | Plaatsnaam van het postadres. | GBO / PostNL | |
@@ -253,13 +256,14 @@ end note
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/VerblijfplaatsOnbekend` |
 | Herkomst | BRP cat 08 |
 | Datum opname | 2026-04-28 |
-| Unieke aanduiding | `adresId` (geërfd) |
+| Unieke aanduiding | `adresId` (UUID, GBO-eigen) |
 | Populatie | Ingeschreven personen van wie de feitelijke verblijfplaats op een bepaalde datum onbekend is geworden. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
+| `adresId` | [UUID](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Overig | Nee | Nee | GBO-eigen sleutel voor één adres-instantie. | GBO | Er is geen externe authentieke identifier voor deze adresvorm. |
 | `datumIngangOnbekend` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Datum waarop de verblijfplaats van de ingeschrevene onbekend werd. | BRP cat 08 | |
 
 ## BAG-objecten

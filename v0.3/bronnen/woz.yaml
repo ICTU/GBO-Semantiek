@@ -21,6 +21,7 @@ schemabestand: ../informatiemodel/linkml/gbo.yaml
 # Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
 ingangen:
   - WOZObject
+lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:

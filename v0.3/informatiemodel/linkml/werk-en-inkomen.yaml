@@ -124,9 +124,10 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Uitkering
       mim:herkomstDefinitie: >-
-        Wet SUWI plus de afzonderlijke werknemers- en
-        volksverzekeringswetten (Werkloosheidswet, Ziektewet, Wet WIA,
-        Wajong, AOW).
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet SUWI plus de afzonderlijke werknemers-
+        en volksverzekeringswetten (Werkloosheidswet, Ziektewet, Wet
+        WIA, Wajong, AOW).
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan natuurlijke personen toegekende periodieke
@@ -144,6 +145,9 @@ classes:
       - >-
         Zeven concrete varianten, uitgevoerd door UWV (WW, ZW, WIA,
         IVA, WGA, Wajong) of SVB (AOW).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       soortUitkering:
         range: SoortUitkering
@@ -179,6 +183,9 @@ classes:
           De natuurlijk persoon aan wie de uitkering is toegekend (de
           uitkeringsgerechtigde).
         annotations:
+          gbo:inverseNaam: heeftUitkering
+          gbo:inverseBeschrijving: >-
+            De uitkeringen die aan deze persoon zijn toegekend.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -229,7 +236,9 @@ classes:
       het weggevallen loon.
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Werkloosheidswet hoofdstukken II en III.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Werkloosheidswet hoofdstukken II en III.
       mim:datumOpname: "2026-05-19"
       skos:notation: WW
       mim:populatie: >-
@@ -247,6 +256,9 @@ classes:
         percentage dat in de tijd kan dalen. Duur afhankelijk van
         arbeidsverledenjaren (basis-WW plus eventueel verlengde
         uitkering).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -281,7 +293,9 @@ classes:
       van het door ziekte weggevallen loon.
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Ziektewet.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Ziektewet.
       mim:datumOpname: "2026-05-19"
       skos:notation: ZW
       mim:populatie: >-
@@ -301,6 +315,9 @@ classes:
         zonder doorbetalingsplichtige werkgever. Werknemers met een
         doorbetalingsplichtige werkgever krijgen loondoorbetaling van
         die werkgever en vallen niet onder ZW.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -327,7 +344,9 @@ classes:
       gedeeltelijk of volledig arbeidsongeschikt is.
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Wet WIA.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet WIA.
       mim:datumOpname: "2026-05-19"
       skos:notation: WIA
       mim:populatie: >-
@@ -347,6 +366,9 @@ classes:
         arbeidsongeschikt). UitkeringWIA is in dit deelmodel de
         gemeenschappelijke aanwijzing; concrete varianten zijn
         UitkeringIVA en UitkeringWGA.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -375,7 +397,9 @@ classes:
       procent van hun oude loon kunnen verdienen.
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Wet WIA hoofdstuk IV (IVA-regeling).
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet WIA hoofdstuk IV (IVA-regeling).
       mim:datumOpname: "2026-05-19"
       skos:notation: IVA
       mim:populatie: >-
@@ -393,6 +417,9 @@ classes:
         verdienen en geen herstel verwacht. De uitkering is hoger en
         stabieler dan WGA omdat het duurzaamheids-criterium is
         gehaald.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -419,7 +446,9 @@ classes:
       arbeidsongeschikt maar niet duurzaam.
     annotations:
       mim:herkomst: SGR cluster Uitkering
-      mim:herkomstDefinitie: Wet WIA hoofdstuk VII (WGA-regeling).
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet WIA hoofdstuk VII (WGA-regeling).
       mim:datumOpname: "2026-05-19"
       skos:notation: WGA
       mim:populatie: >-
@@ -438,6 +467,9 @@ classes:
         uitkering minus resterende verdiencapaciteit boven een drempel
         uitkomt) en VVU (vervolguitkering, gerelateerd aan
         minimumloon-percentages).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -470,8 +502,9 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Uitkering
       mim:herkomstDefinitie: >-
-        Wajong (drie generaties: oude Wajong, Wajong 2010,
-        Wajong 2015).
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wajong (drie generaties: oude Wajong,
+        Wajong 2010, Wajong 2015).
       mim:datumOpname: "2026-05-19"
       skos:notation: Wajong
       mim:populatie: >-
@@ -489,6 +522,9 @@ classes:
         (toekenningen voor 2010), Wajong 2010 (instroom 2010-2014, met
         werkregeling) en Wajong 2015 (vanaf 2015, uitsluitend voor
         duurzaam volledig arbeidsongeschikten).
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       wajongGeneratie:
         range: Tekst
@@ -514,7 +550,10 @@ classes:
       jaren.
     annotations:
       mim:herkomst: SGR (ontsluiting); SVB (uitvoering)
-      mim:herkomstDefinitie: Algemene Ouderdomswet (AOW).
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (ontsluiting); uitvoering door SVB. Wettelijke grondslag:
+        Algemene Ouderdomswet (AOW).
       mim:datumOpname: "2026-05-19"
       skos:notation: AOW
       mim:populatie: >-
@@ -534,6 +573,9 @@ classes:
         deel van de AOW-administratie voor afnemers in het
         SUWI-stelsel; voor het volledige beeld is mogelijk een directe
         SVB-aansluiting nodig.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       aowGerechtigdeLeeftijd:
         range: Numeriek
@@ -574,8 +616,9 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Arbeidsverhouding
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 7 titel 10 (arbeidsovereenkomst); Wet
-        SUWI voor het SUWI-aspect.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Burgerlijk Wetboek Boek 7 titel 10
+        (arbeidsovereenkomst); Wet SUWI voor het SUWI-aspect.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle juridische en feitelijke arbeidsrelaties tussen een
@@ -599,6 +642,9 @@ classes:
         Arbeidsverhouding-attributen leggen de afspraak vast; de
         bijbehorende inkomstenverhoudingen leggen de uitvoering en de
         aangifte loonheffingen vast.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       soortDienstverband:
         range: CodeAardArbeidsverhouding
@@ -631,9 +677,11 @@ classes:
         description: Functie of vakgebied.
         annotations:
           mim:herkomst: SGR
-      codeRedenEinde:
+      redenEinde:
         range: CodeRedenEindeArbeidsverhouding
         description: Reden van einde.
+        aliases:
+          - codeRedenEinde
         annotations:
           mim:herkomst: Loonheffingen bijlage
         comments:
@@ -652,6 +700,9 @@ classes:
           De natuurlijk persoon die als werknemer in de
           arbeidsverhouding staat.
         annotations:
+          gbo:inverseNaam: heeftArbeidsverhouding
+          gbo:inverseBeschrijving: >-
+            De arbeidsverhoudingen waarin deze persoon werknemer is.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -692,8 +743,9 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Arbeidsverhouding
       mim:herkomstDefinitie: >-
-        Werkloosheidswet (refertes 26-uit-36-weken en 4-uit-5-jaren);
-        SGR cluster Arbeidsverhouding.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Arbeidsverhouding). Wettelijke grondslag:
+        Werkloosheidswet (refertes 26-uit-36-weken en 4-uit-5-jaren).
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle afzonderlijke feiten in het arbeids- of inkomensverleden
@@ -714,6 +766,9 @@ classes:
         arbeidsverleden-overzicht kan opstellen, met feit-typen voor
         dienstverband, uitkeringsperiode, leerwerk-periode en periode
         van zelfstandig werk.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       soortFeit:
         range: Tekst
@@ -748,6 +803,9 @@ classes:
           De natuurlijk persoon op wiens arbeids- of inkomensverleden
           het feit betrekking heeft.
         annotations:
+          gbo:inverseNaam: heeftArbeidsverledenFeit
+          gbo:inverseBeschrijving: >-
+            De arbeidsverleden-feiten over deze persoon.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -764,8 +822,9 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Beslissing
       mim:herkomstDefinitie: >-
-        Wet SUWI; Algemene wet bestuursrecht (Awb) hoofdstuk 4
-        (beschikking); de afzonderlijke werknemers- en
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Wet SUWI; Algemene wet bestuursrecht (Awb)
+        hoofdstuk 4 (beschikking); de afzonderlijke werknemers- en
         volksverzekeringswetten.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
@@ -785,6 +844,9 @@ classes:
         uitkering bestaat alleen als er een geldige beschikking onder
         ligt. Wijzigingen (verhoging, verlaging, beeindiging) zijn elk
         afzonderlijke beschikkingen.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       beschikkingsnummer:
         range: Tekst
@@ -819,6 +881,9 @@ classes:
         description: >-
           De natuurlijk persoon op wie het besluit betrekking heeft.
         annotations:
+          gbo:inverseNaam: heeftBeslissing
+          gbo:inverseBeschrijving: >-
+            De beslissingen die deze persoon betreffen.
           mim:kardinaliteit: "0..* -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -852,8 +917,9 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Uitkering
       mim:herkomstDefinitie: >-
-        Dagloonregels werknemersverzekeringen 2015 (ministeriele
-        regeling); Werkloosheidswet, Ziektewet en Wet WIA.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Dagloonregels werknemersverzekeringen 2015
+        (ministeriele regeling); Werkloosheidswet, Ziektewet en Wet WIA.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door UWV vastgestelde daglonen die als grondslag dienen
@@ -872,6 +938,9 @@ classes:
         loonaangifteketen-data (Inkomstenopgave-records in de
         referteperiode, doorgaans een jaar). Het wordt gemaximeerd op
         het wettelijk maximumdagloon, jaarlijks door SZW vastgesteld.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       dagloonBedrag:
         range: Bedrag
@@ -926,8 +995,10 @@ classes:
     annotations:
       mim:herkomst: SGR cluster Beslissing
       mim:herkomstDefinitie: >-
-        Schattingsbesluit arbeidsongeschiktheidswetten; Wet werk en
-        inkomen naar arbeidsvermogen.
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV.
+        Wettelijke grondslag: Schattingsbesluit
+        arbeidsongeschiktheidswetten; Wet werk en inkomen naar
+        arbeidsvermogen.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle door UWV vastgestelde arbeidsongeschiktheidspercentages
@@ -946,6 +1017,9 @@ classes:
         geeft IVA; 35% tot 80% of 80% of meer niet-duurzaam geeft WGA;
         minder dan 35% geeft geen recht op WIA. Een herziening kan
         leiden tot een wijziging van uitkeringssoort en hoogte.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
     attributes:
       percentage:
         range: Decimaal
@@ -972,6 +1046,9 @@ classes:
           De beslissing waarbij het arbeidsongeschiktheidspercentage
           is vastgesteld.
         annotations:
+          gbo:inverseNaam: heeftArbeidsongeschiktheidspercentage
+          gbo:inverseBeschrijving: >-
+            De arbeidsongeschiktheidspercentages die met deze beslissing zijn bepaald.
           mim:kardinaliteit: "0..* -> 1"
 
     class_uri: gbobegrip:Arbeidsongeschiktheidspercentage
@@ -987,9 +1064,14 @@ enums:
       - gbobegrip:BeslissingSoort
     annotations:
       mim:herkomst: SGR
-      mim:herkomstDefinitie: SGR cluster Beslissing.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Beslissing).
       mim:datumOpname: "2026-05-19"
     comments:
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
       - >-
         De waardenset onderscheidt de juridisch relevante
         beslissoorten die een uitkering doen ontstaan, wijzigen of
@@ -1053,12 +1135,17 @@ enums:
       - gbobegrip:RedenEindeUitkering
     annotations:
       mim:herkomst: SGR
-      mim:herkomstDefinitie: SGR cluster Uitkering.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Uitkering).
       mim:datumOpname: "2026-05-19"
     comments:
       - >-
         Top 10 weergegeven; volledige set te bevestigen tegen
         SGR-publicatie.
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
       - "Gebruikt door: Uitkering.redenEinde."
     permissible_values:
       WerkHervat:
@@ -1138,9 +1225,14 @@ enums:
       - gbobegrip:SoortUitkering
     annotations:
       mim:herkomst: SGR
-      mim:herkomstDefinitie: SGR cluster Uitkering.
+      mim:herkomstDefinitie: >-
+        Bron: Suwi Gegevensregister (SGR), beheerd door BKWI namens UWV
+        (cluster Uitkering).
       mim:datumOpname: "2026-05-19"
     comments:
+      - >-
+        needs_review brondocument-versie te verifieren (SGR-versie 19.0
+        en publicatiedatum nog te bevestigen, zie WERK-INKOMEN-OQ-001).
       - >-
         De waardenset dekt de zeven concrete uitkerings-takken die
         binnen het SUWI-stelsel worden uitgevoerd door UWV (WW, ZW,

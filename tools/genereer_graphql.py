@@ -4,6 +4,10 @@
 Aanvulling op de standaard gen-graphql van LinkML, die de volgende
 dingen mist die GBO nodig heeft:
 1. een Query-root met velden per ingang (annotatie gbo:ingangen);
+   met annotatie gbo:lijstQueries=false blijft alleen de query op de
+   natuurlijke sleutel over (geen "...Lijst"-velden); multivalued
+   object-velden krijgen filterargumenten voor doel-attributen met de
+   annotatie gbo:filterbaar;
 2. de GBO-primitieven Tekst en Alfanumeriek worden afgebeeld op String,
    Numeriek op Int en Decimaal op Float; overige datatypes (Datum,
    DatumTijd, Geometrie, NEN3610ID, codelijsten, ...) worden benoemde
@@ -27,6 +31,7 @@ Gebruik:
 import argparse
 import re
 import sys
+import textwrap
 from pathlib import Path
 
 import yaml
@@ -87,6 +92,7 @@ class SDLGenerator:
         self.default_range = schema.get("default_range", "string")
         self.gebruikte_scalars: set[str] = set()
         self.gebruikte_enums: set[str] = set()
+        self.query_ingangen: set[str] = set()
 
     # -- hiërarchie ----------------------------------------------------------
 
@@ -195,6 +201,19 @@ class SDLGenerator:
 
     # -- bouwstenen ----------------------------------------------------------
 
+    def filterargumenten(self, doelklasse: str) -> str:
+        """Argumentenlijst voor een multivalued object-veld: één
+        optioneel argument per doel-attribuut met annotatie
+        gbo:filterbaar."""
+        argumenten = []
+        for naam, attr in self.induced_attributen(doelklasse).items():
+            ann = (attr or {}).get("annotations") or {}
+            if str(ann.get("gbo:filterbaar", "")).lower() \
+                    in ("true", "ja"):
+                argumenten.append(f"{graphql_naam(naam)}: "
+                                  f"{self.veldtype(attr, kaal=True)}")
+        return "(" + ", ".join(argumenten) + ")" if argumenten else ""
+
     def velden(self, klasse: str) -> list[str]:
         regels = []
         for naam, attr in self.induced_attributen(klasse).items():
@@ -207,7 +226,11 @@ class SDLGenerator:
                                 else "") \
                     + f"(Sleutel-referentie naar {sleutelref}.)"
             regels.extend(docstring(beschrijving, "  "))
-            regels.append(f"  {graphql_naam(naam)}: "
+            argumenten = ""
+            if attr.get("multivalued") \
+                    and attr.get("range") in self.classes:
+                argumenten = self.filterargumenten(attr["range"])
+            regels.append(f"  {graphql_naam(naam)}{argumenten}: "
                           f"{self.veldtype(attr)}")
         return regels
 
@@ -235,13 +258,17 @@ class SDLGenerator:
         return regels
 
     def query_blok(self) -> list[str]:
+        annotaties = self.schema.get("annotations") or {}
         ingangen = [i.strip() for i in
-                    ((self.schema.get("annotations") or {})
-                     .get("gbo:ingangen") or "").split(",") if i.strip()]
+                    (annotaties.get("gbo:ingangen") or "").split(",")
+                    if i.strip()]
         if not ingangen:
             melding("WAARSCHUWING",
                     "geen gbo:ingangen-annotatie; Query-root blijft leeg")
             return []
+        lijsten = str(annotaties.get("gbo:lijstQueries",
+                                     True)).lower() \
+            not in ("false", "nee", "uit")
         regels = ['"""Query-ingangen van dit bronprofiel."""',
                   "type Query {"]
         for ingang in ingangen:
@@ -255,11 +282,48 @@ class SDLGenerator:
                     f"Eén {ingang} op {slotnaam}.", "  "))
                 regels.append(f"  {veld}({graphql_naam(slotnaam)}: "
                               f"{slottype}!): {graphql_naam(ingang)}")
-            regels.extend(docstring(f"Alle voorkomens van {ingang}.",
-                                    "  "))
-            regels.append(f"  {veld}Lijst: [{graphql_naam(ingang)}!]")
+                self.query_ingangen.add(ingang)
+            elif not lijsten:
+                melding("WAARSCHUWING",
+                        f"ingang '{ingang}' heeft geen zoeksleutel en "
+                        f"lijstQueries staat uit: geen Query-veld")
+            if lijsten:
+                regels.extend(docstring(
+                    f"Alle voorkomens van {ingang}.", "  "))
+                regels.append(f"  {veld}Lijst: [{graphql_naam(ingang)}!]")
+                self.query_ingangen.add(ingang)
         regels.append("}")
         return regels
+
+    def onbereikbare_objecttypen(self,
+                                 objecttypen: list[str]) -> list[str]:
+        """Objecttypen die vanuit geen enkel Query-veld bereikbaar zijn.
+
+        Bereikbaarheid loopt via velden met een objecttype-range
+        (inclusief geërfde en gematerialiseerde inverse velden) en, bij
+        interfaces, via fragment-spreads naar de implementerende types.
+        Supertypen gelden als opvraagbaar zodra een subtype bereikbaar
+        is (hun velden liggen op elk subtype). Sleutel-referenties zijn
+        scalars en tellen niet als navigatie."""
+        bereikbaar: set[str] = set()
+        stapel = list(self.query_ingangen)
+        while stapel:
+            klasse = stapel.pop()
+            if klasse in bereikbaar or klasse not in self.classes \
+                    or self.is_uitgesloten(klasse):
+                continue
+            bereikbaar.add(klasse)
+            stapel.extend(self.voorouders(klasse))
+            for attr in self.induced_attributen(klasse).values():
+                doel = (attr or {}).get("range")
+                if doel in self.classes:
+                    stapel.append(doel)
+            if self.is_interface(klasse):
+                for naam in self.classes:
+                    if naam != klasse \
+                            and klasse in self.voorouders(naam):
+                        stapel.append(naam)
+        return [o for o in objecttypen if o not in bereikbaar]
 
     # -- hoofdgenerator ------------------------------------------------------
 
@@ -279,6 +343,20 @@ class SDLGenerator:
         query = self.query_blok()
         if query:
             blokken.append(query)
+        # Regel: elk in het bron-profiel opgesomd objecttype moet
+        # opvraagbaar zijn, dus bereikbaar vanuit de Query-root.
+        objecttypen = [o.strip() for o in
+                       ((self.schema.get("annotations") or {})
+                        .get("gbo:objecttypen") or "").split(",")
+                       if o.strip()]
+        if objecttypen:
+            onbereikbaar = self.onbereikbare_objecttypen(objecttypen)
+            if onbereikbaar:
+                fout(f"objecttypen niet opvraagbaar vanuit de "
+                     f"Query-root: {', '.join(onbereikbaar)}; voeg een "
+                     f"ingang toe of maak ze bereikbaar via navigatie "
+                     f"(bijvoorbeeld een gbo:inverseNaam-annotatie op "
+                     f"de relatie in het informatiemodel)")
         # Scalars pas nu: self.gebruikte_scalars is gevuld. GraphQL-scalars
         # zijn opaak; de formaatrestricties uit het LinkML-datatype
         # (pattern, minimum, maximum) projecteren we als @restrictie-directive
@@ -323,6 +401,11 @@ class SDLGenerator:
                f"# GraphQL SDL voor bronprofiel {bron}, gegenereerd uit "
                f"{bronbestand}.\n"
                f"# Regenereer met: task generate:graphql\n")
+        beschrijving = self.schema.get("description")
+        if beschrijving:
+            kop += "#\n" + "\n".join(textwrap.wrap(
+                " ".join(str(beschrijving).split()), width=72,
+                initial_indent="# ", subsequent_indent="# ")) + "\n"
         return kop + "\n" + "\n\n".join("\n".join(b) for b in blokken) \
             + "\n"
 
@@ -347,11 +430,16 @@ def main() -> None:
     generator = SDLGenerator(schema)
     sdl = generator.genereer(args.schema.name)
 
-    # Syntactische validatie als graphql-core beschikbaar is.
+    # Validatie als graphql-core beschikbaar is: syntax is blokkerend,
+    # schema-semantiek (zoals interface-covariantie bij overschreven
+    # attributen) vooralsnog een waarschuwing.
     try:
-        from graphql import build_schema
-        build_schema(sdl)
+        from graphql import build_schema, validate_schema
+        gebouwd = build_schema(sdl)
         melding("INFO", "SDL gevalideerd met graphql-core")
+        for schemafout in validate_schema(gebouwd):
+            melding("WAARSCHUWING",
+                    f"schema-semantiek: {schemafout.message}")
     except ImportError:
         melding("INFO", "graphql-core niet beschikbaar; "
                         "syntaxvalidatie overgeslagen")

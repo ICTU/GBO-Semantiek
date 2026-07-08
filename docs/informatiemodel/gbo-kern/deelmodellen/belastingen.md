@@ -76,6 +76,7 @@ skinparam class<<belastingen-toeslag>> {
 
 abstract class Partij <<algemeen>>
 class NatuurlijkPersoon <<personen>>
+class NietNatuurlijkPersoon <<personen>>
 class Onderneming <<bedrijven-en-instellingen>>
 class KadastraalOnroerendeZaak <<onroerende-zaken>>
 
@@ -131,6 +132,7 @@ together {
 class Renseignering <<belastingen>>
 
 Partij <|-- NatuurlijkPersoon
+Partij <|-- NietNatuurlijkPersoon
 Partij <|-- Onderneming
 BelastingAangifte <|-- BelastingjaarAangifte
 BelastingjaarAangifte <|-- AangifteIH
@@ -157,6 +159,10 @@ NatuurlijkPersoon "1" <-- "0..*" BelastingjaarAangifte : ingediendDoor
 NatuurlijkPersoon "2" <-- "0..*" FiscalePartner : tussenPersonen
 NatuurlijkPersoon "1" <-- "0..*" AuthentiekInkomen : gegrondvestOp
 NatuurlijkPersoon "1" <-- "0..*" VermogensBestanddeel : houderVan
+NietNatuurlijkPersoon "0..1" <-- "0..*" VermogensBestanddeel : bronInstelling
+NatuurlijkPersoon "1" <-- "0..*" Aftrekpost : opgevoerdDoor
+NatuurlijkPersoon "1" <-- "0..*" EigenWoning : bewoonbaarVoor
+NatuurlijkPersoon "1" <-- "0..*" Renseignering : betreft
 KadastraalOnroerendeZaak "1" <-- "0..1" OnroerendeZaakOverigBezit : gekoppeldAan
 KadastraalOnroerendeZaak "1" <-- "1" EigenWoning : gekoppeldAan
 EigenWoning "1" <-- "0..*" Hypotheekrenteaftrek : betreft
@@ -164,6 +170,7 @@ NatuurlijkPersoon "1" <-- "0..*" Toeslag : toegekendAan
 NatuurlijkPersoon "1" <-- "0..*" Inkomstenverhouding : tussenPersoon
 Onderneming "1" <-- "0..*" Inkomstenverhouding : tussenWerkgever
 Inkomstenverhouding "1" <-- "0..*" Inkomstenopgave : binnen
+LoonAangifte "1" <-- "0..*" Inkomstenopgave : binnen
 Inkomstenopgave "1" <-- "0..*" Inkomstenperiode : binnen
 Inkomstenopgave "1" <-- "0..*" LoonBestanddeel : onderdeelVan
 Onderneming "1" <-- "0..*" LoonAangifte : ingediendDoor
@@ -386,7 +393,7 @@ het BRI-inkomen te gebruiken.
 | `inkomenBedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Verzamelinkomen of belastbaar loon. | Wet BRI art. 4 |
 | `belastingjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het jaar waarop het inkomen betrekking heeft. | Wet BRI |
 | `vaststellingsdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Datum van authentieke vaststelling. | Wet BRI |
-| `vaststellingsbron` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | IH-aangifte of loonaangifte. | Wet BRI |
+| `vaststellingsbron` | [VaststellingsbronInkomen](#vaststellingsbroninkomen) | 1 | IH-aangifte of loonaangifte. | Wet BRI |
 
 ### BankSpaartegoed
 
@@ -508,8 +515,10 @@ vergelijkbare effecten, vastgesteld op marktwaarde per peildatum
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
 | `categorieEffect` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Aandelen, obligaties, fondsen of derivaten. | SBR-NT |
+| `iban` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Internationaal rekeningnummer van de effectenrekening. | GSP IH-VIH 2026 |
 | `marktwaardePeildatum` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Marktwaarde op 1 januari. | Wet IB art. 5.3 |
 | `valuta` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Valuta-code. | SBR-NT |
+| `land` | [Codelijst~ISO3166](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 0..1 | Land van de effecteninstelling. | GSP IH-VIH 2026 |
 
 ### Cryptovaluta
 
@@ -780,7 +789,7 @@ inhoudingsplichtige.
 
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
-| `aangifteperiode` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Bijvoorbeeld 2026-M01, 2026-W04. | Loonheffingen |
+| `aangifteperiode` | [Aangifteperiode](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Bijvoorbeeld 2026-M01, 2026-W04. | Loonheffingen |
 | `loonHuidigPeriodeBedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Bruto loon in de aangifteperiode. | Loonheffingen rubriek 100100 |
 | `loonSvBedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Loon voor sociale verzekeringen. | Loonheffingen |
 | `ingehoudenLoonheffing` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Ingehouden loonheffing. | Loonheffingen |
@@ -845,11 +854,11 @@ banen bestaan meerdere inkomstenverhoudingen.
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
 | `nummerInkomstenverhouding` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Uniek nummer voor de IKV. | Loonheffingen rubriek 010300 |
-| `begindatumIkv` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Begindatum van de IKV. | Loonheffingen |
-| `einddatumIkv` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einddatum van de IKV. | Loonheffingen |
-| `codeAardArbeidsverhouding` | [CodeAardArbeidsverhouding](#codeaardarbeidsverhouding) | 1 | Aard van de arbeidsverhouding. | Loonheffingen bijlage |
-| `codeSoortInkomstenverhouding` | [CodeSoortInkomstenverhouding](#codesoortinkomstenverhouding) | 1 | Soort IKV. | Loonheffingen bijlage |
-| `codeRedenEinde` | [CodeRedenEindeArbeidsverhouding](#coderedeneindearbeidsverhouding) | 0..1 | Reden van einde IKV. | Loonheffingen bijlage |
+| `begindatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Begindatum van de IKV. | Loonheffingen |
+| `einddatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einddatum van de IKV. | Loonheffingen |
+| `aardArbeidsverhouding` | [CodeAardArbeidsverhouding](#codeaardarbeidsverhouding) | 1 | Aard van de arbeidsverhouding. | Loonheffingen bijlage |
+| `soortInkomstenverhouding` | [CodeSoortInkomstenverhouding](#codesoortinkomstenverhouding) | 1 | Soort IKV. | Loonheffingen bijlage |
+| `redenEinde` | [CodeRedenEindeArbeidsverhouding](#coderedeneindearbeidsverhouding) | 0..1 | Reden van einde IKV. | Loonheffingen bijlage |
 
 ### KinderopvangToeslag
 
@@ -971,7 +980,7 @@ levert ze door aan Belastingdienst.
 
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
-| `aangifteperiode` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Aangifteperiode-aanduiding. | Loonheffingen |
+| `aangifteperiode` | [Aangifteperiode](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Aangifteperiode-aanduiding. | Loonheffingen |
 | `totaalLoonHeffingenBedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Totaal in te houden loonheffingen. | Loonheffingen |
 | `totaalPremieBedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Totaal in te houden premies werknemersverzekeringen. | Loonheffingen |
 | `isCorrectieAangifte` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Reguliere aangifte of correctie op een eerdere. | Loonheffingen |
@@ -997,17 +1006,16 @@ fiscale regels.
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/LoonBestanddeel` |
 | Herkomst | Loonheffingen 2026 |
 | Datum opname | 2026-05-19 |
-| Unieke aanduiding | Combinatie van inkomstenopgave en code-soort-inkomen. |
+| Unieke aanduiding | Combinatie van inkomstenopgave en soort-inkomen. |
 | Populatie | Alle afzonderlijke loon-componenten binnen een inkomstenopgave: bruto loon, vakantiegeld, dertiende maand, toeslagen, bonus, bijtelling, pensioenpremie-eigen-bijdrage en vergelijkbare bestanddelen. |
 
 **Attribuutsoorten**:
 
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
-| `codeSoortInkomen` | [CodeSoortInkomen](#codesoortinkomen) | 1 | Aanduiding van het loonbestanddeel-type. | Loonheffingen bijlage |
+| `soortInkomen` | [CodeSoortInkomen](#codesoortinkomen) | 1 | Aanduiding van het loonbestanddeel-type. | Loonheffingen bijlage |
 | `bedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Bedrag van het loonbestanddeel. | Loonheffingen |
 | `omschrijving` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Vrije omschrijving. | Loonheffingen |
-| `valuta` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Valuta-code. | Loonheffingen |
 
 ### OnroerendeZaakOverigBezit
 
@@ -1172,6 +1180,7 @@ en schuld. Per categorie gelden eigen waarderings-regels.
 |---|---|---|---|---|
 | `waardePeildatum` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Waarde op peildatum 1 januari. | Wet IB art. 5.2 |
 | `categorie` | [VermogensBestanddeelCategorie](#vermogensbestanddeelcategorie) | 1 | Categorie-aanduiding. | SBR-NT |
+| `productId` | [Identificatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend. | GSP IH-VIH 2026 |
 
 ### Zorgtoeslag
 
@@ -1276,7 +1285,7 @@ loonheffingen.
 | Herkomst | Loonheffingen 2026 bijlage |
 | Datum opname | 2026-05-19 |
 
-**Gebruikt door**: `Inkomstenverhouding.codeAardArbeidsverhouding`.
+**Gebruikt door**: `Inkomstenverhouding.aardArbeidsverhouding`.
 
 **Waarden**:
 
@@ -1310,7 +1319,8 @@ arbeidsverhouding voor gebruik in de aangifte loonheffingen.
 | Herkomst | Loonheffingen 2026 bijlage |
 | Datum opname | 2026-05-19 |
 
-**Gebruikt door**: `Inkomstenverhouding.codeRedenEinde`.
+**Gebruikt door**: `Inkomstenverhouding.redenEinde` en
+`Arbeidsverhouding.redenEinde` (deelmodel Werk en inkomen).
 
 **Waarden**:
 
@@ -1380,7 +1390,7 @@ aangeleverd.
 | Herkomst | Loonheffingen 2026 + SBR-NT VIA |
 | Datum opname | 2026-05-19 |
 
-**Gebruikt door**: `LoonBestanddeel.codeSoortInkomen`.
+**Gebruikt door**: `LoonBestanddeel.soortInkomen`.
 
 **Waarden**:
 
@@ -1399,13 +1409,17 @@ aangeleverd.
 
 ### CodeSoortInkomstenverhouding
 
-**Definitie**: De codelijst voor de soort inkomstenverhouding voor
-gebruik in de aangifte loonheffingen.
+**Definitie**: De officiële codelijst voor de soort
+inkomstenverhouding (SIV) zoals vastgesteld door de werkgever of
+uitkerende instantie, voor gebruik in de aangifte loonheffingen en de
+vooringevulde aangifte.
 
 **Herkomst definitie**: Gegevensspecificaties aangifte loonheffingen
-2026 bijlage.
+2026 bijlage; geverifieerd tegen GSP IH-VIH 2026 v1 (2026-05-28).
 
-**Toelichting**: Circa 30 waarden. Top 10:
+**Toelichting**: Volledige officiële lijst van 33 codes. De kolom
+Context geeft aan of de code bij inkomsten uit tegenwoordige arbeid,
+vroegere arbeid of beide wordt gebruikt.
 
 | MIM-veld | Waarde |
 |---|---|
@@ -1414,22 +1428,45 @@ gebruik in de aangifte loonheffingen.
 | Herkomst | Loonheffingen 2026 bijlage |
 | Datum opname | 2026-05-19 |
 
-**Gebruikt door**: `Inkomstenverhouding.codeSoortInkomstenverhouding`.
+**Gebruikt door**: `Inkomstenverhouding.soortInkomstenverhouding`.
 
 **Waarden**:
 
-| Code | Naam | Definitie |
-|---|---|---|
-| 11 | Inkomsten uit tegenwoordige dienstbetrekking | Lopend dienstverband met actieve arbeid. |
-| 13 | Inkomsten uit vroegere dienstbetrekking | Inkomsten uit beeindigde dienstbetrekking (bijv. pensioen, VUT). |
-| 15 | Wajong-uitkering | Uitkering Wet arbeidsongeschiktheidsvoorziening jonggehandicapten. |
-| 17 | Ziektewet-uitkering | Uitkering Ziektewet. |
-| 21 | WIA-uitkering | Uitkering Wet werk en inkomen naar arbeidsvermogen. |
-| 22 | WW-uitkering | Uitkering Werkloosheidswet. |
-| 23 | Bijstandsuitkering | Uitkering Participatiewet. |
-| 31 | AOW-uitkering | Algemene Ouderdomswet-uitkering. |
-| 33 | ANW-uitkering | Algemene nabestaandenwet-uitkering. |
-| 41 | Pensioen-uitkering | Tweede-pijler-pensioenuitkering. |
+| Code | Naam | Definitie | Context |
+|---|---|---|---|
+| 11 | LoonAmbtenaren | Loon of salaris ambtenaren in de zin van de Ambtenarenwet. | tegenwoordig |
+| 13 | LoonDirecteurNvBvVerzekerd | Loon of salaris directeuren van een nv/bv, wel verzekerd voor de werknemersverzekeringen. | tegenwoordig |
+| 15 | LoonOverig | Loon of salaris niet onder te brengen onder code 11, 13 of 17. | tegenwoordig |
+| 17 | LoonDirecteurGrootaandeelhouder | Loon of salaris directeur-grootaandeelhouder van een nv/bv, niet verzekerd voor de werknemersverzekeringen. | tegenwoordig |
+| 18 | WachtgeldOverheid | Wachtgeld van een overheidsinstelling. | vroeger |
+| 22 | UitkeringAOW | Uitkering in het kader van de Algemene Ouderdomswet (AOW). | vroeger |
+| 23 | OorlogsEnVerzetspensioen | Oorlogs- en verzetspensioenen. | vroeger |
+| 24 | UitkeringANW | Uitkering in het kader van de Algemene nabestaandenwet (ANW). | vroeger |
+| 31 | UitkeringZW | Uitkering Ziektewet (ZW), vrijwillige verzekering Ziektewet en Wet arbeid en zorg (WAZO). | beide |
+| 32 | UitkeringWAO | Uitkering WAO en particuliere verzekering ziekte, invaliditeit en ongeval. | vroeger |
+| 33 | UitkeringWW | Uitkering in het kader van de Nieuwe Werkloosheidswet (nWW). | beide |
+| 34 | UitkeringIOAW | Uitkering IOAW (inkomensvoorziening oudere en gedeeltelijk arbeidsongeschikte werkloze werknemers). | vroeger |
+| 36 | UitkeringWaz | Uitkering Wet arbeidsongeschiktheidsverzekering zelfstandigen (Waz). | vroeger |
+| 37 | UitkeringWajong | Uitkering Wet arbeidsongeschiktheidsvoorziening jonggehandicapten (Wajong). | vroeger |
+| 38 | SamenloopWajong | Samenloop (gelijktijdig of volgtijdelijk) van uitkeringen van Wajong met Waz, WAO/IVA of WGA. | vroeger |
+| 39 | UitkeringIVA | Uitkering Regeling inkomensvoorziening volledig arbeidsongeschikten (IVA). | vroeger |
+| 40 | UitkeringWGA | Uitkering Regeling werkhervatting gedeeltelijk arbeidsgeschikten (WGA). | vroeger |
+| 42 | UitkeringBbz | Uitkering Bijstandsbesluit zelfstandigen (Bbz). | vroeger |
+| 43 | UitkeringParticipatiewet | Uitkering Participatiewet (voorheen WWB). | vroeger |
+| 45 | UitkeringIOAZ | Uitkering IOAZ (inkomensvoorziening oudere en gedeeltelijk arbeidsongeschikte gewezen zelfstandigen). | vroeger |
+| 46 | UitkeringToeslagenwet | Uitkering uit hoofde van de Toeslagenwet. | beide |
+| 50 | UitkeringOverigeSocialeVerzekeringswetten | Uitkeringen overige sociale verzekeringswetten (o.a. Ongevallenwet 1921, Land- en tuinbouwongevallenwet 1922, Zee-ongevallenwet 1919). | vroeger |
+| 52 | UitkeringIOW | Uitkering Wet inkomensvoorziening oudere werklozen (IOW). | vroeger |
+| 53 | UitkeringVervroegdeUittreding | Uitkeringen in het kader van vervroegde uittreding. | beide |
+| 55 | UitkeringAPPA | Uitkering Algemene Pensioenwet Politieke Ambtsdragers (APPA). | vroeger |
+| 56 | Ouderdomspensioen | Ouderdomspensioen via de werkgever of een verplichte beroeps- of bedrijfstakpensioenregeling. | vroeger |
+| 57 | Nabestaandenpensioen | Nabestaandenpensioen via de werkgever of een verplichte beroeps- of bedrijfstakpensioenregeling. | vroeger |
+| 58 | Arbeidsongeschiktheidspensioen | Arbeidsongeschiktheidspensioen via de werkgever of een verplichte beroeps- of bedrijfstakpensioenregeling. | vroeger |
+| 59 | LijfrenteArbeidsovereenkomst | Lijfrenten afgesloten in het kader van een individuele of collectieve arbeidsovereenkomst. | vroeger |
+| 60 | LijfrenteOverig | Lijfrenten niet afgesloten in het kader van een arbeidsovereenkomst. | vroeger |
+| 61 | AanvullingWerkgeverNaEindeDienstbetrekking | Aanvulling van de werkgever op een uitkering werknemersverzekeringen na einde dienstbetrekking. | vroeger |
+| 62 | OntslagOfTransitievergoeding | Ontslagvergoeding of transitievergoeding. | vroeger |
+| 63 | OverigPensioenOfSamenloop | Overige pensioenen, samenloop van meerdere pensioenen/lijfrenten of betaling op grond van een afspraak na einde dienstbetrekking. | vroeger |
 
 ### ToeslagSoort
 
@@ -1455,6 +1492,30 @@ van de Awir door Belastingdienst en Toeslagen worden uitgevoerd.
 | ZT | Zorgtoeslag | Tegemoetkoming in de premie van de basiszorgverzekering. | Wet op de zorgtoeslag |
 | KOT | Kinderopvangtoeslag | Tegemoetkoming in de kosten van formele kinderopvang. | Wet kinderopvang |
 | KGB | Kindgebondenbudget | Tegemoetkoming in de kosten van opvoeding en levensonderhoud van kinderen. | Wet op het kindgebondenbudget |
+
+### VaststellingsbronInkomen
+
+**Definitie**: De bron waaruit het authentieke inkomensgegeven is
+vastgesteld: de aanslag inkomstenbelasting of, bij het ontbreken
+daarvan, de loonaangifteketen.
+
+**Herkomst definitie**: Wet basisregistratie inkomen art. 4.
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | VaststellingsbronInkomen |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/VaststellingsbronInkomen` |
+| Herkomst | Wet BRI |
+| Datum opname | 2026-07-08 |
+
+**Gebruikt door**: `AuthentiekInkomen.vaststellingsbron`.
+
+**Waarden**:
+
+| Naam | Definitie |
+|---|---|
+| IHAangifte | Vastgesteld op basis van de aanslag inkomstenbelasting: het verzamelinkomen. |
+| Loonaangifte | Vastgesteld op basis van de loonaangifteketen: het belastbaar jaarloon, gebruikt wanneer geen aanslag inkomstenbelasting wordt vastgesteld. |
 
 ### VermogensBestanddeelCategorie
 

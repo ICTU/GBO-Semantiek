@@ -1,0 +1,111 @@
+# =============================================================================
+# Bron-profiel VIA — de gegevens waarmee de Belastingdienst de aangifte
+# inkomstenbelasting voorinvult (vooringevulde aangifte), als bron via GBO.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel via.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.3/bronnen/via.yaml
+#
+# De VIA overlapt bewust met andere bronnen: de loonketen-gegevens
+# (Inkomstenverhouding, Inkomstenopgave, LoonBestanddeel) zitten ook in
+# bri-plus.yaml en de fiscale gegevens (vermogen, aftrekposten, eigen
+# woning) ook in bd.yaml. Meerdere bronnen kunnen dezelfde
+# GBO-objecttypen leveren; het GBO-model is de gemeenschappelijke
+# semantiek, het profiel bepaalt per bron de selectie.
+#
+# De rubriek-mapping van het VIA-bericht naar de GBO-objecttypen staat
+# in wiki/gbo-core/registers/via.md (sectie "Mapping VIA-bericht naar
+# GBO-Core"). Gezaghebbende specificatie: GSP IH-VIH 2026 v1
+# (2026-05-28) + SBR-NT-taxonomie IHZ Voor Invullen Aangifte 2026
+# (NT21_20261209 v02), in raw/belastingdienst/VIA Officieel/.
+# =============================================================================
+bron: VIA
+titel: Vooringevulde Aangifte inkomstenbelasting (Belastingdienst)
+beschrijving: >-
+  De gegevens waarmee de Belastingdienst de aangifte inkomstenbelasting
+  voorinvult: fiscaal partnerschap, aangifte-gegevens, inkomsten uit
+  tegenwoordige en vroegere arbeid (loonketen-jaargegevens), eigen
+  woning en overige onroerende zaken, bank- en effectentegoeden,
+  schulden en de betrouwbaar voor te vullen aftrekposten (lijfrente,
+  hypotheekrente). Levert uitsluitend gegevens voor binnenlands
+  belastingplichtigen met een BSN; geen ondernemers (winst), geen
+  M-biljet-situaties (migratie), en uitsluitend over voorgaande,
+  afgesloten belastingjaren. De voorinvulling is een niet-vastgesteld
+  gegeven: de definitieve aanslag kan afwijken. De opvraagdatum is
+  leveringsmetadata en staat in de antwoord-envelop van de levering,
+  niet in het schema.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
+# lijst-query. Alle fiscale gegevens zijn navigeerbaar vanuit de
+# persoon via de gematerialiseerde inverse relaties.
+ingangen:
+  - IngeschrevenPersoon
+lijstQueries: false
+
+objecttypen:
+  - IngeschrevenPersoon
+  - FiscalePartner
+  - BelastingjaarAangifte
+  - Inkomstenverhouding
+  - Inkomstenopgave
+  - LoonBestanddeel
+  - EigenWoning
+  - VermogensBestanddeel
+  - BankSpaartegoed
+  - Belegging
+  - OnroerendeZaakOverigBezit
+  - Schuld
+  - Aftrekpost
+  - Hypotheekrenteaftrek
+  - LijfrenteAftrek
+
+# Persoonsgegevens zijn BRP-terrein; dit profiel levert van de persoon
+# alleen de BSN, plus de gematerialiseerde inverse relaties naar de
+# fiscale gegevens.
+insluitingen:
+  - objecttype: IngeschrevenPersoon
+    attributen:
+      - bsn
+
+# De VIA levert jaargegevens per inkomstenbron, geen
+# loonaangifte-detail; de relatie naar LoonAangifte vervalt daarom.
+uitsluitingen:
+  - objecttype: Inkomstenopgave
+    attributen:
+      - binnenLoonAangifte
+
+# Binnen de VIA is elke persoon een ingeschreven persoon (binnenlands
+# belastingplichtig, BSN-plicht). Relaties naar de onderneming
+# (werkgever) blijven default sleutel-referenties
+# (MaatschappelijkeActiviteit.kvkNummer); de relatie van EigenWoning
+# naar de kadastrale onroerende zaak wordt een sleutel-referentie.
+relatieAfhandeling:
+  - objecttype: FiscalePartner
+    relatie: tussenPersonen
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: BelastingjaarAangifte
+    relatie: ingediendDoor
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: Inkomstenverhouding
+    relatie: tussenPersoon
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: VermogensBestanddeel
+    relatie: houderVan
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: Aftrekpost
+    relatie: opgevoerdDoor
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: EigenWoning
+    relatie: bewoonbaarVoor
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon

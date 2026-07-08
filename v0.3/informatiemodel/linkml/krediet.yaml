@@ -137,7 +137,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 1 en art. 15.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 1 en art. 15.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Abstract. Concrete populatie wordt bepaald door de twaalf
@@ -230,6 +232,9 @@ classes:
         required: true
         description: De kredietnemer; zie deelmodel Personen.
         annotations:
+          gbo:inverseNaam: heeftKredietOvereenkomst
+          gbo:inverseBeschrijving: >-
+            De kredietovereenkomsten die deze persoon is aangegaan.
           mim:kardinaliteit: "n -> 1"
       verstrektDoor:
         range: NietNatuurlijkPersoon
@@ -286,7 +291,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 12 en art. 13.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 12 en art. 13.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Abstract. Concrete populatie wordt bepaald door de subklassen
@@ -342,7 +349,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 16.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 16.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan CKI gemelde aflopende kredieten boven de
@@ -403,7 +412,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 17.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 17.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan CKI gemelde doorlopende kredieten boven de
@@ -464,8 +475,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 18; Wet
-        gemeentelijke schuldhulpverlening.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 18; Wet gemeentelijke schuldhulpverlening.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde saneringskredieten boven EUR 250, verstrekt
@@ -517,7 +529,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 26.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 26.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde kortlopende kredieten (dagkredieten,
@@ -577,10 +591,11 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 19; aanvullend
-        Wet op het financieel toezicht art. 4:34
-        (overkrediteringsverbod) en de richtlijn hypothecair krediet
-        2014/17/EU.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 19; aanvullend Wet op het financieel toezicht
+        art. 4:34 (overkrediteringsverbod) en de richtlijn hypothecair
+        krediet 2014/17/EU.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Hypothecaire kredieten voor de eigen woning waarop een
@@ -643,7 +658,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 20.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 20.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan CKI gemelde hypothecaire kredieten op onroerende
@@ -703,7 +720,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 21.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 21.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde restschulden boven EUR 250 na verkoop van een
@@ -767,7 +786,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 21.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 21.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde restschulden boven EUR 250 na verkoop van een
@@ -831,7 +852,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 22.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 22.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde operational-autoleasecontracten waarbij de
@@ -895,7 +918,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 23.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 23.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde overige private financiele verplichtingen van
@@ -939,7 +964,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 24.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 24.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde zakelijke kredieten boven EUR 1.000 met
@@ -1005,7 +1032,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 25.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 25.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Aan CKI gemelde overige zakelijke financiele verplichtingen
@@ -1053,8 +1082,10 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 12 lid 1 en 2;
-        aanlevering door de erkende kredietverstrekker.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 12 lid 1 en 2; aanlevering door de erkende
+        kredietverstrekker.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan CKI gemelde achterstanden op kredietovereenkomsten,
@@ -1134,7 +1165,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 12 lid 3.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 12 lid 3.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan CKI gemelde herstellen van eerder geregistreerde
@@ -1185,7 +1218,9 @@ classes:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 13.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 13.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle aan CKI gemelde bijzonderheidscoderingen op
@@ -1258,9 +1293,10 @@ classes:
     annotations:
       mim:herkomst: Wgs; CKI
       mim:herkomstDefinitie: >-
-        Wet gemeentelijke schuldhulpverlening art. 4a (toegang) en
-        art. 4b (plan van aanpak); Algemeen Reglement CKI van
-        1 juli 2024, art. 18a.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Wet gemeentelijke
+        schuldhulpverlening art. 4a (toegang) en art. 4b (plan van
+        aanpak); Algemeen Reglement CKI van 1 juli 2024, art. 18a.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Alle bij beschikking aan een natuurlijk persoon toegekende
@@ -1310,6 +1346,9 @@ classes:
           De persoon aan wie het traject is toegekend; zie deelmodel
           Personen.
         annotations:
+          gbo:inverseNaam: heeftSchuldhulpverleningTraject
+          gbo:inverseBeschrijving: >-
+            De schuldhulpverleningstrajecten van deze persoon.
           mim:kardinaliteit: "n -> 1"
       beschikkingDoor:
         range: NietNatuurlijkPersoon
@@ -1341,9 +1380,10 @@ classes:
     annotations:
       mim:herkomst: CKI; BW
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 1 (definitie
-        Borg) en art. 23, 25; Burgerlijk Wetboek Boek 7 titel 14
-        (borgtocht), met name art. 7:850.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 1 (definitie Borg) en art. 23, 25; Burgerlijk
+        Wetboek Boek 7 titel 14 (borgtocht), met name art. 7:850.
       mim:datumOpname: "2026-05-19"
       mim:populatie: >-
         Natuurlijke personen die zich als borg hebben verbonden voor
@@ -1389,6 +1429,9 @@ classes:
         required: true
         description: De borg-stellende persoon.
         annotations:
+          gbo:inverseNaam: heeftBorgstellingRol
+          gbo:inverseBeschrijving: >-
+            De borgstellingen die deze persoon draagt.
           mim:kardinaliteit: "n -> 1"
         comments:
           - Zie deelmodel Personen.
@@ -1421,7 +1464,9 @@ enums:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 13.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 13.
       mim:datumOpname: "2026-05-19"
     comments:
       - >-
@@ -1470,8 +1515,9 @@ enums:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 15 en art. 16
-        tot en met 26.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 15 en art. 16 tot en met 26.
       mim:datumOpname: "2026-05-19"
     comments:
       - >-
@@ -1572,7 +1618,9 @@ enums:
     annotations:
       mim:herkomst: CKI
       mim:herkomstDefinitie: >-
-        Algemeen Reglement CKI van 1 juli 2024, art. 9 lid 2.
+        Bron: Algemeen Reglement CKI (Stichting BKR), versie 1 juli
+        2024. Wettelijke grondslag: Algemeen Reglement CKI van 1 juli
+        2024, art. 9 lid 2.
       mim:datumOpname: "2026-05-19"
     comments:
       - >-

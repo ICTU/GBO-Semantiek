@@ -33,11 +33,11 @@ classes:
     exact_mappings:
       - gbobegrip:Partij
     annotations:
-      mim:uniekeAanduiding: ID
+      mim:uniekeAanduiding: id
     comments:
       - >-
         Conform de identifier-strategie in het hoofdmodel draagt Partij
-        de GBO-eigen UUID (ID) als technische identifier waar
+        de GBO-eigen UUID (id) als technische identifier waar
         geen externe authentieke identifier bestaat of meerdere bronnen
         samenkomen.
     attributes:
@@ -59,7 +59,7 @@ classes:
             NietNatuurlijkPersoon.voertMaatschappelijkeActiviteit (1:1).
             De inschrijvingseenheid is de MaatschappelijkeActiviteit in
             het deelmodel Bedrijven en instellingen.
-      ID:
+      id:
         identifier: true
         required: true
         range: UUID

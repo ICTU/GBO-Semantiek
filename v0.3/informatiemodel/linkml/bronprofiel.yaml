@@ -62,6 +62,13 @@ classes:
         description: >-
           Objecttypen die als query-ingang dienen; hiervoor genereert
           de pipeline GraphQL Query-velden.
+      lijstQueries:
+        range: boolean
+        description: >-
+          Of de pipeline naast de sleutel-query per ingang ook een
+          onbegrensd "...Lijst"-veld genereert. Zonder vermelding geldt
+          true; met false blijft alleen de query op de natuurlijke
+          sleutel over (zoals bsn).
       objecttypen:
         multivalued: true
         required: true
@@ -69,6 +76,12 @@ classes:
           Objecttypen die deze bron beschikbaar stelt, als expliciete
           lijst. Supertypen en mixins van genoemde objecttypen worden
           door de snoei-tool automatisch meegenomen; subtypen niet.
+          Regel: elk opgesomd objecttype moet opvraagbaar zijn, dus
+          vanuit de Query-root bereikbaar via een ingang of via
+          navigatie (zo nodig via een gbo:inverseNaam-annotatie op de
+          relatie in het informatiemodel); abstracte supertypen gelden
+          als opvraagbaar via hun subtypen. De GraphQL-generator
+          bewaakt deze regel en faalt bij onbereikbare objecttypen.
       uitsluitingen:
         multivalued: true
         range: Uitsluiting
@@ -76,6 +89,18 @@ classes:
         description: >-
           Attributen of relaties per objecttype die deze bron niet
           levert.
+      insluitingen:
+        multivalued: true
+        range: Insluiting
+        inlined_as_list: true
+        description: >-
+          Whitelist per objecttype: uitsluitend de genoemde attributen
+          of relaties (eigen én geërfd) worden geleverd. De snoei-tool
+          vlakt daarbij de overerving uit: geërfde attributen op de
+          whitelist worden op het objecttype zelf gematerialiseerd en
+          supertypen of mixins die daardoor nergens meer nodig zijn,
+          verdwijnen uit het bronschema. Een objecttype mag niet
+          tegelijk in insluitingen en uitsluitingen staan.
       relatieAfhandeling:
         multivalued: true
         range: RelatieAfhandeling
@@ -102,6 +127,23 @@ classes:
           gedeclareerd; geërfde attributen kunnen niet per subtype
           worden uitgesloten.
 
+  Insluiting:
+    description: >-
+      Whitelist van attributen of relaties van één objecttype: alleen
+      deze levert de bron.
+    attributes:
+      objecttype:
+        required: true
+        description: Naam van het objecttype in het informatiemodel.
+      attributen:
+        multivalued: true
+        required: true
+        description: >-
+          Namen van de attributen of relaties die worden geleverd;
+          eigen en geërfde attributen zijn beide toegestaan. Door de
+          snoei-tool gematerialiseerde inverse relaties hoeven hier
+          niet genoemd te worden; die volgen uit de relaties zelf.
+
   RelatieAfhandeling:
     description: >-
       Afwijkende afhandeling van één relatie die buiten het profiel
@@ -117,6 +159,10 @@ classes:
         required: true
         range: AfhandelingsWijze
         description: Hoe de relatie in het bron-schema wordt afgehandeld.
+      naar:
+        description: >-
+          Alleen bij afhandeling "vernauwen": het subtype binnen het
+          profiel waarnaar de range van de relatie wordt vernauwd.
 
 enums:
 
@@ -131,3 +177,9 @@ enums:
           doelobject (default).
       weglaten:
         description: Laat de relatie geheel weg uit het profiel.
+      vernauwen:
+        description: >-
+          Vernauw de range van de relatie naar een subtype dat wél in
+          het profiel staat (veld "naar"). Voor bronnen waarvan de
+          populatie per definitie tot dat subtype beperkt is,
+          bijvoorbeeld BRI: elke persoon is een IngeschrevenPersoon.

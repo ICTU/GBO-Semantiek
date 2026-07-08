@@ -47,9 +47,12 @@ classes:
     annotations:
       mim:herkomst: BRV (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wegenverkeerswet 1994 (art. 1, art. 36 e.v.);
-        Kentekenreglement; RDW Kentekenregister / Open Data RDW
-        (dataset Gekentekende voertuigen).
+        Bron: Stelselcatalogus BRV (Logius, begrip Voertuig) en RDW
+        open-data-handleidingen (Beschrijving dataset gekentekende
+        voertuigen; Bijsluiter Open Data), versie/datum niet in de repo
+        vastgesteld. Wettelijke grondslag: Wegenverkeerswet 1994 (art.
+        1, art. 36 e.v.); Kentekenreglement; RDW Kentekenregister / Open
+        Data RDW (dataset Gekentekende voertuigen).
       mim:datumOpname: "2026-06-16"
       mim:uniekeAanduiding: kenteken
       mim:populatie: >-
@@ -79,6 +82,10 @@ classes:
         fabrikant-identificatie. Sub-registraties van de RDW
         (assen, carrosserie, geconstateerde gebreken, brandstof per
         meting) vallen buiten dit deelmodel.
+      - >-
+        needs_review brondocument-versie te verifieren (Stelselcatalogus
+        BRV en RDW open-data-handleidingen dragen geen expliciet
+        versienummer of publicatiedatum in de repo).
     attributes:
       kenteken:
         identifier: true
@@ -283,8 +290,11 @@ classes:
     annotations:
       mim:herkomst: BRV (basisregistratie)
       mim:herkomstDefinitie: >-
-        Wegenverkeerswet 1994 (tenaamstelling, art. 42 e.v.);
-        Kentekenreglement; RDW Kentekenregister.
+        Bron: Stelselcatalogus BRV (Logius) en RDW
+        open-data-handleidingen (dataset Gekentekende voertuigen, veld
+        datum_tenaamstelling), versie/datum niet in de repo vastgesteld.
+        Wettelijke grondslag: Wegenverkeerswet 1994 (tenaamstelling,
+        art. 42 e.v.); Kentekenreglement; RDW Kentekenregister.
       mim:datumOpname: "2026-06-16"
       mim:uniekeAanduiding: >-
         Samengesteld uit (Partij, Voertuig, datumTenaamstelling)
@@ -316,6 +326,10 @@ classes:
         oude een datumEinde krijgt; zo blijven historie en
         eigendomsverloop modelleerbaar.
       - "MIM-element: Relatieklasse (verdinglijkte relatie)."
+      - >-
+        needs_review brondocument-versie te verifieren (Stelselcatalogus
+        BRV en RDW open-data-handleidingen dragen geen expliciet
+        versienummer of publicatiedatum in de repo).
     unique_keys:
       voertuigtenaamstelling:
         unique_key_slots: [tenaamgesteldeOp, voorVoertuig, datumTenaamstelling]
@@ -393,12 +407,20 @@ enums:
     annotations:
       mim:herkomst: RDW
       mim:herkomstDefinitie: >-
-        RDW Kentekenregister; Wegenverkeerswet 1994; Kentekenreglement.
+        Bron: RDW open-data-handleidingen (Beschrijving dataset
+        gekentekende voertuigen, veld voertuigsoort) en Stelselcatalogus
+        BRV, versie/datum niet in de repo vastgesteld. Wettelijke
+        grondslag: RDW Kentekenregister; Wegenverkeerswet 1994;
+        Kentekenreglement.
       mim:datumOpname: "2026-06-16"
     comments:
       - >-
         Verzameling van de gangbare RDW-voertuigsoorten; bepaalt mede
         welke keurings- en kentekenregels van toepassing zijn.
+      - >-
+        needs_review brondocument-versie te verifieren (Stelselcatalogus
+        BRV en RDW open-data-handleidingen dragen geen expliciet
+        versienummer of publicatiedatum in de repo).
     permissible_values:
       Personenauto:
         description: Motorvoertuig voor het vervoer van personen (categorie M1).
@@ -435,12 +457,20 @@ enums:
     annotations:
       mim:herkomst: RDW
       mim:herkomstDefinitie: >-
-        RDW Kentekenregister (brandstof-omschrijving).
+        Bron: RDW open-data-handleidingen (dataset
+        Gekentekende_voertuigen_brandstof, veld brandstof_omschrijving)
+        en Stelselcatalogus BRV, versie/datum niet in de repo
+        vastgesteld. Wettelijke grondslag: RDW Kentekenregister
+        (brandstof-omschrijving).
       mim:datumOpname: "2026-06-16"
     comments:
       - >-
         Een voertuig kan meerdere brandstoffen voeren (hybride
         aandrijving); daarom is het attribuut meervoudig.
+      - >-
+        needs_review brondocument-versie te verifieren (Stelselcatalogus
+        BRV en RDW open-data-handleidingen dragen geen expliciet
+        versienummer of publicatiedatum in de repo).
     permissible_values:
       Benzine:
         description: Aandrijving op benzine.
@@ -466,10 +496,18 @@ enums:
     annotations:
       mim:herkomst: RDW
       mim:herkomstDefinitie: >-
-        RDW Kentekenregister; Wegenverkeerswet 1994.
+        Bron: RDW open-data-handleidingen (Beschrijving dataset
+        gekentekende voertuigen, veld voertuig_status) en
+        Stelselcatalogus BRV, versie/datum niet in de repo vastgesteld.
+        Wettelijke grondslag: RDW Kentekenregister; Wegenverkeerswet
+        1994.
       mim:datumOpname: "2026-06-16"
     comments:
       - Een voertuig heeft op elk moment precies één status.
+      - >-
+        needs_review brondocument-versie te verifieren (Stelselcatalogus
+        BRV en RDW open-data-handleidingen dragen geen expliciet
+        versienummer of publicatiedatum in de repo).
     permissible_values:
       Tenaamgesteld:
         description: Het voertuig staat op naam van een partij.
@@ -495,8 +533,16 @@ enums:
     annotations:
       mim:herkomst: RDW
       mim:herkomstDefinitie: >-
+        Bron: Stelselcatalogus BRV (Logius) en RDW
+        open-data-handleidingen (dataset Gekentekende voertuigen),
+        versie/datum niet in de repo vastgesteld. Wettelijke grondslag:
         Wegenverkeerswet 1994 (eigenaar/houder); Kentekenreglement.
       mim:datumOpname: "2026-06-16"
+    comments:
+      - >-
+        needs_review brondocument-versie te verifieren (Stelselcatalogus
+        BRV en RDW open-data-handleidingen dragen geen expliciet
+        versienummer of publicatiedatum in de repo).
     permissible_values:
       Eigenaar:
         description: De partij is eigenaar van het voertuig.

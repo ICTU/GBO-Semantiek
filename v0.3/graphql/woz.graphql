@@ -1,6 +1,9 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel WOZ, gegenereerd uit gbo-bron-woz.yaml.
 # Regenereer met: task generate:graphql
+#
+# WOZ-objecten en -deelobjecten, de jaarlijks vastgestelde WOZ-waarden
+# en de bij een object betrokken belanghebbenden.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -26,8 +29,8 @@ scalar CodelijstWOZ
 scalar Datum
 """Object- of documentidentificatie zonder vaste structuur."""
 scalar Identificatie
-"""Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
-scalar NEN3610ID
+"""Kadastrale aanduiding van een onroerende zaak: kadastrale gemeente, sectie en perceelnummer (bij een appartementsrecht aangevuld met een index), samen uniek binnen de BRK."""
+scalar KadastraleAanduiding
 """Gestandaardiseerde samenstelling van gemeentecode en objectnummer als één string; maakt een WOZ-object uniek identificeerbaar buiten de eigen gemeentecontext."""
 scalar ObjectAanduiding
 """Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
@@ -54,7 +57,9 @@ type WOZObject {
   """Eén of meer BAG-adresseerbare objecten die samen het WOZ-object vormen. (Sleutel-referentie naar AdresseerbaarObject.)"""
   refereert: [BAGID!]!
   """Eén of meer BRK-percelen waarop de fiscale eenheid ligt. (Sleutel-referentie naar Perceel.)"""
-  ligtOp: [NEN3610ID!]!
+  ligtOp: [KadastraleAanduiding!]!
+  """De belanghebbenden bij dit WOZ-object."""
+  heeftBelanghebbende: [Belanghebbende!]
 }
 
 """Een afzonderlijk gewaardeerd onderdeel binnen een WOZ-object, dat een eigen gebruik of eigen waardering kent ten opzichte van het samengestelde hoofdobject."""
@@ -169,6 +174,4 @@ enum RolBelanghebbende {
 type Query {
   """Eén WOZObject op aanduiding."""
   wOZObject(aanduiding: ObjectAanduiding!): WOZObject
-  """Alle voorkomens van WOZObject."""
-  wOZObjectLijst: [WOZObject!]
 }

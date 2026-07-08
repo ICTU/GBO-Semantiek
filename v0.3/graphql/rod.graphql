@@ -1,6 +1,10 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel ROD, gegenereerd uit gbo-bron-rod.yaml.
 # Regenereer met: task generate:graphql
+#
+# Opleidingen, opleidingsdeelnames en -resultaten, module-
+# inschrijvingen, beroepspraktijkvorming, verzuim, vooropleidingen en
+# studiefinanciering per onderwijsdeelnemer en onderwijsinstelling.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -52,7 +56,7 @@ interface Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
 }
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
@@ -60,7 +64,7 @@ type IngeschrevenPersoon implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -85,6 +89,16 @@ type IngeschrevenPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De opleidingsdeelnames van deze persoon."""
+  heeftOpleidingDeelname: [OpleidingDeelname!]
+  """De opleidingsresultaten die deze persoon heeft behaald."""
+  heeftOpleidingResultaat: [OpleidingResultaat!]
+  """De verzuimmeldingen over deze persoon."""
+  heeftVerzuimMelding: [VerzuimMelding!]
+  """De studiefinanciering die deze persoon ontvangt of ontving."""
+  heeftStudieFinanciering: [StudieFinanciering!]
+  """De studieleningen waarvoor deze persoon schuldenaar is."""
+  heeftStudieLening: [StudieLening!]
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """Het interne BRP-administratienummer."""
@@ -120,7 +134,7 @@ type OnderwijsInstelling implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
   """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
@@ -219,6 +233,8 @@ type OpleidingDeelname {
   kent: [BeroepspraktijkvormingPeriode!]
   """Resultaten die uit de deelname zijn voortgekomen."""
   leidtTot: [OpleidingResultaat!]
+  """De vooropleidingen die als toelatingsbewijs bij deze deelname gelden."""
+  heeftVooropleiding: [Vooropleiding!]
 }
 
 """Het door een natuurlijk persoon behaalde resultaat voor een opleiding of onderdeel daarvan bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk."""
@@ -368,7 +384,7 @@ type NatuurlijkPersoon implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -393,6 +409,16 @@ type NatuurlijkPersoon implements Partij {
   landOverlijden: CodelijstISO3166
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
+  """De opleidingsdeelnames van deze persoon."""
+  heeftOpleidingDeelname: [OpleidingDeelname!]
+  """De opleidingsresultaten die deze persoon heeft behaald."""
+  heeftOpleidingResultaat: [OpleidingResultaat!]
+  """De verzuimmeldingen over deze persoon."""
+  heeftVerzuimMelding: [VerzuimMelding!]
+  """De studiefinanciering die deze persoon ontvangt of ontving."""
+  heeftStudieFinanciering: [StudieFinanciering!]
+  """De studieleningen waarvoor deze persoon schuldenaar is."""
+  heeftStudieLening: [StudieLening!]
 }
 
 """Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
@@ -400,7 +426,7 @@ type NietNatuurlijkPersoon implements Partij {
   """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  ID: UUID!
+  id: UUID!
   """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
   """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
@@ -713,10 +739,6 @@ enum TypeMaatschappelijk {
 type Query {
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
-  """Alle voorkomens van IngeschrevenPersoon."""
-  ingeschrevenPersoonLijst: [IngeschrevenPersoon!]
   """Eén OnderwijsInstelling op instellingscodeRIO."""
   onderwijsInstelling(instellingscodeRIO: Identificatie!): OnderwijsInstelling
-  """Alle voorkomens van OnderwijsInstelling."""
-  onderwijsInstellingLijst: [OnderwijsInstelling!]
 }

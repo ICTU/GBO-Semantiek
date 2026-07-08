@@ -108,7 +108,7 @@ classes:
         Een NietNatuurlijkPersoon is vindbaar via twee externe sleutels:
         rsin en kvkNummer. Beide zijn als unique_key gedeclareerd zodat de
         pipeline er query-ingangen voor genereert; het van Partij geërfde
-        ID (UUID) blijft de interne technische identifier.
+        id (UUID) blijft de interne technische identifier.
     unique_keys:
       rsin:
         unique_key_slots: [rsin]
@@ -119,7 +119,7 @@ classes:
         unique_key_slots: [kvkNummer]
         description: >-
           Tweede findable key; enkelvoudig, 1:1 afgeleid via de
-          MaatschappelijkeActiviteit. ID (geërfd van Partij) blijft de
+          MaatschappelijkeActiviteit. id (geërfd van Partij) blijft de
           technische identifier.
     attributes:
       rsin:

@@ -1,6 +1,11 @@
 # GEGENEREERD BESTAND — niet handmatig bewerken.
 # GraphQL SDL voor bronprofiel BAG, gegenereerd uit gbo-bron-bag.yaml.
 # Regenereer met: task generate:graphql
+#
+# Adresseerbare objecten (verblijfsobjecten, ligplaatsen,
+# standplaatsen), panden, nummeraanduidingen, openbare ruimten en
+# woonplaatsen uit de BAG, inclusief de bitemporele levenscyclus-
+# gegevens, plus het daaruit samengestelde binnenlandse adres.
 
 """Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
 directive @restrictie(
@@ -26,8 +31,6 @@ scalar Jaar @restrictie(patroon: "^[0-9]{4}$")
 scalar Postcode @restrictie(patroon: "^[1-9][0-9]{3} ?[A-Z]{2}$")
 """Geometrie als één coördinaat (x, y, optioneel z)."""
 scalar Punt
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 """Geometrie als gesloten polygoon, eventueel met binnenringen voor uitsparingen."""
 scalar Vlak
 
@@ -45,8 +48,6 @@ interface AdresseerbaarObject {
 
 """Een leesbare aanduiding van een locatie of correspondentiepunt waarmee een persoon of organisatie kan worden bereikt of waarop een rechtsbetrekking is gevestigd, samengesteld uit elementen van de bronregisters BAG, RSGB en BRP."""
 interface Adres {
-  """GBO-eigen sleutel voor één adres-instantie."""
-  adresId: UUID!
   """Gedenormaliseerde, leesbare projectie van het adres."""
   volledigAdres: String
 }
@@ -177,10 +178,10 @@ type Woonplaats {
 
 """Een Nederlands adres dat via een BAG-Nummeraanduiding en de bijbehorende openbare ruimte en woonplaats wordt opgebouwd."""
 type Binnenlandsadres implements Adres {
-  """GBO-eigen sleutel voor één adres-instantie."""
-  adresId: UUID!
   """Gedenormaliseerde, leesbare projectie van het adres."""
   volledigAdres: String
+  """De identificatie van dit adres: de BAG-identificatie van de Nummeraanduiding die het adres vormt."""
+  adresId: BAGID!
   """Volledige naam van de openbare ruimte."""
   straatnaam: String!
   """Het huisnummer-deel van de Nummeraanduiding."""
@@ -323,18 +324,10 @@ enum StatusWoonplaats {
 type Query {
   """Eén AdresseerbaarObject op identificatie."""
   adresseerbaarObject(identificatie: BAGID!): AdresseerbaarObject
-  """Alle voorkomens van AdresseerbaarObject."""
-  adresseerbaarObjectLijst: [AdresseerbaarObject!]
   """Eén Pand op identificatie."""
   pand(identificatie: BAGID!): Pand
-  """Alle voorkomens van Pand."""
-  pandLijst: [Pand!]
   """Eén Nummeraanduiding op identificatie."""
   nummeraanduiding(identificatie: BAGID!): Nummeraanduiding
-  """Alle voorkomens van Nummeraanduiding."""
-  nummeraanduidingLijst: [Nummeraanduiding!]
   """Eén Binnenlandsadres op adresId."""
-  binnenlandsadres(adresId: UUID!): Binnenlandsadres
-  """Alle voorkomens van Binnenlandsadres."""
-  binnenlandsadresLijst: [Binnenlandsadres!]
+  binnenlandsadres(adresId: BAGID!): Binnenlandsadres
 }

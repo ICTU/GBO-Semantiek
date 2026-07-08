@@ -8,67 +8,51 @@
 #   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
 #       -C Bronprofiel bri.yaml
 # Materialiseren:
-#   python3 tools/genereer_bronschema.py v0.2/bronnen/bri.yaml
+#   python3 tools/genereer_bronschema.py v0.3/bronnen/bri.yaml
 #
-# Naast het authentieke gegeven (AuthentiekInkomen) ontsluit dit
-# profiel de volledige inkomensketen met alle inkomensbestanddelen
-# (Inkomstenverhouding, Inkomstenopgave, Inkomstenperiode,
-# LoonBestanddeel, LoonAangifte) — ook al is bekend dat die
-# bestanddelen later uit andere bronnen (loonketen UWV /
-# Belastingdienst) moeten komen; de profielen worden dan herverdeeld.
+# De BRI levert uitsluitend het authentieke gegeven: verzamelinkomen of
+# belastbaar jaarloon (inkomenBedrag), het belastingjaar en de BSN van
+# de ingeschreven persoon. De onderliggende inkomensbestanddelen uit de
+# loonketen zitten in het aparte profiel bri-plus.yaml.
 # =============================================================================
 bron: BRI
 titel: Basisregistratie Inkomen
 beschrijving: >-
   Het authentiek inkomensgegeven (verzamelinkomen of belastbaar
-  jaarloon per persoon per belastingjaar) plus de onderliggende
-  inkomensbestanddelen uit de loonketen: inkomstenverhoudingen,
-  inkomstenopgaven, inkomstenperioden, loonbestanddelen en
-  loonaangiften.
+  jaarloon per persoon per belastingjaar), geleverd per BSN. Levert
+  uitsluitend gegevens voor ingeschreven personen (personen met een
+  BSN) en uitsluitend over voorgaande, afgesloten belastingjaren;
+  gegevens over het lopende jaar worden niet geleverd. De opvraagdatum
+  is leveringsmetadata en staat in de antwoord-envelop van de
+  levering, niet in het schema.
 schemabestand: ../informatiemodel/linkml/gbo.yaml
 
-# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+# Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
+# lijst-query.
 ingangen:
-  - AuthentiekInkomen
   - IngeschrevenPersoon
+lijstQueries: false
 
-# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
-# NatuurlijkPersoon staat expliciet vermeld (hoewel het als supertype
-# automatisch zou meegaan) zodat de uitsluiting van heeftOuder kan
-# worden uitgedrukt.
 objecttypen:
   - AuthentiekInkomen
-  - Inkomstenverhouding
-  - Inkomstenopgave
-  - Inkomstenperiode
-  - LoonBestanddeel
-  - LoonAangifte
-  - NatuurlijkPersoon
   - IngeschrevenPersoon
 
-# Attributen die deze bron niet levert.
-uitsluitingen:
-  - objecttype: NatuurlijkPersoon
+# Whitelist: de BRI levert alleen deze gegevens. De navigatie van
+# persoon naar inkomen (heeftAuthentiekInkomen) materialiseert de
+# snoei-tool automatisch uit de inverse van gegrondvestOp.
+insluitingen:
+  - objecttype: AuthentiekInkomen
     attributen:
-      - heeftOuder    # ouder-relaties zijn BRP-terrein, geen BRI
+      - inkomenBedrag
+      - belastingjaar
+      - gegrondvestOp
+  - objecttype: IngeschrevenPersoon
+    attributen:
+      - bsn
 
-# Afwijkende afhandeling van relaties buiten het profiel; zonder
-# vermelding geldt de default "sleutel". Hier:
-#   Inkomstenverhouding.tussenWerkgever -> sleutel
-#       (MaatschappelijkeActiviteit.kvkNummer)
-#   LoonAangifte.ingediendDoor          -> sleutel (idem)
-#   Partij.ingeschrevenAls              -> sleutel (MaatschappelijkeActiviteit.kvkNummer)
-# De persoonslijst-categorieën zijn BRP-terrein en vervallen geheel:
+# Binnen de BRI is elke persoon een ingeschreven persoon (BSN-plicht):
 relatieAfhandeling:
-  - objecttype: IngeschrevenPersoon
-    relatie: heeftNationaliteit
-    afhandeling: weglaten
-  - objecttype: IngeschrevenPersoon
-    relatie: heeftVerblijfstitel
-    afhandeling: weglaten
-  - objecttype: IngeschrevenPersoon
-    relatie: gezag
-    afhandeling: weglaten
-  - objecttype: IngeschrevenPersoon
-    relatie: heeftImmigratie
-    afhandeling: weglaten
+  - objecttype: AuthentiekInkomen
+    relatie: gegrondvestOp
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon

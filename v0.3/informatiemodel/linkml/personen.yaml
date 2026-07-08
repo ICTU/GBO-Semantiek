@@ -46,11 +46,12 @@ classes:
         BRP cat 01 (basis); semantische verbreding voor personen buiten
         de Nederlandse persoonsregistratie
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek art. 1:1 BW (algemene grondslag voor het
-        rechtssubject mens); Logisch Ontwerp BRP v4.3.0 §1 voor de
-        operationele invulling binnen de basisregistratie.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1
+        (operationele invulling binnen de basisregistratie). Wettelijke
+        grondslag: Burgerlijk Wetboek art. 1:1 BW (algemene grondslag
+        voor het rechtssubject mens).
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: ID (geërfd van Partij)
+      mim:uniekeAanduiding: id (geërfd van Partij)
       mim:populatie: >-
         Alle natuurlijke personen die voor een overheidsorganisatie
         relevant zijn: ingeschrevenen in BRP-GBA en BRP-RNI, en
@@ -231,8 +232,9 @@ classes:
     annotations:
       mim:herkomst: BRP
       mim:herkomstDefinitie: >-
-        Wet BRP art. 1.2 en art. 2.1; Logisch Ontwerp BRP v4.3.0 §1
-        (registratiedomein BRP).
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1
+        (registratiedomein BRP). Wettelijke grondslag: Wet BRP art. 1.2
+        en art. 2.1.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: bsn
       mim:populatie: >-
@@ -255,7 +257,7 @@ classes:
       bsn:
         unique_key_slots: [bsn]
         description: >-
-          MIM unieke aanduiding; ID (geërfd van Partij)
+          MIM unieke aanduiding; id (geërfd van Partij)
           blijft de technische identifier.
     attributes:
       bsn:
@@ -423,8 +425,9 @@ classes:
     annotations:
       mim:herkomst: BRP
       mim:herkomstDefinitie: >-
-        Wet BRP art. 1.1 onder e (definitie ingezetene) en art. 2.4;
-        Logisch Ontwerp BRP v4.3.0 §1.5 (BRP-GBA-spoor).
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1.5
+        (BRP-GBA-spoor). Wettelijke grondslag: Wet BRP art. 1.1 onder e
+        (definitie ingezetene) en art. 2.4.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: bsn (geërfd)
       mim:populatie: >-
@@ -494,8 +497,9 @@ classes:
     annotations:
       mim:herkomst: BRP
       mim:herkomstDefinitie: >-
-        Wet BRP art. 1.1 onder f en art. 2.1; Logisch Ontwerp BRP
-        v4.3.0 §1.5 (BRP-RNI-spoor).
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1.5
+        (BRP-RNI-spoor). Wettelijke grondslag: Wet BRP art. 1.1 onder f
+        en art. 2.1.
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: bsn (geërfd)
       mim:populatie: >-
@@ -567,9 +571,9 @@ classes:
     annotations:
       mim:herkomst: BRP cat 11
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 1 titel 14 (ouderlijk gezag) en BW
-        art. 1:378 (curatele); BRP cat 11 Gezagsverhouding; Logisch
-        Ontwerp BRP v4.3.0.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 11
+        Gezagsverhouding. Wettelijke grondslag: Burgerlijk Wetboek Boek 1
+        titel 14 (ouderlijk gezag) en BW art. 1:378 (curatele).
       mim:datumOpname: "2026-04-28"
       mim:populatie: >-
         Alle gezagssituaties van ingeschreven personen waarvoor een
@@ -617,9 +621,10 @@ classes:
     annotations:
       mim:herkomst: BRP cat 05
       mim:herkomstDefinitie: >-
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 05
+        Huwelijk/Geregistreerd Partnerschap. Wettelijke grondslag:
         Burgerlijk Wetboek Boek 1 titel 5 (huwelijk) en titel 5A
-        (geregistreerd partnerschap); BRP cat 05 Huwelijk/Geregistreerd
-        Partnerschap; Logisch Ontwerp BRP v4.3.0.
+        (geregistreerd partnerschap).
       mim:datumOpname: "2026-04-28"
       mim:populatie: >-
         Alle geregistreerde huwelijken en geregistreerde
@@ -693,6 +698,9 @@ classes:
         required: true
         description: Symmetrisch; geen aangaande/partner-onderscheid.
         annotations:
+          gbo:inverseNaam: heeftHuwelijk
+          gbo:inverseBeschrijving: >-
+            De huwelijken of geregistreerde partnerschappen van deze persoon.
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
@@ -712,9 +720,9 @@ classes:
     annotations:
       mim:herkomst: BRP cat 08
       mim:herkomstDefinitie: >-
-        Wet BRP art. 2.39 (aangifte van vestiging vanuit het
-        buitenland); BRP cat 08 grp 14 Inschrijving; Logisch Ontwerp
-        BRP v4.3.0.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 08
+        grp 14 Inschrijving. Wettelijke grondslag: Wet BRP art. 2.39
+        (aangifte van vestiging vanuit het buitenland).
       mim:datumOpname: "2026-04-28"
       mim:populatie: >-
         Alle ingeschreven personen die zich vanuit het buitenland in
@@ -766,9 +774,9 @@ classes:
     annotations:
       mim:herkomst: BRP cat 04
       mim:herkomstDefinitie: >-
-        Rijkswet op het Nederlanderschap voor de Nederlandse
-        nationaliteit; BRP cat 04 Nationaliteit; Logisch Ontwerp BRP
-        v4.3.0.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 04
+        Nationaliteit. Wettelijke grondslag: Rijkswet op het
+        Nederlanderschap voor de Nederlandse nationaliteit.
       mim:datumOpname: "2026-04-28"
       mim:populatie: >-
         Alle aan een ingeschreven persoon toegekende nationaliteiten,
@@ -838,9 +846,10 @@ classes:
     annotations:
       mim:herkomst: BRP cat 10
       mim:herkomstDefinitie: >-
-        Vreemdelingenwet 2000; BRP cat 10 Verblijfstitel; Logisch
-        Ontwerp BRP v4.3.0. Codelijst gebaseerd op IND-aanduidingen,
-        met cross-walk naar landelijke tabel LT 56.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 10
+        Verblijfstitel. Wettelijke grondslag: Vreemdelingenwet 2000.
+        Codelijst gebaseerd op IND-aanduidingen, met cross-walk naar
+        landelijke tabel LT 56.
       mim:datumOpname: "2026-04-28"
       mim:populatie: >-
         Alle aan ingeschreven personen toegekende verblijfstitels
@@ -895,9 +904,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 13 Kiesrecht
       mim:herkomstDefinitie: >-
-        Kieswet hoofdstuk Y (kiesrecht Europees Parlement, registratie
-        EU-burgers in andere lidstaat); Logisch Ontwerp BRP v4.3.0
-        cat 13.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 13.
+        Wettelijke grondslag: Kieswet hoofdstuk Y (kiesrecht Europees
+        Parlement, registratie EU-burgers in andere lidstaat).
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -926,9 +935,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 01 grp 04 Geslacht
       mim:herkomstDefinitie: >-
-        Logisch Ontwerp BRP v4.3.0 §4.6 element 04.10 (groep 04
-        Geslacht op de persoonslijst); juridische grondslag Wet BRP en
-        Burgerlijk Wetboek Boek 1.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §4.6
+        element 04.10 (groep 04 Geslacht op de persoonslijst).
+        Wettelijke grondslag: Wet BRP en Burgerlijk Wetboek Boek 1.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -963,8 +972,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 11 Gezagsverhouding
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 1 titel 14 (gezag over minderjarigen);
-        Logisch Ontwerp BRP v4.3.0 cat 11 Gezagsverhouding.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 11
+        Gezagsverhouding. Wettelijke grondslag: Burgerlijk Wetboek
+        Boek 1 titel 14 (gezag over minderjarigen).
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1006,8 +1016,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 07 grp 67 Opschorting
       mim:herkomstDefinitie: >-
-        Logisch Ontwerp BRP v4.3.0 §4.6 cat 07 grp 67 Opschorting
-        bijhouding; Wet BRP.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §4.6
+        cat 07 grp 67 Opschorting bijhouding. Wettelijke grondslag:
+        Wet BRP.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1048,9 +1059,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 05 Huwelijk/Geregistreerd partnerschap
       mim:herkomstDefinitie: >-
-        Burgerlijk Wetboek Boek 1 titel 5 (huwelijk) en titel 5A
-        (geregistreerd partnerschap); Logisch Ontwerp BRP v4.3.0
-        cat 05.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 05.
+        Wettelijke grondslag: Burgerlijk Wetboek Boek 1 titel 5
+        (huwelijk) en titel 5A (geregistreerd partnerschap).
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1076,8 +1087,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 13 Kiesrecht
       mim:herkomstDefinitie: >-
-        Kieswet art. B 5 en J 25 (gronden voor uitsluiting kiesrecht);
-        Logisch Ontwerp BRP v4.3.0 cat 13 Kiesrecht.
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 13
+        Kiesrecht. Wettelijke grondslag: Kieswet art. B 5 en J 25
+        (gronden voor uitsluiting kiesrecht).
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
@@ -1103,8 +1115,9 @@ enums:
     annotations:
       mim:herkomst: BRP cat 07 grp 71 Verificatie
       mim:herkomstDefinitie: >-
-        Logisch Ontwerp BRP v4.3.0 §4.6 cat 07 grp 71 Verificatie;
-        Wet BRP (verplichting tot periodieke identiteitscontrole).
+        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §4.6
+        cat 07 grp 71 Verificatie. Wettelijke grondslag: Wet BRP
+        (verplichting tot periodieke identiteitscontrole).
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
