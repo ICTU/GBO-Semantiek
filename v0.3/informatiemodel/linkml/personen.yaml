@@ -207,6 +207,13 @@ classes:
           mim:herkomst: BRP cat 02/03
         comments:
           - >-
+            Bewuste afbakening (bevestigd 2026-07-08): de range is
+            NatuurlijkPersoon, de ouder zoals vermeld op de eigen
+            persoonslijst (BRP cat 02/03). Doorklikken naar de
+            volledige persoonslijst van de ouder is opzettelijk niet
+            mogelijk; dat vergt een eigen bevraging met eigen
+            autorisatie-grondslag.
+          - >-
             Maximaal 2 ouders per persoon; LinkML kent geen maximum-
             kardinaliteit, zie annotatie mim:kardinaliteit.
 
@@ -332,18 +339,27 @@ classes:
             Bijhouding stopt bij overlijden, emigratie of opname in
             RNI.
       uitsluitingKiesrecht:
-        range: UitsluitingKiesrecht
+        range: IndicatieJaNee
         description: >-
-          Aanduiding dat de persoon van het kiesrecht is uitgesloten.
+          Aanduiding dat de persoon door rechterlijke uitspraak van
+          het kiesrecht voor de Tweede Kamer en provinciale staten is
+          uitgesloten.
         annotations:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRP cat 13
+          mim:herkomstDefinitie: >-
+            Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023),
+            cat 13 Kiesrecht. Wettelijke grondslag: Kieswet art. B 5
+            en J 25.
         comments:
-          - Rechterlijke uitspraak conform Kieswet.
+          - >-
+            Rechterlijke uitspraak conform Kieswet. Tweewaardig
+            (IndicatieJaNee): een afwezige waarde betekent "niet
+            vastgesteld" en is te onderscheiden van Nee.
       europeesKiesrecht:
-        range: EuropeesKiesrecht
+        range: IndicatieJaNee
         description: >-
           Aanduiding dat de persoon kiesgerechtigd is voor het Europees
           Parlement vanuit Nederland.
@@ -352,10 +368,16 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRP cat 13
+          mim:herkomstDefinitie: >-
+            Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023),
+            cat 13 Kiesrecht. Wettelijke grondslag: Kieswet hoofdstuk Y
+            (registratie EU-burgers).
         comments:
           - >-
             Relevant voor EU-onderdanen die in Nederland het Europees
-            kiesrecht uitoefenen.
+            kiesrecht uitoefenen. Tweewaardig (IndicatieJaNee): een
+            afwezige waarde betekent "niet van toepassing of niet
+            vastgesteld" en is te onderscheiden van Nee.
       verificatie:
         range: Verificatie
         description: Datum en bron van de laatste gegevensverificatie.
@@ -709,6 +731,13 @@ classes:
           - >-
             Precies 2 partners; LinkML kent geen exacte kardinaliteit,
             zie annotatie mim:kardinaliteit.
+          - >-
+            Bewuste afbakening (bevestigd 2026-07-08): de range is
+            NatuurlijkPersoon, de partner zoals vermeld op de eigen
+            persoonslijst (BRP cat 05). Doorklikken naar de volledige
+            persoonslijst van de partner is opzettelijk niet mogelijk;
+            dat vergt een eigen bevraging met eigen
+            autorisatie-grondslag.
 
   Immigratie:
     description: >-
@@ -895,38 +924,6 @@ classes:
 
 enums:
 
-  EuropeesKiesrecht:
-    description: >-
-      Indicatie of een EU-burger in Nederland is geregistreerd voor het
-      kiesrecht voor het Europees Parlement.
-    exact_mappings:
-      - gbobegrip:EuropeesKiesrecht
-    annotations:
-      mim:herkomst: BRP cat 13 Kiesrecht
-      mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 13.
-        Wettelijke grondslag: Kieswet hoofdstuk Y (kiesrecht Europees
-        Parlement, registratie EU-burgers in andere lidstaat).
-      mim:datumOpname: "2026-04-28"
-    comments:
-      - >-
-        Geldt alleen voor EU-burgers met andere nationaliteit dan de
-        Nederlandse die in Nederland wonen. Opgezet als
-        Ja/Nee-keuzelijst zodat "geen waarde" (niet geregistreerd of
-        niet van toepassing) onderscheidbaar blijft van "Nee".
-    permissible_values:
-      Ja:
-        description: >-
-          De persoon is geregistreerd voor EP-kiesrecht in Nederland.
-      Nee:
-        description: >-
-          De persoon is niet geregistreerd voor EP-kiesrecht in
-          Nederland.
-        comments:
-          - >-
-            "Geen waarde" betekent niet van toepassing (Nederlander, of
-            registratie niet vastgesteld).
-
   Geslacht:
     description: >-
       Geregistreerde geslachtsaanduiding van een natuurlijk persoon.
@@ -1076,35 +1073,6 @@ enums:
         description: Verbintenis volgens BW Boek 1 titel 5A.
         comments:
           - Sinds 1998 in Nederland mogelijk.
-
-  UitsluitingKiesrecht:
-    description: >-
-      Indicatie of een persoon door rechterlijke uitspraak is
-      uitgesloten van het kiesrecht voor de Tweede Kamer en provinciale
-      staten.
-    exact_mappings:
-      - gbobegrip:UitsluitingKiesrecht
-    annotations:
-      mim:herkomst: BRP cat 13 Kiesrecht
-      mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 13
-        Kiesrecht. Wettelijke grondslag: Kieswet art. B 5 en J 25
-        (gronden voor uitsluiting kiesrecht).
-      mim:datumOpname: "2026-04-28"
-    comments:
-      - >-
-        Opgezet als Ja/Nee-keuzelijst en niet als algemene Indicatie,
-        omdat afnemers het onderscheid tussen "geen waarde" en "Nee"
-        moeten kunnen maken. De einddatum van een rechterlijke
-        uitsluiting wordt elders op de persoonslijst vastgelegd.
-    permissible_values:
-      Ja:
-        description: De persoon is uitgesloten van het kiesrecht.
-      Nee:
-        description: >-
-          De persoon is expliciet niet uitgesloten van het kiesrecht.
-        comments:
-          - '"Geen waarde" betekent niet vastgesteld.'
 
   Verificatie:
     description: >-

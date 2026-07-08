@@ -132,8 +132,8 @@ objecttype.
 | `datumEersteInschrijving` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop deze persoon voor het eerst in de BRP werd opgenomen. | BRP cat 07 grp 67 | |
 | `gemeenteVanInschrijving` | [`Codelijst~LT33`](adressen-en-gebouwen.md#codelijsten) | 0..1 | Basisgegeven | Ja | Ja | De gemeente die de persoonslijst bijhoudt. | BRP cat 07 grp 67 | Voor RNI-inschrijvingen leeg of gevuld met een RNI-deelnemer-equivalent. |
 | `opschortingBijhouding` | [`OpschortingBijhouding`](#opschortingbijhouding) | 0..1 | Basisgegeven | Ja | Ja | Reden waarom bijhouding van de persoonslijst is opgeschort. | BRP cat 07 grp 67 | Bijhouding stopt bij overlijden, emigratie of opname in RNI. |
-| `uitsluitingKiesrecht` | [`UitsluitingKiesrecht`](#uitsluitingkiesrecht) | 0..1 | Basisgegeven | Ja | Ja | Aanduiding dat de persoon van het kiesrecht is uitgesloten. | BRP cat 13 | Rechterlijke uitspraak conform Kieswet. |
-| `europeesKiesrecht` | [`EuropeesKiesrecht`](#europeeskiesrecht) | 0..1 | Basisgegeven | Ja | Ja | Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland. | BRP cat 13 | Relevant voor EU-onderdanen die in Nederland het Europees kiesrecht uitoefenen. |
+| `uitsluitingKiesrecht` | [`IndicatieJaNee`](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | Aanduiding dat de persoon van het kiesrecht is uitgesloten. | BRP cat 13 | Rechterlijke uitspraak conform Kieswet. |
+| `europeesKiesrecht` | [`IndicatieJaNee`](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland. | BRP cat 13 | Relevant voor EU-onderdanen die in Nederland het Europees kiesrecht uitoefenen. |
 | `verificatie` | [`Verificatie`](#verificatie) | 0..1 | Basisgegeven | Ja | Ja | Datum en bron van de laatste gegevensverificatie. | BRP cat 07 | |
 | `inOnderzoek` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Ja | Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek. | BRP cat 07 | Datakwaliteits-flag. |
 
@@ -460,30 +460,6 @@ gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 
 ## Enumeraties
 
-### EuropeesKiesrecht
-
-**Definitie**: Indicatie of een EU-burger in Nederland is geregistreerd voor het kiesrecht voor het Europees Parlement.
-
-**Herkomst definitie**: Kieswet hoofdstuk Y (kiesrecht Europees Parlement, registratie EU-burgers in andere lidstaat); Logisch Ontwerp BRP v4.3.0 cat 13.
-
-**Toelichting**: Geldt alleen voor EU-burgers met andere nationaliteit dan de Nederlandse die in Nederland wonen. Zij kunnen voor EP-verkiezingen kiezen tussen stemrecht in Nederland en in hun land van nationaliteit. Voor Nederlanders is dit veld niet van toepassing en mag de waarde ontbreken. Opgezet als Ja/Nee-keuzelijst zodat "geen waarde" (niet geregistreerd of niet van toepassing) onderscheidbaar blijft van "Nee" (expliciet niet gekozen voor NL-registratie).
-
-| MIM-veld | Waarde |
-|---|---|
-| Naam | EuropeesKiesrecht |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/EuropeesKiesrecht` |
-| Herkomst | BRP cat 13 Kiesrecht |
-| Datum opname | 2026-04-28 |
-
-**Gebruikt door**: `IngeschrevenPersoon.europeesKiesrecht`.
-
-**Waarden**:
-
-| Naam | Definitie | Toelichting |
-|---|---|---|
-| Ja | De persoon is geregistreerd voor EP-kiesrecht in Nederland. | |
-| Nee | De persoon is niet geregistreerd voor EP-kiesrecht in Nederland. | "Geen waarde" betekent niet van toepassing (Nederlander, of registratie niet vastgesteld). |
-
 ### Geslacht
 
 **Definitie**: Geregistreerde geslachtsaanduiding van een natuurlijk persoon.
@@ -585,30 +561,6 @@ gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 |---|---|---|
 | Huwelijk | Verbintenis volgens BW Boek 1 titel 5 (burgerlijk huwelijk). | |
 | GeregistreerdPartnerschap | Verbintenis volgens BW Boek 1 titel 5A. | Sinds 1998 in Nederland mogelijk. |
-
-### UitsluitingKiesrecht
-
-**Definitie**: Indicatie of een persoon door rechterlijke uitspraak is uitgesloten van het kiesrecht voor de Tweede Kamer en provinciale staten.
-
-**Herkomst definitie**: Kieswet art. B 5 en J 25 (gronden voor uitsluiting kiesrecht); Logisch Ontwerp BRP v4.3.0 cat 13 Kiesrecht.
-
-**Toelichting**: Opgezet als Ja/Nee-keuzelijst en niet als algemene `Indicatie`, omdat afnemers het onderscheid tussen "geen waarde" (niet vastgesteld of niet relevant, bijvoorbeeld onder de stemgerechtigde leeftijd) en "Nee" (expliciet niet uitgesloten) moeten kunnen maken. De einddatum van een rechterlijke uitsluiting wordt elders op de persoonslijst vastgelegd, niet in deze keuzelijst.
-
-| MIM-veld | Waarde |
-|---|---|
-| Naam | UitsluitingKiesrecht |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/UitsluitingKiesrecht` |
-| Herkomst | BRP cat 13 Kiesrecht |
-| Datum opname | 2026-04-28 |
-
-**Gebruikt door**: `IngeschrevenPersoon.uitsluitingKiesrecht`.
-
-**Waarden**:
-
-| Naam | Definitie | Toelichting |
-|---|---|---|
-| Ja | De persoon is uitgesloten van het kiesrecht. | |
-| Nee | De persoon is expliciet niet uitgesloten van het kiesrecht. | "Geen waarde" betekent niet vastgesteld. |
 
 ### Verificatie
 

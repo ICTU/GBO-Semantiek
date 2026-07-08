@@ -45,8 +45,10 @@ classes:
         range: MaatschappelijkeActiviteit
         multivalued: true
         description: >-
-          De inschrijving(en) waarbij deze partij als eigenaar of
-          vennoot betrokken is in het Handelsregister.
+          De maatschappelijke activiteit(en), de op KVK-nummer
+          geïdentificeerde inschrijvingseenheid van het
+          Handelsregister, waarbij deze partij als eigenaar of vennoot
+          betrokken is.
         annotations:
           mim:kardinaliteit: "1..* -> 0..*"
         comments:

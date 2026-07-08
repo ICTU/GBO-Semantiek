@@ -47,7 +47,7 @@ scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 interface IngeschrevenPersoon implements Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -87,10 +87,10 @@ interface IngeschrevenPersoon implements Partij {
   gemeenteVanInschrijving: CodelijstLT33
   """Reden waarom bijhouding van de persoonslijst is opgeschort."""
   opschortingBijhouding: OpschortingBijhouding
-  """Aanduiding dat de persoon van het kiesrecht is uitgesloten."""
-  uitsluitingKiesrecht: UitsluitingKiesrecht
+  """Aanduiding dat de persoon door rechterlijke uitspraak van het kiesrecht voor de Tweede Kamer en provinciale staten is uitgesloten."""
+  uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
-  europeesKiesrecht: EuropeesKiesrecht
+  europeesKiesrecht: IndicatieJaNee
   """Datum en bron van de laatste gegevensverificatie."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
@@ -107,7 +107,7 @@ interface IngeschrevenPersoon implements Partij {
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -121,7 +121,7 @@ interface Adres {
 
 """Een mens als drager van burgerlijke rechten en plichten."""
 type NatuurlijkPersoon implements Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -155,7 +155,7 @@ type NatuurlijkPersoon implements Partij {
 
 """Een ingeschreven persoon die zijn adres heeft op het grondgebied van een Nederlandse gemeente en daar door die gemeente in de basisregistratie wordt bijgehouden."""
 type Ingezetene implements IngeschrevenPersoon & Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -195,10 +195,10 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
   gemeenteVanInschrijving: CodelijstLT33
   """Reden waarom bijhouding van de persoonslijst is opgeschort."""
   opschortingBijhouding: OpschortingBijhouding
-  """Aanduiding dat de persoon van het kiesrecht is uitgesloten."""
-  uitsluitingKiesrecht: UitsluitingKiesrecht
+  """Aanduiding dat de persoon door rechterlijke uitspraak van het kiesrecht voor de Tweede Kamer en provinciale staten is uitgesloten."""
+  uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
-  europeesKiesrecht: EuropeesKiesrecht
+  europeesKiesrecht: IndicatieJaNee
   """Datum en bron van de laatste gegevensverificatie."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
@@ -221,7 +221,7 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
 
 """Een ingeschreven persoon die niet als ingezetene van een Nederlandse gemeente is geregistreerd en wiens persoonslijst centraal wordt bijgehouden in de Registratie Niet-Ingezetenen."""
 type NietIngezetene implements IngeschrevenPersoon & Partij {
-  """De inschrijving(en) waarbij deze partij als eigenaar of vennoot betrokken is in het Handelsregister. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
   """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
   id: UUID!
@@ -261,10 +261,10 @@ type NietIngezetene implements IngeschrevenPersoon & Partij {
   gemeenteVanInschrijving: CodelijstLT33
   """Reden waarom bijhouding van de persoonslijst is opgeschort."""
   opschortingBijhouding: OpschortingBijhouding
-  """Aanduiding dat de persoon van het kiesrecht is uitgesloten."""
-  uitsluitingKiesrecht: UitsluitingKiesrecht
+  """Aanduiding dat de persoon door rechterlijke uitspraak van het kiesrecht voor de Tweede Kamer en provinciale staten is uitgesloten."""
+  uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
-  europeesKiesrecht: EuropeesKiesrecht
+  europeesKiesrecht: IndicatieJaNee
   """Datum en bron van de laatste gegevensverificatie."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
@@ -283,8 +283,8 @@ type NietIngezetene implements IngeschrevenPersoon & Partij {
   landVanVerblijf: CodelijstISO3166
   """De RNI-deelnemer die de inschrijving heeft aangemaakt of bijgehouden."""
   deelnemerCodeRNI: CodelijstLT88
-  """Verblijfadres in het buitenland; zie deelmodel Adressen en gebouwen. (Sleutel-referentie naar Buitenlandsadres.)"""
-  woontOp: UUID
+  """Verblijfadres in het buitenland; zie deelmodel Adressen en gebouwen."""
+  woontOp: Buitenlandsadres
 }
 
 """Een nationaliteit die aan een ingeschreven persoon is toegekend, inclusief de gebeurtenis van verkrijging en eventueel verlies."""
@@ -365,8 +365,22 @@ type Binnenlandsadres implements Adres {
   postcode: Postcode
   """Naam van de bovenliggende woonplaats."""
   woonplaatsnaam: String!
-  """Spiegel van Nummeraanduiding vormt Binnenlandsadres. (Sleutel-referentie naar Nummeraanduiding.)"""
-  wordtGevormdDoor: BAGID!
+}
+
+"""Een adres buiten Nederland weergegeven als één tot drie vrije adresregels samen met een landaanduiding."""
+type Buitenlandsadres implements Adres {
+  """Gedenormaliseerde, leesbare projectie van het adres."""
+  volledigAdres: String
+  """GBO-eigen sleutel voor één adres-instantie."""
+  adresId: UUID!
+  """Eerste regel van het buitenlandse adres."""
+  adresregel1: String!
+  """Tweede regel van het buitenlandse adres."""
+  adresregel2: String
+  """Derde regel van het buitenlandse adres."""
+  adresregel3: String
+  """Landaanduiding volgens ISO 3166."""
+  land: CodelijstISO3166!
 }
 
 """Geregistreerde geslachtsaanduiding van een natuurlijk persoon."""
@@ -391,19 +405,11 @@ enum OpschortingBijhouding {
   FoutAangelegdOfFraude
 }
 
-"""Indicatie of een persoon door rechterlijke uitspraak is uitgesloten van het kiesrecht voor de Tweede Kamer en provinciale staten."""
-enum UitsluitingKiesrecht {
-  """De persoon is uitgesloten van het kiesrecht."""
+"""Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de afwezigheid van een waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing) en dus onderscheiden moet blijven van een expliciet Nee. Anders dan Indicatie kent dit type bewust geen waarde Onbekend."""
+enum IndicatieJaNee {
+  """Waar."""
   Ja
-  """De persoon is expliciet niet uitgesloten van het kiesrecht."""
-  Nee
-}
-
-"""Indicatie of een EU-burger in Nederland is geregistreerd voor het kiesrecht voor het Europees Parlement."""
-enum EuropeesKiesrecht {
-  """De persoon is geregistreerd voor EP-kiesrecht in Nederland."""
-  Ja
-  """De persoon is niet geregistreerd voor EP-kiesrecht in Nederland."""
+  """Expliciet onwaar; te onderscheiden van een afwezige waarde (niet vastgesteld of niet van toepassing)."""
   Nee
 }
 
