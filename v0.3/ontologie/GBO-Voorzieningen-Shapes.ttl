@@ -1,0 +1,309 @@
+@prefix gbovz: <https://lod.gbo-semantiek.nl/voorzieningen/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gbovz:Attestatie a sh:NodeShape ;
+    rdfs:comment "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Attestatie .
+
+gbovz:Betrokkene a sh:NodeShape ;
+    rdfs:comment "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat." ;
+    sh:closed false ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ] ;
+    sh:targetClass gbovz:Betrokkene .
+
+gbovz:Bron a sh:NodeShape ;
+    rdfs:comment "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Bron .
+
+gbovz:BuitenlandseBetrokkene a sh:NodeShape ;
+    rdfs:comment "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een BSN beschikbaar hoeft te zijn." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:BuitenlandseBetrokkene .
+
+gbovz:Burger a sh:NodeShape ;
+    rdfs:comment "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een BSN." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Burger .
+
+gbovz:Dienst a sh:NodeShape ;
+    rdfs:comment "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Dienst .
+
+gbovz:Dienstencatalogus a sh:NodeShape ;
+    rdfs:comment "Het register van alle beschikbare diensten met hun scopes." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Dienstencatalogus .
+
+gbovz:Evidence a sh:NodeShape ;
+    rdfs:comment "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Evidence .
+
+gbovz:Gegevenselement a sh:NodeShape ;
+    rdfs:comment "De kleinste adresseerbare eenheid van data. Verwijst naar precies een begrip in het begrippenkader en voegt structuurinformatie toe." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Gegevenselement .
+
+gbovz:Gegevensset a sh:NodeShape ;
+    rdfs:comment "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Gegevensset .
+
+gbovz:Gegevensverzoek a sh:NodeShape ;
+    rdfs:comment "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Gegevensverzoek .
+
+gbovz:Grondslag a sh:NodeShape ;
+    rdfs:comment "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting." ;
+    sh:closed false ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Grondslag .
+
+gbovz:Interactiepatroon a sh:NodeShape ;
+    rdfs:comment "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Interactiepatroon .
+
+gbovz:Levering a sh:NodeShape ;
+    rdfs:comment "Het resultaat dat op een gegevensverzoek wordt teruggegeven." ;
+    sh:closed false ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Levering .
+
+gbovz:Mapping a sh:NodeShape ;
+    rdfs:comment "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Mapping .
+
+gbovz:Rol a sh:NodeShape ;
+    rdfs:comment "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Rol .
+
+gbovz:Scope a sh:NodeShape ;
+    rdfs:comment "Een benoemde verzameling gegevenselementen. De maximale scope wordt bepaald door wetgeving; een afnemer kan een kleinere scope vragen." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Scope .
+
+gbovz:Toestemming a sh:NodeShape ;
+    rdfs:comment "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:Toestemming .
+
+gbovz:WettelijkeVerplichting a sh:NodeShape ;
+    rdfs:comment "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt." ;
+    sh:closed true ;
+    sh:ignoredProperties [ ] ;
+    sh:property [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ],
+        [ ] ;
+    sh:targetClass gbovz:WettelijkeVerplichting .
+

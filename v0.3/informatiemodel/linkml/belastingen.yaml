@@ -76,7 +76,7 @@ classes:
       skos:altLabel_nl_0_value: Aangifte
       skos:altLabel_nl_0_source: AWR art. 6 (gangbaar gebruik)
       skos:definition_nl: Een door of namens een belastingplichtige aan de Belastingdienst ingediende opgave waarmee de grondslag voor een specifieke belastingsoort en periode wordt vastgesteld.
-      skos:definitionSource: GBO-Core, afgeleid uit AWR art. 6-9
+      skos:definitionSource: GBO-Kern, afgeleid uit AWR art. 6-9
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002320
     comments:
       - >-
@@ -130,7 +130,7 @@ classes:
       skos:status: proposed
       skos:prefLabel_nl: Belastingjaar aangifte
       skos:definition_nl: Een belastingaangifte die op een specifiek belastingjaar betrekking heeft en die de grondslag voor de aanslag over dat jaar vaststelt.
-      skos:definitionSource: GBO-Core, afgeleid uit AWR en SBR-NT NT20
+      skos:definitionSource: GBO-Kern, afgeleid uit AWR en SBR-NT NT20
     comments:
       - >-
         Drie concrete varianten zijn opgenomen: AangifteIH (Wet IB),
@@ -144,6 +144,7 @@ classes:
         description: Het jaar waarop de aangifte betrekking heeft.
         annotations:
           mim:herkomst: SBR-NT
+          gbo:filterbaar: true
       belastingsoort:
         range: Tekst
         required: true
@@ -383,7 +384,7 @@ classes:
       skos:altLabel_nl_0_value: Aangiftecomponent
       skos:altLabel_nl_0_source: SBR-NT terminologie
       skos:definition_nl: Een fiscaal relevant gegeven over een belastingplichtige dat in een specifiek belastingjaar als component in een belastingaangifte verschijnt.
-      skos:definitionSource: GBO-Core, afgeleid uit SBR-NT NT20
+      skos:definitionSource: GBO-Kern, afgeleid uit SBR-NT NT20
     comments:
       - >-
         Twee concrete families: VermogensBestanddeel (Box 3, peildatum
@@ -400,12 +401,6 @@ classes:
         description: Het belastingjaar van toepassing.
         annotations:
           mim:herkomst: Wet IB
-      categorie:
-        range: Tekst
-        required: true
-        description: Categorie-aanduiding per concreet subtype.
-        annotations:
-          mim:herkomst: SBR-NT
 
     class_uri: gbobegrip:FiscaalFeit
     narrow_mappings:
@@ -458,8 +453,9 @@ classes:
           mim:herkomst: SBR-NT
         comments:
           - >-
-            Verbijzondert FiscaalFeit.categorie (Tekst) naar een
-            enum-range, conform de wiki.
+            Eigen, wettelijk afgebakende waardenverzameling. FiscaalFeit
+            draagt bewust geen gedeeld categorie-attribuut: de twee
+            subtypen hebben elk een eigen enumeratie.
       houderVan:
         range: NatuurlijkPersoon
         required: true
@@ -832,8 +828,9 @@ classes:
           mim:herkomst: SBR-NT
         comments:
           - >-
-            Verbijzondert FiscaalFeit.categorie (Tekst) naar een
-            enum-range, conform de wiki.
+            Eigen, wettelijk afgebakende waardenverzameling. FiscaalFeit
+            draagt bewust geen gedeeld categorie-attribuut: de twee
+            subtypen hebben elk een eigen enumeratie.
       opgevoerdDoor:
         range: NatuurlijkPersoon
         required: true

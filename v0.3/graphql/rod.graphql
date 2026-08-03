@@ -302,7 +302,7 @@ type VerzuimMelding {
   """De einddatum van het verzuim."""
   einddatum: Datum
   """Het regime waaronder de melding valt."""
-  grondslag: Grondslag!
+  grondslag: GrondslagVerzuim!
   """Het aantal lesuren of aaneengesloten dagen."""
   omvang: String
   """De persoon waarop het verzuim betrekking heeft."""
@@ -612,7 +612,7 @@ enum Resultaatstatus {
 }
 
 """Het regime op grond waarvan een VerzuimMelding moet worden gedaan."""
-enum Grondslag {
+enum GrondslagVerzuim {
   """Verzuim van een leerplichtige leerling."""
   Leerplicht
   """Verzuim van een kwalificatieplichtige leerling."""

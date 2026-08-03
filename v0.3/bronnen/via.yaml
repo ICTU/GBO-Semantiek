@@ -19,7 +19,7 @@
 #
 # De rubriek-mapping van het VIA-bericht naar de GBO-objecttypen staat
 # in wiki/gbo-core/registers/via.md (sectie "Mapping VIA-bericht naar
-# GBO-Core"). Gezaghebbende specificatie: GSP IH-VIH 2026 v1
+# GBO-Kern"). Gezaghebbende specificatie: GSP IH-VIH 2026 v1
 # (2026-05-28) + SBR-NT-taxonomie IHZ Voor Invullen Aangifte 2026
 # (NT21_20261209 v02), in raw/belastingdienst/VIA Officieel/.
 # =============================================================================

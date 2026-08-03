@@ -75,8 +75,6 @@ interface FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding per concreet subtype."""
-  categorie: String!
 }
 
 """Een bezitting of schuld die op de peildatum 1 januari onder Box 3 van de inkomstenbelasting valt en als zelfstandige post in de aangifte wordt opgevoerd."""
@@ -85,10 +83,10 @@ interface VermogensBestanddeel implements FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -103,10 +101,10 @@ interface Aftrekpost implements FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Bedrag van de aftrek in het belastingjaar."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
 }
@@ -182,7 +180,7 @@ type IngeschrevenPersoon implements Partij {
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
   """De belastingaangiften die deze persoon heeft ingediend."""
-  heeftBelastingjaarAangifte: [BelastingjaarAangifte!]
+  heeftBelastingjaarAangifte(belastingjaar: [Int!]): [BelastingjaarAangifte!]
   """De vermogensbestanddelen die deze persoon houdt."""
   heeftVermogensBestanddeel: [VermogensBestanddeel!]
   """De aftrekposten die deze persoon opvoert."""
@@ -315,10 +313,10 @@ type BankSpaartegoed implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -341,10 +339,10 @@ type Belegging implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -369,10 +367,10 @@ type Cryptovaluta implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -391,10 +389,10 @@ type OnroerendeZaakOverigBezit implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -417,10 +415,10 @@ type Schuld implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -443,10 +441,10 @@ type Hypotheekrenteaftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Bedrag van de aftrek in het belastingjaar."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Betaalde rente in het belastingjaar."""
@@ -467,10 +465,10 @@ type AlimentatieAftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Het betaalde bedrag."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Aanduiding van de gewezen partner."""
@@ -483,10 +481,10 @@ type LijfrenteAftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Betaalde lijfrente-premie."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Maximaal aftrekbaar in dit jaar."""
@@ -501,10 +499,10 @@ type GiftenAftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Het gegeven bedrag in het belastingjaar."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Periodiek (geen drempel of plafond) of eenmalig."""
@@ -680,7 +678,7 @@ type NatuurlijkPersoon implements Partij {
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
   """De belastingaangiften die deze persoon heeft ingediend."""
-  heeftBelastingjaarAangifte: [BelastingjaarAangifte!]
+  heeftBelastingjaarAangifte(belastingjaar: [Int!]): [BelastingjaarAangifte!]
   """De vermogensbestanddelen die deze persoon houdt."""
   heeftVermogensBestanddeel: [VermogensBestanddeel!]
   """De aftrekposten die deze persoon opvoert."""

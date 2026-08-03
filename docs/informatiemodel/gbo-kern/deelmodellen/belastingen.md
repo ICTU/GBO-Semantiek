@@ -611,7 +611,13 @@ belastingjaar).
 |---|---|---|---|---|
 | `peildatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Voor Box-3-bestanddelen 1 januari. | Wet IB art. 5.2 |
 | `belastingjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het belastingjaar van toepassing. | Wet IB |
-| `categorie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Categorie-aanduiding per concreet subtype. | SBR-NT |
+
+Een gedeeld `categorie`-attribuut staat hier bewust niet. Beide subtypen
+hanteren een eigen, wettelijk afgebakende waardenverzameling
+([VermogensBestanddeelCategorie](#vermogensbestanddeelcategorie) en
+[AftrekpostCategorie](#aftrekpostcategorie)); een attribuut op dit niveau
+zou geen eigen waardenverzameling hebben en door beide subtypen worden
+overschreven.
 
 ### FiscalePartner
 
@@ -742,7 +748,7 @@ inkomensondersteuning, in de vorm van een inkomensafhankelijke
 regeling of een sociale-zekerheidsuitkering.
 
 **Herkomst definitie**: Algemene wet inkomensafhankelijke regelingen;
-GBO-Core-abstractie boven Toeslag en (toekomstig) Uitkering.
+GBO-Kern-abstractie boven Toeslag en (toekomstig) Uitkering.
 
 **Toelichting**: Cross-domein algemene categorie. Concrete variant
 binnen Belastingen: Toeslag. Bij toekomstige ingest van Werk en
@@ -1060,7 +1066,7 @@ Ondersteunend Dossier Bestand Belastingdienst.
 **Toelichting**: Renseigneringen vormen de voornaamste vulling van de
 vooringevulde aangifte. De Belastingdienst publiceert per
 renseigneringssoort een specificatie. Detail-specs zijn echter gated
-achter een ondersteuningsabonnement; voor het GBO-Core-model is dat
+achter een ondersteuningsabonnement; voor het GBO-Kern-model is dat
 geen blokkade.
 
 | MIM-veld | Waarde |
@@ -1206,7 +1212,7 @@ partner-status.
 
 **Attribuutsoorten**:
 
-Geen eigen attributen op GBO-Core-niveau; alle eigenschappen geërfd
+Geen eigen attributen op GBO-Kern-niveau; alle eigenschappen geërfd
 van Toeslag.
 
 ## Enumeraties

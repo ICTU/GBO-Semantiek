@@ -73,7 +73,7 @@ classes:
       skos:altLabel_en_0_value: Work-based learning period
       skos:altLabel_en_0_source: Cedefop terminologie
       skos:definition_nl: Een afgebakende periode waarin een MBO-student bij een erkend leerbedrijf het beroepspraktijkvorming-deel van een MBO-opleiding doorloopt.
-      skos:definitionSource: GBO Core, afgeleid uit WEB art. 7.2.8 en art. 7.2.9
+      skos:definitionSource: GBO-Kern, afgeleid uit WEB art. 7.2.8 en art. 7.2.9
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0007625
       skos:needsReview_0: Exacte XSD-elementnaam in PvE ROD MBO bevestigen.
       skos:needsReview_1: Modellering van leerbedrijf als aparte entiteit (subtype van NNP) of als verwijzing-string?
@@ -197,7 +197,7 @@ classes:
       skos:altLabel_en_0_value: Module enrollment
       skos:altLabel_en_0_source: ELMO 1.4
       skos:definition_nl: De inschrijving van een student voor een onderwijseenheid binnen een opleiding-deelname in het hoger onderwijs, met een vastgestelde studielast in ECTS.
-      skos:definitionSource: GBO Core, afgeleid uit WHW art. 7.3a en PvE ROD HO
+      skos:definitionSource: GBO-Kern, afgeleid uit WHW art. 7.3a en PvE ROD HO
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005682
       skos:closeMatch_0_reviewed: 'false'
       skos:needsReview_0: Exacte XSD-elementnaam in PvE ROD HO bevestigen (vermoedelijk 'BekostigingsRecordOnderwijseenheid' of vergelijkbaar).
@@ -332,7 +332,7 @@ classes:
       skos:altLabel_en_0_value: Educational Institution
       skos:altLabel_en_0_source: ELMO 1.4
       skos:definition_nl: Een door OCW erkende rechtspersoon of bestuurlijke entiteit die onderwijs aanbiedt in een of meer Nederlandse onderwijssectoren.
-      skos:definitionSource: GBO Core, afgeleid uit sectorwetten
+      skos:definitionSource: GBO-Kern, afgeleid uit sectorwetten
       skos:additional_0_as: scopeNote
       skos:additional_0_nl: Een instelling in de zin van WHW art. 1.2 is een hogeschool of universiteit die op grond van die wet hoger onderwijs verzorgt.
       skos:additional_0_source: WHW art. 1.2
@@ -479,7 +479,7 @@ classes:
       skos:altLabel_en_1_value: Curriculum
       skos:altLabel_en_1_source: schema.org Course (gerelateerd)
       skos:definition_nl: Een door een bevoegd gezag aangeboden, samenhangend geheel van onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld kwalificatie- of diploma-niveau leidt.
-      skos:definitionSource: GBO Core, afgeleid uit WHW art. 7.3 en WEB art. 7.1.3
+      skos:definitionSource: GBO-Kern, afgeleid uit WHW art. 7.3 en WEB art. 7.1.3
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005682
       skos:additional_0_as: scopeNote
       skos:additional_0_nl: 'Voor HO: een opleiding leidt op tot graadverlening (bachelor, master, associate degree).'
@@ -620,7 +620,7 @@ classes:
       skos:altLabel_en_0_value: Enrollment
       skos:altLabel_en_0_source: ELMO 1.4 (te bevestigen)
       skos:definition_nl: De inschrijving van een natuurlijk persoon voor het volgen van een opleiding bij een onderwijsinstelling, geldig binnen een afgebakende periode.
-      skos:definitionSource: GBO Core, afgeleid uit PvE ROD per sector
+      skos:definitionSource: GBO-Kern, afgeleid uit PvE ROD per sector
       skos:additional_0_as: scopeNote
       skos:additional_0_nl: Vaststelling van het feit dat een leerling/student aan een opleiding bij een onderwijsinstelling deelneemt, op grond van de Wet op het onderwijsnummer en bijbehorende sectorwet.
       skos:additional_0_source: Wet op het onderwijsnummer art. 1 onder b
@@ -828,7 +828,7 @@ classes:
       skos:altLabel_en_0_value: Learner Achievement
       skos:altLabel_en_0_source: ELMO 1.4 (te bevestigen)
       skos:definition_nl: Het door een natuurlijk persoon behaalde resultaat voor (een onderdeel van) een opleiding bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk.
-      skos:definitionSource: GBO Core, afgeleid uit PvE ROD per sector
+      skos:definitionSource: GBO-Kern, afgeleid uit PvE ROD per sector
       skos:additional_0_as: scopeNote
       skos:additional_0_nl: Een diploma is een door of namens een onderwijsinstelling verleend bewijsstuk waaruit blijkt dat aan de eisen van een opleiding is voldaan.
       skos:additional_0_source: WHW art. 7.10a (HO), WEB art. 7.4.6 (MBO), WVO 2020 art. 2.61 (VO), naar betekenis
@@ -998,7 +998,7 @@ classes:
       skos:altLabel_nl_1_value: Melding voortijdig schoolverlater
       skos:altLabel_nl_1_source: WEB art. 8.1.7 (deeloverlap)
       skos:definition_nl: Een wettelijk verplichte melding door een onderwijsinstelling van ongeoorloofd verzuim van een leerplichtige of kwalificatieplichtige leerling, of van verzuim van een 18-plus deelnemer dat langer dan vier weken aaneengesloten duurt.
-      skos:definitionSource: GBO Core, afgeleid uit Leerplichtwet art. 21a en WEB art. 8.1.7
+      skos:definitionSource: GBO-Kern, afgeleid uit Leerplichtwet art. 21a en WEB art. 8.1.7
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002628
       skos:needsReview_0: VSV-melding (voortijdig schoolverlater) is gerelateerd maar niet identiek; relatie tot VerzuimMelding modelleren.
       skos:needsReview_1: Exacte drempelwaardes per regime herverifiëren tegen actuele Leerplichtwet.
@@ -1050,7 +1050,7 @@ classes:
         comments:
           - Leeg zolang het verzuim voortduurt.
       grondslag:
-        range: Grondslag
+        range: GrondslagVerzuim
         required: true
         description: Het regime waaronder de melding valt.
         annotations:
@@ -1134,7 +1134,7 @@ classes:
       skos:altLabel_en_0_value: Prior qualification
       skos:altLabel_en_0_source: ELMO 1.4
       skos:definition_nl: Een eerder behaald opleidingsresultaat dat bij een volgende onderwijsdeelname wordt aangereikt als bewijs voor de toelating tot of de instroom-positionering in een opleiding.
-      skos:definitionSource: GBO Core, afgeleid uit PvE ROD en sectorwetten
+      skos:definitionSource: GBO-Kern, afgeleid uit PvE ROD en sectorwetten
       skos:needsReview_0: 'Verhouding tot OpleidingResultaat: opslaan als zelfstandig record met sterke koppeling, of als view op OpleidingResultaat in een specifieke rol?'
       skos:needsReview_1: 'Buitenlandse vooropleidingen: aparte codelijst voor gelijkstelling (DUO doet hier gelijkwaardigheidsbepaling) bevestigen.'
     comments:
@@ -1280,7 +1280,7 @@ classes:
       skos:altLabel_en_0_value: Student grant
       skos:altLabel_en_0_source: ELMO 1.4
       skos:definition_nl: Een door DUO aan een student toegekende tegemoetkoming in de kosten van levensonderhoud en/of studie, in de vorm van een basisbeurs, aanvullende beurs, studentenreisproduct of bestuursbeurs.
-      skos:definitionSource: GBO Core, afgeleid uit WSF 2000
+      skos:definitionSource: GBO-Kern, afgeleid uit WSF 2000
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011453
       skos:needsReview_0: Bestaat StudieFinanciering bij dezelfde herkomst-beperking als StudieLening (geen B2B)? Aannemelijk; te verifiëren.
       skos:needsReview_1: Aanvullende toelage MBO via WTOS apart objecttype of subtype?
@@ -1411,7 +1411,7 @@ classes:
       skos:altLabel_en_0_value: Student loan
       skos:altLabel_en_0_source: OECD terminologie
       skos:definition_nl: Het door een (oud-)student bij DUO opgebouwde renteloze of laagrentende leningbedrag op grond van de Wet studiefinanciering 2000, samen met de aflosregeling waaronder het bedrag moet worden terugbetaald.
-      skos:definitionSource: GBO Core, afgeleid uit WSF 2000 hoofdstuk 6
+      skos:definitionSource: GBO-Kern, afgeleid uit WSF 2000 hoofdstuk 6
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011453
       skos:needsReview_0: Of het zinvol is leen-cohort als eigen objecttype te modelleren (verschillen tussen oude regeling, leenstelsel, na-leenstelsel zijn aanzienlijk).
       skos:needsReview_1: Of de 'OV-schuld' (uit niet-omgezet reisproduct) een aparte StudieLening-instance is of een component-attribuut.
@@ -1618,7 +1618,7 @@ enums:
         comments:
           - VMBO met leerweg, HAVO, VWO.
 
-  Grondslag:
+  GrondslagVerzuim:
     description: >-
       Het regime op grond waarvan een VerzuimMelding moet worden
       gedaan.

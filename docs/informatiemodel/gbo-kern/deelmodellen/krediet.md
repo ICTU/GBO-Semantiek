@@ -336,7 +336,7 @@ niet-natuurlijk persoon tot het verrichten van een geldelijke
 prestatie aan een tegenpartij, ontstaan uit overeenkomst of uit een
 wettelijke regeling.
 
-**Herkomst definitie**: GBO-Core. Afgeleid uit het verbintenisrecht
+**Herkomst definitie**: GBO-Kern. Afgeleid uit het verbintenisrecht
 in het Burgerlijk Wetboek en uit de Wet op het financieel toezicht
 art. 4:32 (sectorregistratie kredietverlening). Operationele
 invulling: Algemeen Reglement CKI 2024-07-01 art. 1 voor het
@@ -364,7 +364,7 @@ tussen familieleden vallen er niet onder.
 
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
-| `identificatie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Interne identificatie. | GBO-Core |
+| `identificatie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Interne identificatie. | GBO-Kern |
 | `ingangsdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Datum waarop de verplichting is aangegaan. | Algemeen Reglement CKI art. 16-26 |
 | `einddatumWerkelijk` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Werkelijke einddatum (afgelost, ontbonden of overgenomen). | Algemeen Reglement CKI art. 14 |
 | `bewaartermijnPeriode` | [Duur](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding. | Algemeen Reglement CKI art. 14 |
@@ -1048,7 +1048,7 @@ Centraal Krediet Informatiesysteem worden verwerkt.
 **Herkomst definitie**: Algemeen Reglement CKI van 1 juli 2024,
 art. 9 lid 2.
 
-**Toelichting**: Anders dan elders binnen GBO-Core gebruikt Stichting
+**Toelichting**: Anders dan elders binnen GBO-Kern gebruikt Stichting
 BKR het BSN niet als interne identifier. In plaats daarvan een
 combinatie-sleutel op basis van postcode-cijferdeel en geboortedatum.
 
@@ -1094,7 +1094,7 @@ Deelmodel-specifieke codelijsten. Stelselbrede codelijsten staan op de
 - Naar [Personen](personen.md): `NatuurlijkPersoon` is de kredietnemer
   in `KredietOvereenkomst`, de toegekende in
   `SchuldhulpverleningTraject` en de borg in `BorgstellingRol`.
-  Anders dan elders binnen GBO-Core gebruikt Stichting BKR het BSN
+  Anders dan elders binnen GBO-Kern gebruikt Stichting BKR het BSN
   niet als interne identifier; zie `PersoonsgegevensCategorieCKI`.
 - Naar [Bedrijven en instellingen](bedrijven-en-instellingen.md): de
   kredietverstrekker, leasemaatschappij of kredietbank is een
@@ -1119,7 +1119,7 @@ raadplegen bij kredietaanvragen van enige omvang.
 Het Algemeen Reglement CKI van 1 juli 2024 is normatief; de
 operationele koppelvlak-handleiding is alleen toegankelijk voor door
 Stichting BKR erkende zakelijke klanten en draagt niet bij aan de
-GBO-Core-concept-definities.
+GBO-Kern-concept-definities.
 
 Autoritatieve bron voor `SchuldhulpverleningTraject` is de Wet
 gemeentelijke schuldhulpverlening; de gemeente beschikt het traject

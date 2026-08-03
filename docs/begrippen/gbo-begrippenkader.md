@@ -1,49 +1,76 @@
 # GBO-Begrippenkader
 
-Het GBO-Begrippenkader definieert de **betekenis** van de objecttypen uit het [GBO-Voorzieningenmodel](../informatiemodel/gbo-voorzieningen.md). Elk objecttype in dat model verwijst via `mim:begrip` naar precies een concept in dit begrippenkader. Het begrippenkader is gepubliceerd als [SKOS ConceptScheme](https://www.w3.org/2004/02/skos/) in Turtle-formaat en staat hier: `v0.1/begrippen/GBO-Begrippenkader.ttl`.
+Het GBO-Begrippenkader definieert de **betekenis** van de objecttypen uit het
+[GBO-Kernmodel](../informatiemodel/gbo-kern/hoofdmodel.md) en het
+[GBO-Voorzieningenmodel](../informatiemodel/gbo-voorzieningen.md). Elk objecttype
+verwijst via `class_uri` naar precies een concept in dit begrippenkader.
 
-Zie [Structuur en publicatie](structuur.md) voor de technische SKOS-structuur en [Relatie tot het informatiemodel](relatie_informatiemodel.md) voor het koppelingsmechanisme.
+Het begrippenkader wordt **gegenereerd** uit de `skos:`-annotaties in de
+LinkML-modelbron en gepubliceerd als [SKOS ConceptScheme](https://www.w3.org/2004/02/skos/)
+in Turtle-formaat: `v0.3/begrippen/GBO-Begrippenkader.ttl`. Bewerk dat bestand
+niet met de hand; pas de annotaties in het model aan en draai
+`task generate:begrippen`.
+
+Zie [Structuur en publicatie](structuur.md) voor de technische SKOS-structuur en
+[Relatie tot het informatiemodel](relatie_informatiemodel.md) voor het
+koppelingsmechanisme.
 
 ## Scope en status
 
-Dit begrippenkader is een **voorstel (concept v0.1)**, afgeleid van het GBO-Voorzieningenmodel. Het bevat de 12 objecttypen die het kernmodel voor gegevensdeling definieert. Attribuutsoorten en relatiesoorten worden in een volgende versie toegevoegd.
+Dit begrippenkader is een **voorstel (concept)**. Alle begrippen dragen
+`adms:status "proposed"` zolang ze niet formeel zijn vastgesteld.
 
-## Begrippen
+| | Aantal |
+|---|---|
+| Begrippen uit het kernmodel (de inhoudelijke deelmodellen) | 78 |
+| Begrippen uit het voorzieningenmodel | 23 |
+| **Totaal** | **101** |
 
-Het begrippenkader bevat 12 begrippen, elk als `skos:Concept` met een Nederlandstalige voorkeurstterm, definitie en een `skos:exactMatch` naar de corresponderende klasse in de ontologie. De begrippen zijn onderling verbonden via `skos:related`.
+Attribuutsoorten en relatiesoorten krijgen nog geen eigen begrip; die volgen in
+een latere versie.
+
+## Begrippen van het voorzieningenmodel
+
+Het voorzieningenmodel beschrijft de uitwisseling zelf: wie vraagt op, op welke
+grondslag, en wat er geleverd wordt.
 
 | Begrip | Definitie |
 |:---|:---|
-| **Gegevenselement** | De kleinste adresseerbare eenheid van data. Verwijst naar precies een begrip en voegt structuurinformatie toe (datatype, kardinaliteit). |
+| **Rol** | De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering. |
+| **Rolsoort** | De functies die een partij binnen de bronontsluiting kan vervullen. |
+| **Betrokkene** | De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat. |
+| **Burger** | De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een burgerservicenummer. |
+| **Buitenlandse betrokkene** | De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geïdentificeerd, zonder dat een burgerservicenummer beschikbaar hoeft te zijn. |
+| **Grondslag** | De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting. |
+| **Toestemming** | Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur. |
+| **Toestemmingsstatus** | De statussen die een toestemming kan doorlopen. |
+| **Wettelijke verplichting** | De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt. |
+| **Gegevenselement** | De kleinste adresseerbare eenheid van data, die naar precies een begrip verwijst en daar structuurinformatie aan toevoegt. |
 | **Bron** | Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag. |
-| **Dienst** | Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd met een maximale scope. |
-| **Scope** | Een benoemde verzameling gegevenselementen. De maximale scope wordt bepaald door wetgeving. |
-| **Dienstencatalogus** | Het register van alle beschikbare *diensten* (niet van losse gegevens) met hun scopes; sluit aan op de catalogus- en registerfuncties van het GBO-stelsel. |
-| **Burger** | De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; heeft altijd een BSN of pseudoniem. |
-| **Bronhouder** | De eigenaar en beheerder van bronregistraties, die de regie houdt en elk gegevensverzoek toetst via een Policy Enforcement Point. |
-| **Dienstverlener** | De (private) partij die een dienst aan de burger levert en daarvoor namens de burger gegevens opvraagt en toestemming aanvraagt. |
-| **Afnemer** | De partij die de gegevens uiteindelijk gebruikt. |
-| **Toestemming** | Het expliciete akkoord van de burger voor opvragen van een specifieke set gegevens, gebonden aan een scope en geldigheidsduur. |
-| **Gegevensverzoek** | De technische transactie waarmee brondata wordt opgevraagd, op basis van toestemming of wettelijke grondslag. |
-| **Grondslag** | De juridische basis voor gegevensuitwisseling: toestemming of wettelijke verplichting. |
+| **Dienst** | Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope. |
+| **Scope** | Een benoemde verzameling gegevenselementen; de maximale scope wordt bepaald door wetgeving, een afnemer kan een kleinere scope vragen. |
+| **Dienstencatalogus** | Het register van alle beschikbare diensten met hun scopes. |
+| **Interactiepatroon** | Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt. |
+| **Patroonsoort** | De drie interactiepatronen die de GBO PSA onderscheidt. |
+| **Gegevensverzoek** | De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag. |
+| **Levering** | Het resultaat dat op een gegevensverzoek wordt teruggegeven. |
+| **Gegevensset** | Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking. |
+| **Attestatie** | Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is. |
+| **Attestatiesoort** | De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden. |
+| **Evidence** | Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat. |
+| **Mapping** | De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft. |
 
 ## Voorbeeld
 
 ```turtle
 gbobegrip:Toestemming a skos:Concept ;
+    dcterms:source "GBO PSA; AVG art. 4 lid 11 voor het toestemmingsbegrip" ;
+    skos:definition "Het expliciete akkoord van de betrokkene dat een specifieke
+        partij een specifieke set gegevens mag opvragen, gebonden aan een scope
+        en een geldigheidsduur."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
     skos:prefLabel "Toestemming"@nl ;
-    skos:definition "Het expliciete akkoord van de burger dat een specifieke
-        dienstverlener een specifieke set gegevens mag opvragen. Een toestemming
-        is altijd gebonden aan een scope, heeft een geldigheidsduur en is niet
-        overdraagbaar."@nl ;
-    skos:related gbobegrip:Burger ,
-                gbobegrip:Dienstverlener ,
-                gbobegrip:Scope ,
-                gbobegrip:Grondslag ,
-                gbobegrip:Gegevensverzoek ;
-    skos:exactMatch gbo:Toestemming ;
-    skos:topConceptOf gbobegrip:GBOBegrippenkader ;
-    skos:inScheme gbobegrip:GBOBegrippenkader .
+    adms:status "proposed" .
 ```
 
 ## Volgende stappen
@@ -51,4 +78,4 @@ gbobegrip:Toestemming a skos:Concept ;
 1. **Attribuutbegrippen toevoegen**: begrippen voor attribuutsoorten (identificatie, naam, datatype) en relatiesoorten (bevat, beheert, ontsluit)
 2. **Externe matches**: `skos:closeMatch` naar begrippen in TOOI, Stelselcatalogus en OSLO
 3. **Governance**: vaststelling van het wijzigingsproces conform [Beheer en governance](beheer.md)
-4. **Tooling**: automatische generatie vanuit het informatiemodel als Taskfile-taak
+4. **Openstaande punten wegwerken**: `task generate:begrippen` rapporteert per begrip de resterende `needs_review`-notities uit het model

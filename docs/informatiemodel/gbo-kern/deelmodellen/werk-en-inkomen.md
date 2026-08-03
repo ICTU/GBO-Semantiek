@@ -327,7 +327,7 @@ regeling of een sociale-zekerheidsuitkering.
 
 **Herkomst definitie**: Algemene wet inkomensafhankelijke regelingen
 (Awir) voor toeslagen; Wet SUWI en de afzonderlijke werknemers- en
-volksverzekeringswetten voor uitkeringen; GBO-Core-abstractie.
+volksverzekeringswetten voor uitkeringen; GBO-Kern-abstractie.
 
 **Toelichting**: Cross-domein algemene categorie boven Toeslag (in
 [Belastingen](belastingen.md)) en Uitkering (in dit deelmodel).
@@ -349,7 +349,7 @@ en aanvraagprocedure.
 
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
-| `identificatie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Interne identificatie. | GBO-Core |
+| `identificatie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Interne identificatie. | GBO-Kern |
 | `ingangsdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Aanvang van de toekenning. | Awir / Wet SUWI |
 | `einddatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einde van de toekenning. | Awir / Wet SUWI |
 | `bedragPeriode` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Bedrag per periode. | per regeling |

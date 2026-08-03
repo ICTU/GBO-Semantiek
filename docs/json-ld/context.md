@@ -36,7 +36,7 @@ Een API-response die GBO-gegevens als JSON-LD publiceert:
     "https://data.gbo.nl/context/zaakgericht-werken.jsonld"
   ],
   "@type": "gbo:Zaak",
-  "@id": "https://gemeente.nl/zaken/12345",
+  "@id": "https://bronhouder.nl/zaken/12345",
   "gbo:status": {
     "@id": "https://data.gbo.nl/begrippen/zaakstatus/afgerond"
   },

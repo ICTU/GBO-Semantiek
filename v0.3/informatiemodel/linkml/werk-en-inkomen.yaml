@@ -69,7 +69,7 @@ classes:
       skos:status: proposed
       skos:prefLabel_nl: Inkomens ondersteuning
       skos:definition_nl: Een door of namens de overheid aan een natuurlijk persoon verstrekte financiele bijdrage met als doel inkomensondersteuning.
-      skos:definitionSource: GBO-Core abstractie boven Awir en sociale-zekerheidsregelingen
+      skos:definitionSource: GBO-Kern abstractie boven Awir en sociale-zekerheidsregelingen
     comments:
       - >-
         Cross-domein algemene categorie boven Toeslag (in Belastingen)

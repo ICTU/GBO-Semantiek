@@ -19,6 +19,7 @@
 
 ### Toegevoegde codelijsten/enumeraties
 
+- `GrondslagVerzuim`
 - `IndicatieJaNee`
 - `NietNatuurlijkPersoonClassificatie`
 - `SoortInsolventie`
@@ -28,6 +29,7 @@
 ### Verwijderde codelijsten/enumeraties
 
 - `EuropeesKiesrecht`
+- `Grondslag`
 - `Sector`
 - `TypeBuitenlandseEntiteit`
 - `UitsluitingKiesrecht`
@@ -50,6 +52,8 @@
   - + `adresId`
 **EigenWoning**
   - + `bewoonbaarVoor`
+**FiscaalFeit**
+  - − `categorie`
 **Inkomstenopgave**
   - + `binnenLoonAangifte`
 **Inkomstenverhouding**

@@ -4,7 +4,7 @@
 
 GBO-Semantiek hanteert een URI-strategie voor de identificatie van begrippen, klassen en eigenschappen. De strategie volgt de [aanbevelingen van het Platform Linked Data Nederland](https://www.pldn.nl/), de [URI-strategie voor de Nederlandse overheid](https://www.pilod.nl/wiki/Boek/URI-strategie), en de TOOI URI-strategie.
 
-De URI-strategie is de concrete uitwerking van het ontwerpprincipe [FAIR als basisraamwerk](../uitgangspunten/ontwerpprincipes.md#fair-als-basisraamwerk).
+De URI-strategie is de concrete uitwerking van het ontwerpprincipe [S-02 FAIR als basisraamwerk](../uitgangspunten/ontwerpprincipes.md#s-02-fair-als-basisraamwerk).
 
 ## Principes
 

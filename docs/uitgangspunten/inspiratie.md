@@ -39,7 +39,7 @@ Het [Gemeentelijk Gegevensmodel (GGM)](https://github.com/gemeenteshertogenbosch
 GBO-Semantiek gebruikt het GGM, samen met het RSGB en de modellen van de landelijke basisregistraties, als **belangrijke inhoudelijke bron** voor het informatiemodel. De toolchain van het GGM (Enterprise Architect, crunch_uml, gegenereerde documentatie en artefacten) is overgenomen en uitgebreid met semantische publicatie (ontologie, JSON-LD context, SKOS begrippenkader).
 
 !!! tip "Les voor GBO"
-    GGM en RSGB leveren het bewijs dat een breed, MIM-conform informatiemodel voor gemeenten haalbaar en onderhoudbaar is. GBO bouwt hierop voort, verbreedt de scope tot een landelijke, sectoroverstijgende standaard en voegt de semantische laag toe: van gegevensmodel naar betekenismodel.
+    GGM en RSGB leveren het bewijs dat een breed, MIM-conform informatiemodel voor gemeenten haalbaar en onderhoudbaar is. GBO bouwt hierop voort, verbreedt de scope naar een landelijk, sectoroverstijgend model en voegt de semantische laag toe: van gegevensmodel naar betekenismodel.
 
 ## UBO — Uniforme Bronontsluiting
 

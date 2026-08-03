@@ -136,7 +136,7 @@ type IngeschrevenPersoon {
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """De authentieke inkomens die voor deze persoon zijn vastgesteld, één per belastingjaar."""
-  heeftAuthentiekInkomen(belastingjaar: Int): [AuthentiekInkomen!]
+  heeftAuthentiekInkomen(belastingjaar: [Int!]): [AuthentiekInkomen!]
   """De inkomstenverhoudingen waarin deze persoon als werknemer staat."""
   heeftInkomstenverhouding: [Inkomstenverhouding!]
 }

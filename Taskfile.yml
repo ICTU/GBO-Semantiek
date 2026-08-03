@@ -47,6 +47,13 @@ vars:
   DEFS: "./docs/definities"
   ROOT_GBO: "{{.ROOT_NODE_GBO}}"
   CHANGES_MD: "{{.VERSION_DIR}}/{{.CHANGES_MD_FILE}}"
+  BEGRIPPEN_DIR: "{{.VERSION_DIR}}/begrippen"
+  BEGRIPPEN: "{{.VERSION_DIR}}/begrippen/GBO-Begrippenkader.ttl"
+  # Voorzieningenmodel: eigen schema en eigen ontologie-namespace naast de kern.
+  VOORZIENINGEN_LINKML: "{{.LINKML_DIR}}/voorzieningen.yaml"
+  VOORZIENINGEN_NS: "https://lod.gbo-semantiek.nl/voorzieningen"
+  VOORZIENINGEN_LOD: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Voorzieningen.ttl"
+  VOORZIENINGEN_SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Voorzieningen-Shapes.ttl"
   # Wiki-repo (modelleer-/bronrepo) waaruit model + profielen worden gekopieerd.
   # Override via env: `WIKI_REPO=/pad/naar/llm-wiki task import:copy`.
   WIKI_REPO: '{{.WIKI_REPO | default "../llm-wiki-GBI-core-model"}}'
@@ -155,6 +162,9 @@ tasks:
       # de wiki-repo de enige bron is en zijn relatieve links daar kloppen.
       - mkdir -p "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-kern"
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/{{.INFORMATIEMODEL}}/" "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-kern/"
+      # Het voorzieningenmodel is een eigen model naast gbo-kern en landt
+      # als losse pagina, zodat de bestaande nav en links blijven kloppen.
+      - cp "{{.WIKI_REPO}}/publicatie/voorzieningen/voorzieningenmodel.md" "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-voorzieningen.md"
       - echo "Model, profielen en model-docs gekopieerd."
     sources:
       - "{{.WIKI_REPO}}/publicatie/**/*"
@@ -257,6 +267,63 @@ tasks:
       - echo "Linked Data gegenereerd."
 
 
+  generate:voorzieningen-lod:
+    desc: "Genereer OWL en SHACL voor het voorzieningenmodel in zijn eigen namespace."
+    deps: [generate:check-model]
+    sources:
+      - "{{.LINKML_DIR}}/*.yaml"
+      - tools/filter_namespace.py
+      - tools/kwalificeer_uris.py
+    generates:
+      - "{{.VOORZIENINGEN_LOD}}"
+      - "{{.VOORZIENINGEN_SHACL}}"
+    cmds:
+      - mkdir -p "{{.VERSION_DIR}}/{{.ONTOLOGIE}}"
+      - |
+        {{.PYYAML_PYTHON}}
+        # Zelfde kwalificatie-slag als generate:lod, in een eigen werkkopie.
+        Q=/tmp/gbo-linkml-vz
+        rm -rf "$Q" && cp -r "{{.LINKML_DIR}}" "$Q"
+        for f in "$Q"/*.yaml; do
+          stem=$(basename "$f" .yaml)
+          case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
+          "$PY" tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+        done
+        # gen-owl/gen-shacl nemen het geimporteerde kernmodel mee; de
+        # filterstap houdt alleen over wat voorzieningen.yaml zelf declareert.
+        echo "Generating OWL-ontologie '{{.VOORZIENINGEN_LOD}}' ..."
+        gen-owl --skip-vacuous-min-zero-cardinality-axioms \
+          --skip-vacuous-local-range-axioms --consolidate-cardinality-axioms \
+          "$Q/voorzieningen.yaml" > /tmp/gbo-vz-owl-vol.ttl
+        "$PY" tools/filter_namespace.py --schema "$Q/voorzieningen.yaml" \
+          --namespace "{{.VOORZIENINGEN_NS}}" \
+          --input /tmp/gbo-vz-owl-vol.ttl --output "{{.VOORZIENINGEN_LOD}}"
+        echo "Generating SHACL-shapes '{{.VOORZIENINGEN_SHACL}}' ..."
+        gen-yaml "$Q/voorzieningen.yaml" > /tmp/gbo-vz-merged.yaml
+        "$PY" -c "import yaml; s=yaml.safe_load(open('/tmp/gbo-vz-merged.yaml')); s.pop('imports',None); yaml.dump(s, open('/tmp/gbo-vz-merged-noimports.yaml','w'), sort_keys=False, allow_unicode=True)"
+        gen-shacl /tmp/gbo-vz-merged-noimports.yaml > /tmp/gbo-vz-shacl-vol.ttl
+        "$PY" tools/filter_namespace.py --schema "$Q/voorzieningen.yaml" \
+          --namespace "{{.VOORZIENINGEN_NS}}" \
+          --input /tmp/gbo-vz-shacl-vol.ttl --output "{{.VOORZIENINGEN_SHACL}}"
+
+
+  generate:begrippen:
+    desc: "Genereer het SKOS-begrippenkader uit de SKOS-annotaties in de LinkML ({{.BEGRIPPEN}})."
+    deps: [generate:check-model]
+    sources:
+      - "{{.LINKML_DIR}}/*.yaml"
+      - tools/genereer_begrippen.py
+    generates:
+      - "{{.BEGRIPPEN}}"
+    cmds:
+      - |
+        {{.PYYAML_PYTHON}}
+        "$PY" tools/genereer_begrippen.py \
+          --linkml-dir "{{.LINKML_DIR}}" \
+          --output "{{.BEGRIPPEN}}" \
+          --versie "{{.VERSION}}"
+
+
   generate:diff:
     desc: "Genereer changelog t.o.v. {{.PREVIOUS_VERSION}} uit de LinkML-modellen ({{.CHANGES_MD}})."
     deps: [import:copy]
@@ -312,7 +379,7 @@ tasks:
   # ==========================================================================
   publish:local:
     desc: "Deploy versioned documentation locally using Mike."
-    deps: [generate:docs, generate:graphql, generate:lod, generate:diff]
+    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:begrippen, generate:diff]
     cmds:
       - echo "Deploying documentation with Mike..."
       - mkdocs build --clean

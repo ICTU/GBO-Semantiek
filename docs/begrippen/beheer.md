@@ -2,7 +2,7 @@
 
 ### Beheerproces
 
-Het begrippenkader wordt beheerd als onderdeel van de GBO-Semantiek standaard. Wijzigingen doorlopen het volgende proces:
+Het begrippenkader wordt beheerd als onderdeel van GBO-Semantiek. Wijzigingen doorlopen het volgende proces:
 
 1. **Voorstel** — een nieuw begrip of wijziging wordt ingediend via een GitHub Issue of Pull Request
 2. **Review** — de werkgroep beoordeelt het voorstel op consistentie, volledigheid en aansluiting

@@ -8,7 +8,7 @@ Dit bestand helpt Claude (en andere AI-assistenten) om efficiënt en consistent 
 
 **Naam:** GBO-Semantiek, het semantisch raamwerk van de Gemeenschappelijke Bronontsluiting (GBO).
 **Status:** Concept, versie v0.1.
-**Doel:** Een landelijke, sectoroverstijgende open standaard voor de semantische beschrijving van basisgegevens uit overheidsregistraties, met een gedeeld begrippenkader en informatiemodel voor interoperabiliteit en datakwaliteit tussen overheidsorganisaties, gemeenten en ketenpartners.
+**Doel:** Een landelijke, sectoroverstijgende open specificatie voor de semantische beschrijving van basisgegevens uit overheidsregistraties, met een gedeeld begrippenkader en informatiemodel voor interoperabiliteit en datakwaliteit tussen overheidsorganisaties en ketenpartners.
 **Inhoudelijke bronnen:** GBO put uit meerdere bronmodellen. Een belangrijk deel komt uit gemeentelijke referentiemodellen, met name het Gemeentelijk Gegevensmodel (GGM, oorspronkelijk gemeente 's-Hertogenbosch) en het Referentiemodel Stelsel van Gemeentelijke Basisgegevens (RSGB). Daarnaast worden de officiële catalogi en modellen van de landelijke basisregistraties (BRP, BAG, BRK, BGT, HR, WOZ) gevolgd.
 **Licentie:** EUPL-1.2.
 
@@ -84,7 +84,7 @@ Een documentatie-update vereist niet altijd een nieuwe modelversie en omgekeerd.
 - **Lees eerst de relevante bestanden** voordat je voorstellen doet. Vermijd aannames over de inhoud.
 - **Volg bestaande conventies** in dit repository (Markdown-stijl, mappenstructuur, naamgeving). Wijk alleen af met goede reden.
 - **Eén ding tegelijk:** liever een kleine, gefocuste wijziging dan een grote refactor. Stel grote refactors altijd eerst voor.
-- **Bewerk nooit handmatig wat door tooling of de copy-slag komt.** Gegenereerd via `Taskfile.yml`: `site/`, `v{VERSION}/graphql/`, `v{VERSION}/ontologie/`, `v{VERSION}/GBO_Changes.md`. Gekopieerd uit de wiki-repo (`task import:copy`): `v{VERSION}/informatiemodel/linkml/`, `v{VERSION}/bronnen/`, `v{VERSION}/clients/` en `docs/informatiemodel/gbo-kern/`.
+- **Bewerk nooit handmatig wat door tooling of de copy-slag komt.** Gegenereerd via `Taskfile.yml`: `site/`, `v{VERSION}/graphql/`, `v{VERSION}/ontologie/`, `v{VERSION}/begrippen/`, `v{VERSION}/GBO_Changes.md`. Gekopieerd uit de wiki-repo (`task import:copy`): `v{VERSION}/informatiemodel/linkml/`, `v{VERSION}/bronnen/`, `v{VERSION}/clients/`, `docs/informatiemodel/gbo-kern/` en `docs/informatiemodel/gbo-voorzieningen.md`.
 - **Diagrammen** komen als PlantUML-fences mee in de gekopieerde model-docs en worden door mkdocs gerenderd. Het oude drawio→SVG-spoor (`task generate:diagrams`) is **voorlopig uitgeschakeld** (Fase 1).
 
 ### Wat NIET doen
@@ -105,7 +105,7 @@ Dit repository gebruikt [go-task](https://taskfile.dev/) als task-runner. Alle t
 |------|---------------------|------|
 | `prepare` | `prepare:check-tools`, `prepare:check-vars` | Voorwaarden valideren |
 | `import` | `import:copy` | Model + bron-/client-profielen kopiëren uit de wiki-repo |
-| `generate` | `generate:docs`, `generate:lod`, `generate:diff` | Artefacten uit het model genereren |
+| `generate` | `generate:docs`, `generate:lod`, `generate:voorzieningen-lod`, `generate:begrippen`, `generate:diff` | Artefacten uit het model genereren |
 | `build` | `build:validate`, `build:site`, `build:serve` | MkDocs valideren, bouwen, serveren |
 | `publish` | `publish:local`, `publish:github` | Mike-deploy lokaal of naar gh-pages |
 | — | `full-deploy` | Volledige pipeline van import t/m publish |

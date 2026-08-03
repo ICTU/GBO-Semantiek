@@ -5,4 +5,6 @@
 
 ## Gemeenschappelijke Bronontsluiting
 
-De Gemeenschappelijke Bronontsluiting (GBO) is een landelijke, sectoroverstijgende standaard die overheidsorganisaties en ketenpartners in staat stelt gegevens bij de bron te ontsluiten en met elkaar te delen. 
+De Gemeenschappelijke Bronontsluiting (GBO) stelt een samenhangende set afspraken, standaarden en voorzieningen voor waarmee overheidsorganisaties en ketenpartners gegevens bij de bron kunnen ontsluiten en met elkaar delen. Die set is landelijk en sectoroverstijgend bedoeld en landt in bestaande stelsels.
+
+GBO-Semantiek beschrijft de semantische bouwsteen daarvan: het begrippenkader en het informatiemodel voor de gegevens die zo worden uitgewisseld.

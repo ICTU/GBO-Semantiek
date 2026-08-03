@@ -71,7 +71,7 @@ classes:
       skos:altLabel_en_0_value: Financial Obligation
       skos:altLabel_en_0_source: FIBO Financial Obligation (close, niet exact)
       skos:definition_nl: Een verplichting van een natuurlijk persoon of niet-natuurlijk persoon tot het verrichten van een geldelijke prestatie aan een tegenpartij, ontstaan uit overeenkomst of uit een wettelijke regeling.
-      skos:definitionSource: GBO-Core, afgeleid uit het verbintenisrecht en het Algemeen Reglement CKI
+      skos:definitionSource: GBO-Kern, afgeleid uit het verbintenisrecht en het Algemeen Reglement CKI
       skos:closeMatch_0_reviewed: 'false'
       skos:needsReview_0: closeMatch naar FIBO FinancialObligation scope-vergelijking nog niet handmatig geverifieerd.
       skos:needsReview_1: 'Verhouding met Burgerlijk Wetboek-verbintenisrecht: nu afgeleid; eventueel als formele bron toevoegen.'

@@ -309,7 +309,7 @@ de NLQF-schaal (Nederlands Kwalificatieraamwerk).
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
 | **`opleidingscode`** | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | De sector-specifieke code van de opleiding. | RIO of sectorlijst | Vorm en patroon zijn afhankelijk van het codestelsel. |
-| `codestelsel` | [Codestelsel](#codestelsel) | 1 | Basisgegeven | Nee | Nee | Het identificatiestelsel waarvan de opleidingscode deel uitmaakt. | GBO Core | |
+| `codestelsel` | [Codestelsel](#codestelsel) | 1 | Basisgegeven | Nee | Nee | Het identificatiestelsel waarvan de opleidingscode deel uitmaakt. | GBO-Kern | |
 | `opleidingsnaam` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Nee | De officiële benaming van de opleiding. | RIO | |
 | `opleidingsniveau` | `Codelijst~NLQF` | 0..1 | Basisgegeven | Nee | Nee | Het kwalificatieniveau op de NLQF-schaal van een tot acht. | Afgeleide; NCP-NLQF | Sectoroverstijgende vergelijking. |
 | `onderwijssector` | [Onderwijssector](#onderwijssector) | 1 | Basisgegeven | Nee | Nee | De sector waarin de opleiding wordt aangeboden. | RIO | |
@@ -355,7 +355,7 @@ codelijst.
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
-| `deelnameId` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Interne identificatie van de deelname. | GBO Core | |
+| `deelnameId` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Interne identificatie van de deelname. | GBO-Kern | |
 | `inschrijfdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Ja | De datum waarop de deelname is aangevangen. | PvE ROD per sector | |
 | `uitschrijfdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop de deelname is geëindigd. | PvE ROD per sector | Leeg zolang de deelname loopt. |
 | `redenUitschrijving` | `Codelijst~RedenUitschrijving` | 0..1 | Basisgegeven | Nee | Nee | De reden waarom de deelname is geëindigd. | PvE ROD per sector | Sector-specifieke codelijst. |
@@ -410,7 +410,7 @@ master-bewijsstuk; dat is een voorkomen met
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
-| `resultaatId` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Interne identificatie van het resultaat. | GBO Core | |
+| `resultaatId` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | Interne identificatie van het resultaat. | GBO-Kern | |
 | `behaaldatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Ja | De datum waarop het resultaat is behaald. | PvE ROD per sector | |
 | `diplomasoort` | `Codelijst~Diplomasoort` | 0..1 | Basisgegeven | Nee | Nee | De aanduiding van het diploma of bewijsstuk. | PvE ROD per sector | Sector-specifieke codelijst. |
 | `resultaatsoort` | [Resultaatsoort](#resultaatsoort) | 1 | Basisgegeven | Nee | Nee | Het type resultaat. | PvE ROD per sector | |
@@ -682,7 +682,7 @@ bijgehouden.
 **Definitie**: Identificatiestelsel waarvan een opleidingscode
 deel uitmaakt.
 
-**Herkomst definitie**: GBO Core, op basis van de sectorpraktijk
+**Herkomst definitie**: GBO-Kern, op basis van de sectorpraktijk
 in RIO en de PvE ROD per sector.
 
 **Toelichting**: Het stelsel bepaalt vorm en betekenis van de
@@ -695,7 +695,7 @@ schoolsoort-code.
 |---|---|
 | Naam | Codestelsel |
 | Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Codestelsel` |
-| Herkomst | GBO Core |
+| Herkomst | GBO-Kern |
 | Datum opname | 2026-05-19 |
 
 **Gebruikt door**: `Opleiding.codestelsel`.

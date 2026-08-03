@@ -12,8 +12,9 @@
 
 site_name: GBO-Semantiek
 site_description: >-
-  Informatiemodel Semantiek voor Gemeentelijke Basisgegevens Objecten —
-  open standaard voor interoperabiliteit en datakwaliteit binnen gemeenten.
+  Het semantisch raamwerk van de Gemeenschappelijke Bronontsluiting — open
+  specificatie met begrippenkader en informatiemodel voor het landelijk,
+  sectoroverstijgend ontsluiten en delen van basisgegevens.
 site_author: GBO-Semantiek Werkgroep
 site_url: https://ictu.github.io/gbo-semantiek/
 

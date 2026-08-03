@@ -7,7 +7,8 @@ dingen mist die GBO nodig heeft:
    met annotatie gbo:lijstQueries=false blijft alleen de query op de
    natuurlijke sleutel over (geen "...Lijst"-velden); multivalued
    object-velden krijgen filterargumenten voor doel-attributen met de
-   annotatie gbo:filterbaar;
+   annotatie gbo:filterbaar; dat zijn altijd lijstargumenten, met de
+   attribuutnaam als argumentnaam;
 2. de GBO-primitieven Tekst en Alfanumeriek worden afgebeeld op String,
    Numeriek op Int en Decimaal op Float; overige datatypes (Datum,
    DatumTijd, Geometrie, NEN3610ID, codelijsten, ...) worden benoemde
@@ -203,15 +204,31 @@ class SDLGenerator:
 
     def filterargumenten(self, doelklasse: str) -> str:
         """Argumentenlijst voor een multivalued object-veld: één
-        optioneel argument per doel-attribuut met annotatie
-        gbo:filterbaar."""
+        optioneel lijstargument per doel-attribuut met annotatie
+        gbo:filterbaar.
+
+        Het argument is altijd een lijst, ook bij één waarde. Daarmee
+        hebben enkelvoudige en meervoudige selectie dezelfde vorm en kan
+        een policy-beslispunt de gevraagde verzameling rechtstreeks uit
+        de operatie aflezen, zonder een filter-inputobject te moeten
+        uitpakken.
+
+        Het argument houdt de naam van het attribuut, in enkelvoud: de
+        lijstnotatie drukt de meervoudigheid al uit. GraphQL coerceert
+        bovendien een losse waarde naar een lijst van één, zodat het
+        verbreden van een bestaand enkelvoudig argument geen bestaande
+        query met een literale waarde breekt.
+        """
         argumenten = []
         for naam, attr in self.induced_attributen(doelklasse).items():
             ann = (attr or {}).get("annotations") or {}
-            if str(ann.get("gbo:filterbaar", "")).lower() \
-                    in ("true", "ja"):
-                argumenten.append(f"{graphql_naam(naam)}: "
-                                  f"{self.veldtype(attr, kaal=True)}")
+            waarde = ann.get("gbo:filterbaar")
+            if isinstance(waarde, dict):  # {tag, value}-vorm
+                waarde = waarde.get("value")
+            if str(waarde).lower() not in ("true", "ja"):
+                continue
+            argumenten.append(f"{graphql_naam(naam)}: "
+                              f"[{self.veldtype(attr, kaal=True)}!]")
         return "(" + ", ".join(argumenten) + ")" if argumenten else ""
 
     def velden(self, klasse: str) -> list[str]:
@@ -430,16 +447,23 @@ def main() -> None:
     generator = SDLGenerator(schema)
     sdl = generator.genereer(args.schema.name)
 
-    # Validatie als graphql-core beschikbaar is: syntax is blokkerend,
-    # schema-semantiek (zoals interface-covariantie bij overschreven
-    # attributen) vooralsnog een waarschuwing.
+    # Validatie als graphql-core beschikbaar is: zowel syntax als
+    # schema-semantiek is blokkerend. Een SDL die build_schema haalt maar
+    # validate_schema niet, wordt door consumenten (Apollo, graphql-js,
+    # codegenerators) alsnog geweigerd; zo'n schema mag de pipeline dus
+    # niet verlaten. Let op interface-covariantie: een implementerend
+    # type moet het veldtype van de interface aanhouden, dus een subtype
+    # mag een attribuut niet naar een ander type versmallen.
     try:
         from graphql import build_schema, validate_schema
         gebouwd = build_schema(sdl)
+        schemafouten = validate_schema(gebouwd)
+        if schemafouten:
+            for schemafout in schemafouten:
+                melding("FOUT", f"schema-semantiek: {schemafout.message}")
+            fout(f"gegenereerde SDL is geen geldig GraphQL-schema "
+                 f"({len(schemafouten)} fouten)")
         melding("INFO", "SDL gevalideerd met graphql-core")
-        for schemafout in validate_schema(gebouwd):
-            melding("WAARSCHUWING",
-                    f"schema-semantiek: {schemafout.message}")
     except ImportError:
         melding("INFO", "graphql-core niet beschikbaar; "
                         "syntaxvalidatie overgeslagen")
