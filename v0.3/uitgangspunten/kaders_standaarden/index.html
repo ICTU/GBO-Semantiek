@@ -1,12 +1,9 @@
-
-<!doctype html>
-<html lang="nl" class="no-js">
-  <head>
+<!DOCTYPE html><html lang="nl" class="no-js"><head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Informatiemodel Semantiek voor Gemeentelijke Basisgegevens Objecten — open standaard voor interoperabiliteit en datakwaliteit binnen gemeenten.">
+        <meta name="description" content="Het semantisch raamwerk van de Gemeenschappelijke Bronontsluiting — open specificatie met begrippenkader en informatiemodel voor het landelijk, sectoroverstijgend ontsluiten en delen van basisgegevens.">
       
       
         <meta name="author" content="GBO-Semantiek Werkgroep">
@@ -21,8 +18,11 @@
         <link rel="next" href="../../informatiemodel/gbo-kern/bronnenprioritering/">
       
       
+        
+      
+      
       <link rel="icon" href="../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -30,10 +30,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -46,31 +46,31 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-    
-   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-    html.glightbox-open { overflow: initial; height: 100%; }
-    .gslide-title { margin-top: 0px; user-select: text; }
-    .gslide-desc { color: #666; user-select: text; }
-    .gslide-image img { background: white; }
-    .gscrollbar-fixer { padding-right: 15px; }
-    .gdesc-inner { font-size: 0.75rem; }
-    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
   
   
     
@@ -98,7 +98,7 @@
       
     </div>
     
-      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
         
       </div>
     
@@ -116,7 +116,7 @@
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -141,20 +141,20 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Schakel naar donker thema"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue" aria-label="Schakel naar donker thema" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Schakel naar licht thema"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue" aria-label="Schakel naar licht thema" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
   
@@ -162,41 +162,43 @@
       
     
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
       </label>
       <nav class="md-search__options" aria-label="Zoeken">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
           </a>
         
         <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Zoeken initialiseren
@@ -207,13 +209,14 @@
     </div>
   </div>
 </div>
+      
     
     
       <div class="md-header__source">
         <a href="https://github.com/ICTU/gbo-semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
   </div>
   <div class="md-source__repository">
     ICTU/gbo-semantiek
@@ -237,7 +240,7 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -258,7 +261,7 @@
       <a href="https://github.com/ICTU/gbo-semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
   </div>
   <div class="md-source__repository">
     ICTU/gbo-semantiek
@@ -266,7 +269,7 @@
 </a>
     </div>
   
-  <ul class="md-nav__list" data-md-scrollfix>
+  <ul class="md-nav__list" data-md-scrollfix="">
     
       
       
@@ -278,9 +281,16 @@
       <a href="../.." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Inleiding
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -307,6 +317,7 @@
       
     
     
+    
       
         
         
@@ -317,15 +328,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Uitgangspunten
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -334,9 +352,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Uitgangspunten
+            
+  
+    Uitgangspunten
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -348,9 +370,16 @@
       <a href="../ontwerpprincipes/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Ontwerprincipes
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -378,9 +407,16 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
+    
+  
     Kaders en standaarden
+  
+
+    
   </span>
+  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -389,9 +425,16 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Kaders en standaarden
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -411,12 +454,14 @@
       <span class="md-nav__icon md-icon"></span>
       Op deze pagina
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
   <a href="#kaders" class="md-nav__link">
     <span class="md-ellipsis">
-      Kaders
+      
+        Kaders
+      
     </span>
   </a>
   
@@ -426,7 +471,9 @@
           <li class="md-nav__item">
   <a href="#nora-nederlandse-overheid-referentie-architectuur" class="md-nav__link">
     <span class="md-ellipsis">
-      NORA — Nederlandse Overheid Referentie Architectuur
+      
+        NORA — Nederlandse Overheid Referentie Architectuur
+      
     </span>
   </a>
   
@@ -435,7 +482,9 @@
           <li class="md-nav__item">
   <a href="#gbo-psa-project-start-architectuur" class="md-nav__link">
     <span class="md-ellipsis">
-      GBO PSA — Project Start Architectuur
+      
+        GBO PSA — Project Start Architectuur
+      
     </span>
   </a>
   
@@ -449,7 +498,9 @@
         <li class="md-nav__item">
   <a href="#standaarden" class="md-nav__link">
     <span class="md-ellipsis">
-      Standaarden
+      
+        Standaarden
+      
     </span>
   </a>
   
@@ -459,7 +510,9 @@
           <li class="md-nav__item">
   <a href="#mim-metamodel-informatiemodellering" class="md-nav__link">
     <span class="md-ellipsis">
-      MIM — Metamodel Informatiemodellering
+      
+        MIM — Metamodel Informatiemodellering
+      
     </span>
   </a>
   
@@ -468,7 +521,9 @@
           <li class="md-nav__item">
   <a href="#nen-3610-basismodel-geo-informatie" class="md-nav__link">
     <span class="md-ellipsis">
-      NEN 3610 — Basismodel Geo-informatie
+      
+        NEN 3610 — Basismodel Geo-informatie
+      
     </span>
   </a>
   
@@ -477,7 +532,9 @@
           <li class="md-nav__item">
   <a href="#dcat-ap-nl" class="md-nav__link">
     <span class="md-ellipsis">
-      DCAT-AP-NL
+      
+        DCAT-AP-NL
+      
     </span>
   </a>
   
@@ -486,7 +543,9 @@
           <li class="md-nav__item">
   <a href="#skos-simple-knowledge-organization-system" class="md-nav__link">
     <span class="md-ellipsis">
-      SKOS — Simple Knowledge Organization System
+      
+        SKOS — Simple Knowledge Organization System
+      
     </span>
   </a>
   
@@ -495,7 +554,9 @@
           <li class="md-nav__item">
   <a href="#nl-sbb-standaard-voor-het-beschrijven-van-begrippen" class="md-nav__link">
     <span class="md-ellipsis">
-      NL-SBB — Standaard voor het Beschrijven van Begrippen
+      
+        NL-SBB — Standaard voor het Beschrijven van Begrippen
+      
     </span>
   </a>
   
@@ -504,7 +565,9 @@
           <li class="md-nav__item">
   <a href="#owl-web-ontology-language" class="md-nav__link">
     <span class="md-ellipsis">
-      OWL — Web Ontology Language
+      
+        OWL — Web Ontology Language
+      
     </span>
   </a>
   
@@ -513,7 +576,9 @@
           <li class="md-nav__item">
   <a href="#json-ld-json-for-linking-data" class="md-nav__link">
     <span class="md-ellipsis">
-      JSON-LD — JSON for Linking Data
+      
+        JSON-LD — JSON for Linking Data
+      
     </span>
   </a>
   
@@ -522,7 +587,9 @@
           <li class="md-nav__item">
   <a href="#shacl-shapes-constraint-language" class="md-nav__link">
     <span class="md-ellipsis">
-      SHACL — Shapes Constraint Language
+      
+        SHACL — Shapes Constraint Language
+      
     </span>
   </a>
   
@@ -531,7 +598,9 @@
           <li class="md-nav__item">
   <a href="#rdf-resource-description-framework" class="md-nav__link">
     <span class="md-ellipsis">
-      RDF — Resource Description Framework
+      
+        RDF — Resource Description Framework
+      
     </span>
   </a>
   
@@ -540,7 +609,9 @@
           <li class="md-nav__item">
   <a href="#vc-verifiable-credentials" class="md-nav__link">
     <span class="md-ellipsis">
-      VC — verifiable Credentials
+      
+        VC — verifiable Credentials
+      
     </span>
   </a>
   
@@ -570,9 +641,16 @@
       <a href="../../informatiemodel/gbo-kern/bronnenprioritering/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Bronnenprioritering
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -603,6 +681,7 @@
       
     
     
+    
       
         
         
@@ -613,15 +692,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Architectuur
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -630,9 +716,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Architectuur
+            
+  
+    Architectuur
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -644,9 +734,16 @@
       <a href="../../architectuur/gegevensarchitectuur/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Gegevensarchitectuur
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -665,9 +762,16 @@
       <a href="../../architectuur/gegevenscomponenten/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Gegevenscomponenten
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -696,6 +800,7 @@
       
     
     
+    
       
         
         
@@ -706,15 +811,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Begrippenmodel
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -723,9 +835,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Begrippenmodel
+            
+  
+    Begrippenmodel
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -737,9 +853,16 @@
       <a href="../../begrippen/inleiding/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Inleiding
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -792,6 +915,7 @@
       
     
     
+    
       
         
         
@@ -802,15 +926,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Informatiemodel: GBO-Kernmodel
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -819,9 +950,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Informatiemodel: GBO-Kernmodel
+            
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -833,9 +968,16 @@
       <a href="../../informatiemodel/gbo-kern/hoofdmodel/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Hoofdmodel
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -854,9 +996,16 @@
       <a href="../../informatiemodel/gbo-kern/hoofdmodel-compact/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Hoofdmodel (compact)
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -875,9 +1024,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/personen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Personen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -896,9 +1052,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/bedrijven-en-instellingen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Bedrijven en Instellingen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -917,9 +1080,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/adressen-en-gebouwen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Adressen en Gebouwen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -938,9 +1108,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/onroerende-zaken/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Onroerende Zaken
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -959,9 +1136,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Waarde Onroerende Zaken
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -980,9 +1164,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/belastingen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Belastingen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1001,9 +1192,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/krediet/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Krediet
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1022,9 +1220,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/onderwijs/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Onderwijs
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1043,9 +1248,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/werk-en-inkomen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Werk en Inkomen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1064,9 +1276,16 @@
       <a href="../../informatiemodel/gbo-kern/deelmodellen/voertuigen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deelmodel Voertuigen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1085,9 +1304,16 @@
       <a href="../../informatiemodel/gbo-kern/datatypes-en-codelijsten/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Datatypes en codelijsten
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1116,6 +1342,7 @@
       
     
     
+    
       
         
         
@@ -1126,15 +1353,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Informatiemodel: GBO-Voorzieningenmodel
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1143,9 +1377,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Informatiemodel: GBO-Voorzieningenmodel
+            
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -1157,9 +1395,16 @@
       <a href="../../informatiemodel/gbo-voorzieningen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Hoofdmodel
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1188,6 +1433,7 @@
       
     
     
+    
       
         
         
@@ -1198,15 +1444,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Ontologie
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1215,9 +1468,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            Ontologie
+            
+  
+    Ontologie
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -1229,9 +1486,16 @@
       <a href="../../ontologie/inleiding/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Inleiding
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1266,6 +1530,7 @@
       
     
     
+    
       
         
         
@@ -1276,15 +1541,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Implementatie
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1293,9 +1565,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            Implementatie
+            
+  
+    Implementatie
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -1307,9 +1583,16 @@
       <a href="../../implementatie/uri-strategie/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     URI-strategie
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1328,9 +1611,16 @@
       <a href="../../implementatie/naamgeving/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Naamgeving
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1349,9 +1639,16 @@
       <a href="../../implementatie/deployment/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Deployment
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1370,9 +1667,16 @@
       <a href="../../implementatie/publicatie/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Publicatie
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1405,6 +1709,7 @@
       
     
     
+    
       
         
         
@@ -1415,15 +1720,22 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Bijlagen
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1432,9 +1744,13 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
-            Bijlagen
+            
+  
+    Bijlagen
+  
+
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          <ul class="md-nav__list" data-md-scrollfix="">
             
               
                 
@@ -1446,9 +1762,16 @@
       <a href="../../bijlagen/woordenlijst/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Woordenlijst
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1467,9 +1790,16 @@
       <a href="../../bijlagen/tooling/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Tooling
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1488,9 +1818,16 @@
       <a href="../../bijlagen/uri-namespace/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     URI-namespace
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1514,7 +1851,7 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1532,12 +1869,14 @@
       <span class="md-nav__icon md-icon"></span>
       Op deze pagina
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
   <a href="#kaders" class="md-nav__link">
     <span class="md-ellipsis">
-      Kaders
+      
+        Kaders
+      
     </span>
   </a>
   
@@ -1547,7 +1886,9 @@
           <li class="md-nav__item">
   <a href="#nora-nederlandse-overheid-referentie-architectuur" class="md-nav__link">
     <span class="md-ellipsis">
-      NORA — Nederlandse Overheid Referentie Architectuur
+      
+        NORA — Nederlandse Overheid Referentie Architectuur
+      
     </span>
   </a>
   
@@ -1556,7 +1897,9 @@
           <li class="md-nav__item">
   <a href="#gbo-psa-project-start-architectuur" class="md-nav__link">
     <span class="md-ellipsis">
-      GBO PSA — Project Start Architectuur
+      
+        GBO PSA — Project Start Architectuur
+      
     </span>
   </a>
   
@@ -1570,7 +1913,9 @@
         <li class="md-nav__item">
   <a href="#standaarden" class="md-nav__link">
     <span class="md-ellipsis">
-      Standaarden
+      
+        Standaarden
+      
     </span>
   </a>
   
@@ -1580,7 +1925,9 @@
           <li class="md-nav__item">
   <a href="#mim-metamodel-informatiemodellering" class="md-nav__link">
     <span class="md-ellipsis">
-      MIM — Metamodel Informatiemodellering
+      
+        MIM — Metamodel Informatiemodellering
+      
     </span>
   </a>
   
@@ -1589,7 +1936,9 @@
           <li class="md-nav__item">
   <a href="#nen-3610-basismodel-geo-informatie" class="md-nav__link">
     <span class="md-ellipsis">
-      NEN 3610 — Basismodel Geo-informatie
+      
+        NEN 3610 — Basismodel Geo-informatie
+      
     </span>
   </a>
   
@@ -1598,7 +1947,9 @@
           <li class="md-nav__item">
   <a href="#dcat-ap-nl" class="md-nav__link">
     <span class="md-ellipsis">
-      DCAT-AP-NL
+      
+        DCAT-AP-NL
+      
     </span>
   </a>
   
@@ -1607,7 +1958,9 @@
           <li class="md-nav__item">
   <a href="#skos-simple-knowledge-organization-system" class="md-nav__link">
     <span class="md-ellipsis">
-      SKOS — Simple Knowledge Organization System
+      
+        SKOS — Simple Knowledge Organization System
+      
     </span>
   </a>
   
@@ -1616,7 +1969,9 @@
           <li class="md-nav__item">
   <a href="#nl-sbb-standaard-voor-het-beschrijven-van-begrippen" class="md-nav__link">
     <span class="md-ellipsis">
-      NL-SBB — Standaard voor het Beschrijven van Begrippen
+      
+        NL-SBB — Standaard voor het Beschrijven van Begrippen
+      
     </span>
   </a>
   
@@ -1625,7 +1980,9 @@
           <li class="md-nav__item">
   <a href="#owl-web-ontology-language" class="md-nav__link">
     <span class="md-ellipsis">
-      OWL — Web Ontology Language
+      
+        OWL — Web Ontology Language
+      
     </span>
   </a>
   
@@ -1634,7 +1991,9 @@
           <li class="md-nav__item">
   <a href="#json-ld-json-for-linking-data" class="md-nav__link">
     <span class="md-ellipsis">
-      JSON-LD — JSON for Linking Data
+      
+        JSON-LD — JSON for Linking Data
+      
     </span>
   </a>
   
@@ -1643,7 +2002,9 @@
           <li class="md-nav__item">
   <a href="#shacl-shapes-constraint-language" class="md-nav__link">
     <span class="md-ellipsis">
-      SHACL — Shapes Constraint Language
+      
+        SHACL — Shapes Constraint Language
+      
     </span>
   </a>
   
@@ -1652,7 +2013,9 @@
           <li class="md-nav__item">
   <a href="#rdf-resource-description-framework" class="md-nav__link">
     <span class="md-ellipsis">
-      RDF — Resource Description Framework
+      
+        RDF — Resource Description Framework
+      
     </span>
   </a>
   
@@ -1661,7 +2024,9 @@
           <li class="md-nav__item">
   <a href="#vc-verifiable-credentials" class="md-nav__link">
     <span class="md-ellipsis">
-      VC — verifiable Credentials
+      
+        VC — verifiable Credentials
+      
     </span>
   </a>
   
@@ -1682,74 +2047,76 @@
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   
 
+
   
-    <a href="https://github.com/ICTU/gbo-semantiek/edit/main/docs/uitgangspunten/kaders_standaarden.md" title="Wijzig deze pagina" class="md-content__button md-icon">
+    <a href="https://github.com/ICTU/gbo-semantiek/edit/main/docs/uitgangspunten/kaders_standaarden.md" title="Wijzig deze pagina" class="md-content__button md-icon" rel="edit">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
   
   
 
 
-<h1 id="kaders-en-standaarden">Kaders  en standaarden<a class="headerlink" href="#kaders-en-standaarden" title="Permanent link">&para;</a></h1>
+<h1 id="kaders-en-standaarden">Kaders  en standaarden<a class="headerlink" href="#kaders-en-standaarden" title="Permanent link">¶</a></h1>
 <p>GBO-Semantiek opereert binnen een landschap van architectuurkaders en technische standaarden. Dit hoofdstuk beschrijft eerst de kaders die de context en spelregels bepalen, daarna de bronnen die worden gehanteerd om tot begrippenkaders en informatiemodellen te komen, en vervolgens de standaarden die GBO technisch invullen.</p>
-<h2 id="kaders">Kaders<a class="headerlink" href="#kaders" title="Permanent link">&para;</a></h2>
-<h3 id="nora-nederlandse-overheid-referentie-architectuur">NORA — Nederlandse Overheid Referentie Architectuur<a class="headerlink" href="#nora-nederlandse-overheid-referentie-architectuur" title="Permanent link">&para;</a></h3>
+<h2 id="kaders">Kaders<a class="headerlink" href="#kaders" title="Permanent link">¶</a></h2>
+<h3 id="nora-nederlandse-overheid-referentie-architectuur">NORA — Nederlandse Overheid Referentie Architectuur<a class="headerlink" href="#nora-nederlandse-overheid-referentie-architectuur" title="Permanent link">¶</a></h3>
 <p><a href="https://www.noraonline.nl/">NORA</a> is het overkoepelende architectuurkader voor de Nederlandse overheid. Het beschrijft principes, richtlijnen en standaarden voor de informatievoorziening van alle overheidsorganisaties.</p>
 <p><strong>Toepassing in GBO-Semantiek:</strong>
 GBO volgt de NORA-principes die direct raken aan gegevensuitwisseling: <em>eenmalige registratie, meervoudig gebruik</em>, <em>open standaarden</em>, en <em>transparantie</em>. Het semantisch raamwerk is een concrete invulling van het NORA-principe dat gegevens een eenduidige betekenis moeten hebben die door alle partijen wordt begrepen.</p>
-<h3 id="gbo-psa-project-start-architectuur">GBO PSA — Project Start Architectuur<a class="headerlink" href="#gbo-psa-project-start-architectuur" title="Permanent link">&para;</a></h3>
-<p>De <a href="https://ictu.github.io/GBO/latest/">GBO Project Start Architectuur (PSA)</a> beschrijft de architectuur van de Gemeenschappelijke Bronontsluiting als <strong>stelsel</strong>: een samenhangend geheel van architectuurprincipes, stelselfuncties, interactiepatronen en voorzieningen voor het ontsluiten van gegevens bij de bron.</p>
+<h3 id="gbo-psa-project-start-architectuur">GBO PSA — Project Start Architectuur<a class="headerlink" href="#gbo-psa-project-start-architectuur" title="Permanent link">¶</a></h3>
+<p>De <a href="https://ictu.github.io/GBO-PSA/main/">GBO Project Start Architectuur (PSA)</a> beschrijft de architectuur van het <strong>programma</strong> Gemeenschappelijke Bronontsluiting: een samenhangende set generieke afspraken, standaarden, stelselfuncties en voorzieningen voor het ontsluiten van gegevens bij de bron, als aanvulling op en verbetering van bestaande landelijke stelsels.</p>
 <p><strong>Toepassing in GBO-Semantiek:</strong>
-GBO-Semantiek levert de <strong>semantische laag</strong> bij dit stelsel. Waar de PSA de stelselfuncties en architectuurprincipes vaststelt, geven het begrippenkader en de informatiemodellen van GBO-Semantiek de uitgewisselde gegevens een eenduidige, beheerde betekenis. De terminologie in deze documentatie volgt die van de PSA.</p>
-<h2 id="standaarden">Standaarden<a class="headerlink" href="#standaarden" title="Permanent link">&para;</a></h2>
-<h3 id="mim-metamodel-informatiemodellering">MIM — Metamodel Informatiemodellering<a class="headerlink" href="#mim-metamodel-informatiemodellering" title="Permanent link">&para;</a></h3>
+GBO-Semantiek levert de <strong>semantische laag</strong> bij deze oplossing. De veertien <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/">PSA-ontwerpprincipes</a> zijn per semantiek-principe herleidbaar gemaakt in <a href="../ontwerpprincipes/#herkomst-koppeling-met-de-psa">Ontwerpprincipes</a>. Waar de PSA de stelselfuncties en architectuurprincipes vaststelt, geven het begrippenkader en de informatiemodellen van GBO-Semantiek de uitgewisselde gegevens een eenduidige, beheerde betekenis. De terminologie in deze documentatie volgt die van de PSA.</p>
+<h2 id="standaarden">Standaarden<a class="headerlink" href="#standaarden" title="Permanent link">¶</a></h2>
+<h3 id="mim-metamodel-informatiemodellering">MIM — Metamodel Informatiemodellering<a class="headerlink" href="#mim-metamodel-informatiemodellering" title="Permanent link">¶</a></h3>
 <p><a href="https://www.geonovum.nl/geo-standaarden/mim">MIM</a> is de Nederlandse overheidsstandaard voor het beschrijven van informatiemodellen, ontwikkeld door Geonovum in samenwerking met VNG en Kadaster. MIM onderscheidt vier beschouwingsniveaus:</p>
-<p><a class="glightbox" href="../../assets/diagrams/mim-niveaus.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MIM beschouwingsniveaus" src="../../assets/diagrams/mim-niveaus.svg" /></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/diagrams/mim-niveaus.svg" data-desc-position="bottom"><img alt="MIM beschouwingsniveaus" src="../../assets/diagrams/mim-niveaus.svg"></a></p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 MIM is het metamodel waarmee de GBO-informatiemodellen zijn opgesteld. GBO adresseert alle vier de MIM-niveaus: het begrippenkader (niveau I, SKOS), het conceptueel en logisch informatiemodel (niveau II/III, OWL/SHACL), en de technische representatie (niveau IV, JSON-LD/JSON Schema). MIM maakt duidelijk dat begrippenkader en informatiemodel <em>verschillende lagen</em> zijn die elk hun eigen doelgroep hebben.</p>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg></span> <strong>Forum Standaardisatie:</strong> MIM staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/mim">lijst met aanbevolen standaarden</a>.</p>
-<h3 id="nen-3610-basismodel-geo-informatie">NEN 3610 — Basismodel Geo-informatie<a class="headerlink" href="#nen-3610-basismodel-geo-informatie" title="Permanent link">&para;</a></h3>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></span> <strong>Forum Standaardisatie:</strong> MIM staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/mim">lijst met aanbevolen standaarden</a>.</p>
+<h3 id="nen-3610-basismodel-geo-informatie">NEN 3610 — Basismodel Geo-informatie<a class="headerlink" href="#nen-3610-basismodel-geo-informatie" title="Permanent link">¶</a></h3>
 <p><a href="https://www.geonovum.nl/geo-standaarden/nen-3610-basismodel-geo-informatie">NEN 3610</a> is het Nederlandse basismodel voor geo-gerelateerde informatieobjecten. Het biedt een gemeenschappelijk kader voor de modellering van geo-informatie en definieert basisconcepten zoals geo-object, registratief object en functioneel object.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 Waar de GBO-informatiemodellen geo-gerelateerde objecten bevatten (bijv. locaties, adressen, gebieden), wordt NEN 3610 gevolgd voor de modellering daarvan. Dit garandeert interoperabiliteit met andere geo-informatiemodellen binnen de overheid.</p>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg></span> <strong>Forum Standaardisatie:</strong> NEN 3610 staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/nen-3610">lijst met verplichte standaarden</a> (pas-toe-of-leg-uit).</p>
-<h3 id="dcat-ap-nl">DCAT-AP-NL<a class="headerlink" href="#dcat-ap-nl" title="Permanent link">&para;</a></h3>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></span> <strong>Forum Standaardisatie:</strong> NEN 3610 staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/nen-3610">lijst met verplichte standaarden</a> (pas-toe-of-leg-uit).</p>
+<h3 id="dcat-ap-nl">DCAT-AP-NL<a class="headerlink" href="#dcat-ap-nl" title="Permanent link">¶</a></h3>
 <p><a href="https://data.overheid.nl/ondersteuning/open-data/dcat">DCAT-AP-NL</a> is de Nederlandse toepassing van de Europese DCAT-standaard (Data Catalog Vocabulary Application Profile) voor het beschrijven van datasets in datacatalogi. Het is gebaseerd op het W3C DCAT-vocabularium en de Europese DCAT-AP.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 De gepubliceerde GBO-artefacten (ontologie, begrippenkader, waardelijsten) worden beschreven conform DCAT-AP-NL, zodat ze vindbaar zijn in datacatalogi zoals data.overheid.nl en het Nationaal Georegister.</p>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg></span> <strong>Forum Standaardisatie:</strong> DCAT staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/dcat">lijst met aanbevolen standaarden</a>.</p>
-<h3 id="skos-simple-knowledge-organization-system">SKOS — Simple Knowledge Organization System<a class="headerlink" href="#skos-simple-knowledge-organization-system" title="Permanent link">&para;</a></h3>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></span> <strong>Forum Standaardisatie:</strong> DCAT staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/dcat">lijst met aanbevolen standaarden</a>.</p>
+<h3 id="skos-simple-knowledge-organization-system">SKOS — Simple Knowledge Organization System<a class="headerlink" href="#skos-simple-knowledge-organization-system" title="Permanent link">¶</a></h3>
 <p><a href="https://www.w3.org/2004/02/skos/">SKOS</a> is de W3C-standaard voor het beschrijven van begrippenkaders, thesauri en taxonomieën in RDF. SKOS biedt een eenvoudig vocabularium voor het vastleggen van begrippen (<code>skos:Concept</code>), hun definities, hiërarchische relaties (breder/smaller) en associatieve relaties.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 SKOS is de taal van het <strong>begrippenkader</strong> — de semantische basis van GBO. Alle domeinbegrippen worden gepubliceerd als SKOS ConceptScheme. Waardelijsten en codelijsten worden eveneens als SKOS gepubliceerd, zodat ze de-referenceable en machine-leesbaar zijn.</p>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg></span> <strong>Forum Standaardisatie:</strong> SKOS staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/skos">lijst met aanbevolen standaarden</a>.</p>
-<h3 id="nl-sbb-standaard-voor-het-beschrijven-van-begrippen">NL-SBB — Standaard voor het Beschrijven van Begrippen<a class="headerlink" href="#nl-sbb-standaard-voor-het-beschrijven-van-begrippen" title="Permanent link">&para;</a></h3>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></span> <strong>Forum Standaardisatie:</strong> SKOS staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/skos">lijst met aanbevolen standaarden</a>.</p>
+<h3 id="nl-sbb-standaard-voor-het-beschrijven-van-begrippen">NL-SBB — Standaard voor het Beschrijven van Begrippen<a class="headerlink" href="#nl-sbb-standaard-voor-het-beschrijven-van-begrippen" title="Permanent link">¶</a></h3>
 <p><a href="https://docs.geostandaarden.nl/nl-sbb/nl-sbb/">NL-SBB</a> is de Nederlandse standaard voor het beschrijven van begrippen, ontwikkeld door Geonovum. NL-SBB biedt een profiel bovenop SKOS dat specifiek is afgestemd op de Nederlandse overheidspraktijk. Het schrijft voor hoe begrippen, hun definities, bronverwijzingen en onderlinge relaties worden vastgelegd, zodat begrippenkaders van verschillende organisaties onderling vergelijkbaar en koppelbaar zijn.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 Het GBO-begrippenkader wordt opgesteld conform NL-SBB. Dit garandeert dat de begrippen aansluiten bij andere overheids-begrippenkaders (zoals die van basisregistraties) en opgenomen kunnen worden in de stelselcatalogus.</p>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg></span> <strong>Forum Standaardisatie:</strong> NL-SBB staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/nl-sbb">lijst met aanbevolen standaarden</a>.</p>
-<h3 id="owl-web-ontology-language">OWL — Web Ontology Language<a class="headerlink" href="#owl-web-ontology-language" title="Permanent link">&para;</a></h3>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></span> <strong>Forum Standaardisatie:</strong> NL-SBB staat op de <a href="https://forumstandaardisatie.nl/open-standaarden/nl-sbb">lijst met aanbevolen standaarden</a>.</p>
+<h3 id="owl-web-ontology-language">OWL — Web Ontology Language<a class="headerlink" href="#owl-web-ontology-language" title="Permanent link">¶</a></h3>
 <p><a href="https://www.w3.org/OWL/">OWL</a> is de W3C-standaard voor het beschrijven van ontologieën op het semantische web. OWL maakt het mogelijk om klassen, eigenschappen, restricties en hiërarchieën formeel te definiëren, zodat machines hierover kunnen redeneren.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 OWL is de taal van de <strong>gepubliceerde ontologie</strong>. Het informatiemodel (opgesteld in MIM/UML) wordt getransformeerd naar een OWL-ontologie in Turtle-formaat. Deze ontologie vormt het machine-leesbare contract waaraan API's en datapublicaties refereren.</p>
-<h3 id="json-ld-json-for-linking-data">JSON-LD — JSON for Linking Data<a class="headerlink" href="#json-ld-json-for-linking-data" title="Permanent link">&para;</a></h3>
+<h3 id="json-ld-json-for-linking-data">JSON-LD — JSON for Linking Data<a class="headerlink" href="#json-ld-json-for-linking-data" title="Permanent link">¶</a></h3>
 <p><a href="https://www.w3.org/TR/json-ld11/">JSON-LD</a> is de W3C-standaard die reguliere JSON-data voorziet van semantische context door middel van een <code>@context</code>-verwijzing naar een ontologie. JSON-LD maakt het mogelijk om bestaande JSON-API's met minimale aanpassing Linked Data-compatibel te maken.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 JSON-LD is het <strong>publicatieformaat voor API-responses</strong>. De <code>@context</code>-bestanden koppelen JSON-sleutels aan ontologie-URI's, zodat elke ontvanger weet wat de gegevens semantisch betekenen. GBO publiceert context-bestanden per informatiemodel, naar het OSLO-patroon.</p>
-<h3 id="shacl-shapes-constraint-language">SHACL — Shapes Constraint Language<a class="headerlink" href="#shacl-shapes-constraint-language" title="Permanent link">&para;</a></h3>
+<h3 id="shacl-shapes-constraint-language">SHACL — Shapes Constraint Language<a class="headerlink" href="#shacl-shapes-constraint-language" title="Permanent link">¶</a></h3>
 <p><a href="https://www.w3.org/TR/shacl/">SHACL</a> is de W3C-standaard voor het valideren van RDF-data. SHACL-shapes beschrijven de verwachte structuur van data: welke klassen welke eigenschappen moeten hebben, met welke cardinaliteit en welke datatypes.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 SHACL wordt ingezet voor <strong>kwaliteitsborging</strong>. De shapes valideren of gepubliceerde data conform de ontologie is: verplichte velden aanwezig, datatypes correct, cardinaliteiten gerespecteerd. SHACL is complementair aan JSON Schema-validatie en werkt op RDF-niveau.</p>
-<h3 id="rdf-resource-description-framework">RDF — Resource Description Framework<a class="headerlink" href="#rdf-resource-description-framework" title="Permanent link">&para;</a></h3>
+<h3 id="rdf-resource-description-framework">RDF — Resource Description Framework<a class="headerlink" href="#rdf-resource-description-framework" title="Permanent link">¶</a></h3>
 <p><a href="https://www.w3.org/RDF/">RDF</a> is het W3C-fundament voor Linked Data. RDF beschrijft gegevens als een graaf van subject-predikaat-object triples, waardoor data uit verschillende bronnen naadloos kan worden gecombineerd.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 RDF is de <strong>onderliggende datataal</strong> van alle semantische artefacten. Het begrippenkader (SKOS), de ontologie (OWL) en de validatieshapes (SHACL) zijn allemaal RDF-gebaseerd. Het primaire serialisatieformaat is Turtle (<code>.ttl</code>) vanwege de leesbaarheid.</p>
-<h3 id="vc-verifiable-credentials">VC — verifiable Credentials<a class="headerlink" href="#vc-verifiable-credentials" title="Permanent link">&para;</a></h3>
+<h3 id="vc-verifiable-credentials">VC — verifiable Credentials<a class="headerlink" href="#vc-verifiable-credentials" title="Permanent link">¶</a></h3>
 <p><a href="https://www.w3.org/TR/vc-data-model/">Verifiable Credentials</a> is de W3C-standaard voor het uitwisselen van cryptografisch ondertekende, verifieerbare verklaringen over een subject. Een VC is controleerbaar door een ontvanger zonder dat de uitgever opnieuw geraadpleegd hoeft te worden, en vormt samen met Decentralized Identifiers (DID's) de basis voor betrouwbare digitale gegevensuitwisseling.</p>
 <p><strong>Rol in GBO-Semantiek:</strong>
 VC's bieden een mechanisme om GBO-gegevens <strong>verifieerbaar uit te wisselen</strong> tussen overheidsorganisaties, ketenpartners en burgers. Doordat VC's gebruikmaken van JSON-LD en <code>@context</code>, sluiten ze direct aan op de GBO-ontologie: de semantiek van de uitgewisselde attributen is eenduidig vastgelegd conform het begrippenkader.</p>
@@ -1773,9 +2140,9 @@ VC's bieden een mechanisme om GBO-gegevens <strong>verifieerbaar uit te wisselen
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
   Terug naar boven
 </button>
         
@@ -1785,13 +2152,13 @@ VC's bieden een mechanisme om GBO-gegevens <strong>verifieerbaar uit te wisselen
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
           <a href="../ontwerpprincipes/" class="md-footer__link md-footer__link--prev" aria-label="Vorige: Ontwerprincipes">
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
@@ -1816,7 +2183,7 @@ VC's bieden een mechanisme om GBO-gegevens <strong>verifieerbaar uit te wisselen
             </div>
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
             </div>
           </a>
         
@@ -1845,17 +2212,20 @@ VC's bieden een mechanisme om GBO-gegevens <strong>verifieerbaar uit te wisselen
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Typ om te beginnen met zoeken", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Typ om te beginnen met zoeken", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
       
         <script src="../../assets/javascripts/mermaid-init.js"></script>
       
     
-  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-document$.subscribe(() => { lightbox.reload() });
-</script></body>
-</html>
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
