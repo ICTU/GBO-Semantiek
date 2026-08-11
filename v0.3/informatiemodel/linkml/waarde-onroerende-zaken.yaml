@@ -154,6 +154,10 @@ classes:
           Tenaamstelling. Geldt ook voor de gebruiker zonder
           kadastraal recht.
         annotations:
+          gbo:inverseNaam: heeftWOZBelang
+          gbo:inverseBeschrijving: >-
+            De WOZ-objecten waarbij deze partij als eigenaar, gebruiker
+            of beide belanghebbende is.
           mim:relatienaam: is
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
@@ -161,6 +165,10 @@ classes:
           mim:kardinaliteit: "* -> 1"
         comments:
           - Zie hoofdmodel (Partij-supertype).
+          - >-
+            De inverse maakt de WOZ bevraagbaar vanaf een partij, dus
+            vanaf bsn, kvkNummer of rsin; via WOZObject.refereert loopt
+            de keten daarna door naar het BAG-object.
 
   WOZDeelobject:
     description: >-

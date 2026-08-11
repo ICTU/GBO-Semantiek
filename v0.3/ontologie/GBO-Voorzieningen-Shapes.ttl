@@ -1,0 +1,1346 @@
+@prefix gbovz: <https://lod.gbo-semantiek.nl/voorzieningen/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gbovz:Attestatie a sh:NodeShape ;
+    rdfs:comment "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment waarop de attestatie vervalt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/geldigtot> ],
+        [ sh:description "Of het een PubEAA is, uitgegeven onder verantwoordelijkheid van een overheidsorgaan, of een QEAA van een gekwalificeerde vertrouwensdienstverlener." ;
+            sh:in ( "PubEAA" "QEAA" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/attestatiesoort> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de attestatie is uitgegeven; de rolsoort is PubEAAProvider of QTSP." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/uitgever> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:description "Of het een PubEAA is, uitgegeven onder verantwoordelijkheid van een overheidsorgaan, of een QEAA van een gekwalificeerde vertrouwensdienstverlener." ;
+            sh:in ( "PubEAA" "QEAA" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/attestatiesoort> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de attestatie is uitgegeven; de rolsoort is PubEAAProvider of QTSP." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/uitgever> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment waarop de attestatie vervalt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/geldigtot> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ] ;
+    sh:targetClass gbovz:Attestatie .
+
+gbovz:BuitenlandseBetrokkene a sh:NodeShape ;
+    rdfs:comment "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een BSN beschikbaar hoeft te zijn." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "De eIDAS-identificator waarmee de betrokkene door de notificerende lidstaat is geidentificeerd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/eidasidentificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De eIDAS-identificator waarmee de betrokkene door de notificerende lidstaat is geidentificeerd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/eidasidentificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De lidstaat die de identiteit heeft vastgesteld." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/lidstaat> ;
+            sh:pattern "^[A-Z]{2}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Uitkomst van de identity matching tegen de Nederlandse registratie." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/matchstatus> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een betrokkene." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/betrokkene/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Uitkomst van de identity matching tegen de Nederlandse registratie." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/matchstatus> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De lidstaat die de identiteit heeft vastgesteld." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/lidstaat> ;
+            sh:pattern "^[A-Z]{2}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een betrokkene." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/betrokkene/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ] ;
+    sh:targetClass gbovz:BuitenlandseBetrokkene .
+
+gbovz:Burger a sh:NodeShape ;
+    rdfs:comment "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een BSN." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Het burgerservicenummer van de betrokkene. Wordt nooit aan een private dienstverlener verstrekt; die ontvangt een pseudoniem." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/burger/bsn> ;
+            sh:pattern "^[0-9]{9}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het burgerservicenummer van de betrokkene. Wordt nooit aan een private dienstverlener verstrekt; die ontvangt een pseudoniem." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/burger/bsn> ;
+            sh:pattern "^[0-9]{9}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een betrokkene." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/betrokkene/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Betekenisloze identificator die in plaats van het BSN wordt gebruikt richting private partijen, verstrekt door de pseudonimiseringsdienst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/burger/pseudoniem> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een betrokkene." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/betrokkene/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Betekenisloze identificator die in plaats van het BSN wordt gebruikt richting private partijen, verstrekt door de pseudonimiseringsdienst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/burger/pseudoniem> ] ;
+    sh:targetClass gbovz:Burger .
+
+gbovz:Dienstencatalogus a sh:NodeShape ;
+    rdfs:comment "Het register van alle beschikbare diensten met hun scopes." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:description "Datum vanaf wanneer deze versie geldt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/geldigvanaf> ],
+        [ sh:class gbovz:Dienst ;
+            sh:description "De diensten die in deze catalogusversie staan." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/registreert> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De instantie die de catalogus heeft vastgesteld." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/vastgestelddoor> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Versieaanduiding van de catalogus." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/versie> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum vanaf wanneer deze versie geldt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/geldigvanaf> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Versieaanduiding van de catalogus." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/versie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De instantie die de catalogus heeft vastgesteld." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/vastgestelddoor> ],
+        [ sh:class gbovz:Dienst ;
+            sh:description "De diensten die in deze catalogusversie staan." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienstencatalogus/registreert> ] ;
+    sh:targetClass gbovz:Dienstencatalogus .
+
+gbovz:Evidence a sh:NodeShape ;
+    rdfs:comment "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ],
+        [ sh:description "Het SDG-evidence-type waaraan de levering voldoet, als verwijzing naar het Evidence Broker." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/evidence/evidencetype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De lidstaat van de bevoegde autoriteit die het bewijs vroeg." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/evidence/aanvragendelidstaat> ;
+            sh:pattern "^[A-Z]{2}$" ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ],
+        [ sh:description "Het SDG-evidence-type waaraan de levering voldoet, als verwijzing naar het Evidence Broker." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/evidence/evidencetype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De lidstaat van de bevoegde autoriteit die het bewijs vroeg." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/evidence/aanvragendelidstaat> ;
+            sh:pattern "^[A-Z]{2}$" ] ;
+    sh:targetClass gbovz:Evidence .
+
+gbovz:Gegevensset a sh:NodeShape ;
+    rdfs:comment "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ] ;
+    sh:targetClass gbovz:Gegevensset .
+
+gbovz:Levering a sh:NodeShape ;
+    rdfs:comment "Het resultaat dat op een gegevensverzoek wordt teruggegeven." ;
+    sh:closed false ;
+    sh:ignoredProperties ( gbovz:geldigTot <https://lod.gbo-semantiek.nl/voorzieningen/evidence/aanvragendelidstaat> <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/uitgever> rdf:type <https://lod.gbo-semantiek.nl/voorzieningen/evidence/evidencetype> <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/geldigtot> <https://lod.gbo-semantiek.nl/voorzieningen/attestatie/attestatiesoort> ) ;
+    sh:property [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de levering." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/identificatie> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:class gbovz:Gegevensverzoek ;
+            sh:description "Het verzoek waarop deze levering het antwoord is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/beantwoordt> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin de levering wordt ontvangen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/ontvanger> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ],
+        [ sh:class gbovz:Mapping ;
+            sh:description "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/gebaseerdop> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment van levering." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/levering/tijdstip> ] ;
+    sh:targetClass gbovz:Levering .
+
+gbovz:Toestemming a sh:NodeShape ;
+    rdfs:comment "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class gbovz:Scope ;
+            sh:description "De verzameling gegevenselementen waartoe de toestemming beperkt is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/scope> ],
+        [ sh:description "De actuele status van de toestemming." ;
+            sh:in ( "Aangevraagd" "Verleend" "Ingetrokken" "Vervallen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/status> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment waarop de toestemming vervalt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/geldigtot> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin een partij de toestemming heeft aangevraagd." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/aanvrager> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment waarop de toestemming vervalt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/geldigtot> ],
+        [ sh:class gbovz:Betrokkene ;
+            sh:description "Degene die de toestemming verleent." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/betrokkene> ],
+        [ sh:description "De actuele status van de toestemming." ;
+            sh:in ( "Aangevraagd" "Verleend" "Ingetrokken" "Vervallen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/status> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin een partij de toestemming heeft aangevraagd." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/aanvrager> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toelichting op de toepasselijkheid van deze grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/toelichting> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toelichting op de toepasselijkheid van deze grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/toelichting> ],
+        [ sh:class gbovz:Scope ;
+            sh:description "De verzameling gegevenselementen waartoe de toestemming beperkt is." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/scope> ],
+        [ sh:class gbovz:Betrokkene ;
+            sh:description "Degene die de toestemming verleent." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/betrokkene> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ] ;
+    sh:targetClass gbovz:Toestemming .
+
+gbovz:WettelijkeVerplichting a sh:NodeShape ;
+    rdfs:comment "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Aanduiding van de wet, verordening of regeling met artikel." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/wettelijkeverplichting/wettelijkebasis> ],
+        [ sh:description "Verwijzing naar de gepubliceerde regeling." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/wettelijkeverplichting/regelinguri> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:description "Verwijzing naar de gepubliceerde regeling." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/wettelijkeverplichting/regelinguri> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aanduiding van de wet, verordening of regeling met artikel." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/wettelijkeverplichting/wettelijkebasis> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toelichting op de toepasselijkheid van deze grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/toelichting> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toelichting op de toepasselijkheid van deze grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/toelichting> ] ;
+    sh:targetClass gbovz:WettelijkeVerplichting .
+
+gbovz:Bron a sh:NodeShape ;
+    rdfs:comment "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class gbovz:Gegevenselement ;
+            sh:description "De gegevenselementen die in deze bron voorkomen." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/bevat> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de bron." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de bron, bijvoorbeeld BRP of BAG." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De wettelijke basis waarop de bron wordt gehouden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/wettelijkegrondslag> ],
+        [ sh:class gbovz:Gegevenselement ;
+            sh:description "De gegevenselementen die in deze bron voorkomen." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/bevat> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De wettelijke basis waarop de bron wordt gehouden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/wettelijkegrondslag> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de bron." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/identificatie> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin een partij deze bron beheert; de rolsoort is Bronhouder." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/bronhouder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de bron, bijvoorbeeld BRP of BAG." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/naam> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin een partij deze bron beheert; de rolsoort is Bronhouder." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/bron/bronhouder> ] ;
+    sh:targetClass gbovz:Bron .
+
+gbovz:Dienst a sh:NodeShape ;
+    rdfs:comment "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class gbovz:Bron ;
+            sh:description "De bronnen die voor deze dienst worden ontsloten." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/ontsluit> ],
+        [ sh:class gbovz:Scope ;
+            sh:description "De ruimst toegestane verzameling gegevenselementen voor deze dienst." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/maximalescope> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de dienst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de dienst." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/naam> ],
+        [ sh:class gbovz:Scope ;
+            sh:description "De ruimst toegestane verzameling gegevenselementen voor deze dienst." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/maximalescope> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de dienst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/identificatie> ],
+        [ sh:class gbovz:Bron ;
+            sh:description "De bronnen die voor deze dienst worden ontsloten." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/ontsluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De AMvB of ministeriele regeling waarin de dienst is vastgelegd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/wettelijkeverankering> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de dienst." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De AMvB of ministeriele regeling waarin de dienst is vastgelegd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/dienst/wettelijkeverankering> ] ;
+    sh:targetClass gbovz:Dienst .
+
+gbovz:Grondslag a sh:NodeShape ;
+    rdfs:comment "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting." ;
+    sh:closed false ;
+    sh:ignoredProperties ( gbovz:geldigTot <https://lod.gbo-semantiek.nl/voorzieningen/wettelijkeverplichting/regelinguri> gbovz:status <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/betrokkene> <https://lod.gbo-semantiek.nl/voorzieningen/wettelijkeverplichting/wettelijkebasis> <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/status> gbovz:betrokkene <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/scope> rdf:type <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/aanvrager> <https://lod.gbo-semantiek.nl/voorzieningen/toestemming/geldigtot> ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Toelichting op de toepasselijkheid van deze grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/toelichting> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toelichting op de toepasselijkheid van deze grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/toelichting> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een grondslag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/grondslag/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ] ;
+    sh:targetClass gbovz:Grondslag .
+
+gbovz:Interactiepatroon a sh:NodeShape ;
+    rdfs:comment "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "De vorm waarin geleverd wordt: gegevensset, attestatie of evidence." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/leveringsvorm> ],
+        [ sh:description "Aanduiding van het interactiepatroon." ;
+            sh:in ( "WalletAttestatie" "OOTSEvidence" "ToestemmingPrivatePartij" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/identificatie> ],
+        [ sh:description "De rolsoort die in dit patroon het verzoek initieert." ;
+            sh:in ( "Betrokkene" "Bronhouder" "Dienstverlener" "Afnemer" "QTSP" "PubEAAProvider" "EUOverheidsdienst" "Toestemmingsvoorziening" "Pseudonimiseringsdienst" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/initiatorrolsoort> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De vorm waarin geleverd wordt: gegevensset, attestatie of evidence." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/leveringsvorm> ],
+        [ sh:description "De rolsoort die de levering ontvangt." ;
+            sh:in ( "Betrokkene" "Bronhouder" "Dienstverlener" "Afnemer" "QTSP" "PubEAAProvider" "EUOverheidsdienst" "Toestemmingsvoorziening" "Pseudonimiseringsdienst" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/ontvangerrolsoort> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van het patroon." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van het patroon." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/naam> ],
+        [ sh:description "De rolsoort die in dit patroon het verzoek initieert." ;
+            sh:in ( "Betrokkene" "Bronhouder" "Dienstverlener" "Afnemer" "QTSP" "PubEAAProvider" "EUOverheidsdienst" "Toestemmingsvoorziening" "Pseudonimiseringsdienst" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/initiatorrolsoort> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De grondslagvorm die in dit patroon van toepassing is: toestemming of wettelijke verplichting." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/toegestanegrondslag> ],
+        [ sh:description "De rolsoort die de levering ontvangt." ;
+            sh:in ( "Betrokkene" "Bronhouder" "Dienstverlener" "Afnemer" "QTSP" "PubEAAProvider" "EUOverheidsdienst" "Toestemmingsvoorziening" "Pseudonimiseringsdienst" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/ontvangerrolsoort> ],
+        [ sh:description "Aanduiding van het interactiepatroon." ;
+            sh:in ( "WalletAttestatie" "OOTSEvidence" "ToestemmingPrivatePartij" ) ;
+            sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De grondslagvorm die in dit patroon van toepassing is: toestemming of wettelijke verplichting." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/interactiepatroon/toegestanegrondslag> ] ;
+    sh:targetClass gbovz:Interactiepatroon .
+
+gbovz:Betrokkene a sh:NodeShape ;
+    rdfs:comment "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat." ;
+    sh:closed false ;
+    sh:ignoredProperties ( <https://lod.gbo-semantiek.nl/voorzieningen/burger/pseudoniem> <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/eidasidentificatie> gbovz:bsn <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/lidstaat> rdf:type <https://lod.gbo-semantiek.nl/voorzieningen/buitenlandsebetrokkene/matchstatus> <https://lod.gbo-semantiek.nl/voorzieningen/burger/bsn> ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een betrokkene." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/betrokkene/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een betrokkene." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/betrokkene/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ] ;
+    sh:targetClass gbovz:Betrokkene .
+
+gbovz:Gegevenselement a sh:NodeShape ;
+    rdfs:comment "De kleinste adresseerbare eenheid van data. Verwijst naar precies een begrip in het begrippenkader en voegt structuurinformatie toe." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Naam van het gegevenselement." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De kardinaliteit binnen de objectstructuur." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/kardinaliteit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van het gegevenselement." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/identificatie> ],
+        [ sh:description "Verwijzing naar precies een begrip in het begrippenkader, dat de betekenis van dit gegevenselement vastlegt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/begrip> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van het gegevenselement." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/identificatie> ],
+        [ sh:description "Verwijzing naar precies een begrip in het begrippenkader, dat de betekenis van dit gegevenselement vastlegt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/begrip> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van het gegevenselement." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De kardinaliteit binnen de objectstructuur." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/kardinaliteit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het datatype van het gegevenselement." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/datatype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het datatype van het gegevenselement." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevenselement/datatype> ] ;
+    sh:targetClass gbovz:Gegevenselement .
+
+gbovz:Scope a sh:NodeShape ;
+    rdfs:comment "Een benoemde verzameling gegevenselementen. De maximale scope wordt bepaald door wetgeving; een afnemer kan een kleinere scope vragen." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de scope." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de scope." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/identificatie> ],
+        [ sh:class gbovz:Gegevenselement ;
+            sh:description "De gegevenselementen die de scope omvat." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/omvat> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de scope." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/naam> ],
+        [ sh:class gbovz:Gegevenselement ;
+            sh:description "De gegevenselementen die de scope omvat." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/omvat> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de scope." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het doel waarvoor deze scope is samengesteld." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/doelbeschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het doel waarvoor deze scope is samengesteld." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/scope/doelbeschrijving> ] ;
+    sh:targetClass gbovz:Scope .
+
+gbovz:Gegevensverzoek a sh:NodeShape ;
+    rdfs:comment "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class gbovz:Betrokkene ;
+            sh:description "Degene om wiens gegevens het verzoek gaat." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/betrokkene> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De actuele status van het verzoek." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/status> ],
+        [ sh:class gbovz:Scope ;
+            sh:description "De gevraagde verzameling gegevenselementen; nooit ruimer dan de maximale scope van de dienst." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/gevraagdescope> ],
+        [ sh:class gbovz:Interactiepatroon ;
+            sh:description "Het interactiepatroon waarbinnen dit verzoek valt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/volgtpatroon> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin het verzoek is gestart." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/initiatiefnemer> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin een partij het verzoek beantwoordt; de rolsoort is Bronhouder." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/beantwoorddoor> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin een partij het verzoek beantwoordt; de rolsoort is Bronhouder." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/beantwoorddoor> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De actuele status van het verzoek." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van het verzoek." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van het verzoek." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/identificatie> ],
+        [ sh:class gbovz:Rol ;
+            sh:description "De rol waarin het verzoek is gestart." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/initiatiefnemer> ],
+        [ sh:class gbovz:Scope ;
+            sh:description "De gevraagde verzameling gegevenselementen; nooit ruimer dan de maximale scope van de dienst." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/gevraagdescope> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment waarop het verzoek is gedaan." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/tijdstip> ],
+        [ sh:class gbovz:Grondslag ;
+            sh:description "De juridische basis voor dit verzoek: een toestemming of een wettelijke verplichting." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/grondslag> ],
+        [ sh:class gbovz:Grondslag ;
+            sh:description "De juridische basis voor dit verzoek: een toestemming of een wettelijke verplichting." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/grondslag> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Moment waarop het verzoek is gedaan." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/tijdstip> ],
+        [ sh:class gbovz:Betrokkene ;
+            sh:description "Degene om wiens gegevens het verzoek gaat." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/betrokkene> ],
+        [ sh:class gbovz:Interactiepatroon ;
+            sh:description "Het interactiepatroon waarbinnen dit verzoek valt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/gegevensverzoek/volgtpatroon> ] ;
+    sh:targetClass gbovz:Gegevensverzoek .
+
+gbovz:Mapping a sh:NodeShape ;
+    rdfs:comment "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de mapping." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/identificatie> ],
+        [ sh:class gbovz:Gegevenselement ;
+            sh:description "De gegevenselementen aan de bronzijde." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/bronelement> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Beschrijving van de omzetting, inclusief eventuele codelijstconversies." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/transformatie> ],
+        [ sh:description "Het schema aan de leveringszijde: een SDG-evidence-type of een EUDI-attestatieschema." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/doelschema> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de mapping." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/naam> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van de mapping." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/naam> ],
+        [ sh:class gbovz:Gegevenselement ;
+            sh:description "De gegevenselementen aan de bronzijde." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/bronelement> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de mapping." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Beschrijving van de omzetting, inclusief eventuele codelijstconversies." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/transformatie> ],
+        [ sh:description "Het schema aan de leveringszijde: een SDG-evidence-type of een EUDI-attestatieschema." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/mapping/doelschema> ] ;
+    sh:targetClass gbovz:Mapping .
+
+gbovz:Rol a sh:NodeShape ;
+    rdfs:comment "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "De dienst, het interactiepatroon of het stelsel waarbinnen de rol geldt. Een partij kan dezelfde rolsoort in meerdere contexten vervullen." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/context> ],
+        [ sh:description "De functie die de partij in deze context vervult." ;
+            sh:in ( "Betrokkene" "Bronhouder" "Dienstverlener" "Afnemer" "QTSP" "PubEAAProvider" "EUOverheidsdienst" "Toestemmingsvoorziening" "Pseudonimiseringsdienst" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/rolsoort> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de rolvervulling ingaat." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/datumingang> ],
+        [ sh:datatype xsd:string ;
+            sh:description "De dienst, het interactiepatroon of het stelsel waarbinnen de rol geldt. Een partij kan dezelfde rolsoort in meerdere contexten vervullen." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/context> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de rolvervulling eindigt; leeg betekent lopend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/datumeinde> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de rolvervulling eindigt; leeg betekent lopend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/datumeinde> ],
+        [ sh:class <https://lod.gbo-semantiek.nl/hoofdmodel/partij> ;
+            sh:description "De partij die deze rol vervult." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/partij> ],
+        [ sh:description "De functie die de partij in deze context vervult." ;
+            sh:in ( "Betrokkene" "Bronhouder" "Dienstverlener" "Afnemer" "QTSP" "PubEAAProvider" "EUOverheidsdienst" "Toestemmingsvoorziening" "Pseudonimiseringsdienst" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/rolsoort> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een rolvervulling." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ],
+        [ sh:class <https://lod.gbo-semantiek.nl/hoofdmodel/partij> ;
+            sh:description "De partij die deze rol vervult." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/partij> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de rolvervulling ingaat." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/datumingang> ],
+        [ sh:datatype xsd:string ;
+            sh:description "GBO-eigen identifier voor een rolvervulling." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/voorzieningen/rol/id> ;
+            sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" ] ;
+    sh:targetClass gbovz:Rol .
+

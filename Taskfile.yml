@@ -34,6 +34,10 @@ env:
   PYTHONWARNINGS: 'ignore::UserWarning'
 
 vars:
+  # Alle Python-gereedschap komt uit de projecteigen venv, zodat er één
+  # omgeving is in plaats van een mix van homebrew, pipx en systeem-python.
+  # task kan PATH niet zetten via env:, dus de aanroepen zijn expliciet.
+  VENV: "{{.ROOT_DIR}}/.venv/bin"
   VERSION_DIR: "./{{.VERSION}}"
   PREVIOUS_VERSION_DIR: "./{{.PREVIOUS_VERSION}}"
   GBO: "{{.VERSION_DIR}}/{{.INFORMATIEMODEL}}/{{.GBO_FILE}}"
@@ -47,6 +51,13 @@ vars:
   DEFS: "./docs/definities"
   ROOT_GBO: "{{.ROOT_NODE_GBO}}"
   CHANGES_MD: "{{.VERSION_DIR}}/{{.CHANGES_MD_FILE}}"
+  BEGRIPPEN_DIR: "{{.VERSION_DIR}}/begrippen"
+  BEGRIPPEN: "{{.VERSION_DIR}}/begrippen/GBO-Begrippenkader.ttl"
+  # Voorzieningenmodel: eigen schema en eigen ontologie-namespace naast de kern.
+  VOORZIENINGEN_LINKML: "{{.LINKML_DIR}}/voorzieningen.yaml"
+  VOORZIENINGEN_NS: "https://lod.gbo-semantiek.nl/voorzieningen"
+  VOORZIENINGEN_LOD: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Voorzieningen.ttl"
+  VOORZIENINGEN_SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Voorzieningen-Shapes.ttl"
   # Wiki-repo (modelleer-/bronrepo) waaruit model + profielen worden gekopieerd.
   # Override via env: `WIKI_REPO=/pad/naar/llm-wiki task import:copy`.
   WIKI_REPO: '{{.WIKI_REPO | default "../llm-wiki-GBI-core-model"}}'
@@ -59,9 +70,6 @@ vars:
   CLIENTS_DIR: "{{.VERSION_DIR}}/clients"
   GRAPHQL_DIR: "{{.VERSION_DIR}}/graphql"
   SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Shapes.ttl"
-  # Python met PyYAML: systeempython, anders de linkml-omgeving
-  PYYAML_PYTHON: |-
-    PY=python3; if ! $PY -c 'import yaml' 2>/dev/null; then PY=$(sed -n '1s/^#!//p' "$(command -v gen-owl)"); fi
 
 tasks:
   # ==========================================================================
@@ -72,21 +80,13 @@ tasks:
     silent: true
     cmds:
       - |
-        # Lijst van vereiste tools en hun download-URLs
+        # Systeemgereedschap: komt niet uit pip en moet op PATH staan.
         declare -A tools=(
           ["rsync"]="standaard op macOS/Linux"
-          ["mkdocs"]="https://www.mkdocs.org"
-          ["mike"]="https://github.com/jimporter/mike"
           ["jq"]="https://stedolan.github.io/jq"
           ["python3"]="https://www.python.org/downloads/"
-          ["linkml"]="https://linkml.io/linkml/ (pipx install linkml)"
-          ["gen-owl"]="https://linkml.io/linkml/ (onderdeel van linkml)"
-          ["gen-shacl"]="https://linkml.io/linkml/ (onderdeel van linkml)"
-          ["gen-yaml"]="https://linkml.io/linkml/ (onderdeel van linkml)"
-          ["linkml-validate"]="https://linkml.io/linkml/ (onderdeel van linkml)"
         )
 
-        # Controleer of tools geïnstalleerd zijn
         missing_tools=()
         for tool in "${!tools[@]}"; do
           if ! command -v $tool &> /dev/null; then
@@ -94,17 +94,37 @@ tasks:
           fi
         done
 
-        # Meld ontbrekende tools en geef installatie-instructies
         if [ ${#missing_tools[@]} -ne 0 ]; then
-          echo "Error: The following tools are not installed:"
+          echo "Error: de volgende tools ontbreken:"
           for tool in "${missing_tools[@]}"; do
             echo "- $tool: ${tools[$tool]}"
           done
-          echo "Please install the missing tools and try again."
           exit 1
-        else
-          echo "All required tools are installed."
         fi
+
+        # Python-gereedschap: komt uit de projecteigen venv.
+        if [ ! -x "{{.VENV}}/python" ]; then
+          echo "Error: geen virtuele omgeving gevonden in .venv/"
+          echo "Aanmaken met:"
+          echo "  python3 -m venv .venv"
+          echo "  .venv/bin/python -m pip install -r requirements.txt"
+          exit 1
+        fi
+
+        missing_venv=()
+        for tool in mkdocs mike gen-owl gen-shacl gen-yaml linkml-validate; do
+          if [ ! -x "{{.VENV}}/$tool" ]; then
+            missing_venv+=($tool)
+          fi
+        done
+
+        if [ ${#missing_venv[@]} -ne 0 ]; then
+          echo "Error: de venv mist: ${missing_venv[*]}"
+          echo "Bijwerken met: .venv/bin/python -m pip install -r requirements.txt"
+          exit 1
+        fi
+
+        echo "Systeemtools aanwezig en venv compleet."
 
 
   prepare:check-vars:
@@ -155,6 +175,9 @@ tasks:
       # de wiki-repo de enige bron is en zijn relatieve links daar kloppen.
       - mkdir -p "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-kern"
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/{{.INFORMATIEMODEL}}/" "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-kern/"
+      # Het voorzieningenmodel is een eigen model naast gbo-kern en landt
+      # als losse pagina, zodat de bestaande nav en links blijven kloppen.
+      - cp "{{.WIKI_REPO}}/publicatie/voorzieningen/voorzieningenmodel.md" "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-voorzieningen.md"
       - echo "Model, profielen en model-docs gekopieerd."
     sources:
       - "{{.WIKI_REPO}}/publicatie/**/*"
@@ -193,8 +216,8 @@ tasks:
     deps: [prepare:check-vars, import:copy]
     cmds:
       - echo "Validating LinkML-model {{.GBO_LINKML}} ..."
-      - gen-yaml "{{.GBO_LINKML}}" > /dev/null
-      - linkml lint --config .linkmllint.yaml "{{.GBO_LINKML}}"
+      - '{{.VENV}}/gen-yaml "{{.GBO_LINKML}}" > /dev/null'
+      - '{{.VENV}}/linkml lint --config .linkmllint.yaml "{{.GBO_LINKML}}"'
       - echo "LinkML-model is valide."
 
 
@@ -210,14 +233,13 @@ tasks:
       - "{{.GRAPHQL_DIR}}/*.graphql"
     cmds:
       - |
-        {{.PYYAML_PYTHON}}
         mkdir -p "{{.GRAPHQL_DIR}}"
         for profiel in "{{.BRONNEN_DIR}}"/*.yaml; do
           bron=$(basename "$profiel" .yaml)
           echo "== Bron: $bron =="
-          linkml-validate -s "{{.BRONPROFIEL_SCHEMA}}" -C Bronprofiel "$profiel"
-          "$PY" tools/genereer_bronschema.py "$profiel" -o "/tmp/gbo-bron-$bron.yaml"
-          "$PY" tools/genereer_graphql.py "/tmp/gbo-bron-$bron.yaml" -o "{{.GRAPHQL_DIR}}/$bron.graphql"
+          {{.VENV}}/linkml-validate -s "{{.BRONPROFIEL_SCHEMA}}" -C Bronprofiel "$profiel"
+          {{.VENV}}/python tools/genereer_bronschema.py "$profiel" -o "/tmp/gbo-bron-$bron.yaml"
+          {{.VENV}}/python tools/genereer_graphql.py "/tmp/gbo-bron-$bron.yaml" -o "{{.GRAPHQL_DIR}}/$bron.graphql"
         done
         echo "GraphQL SDL's gegenereerd in {{.GRAPHQL_DIR}}"
 
@@ -233,7 +255,6 @@ tasks:
     cmds:
       - mkdir -p "{{.VERSION_DIR}}/{{.ONTOLOGIE}}"
       - |
-        {{.PYYAML_PYTHON}}
         # Kwalificeer attribuut-URI's per deelmodel/klasse in een werkkopie:
         # gelijknamige attributen krijgen zo een eigen, diepe URI
         # (.../<deelmodel>/<Klasse>/<attr>) i.p.v. één platte, botsende URI.
@@ -242,19 +263,74 @@ tasks:
         for f in "$Q"/*.yaml; do
           stem=$(basename "$f" .yaml)
           case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
-          "$PY" tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+          {{.VENV}}/python tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
         done
         echo "Generating OWL-ontologie '{{.LOD}}' ..."
-        gen-owl --no-use-native-uris --skip-vacuous-min-zero-cardinality-axioms \
+        {{.VENV}}/gen-owl --no-use-native-uris --skip-vacuous-min-zero-cardinality-axioms \
           --skip-vacuous-local-range-axioms --consolidate-cardinality-axioms \
           "$Q/gbo.yaml" > "{{.LOD}}"
         # Brug GBO-lokale MIM-annotaties -> officiele MIM-ontologie (BP4MC2).
         cat tools/mim-mapping.ttl >> "{{.LOD}}"
         echo "Generating SHACL-shapes '{{.SHACL}}' ..."
-        gen-yaml "$Q/gbo.yaml" > /tmp/gbo-merged.yaml
-        "$PY" -c "import yaml; s=yaml.safe_load(open('/tmp/gbo-merged.yaml')); s.pop('imports',None); yaml.dump(s, open('/tmp/gbo-merged-noimports.yaml','w'), sort_keys=False, allow_unicode=True)"
-        gen-shacl /tmp/gbo-merged-noimports.yaml > "{{.SHACL}}"
+        {{.VENV}}/gen-yaml "$Q/gbo.yaml" > /tmp/gbo-merged.yaml
+        {{.VENV}}/python -c "import yaml; s=yaml.safe_load(open('/tmp/gbo-merged.yaml')); s.pop('imports',None); yaml.dump(s, open('/tmp/gbo-merged-noimports.yaml','w'), sort_keys=False, allow_unicode=True)"
+        {{.VENV}}/gen-shacl /tmp/gbo-merged-noimports.yaml > "{{.SHACL}}"
       - echo "Linked Data gegenereerd."
+
+
+  generate:voorzieningen-lod:
+    desc: "Genereer OWL en SHACL voor het voorzieningenmodel in zijn eigen namespace."
+    deps: [generate:check-model]
+    sources:
+      - "{{.LINKML_DIR}}/*.yaml"
+      - tools/filter_namespace.py
+      - tools/kwalificeer_uris.py
+    generates:
+      - "{{.VOORZIENINGEN_LOD}}"
+      - "{{.VOORZIENINGEN_SHACL}}"
+    cmds:
+      - mkdir -p "{{.VERSION_DIR}}/{{.ONTOLOGIE}}"
+      - |
+        # Zelfde kwalificatie-slag als generate:lod, in een eigen werkkopie.
+        Q=/tmp/gbo-linkml-vz
+        rm -rf "$Q" && cp -r "{{.LINKML_DIR}}" "$Q"
+        for f in "$Q"/*.yaml; do
+          stem=$(basename "$f" .yaml)
+          case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
+          {{.VENV}}/python tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+        done
+        # gen-owl/gen-shacl nemen het geimporteerde kernmodel mee; de
+        # filterstap houdt alleen over wat voorzieningen.yaml zelf declareert.
+        echo "Generating OWL-ontologie '{{.VOORZIENINGEN_LOD}}' ..."
+        {{.VENV}}/gen-owl --skip-vacuous-min-zero-cardinality-axioms \
+          --skip-vacuous-local-range-axioms --consolidate-cardinality-axioms \
+          "$Q/voorzieningen.yaml" > /tmp/gbo-vz-owl-vol.ttl
+        {{.VENV}}/python tools/filter_namespace.py --schema "$Q/voorzieningen.yaml" \
+          --namespace "{{.VOORZIENINGEN_NS}}" \
+          --input /tmp/gbo-vz-owl-vol.ttl --output "{{.VOORZIENINGEN_LOD}}"
+        echo "Generating SHACL-shapes '{{.VOORZIENINGEN_SHACL}}' ..."
+        {{.VENV}}/gen-yaml "$Q/voorzieningen.yaml" > /tmp/gbo-vz-merged.yaml
+        {{.VENV}}/python -c "import yaml; s=yaml.safe_load(open('/tmp/gbo-vz-merged.yaml')); s.pop('imports',None); yaml.dump(s, open('/tmp/gbo-vz-merged-noimports.yaml','w'), sort_keys=False, allow_unicode=True)"
+        {{.VENV}}/gen-shacl /tmp/gbo-vz-merged-noimports.yaml > /tmp/gbo-vz-shacl-vol.ttl
+        {{.VENV}}/python tools/filter_namespace.py --schema "$Q/voorzieningen.yaml" \
+          --namespace "{{.VOORZIENINGEN_NS}}" \
+          --input /tmp/gbo-vz-shacl-vol.ttl --output "{{.VOORZIENINGEN_SHACL}}"
+
+
+  generate:begrippen:
+    desc: "Genereer het SKOS-begrippenkader uit de SKOS-annotaties in de LinkML ({{.BEGRIPPEN}})."
+    deps: [generate:check-model]
+    sources:
+      - "{{.LINKML_DIR}}/*.yaml"
+      - tools/genereer_begrippen.py
+    generates:
+      - "{{.BEGRIPPEN}}"
+    cmds:
+      - |
+        {{.VENV}}/python tools/genereer_begrippen.py \
+          --linkml-dir "{{.LINKML_DIR}}" \
+          --output "{{.BEGRIPPEN}}" \
+          --versie "{{.VERSION}}"
 
 
   generate:diff:
@@ -263,8 +339,7 @@ tasks:
     cmds:
       - echo "Genereren changelog {{.PREVIOUS_VERSION}} -> {{.VERSION}} in {{.CHANGES_MD}} ..."
       - |
-        {{.PYYAML_PYTHON}}
-        "$PY" tools/genereer_changelog.py \
+        {{.VENV}}/python tools/genereer_changelog.py \
           --previous "{{.PREVIOUS_LINKML}}" --previous-version "{{.PREVIOUS_VERSION}}" \
           --current  "{{.GBO_LINKML}}"      --current-version  "{{.VERSION}}" \
           --output   "{{.CHANGES_MD}}"
@@ -287,7 +362,7 @@ tasks:
     deps: [generate:docs]
     cmds:
       - echo "Validating MkDocs documentation..."
-      - mkdocs build --strict --site-dir /tmp/gbo-semantiek-site
+      - '{{.VENV}}/mkdocs build --strict --site-dir /tmp/gbo-semantiek-site'
       - echo "Documentation validation passed."
 
 
@@ -296,7 +371,7 @@ tasks:
     deps: [generate:docs]
     cmds:
       - echo "Building MkDocs site..."
-      - mkdocs build --clean
+      - '{{.VENV}}/mkdocs build --clean'
       - echo "Site built successfully."
 
 
@@ -304,7 +379,7 @@ tasks:
     desc: "Start the local MkDocs development server met livereload (snelle preview, genereert geen docs vooraf; draai zo nodig eerst 'task import:copy' of 'task generate:docs')."
     cmds:
       - echo "Starting MkDocs development server met livereload..."
-      - mkdocs serve --livereload --watch-theme
+      - '{{.VENV}}/mkdocs serve --livereload --watch-theme'
 
 
   # ==========================================================================
@@ -312,13 +387,26 @@ tasks:
   # ==========================================================================
   publish:local:
     desc: "Deploy versioned documentation locally using Mike."
-    deps: [generate:docs, generate:graphql, generate:lod, generate:diff]
+    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:begrippen, generate:diff]
     cmds:
       - echo "Deploying documentation with Mike..."
-      - mkdocs build --clean
-      - mike deploy "{{.VERSION}}" latest --update-aliases
-      - mike set-default "{{.VERSION}}"
+      - '{{.VENV}}/mkdocs build --clean'
+      - '{{.VENV}}/mike deploy "{{.VERSION}}" latest --update-aliases'
+      - '{{.VENV}}/mike set-default "{{.VERSION}}"'
       - echo "Documentation deployed locally. Use 'mike serve' to view results..."
+
+
+  publish:main:
+    desc: "Publiceer de huidige werkversie als 'main' in het mike-versiemenu."
+    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:begrippen]
+    cmds:
+      # Naast de vastgestelde versies staat 'main' voor de stand van de
+      # hoofdbranch: wat er nu in de documentatie zit, nog niet vastgesteld.
+      # Bewust zonder alias en zonder set-default, zodat 'latest' de
+      # gepubliceerde versie blijft aanwijzen.
+      - '{{.VENV}}/mkdocs build --clean'
+      - '{{.VENV}}/mike deploy main'
+      - echo "Werkversie gepubliceerd als 'main'."
 
 
   publish:github:

@@ -5,9 +5,11 @@
 - `Handelsnaam`
 - `Kentekentenaamstelling`
 - `Onderneming`
+- `Verzamelinkomen`
 
 ### Verwijderde objecttypen
 
+- `AuthentiekInkomen`
 - `Bedrijf`
 - `BuitenlandseEntiteit`
 - `Inschrijving`
@@ -19,6 +21,7 @@
 
 ### Toegevoegde codelijsten/enumeraties
 
+- `GrondslagVerzuim`
 - `IndicatieJaNee`
 - `NietNatuurlijkPersoonClassificatie`
 - `SoortInsolventie`
@@ -28,6 +31,7 @@
 ### Verwijderde codelijsten/enumeraties
 
 - `EuropeesKiesrecht`
+- `Grondslag`
 - `Sector`
 - `TypeBuitenlandseEntiteit`
 - `UitsluitingKiesrecht`
@@ -50,6 +54,8 @@
   - + `adresId`
 **EigenWoning**
   - + `bewoonbaarVoor`
+**FiscaalFeit**
+  - − `categorie`
 **Inkomstenopgave**
   - + `binnenLoonAangifte`
 **Inkomstenverhouding**
@@ -103,7 +109,6 @@
   - − `sector`
   - − `voertUit`
 **Partij**
-  - + `id`
   - − `partijnummer`
 **Postadres**
   - + `adresId`

@@ -37,7 +37,7 @@ Het informatiemodel wordt via een **geautomatiseerde transformatie** gepubliceer
 
 ### Gepubliceerde ontologie → JSON-LD @context
 
-De JSON-LD `@context` definieert een mapping van JSON-sleutelwoorden naar de URI's van klassen en properties in de ontologie. Wanneer een API een JSON-LD payload stuurt met `"@context": "https://data.gbo.nl/context/kern.jsonld"`, weet elke ontvanger precies wat elke sleutel semantisch betekent. Naar het OSLO-voorbeeld publiceert GBO per informatiemodel een herbruikbaar context-bestand dat door meerdere API's gedeeld kan worden.
+De JSON-LD `@context` definieert een mapping van JSON-sleutelwoorden naar de URI's van klassen en properties in de ontologie. Wanneer een API een JSON-LD payload stuurt met `"@context": "https://lod.gbo-semantiek.nl/context/kern.jsonld"`, weet elke ontvanger precies wat elke sleutel semantisch betekent. Naar het OSLO-voorbeeld publiceert GBO per informatiemodel een herbruikbaar context-bestand dat door meerdere API's gedeeld kan worden.
 
 ### Begrippenkader → JSON-LD data payload
 

@@ -1,0 +1,24 @@
+# Python-afhankelijkheden voor het bouwen en publiceren van GBO-Semantiek.
+# Installeren: pip install -r requirements.txt
+#
+# Naast deze pakketten zijn go-task, rsync en jq nodig; die komen niet uit
+# pip. Zie CONTRIBUTING.md.
+
+# Documentatie: bouwen en versioneren
+mkdocs>=1.6
+mkdocs-material>=9.5
+mkdocs-glightbox>=0.4
+mike>=2.1
+# markdown_extensions in mkdocs.yml: pymdownx.* komt uit pymdown-extensions,
+# de PlantUML-fences uit plantuml-markdown.
+pymdown-extensions>=10.0
+plantuml-markdown>=3.9
+
+# Model: valideren en afgeleide artefacten genereren
+# (levert gen-owl, gen-shacl, gen-yaml en linkml-validate)
+linkml>=1.11
+
+# Gebruikt door de scripts in tools/
+PyYAML>=6.0
+rdflib>=7.0
+graphql-core>=3.2

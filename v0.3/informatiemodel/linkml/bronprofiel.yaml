@@ -58,10 +58,22 @@ classes:
           LinkML-hoofdschema van het informatiemodel.
       ingangen:
         multivalued: true
-        required: true
         description: >-
           Objecttypen die als query-ingang dienen; hiervoor genereert
-          de pipeline GraphQL Query-velden.
+          de pipeline GraphQL Query-velden op de natuurlijke sleutel
+          van het objecttype zelf. Gebruik dit waar het objecttype ook
+          het antwoord is (BRP: de persoon; BAG: het pand). Waar de
+          sleutel een parameter is en het antwoord iets anders, hoort
+          queries. Minstens een van beide is verplicht.
+      queries:
+        multivalued: true
+        range: Bronquery
+        inlined_as_list: true
+        description: >-
+          Benoemde queries: een vraag met een sleutelparameter en een
+          eigen resultaat-objecttype. Voor bronnen waar de BSN de
+          ingang van de bevraging is maar niet het gevraagde gegeven —
+          de BRI levert een inkomen, niet een persoon.
       lijstQueries:
         range: boolean
         description: >-
@@ -101,6 +113,20 @@ classes:
           supertypen of mixins die daardoor nergens meer nodig zijn,
           verdwijnen uit het bronschema. Een objecttype mag niet
           tegelijk in insluitingen en uitsluitingen staan.
+      zoeksleutels:
+        multivalued: true
+        range: Zoeksleutel
+        inlined_as_list: true
+        description: >-
+          Natuurlijke sleutels waarop een ingang bevraagbaar is. Zonder
+          vermelding kiest de generator er één volgens de vaste
+          voorkeursvolgorde (eigen identifier, anders een enkelvoudige
+          unique_key, anders de geërfde identifier). Met vermelding
+          krijgt de ingang een eigen Query-veld per sleutel, elk met
+          precies één verplicht argument: partijOpBsn,
+          partijOpKvkNummer, partijOpRsin. Verplicht voor Partij: die is
+          uitsluitend bevraagbaar op bsn, kvkNummer en rsin en heeft
+          geen technische identifier.
       relatieAfhandeling:
         multivalued: true
         range: RelatieAfhandeling
@@ -143,6 +169,110 @@ classes:
           eigen en geërfde attributen zijn beide toegestaan. Door de
           snoei-tool gematerialiseerde inverse relaties hoeven hier
           niet genoemd te worden; die volgen uit de relaties zelf.
+      behoudSupertype:
+        description: >-
+          Eén voorouder die ondanks de insluiting als is_a blijft
+          staan, zodat het objecttype in de SDL de bijbehorende
+          interface implementeert en haar velden erft. De voorouder
+          moet zelf in objecttypen staan. Gebruikt waar een bron alleen
+          de sleutel van een partij levert maar de partij-navigatie wel
+          moet werken: IngeschrevenPersoon met alleen bsn, en toch
+          implements Partij.
+
+  Bronquery:
+    description: >-
+      Eén benoemde query: één declaratie levert precies één Query-veld.
+      Alles staat er expliciet in; de generator leidt alleen datatypes,
+      het lijstresultaat en de docstring af.
+    attributes:
+      naamQuery:
+        required: true
+        description: >-
+          De naam van het Query-veld, precies zoals die in de SDL komt.
+          Verplicht: er worden geen achtervoegsels of varianten
+          bijgemaakt, dus wat hier staat is wat de afnemer ziet.
+      levert:
+        required: true
+        description: >-
+          Het objecttype dat de query teruggeeft. Het resultaat is
+          altijd een lijst van dit type.
+      vanaf:
+        multivalued: true
+        required: true
+        description: >-
+          De subject-objecttypen van waaruit de vraag wordt gesteld. Er
+          moet een navigatiepad van subject naar doel bestaan, meestal
+          een gematerialiseerde inverse. Het subject hoeft zelf niet
+          geleverd te worden: de BRV accepteert een bsn maar levert geen
+          persoon.
+      parameters:
+        multivalued: true
+        required: true
+        range: Queryparameter
+        inlined_as_list: true
+        description: >-
+          De argumenten van het Query-veld, in volgorde. Een parameter
+          mag als enkel woord worden geschreven wanneer de naam
+          voldoende is; de volledige vorm voegt meervoudigheid, type of
+          selectiewijze toe.
+      selectie:
+        range: QuerySelectie
+        description: >-
+          Documentatie-trefwoord dat de standaardzin over de peildatum
+          in de docstring zet. Raakt de argumenten niet.
+      toelichting:
+        description: >-
+          Eigen tekst voor de docstring, in plaats van of naast de
+          afgeleide zin.
+
+  Queryparameter:
+    description: >-
+      Eén argument van een benoemde query.
+    attributes:
+      naam:
+        required: true
+        description: >-
+          De argumentnaam in de SDL. In de korte vorm is de parameter
+          niet meer dan deze naam.
+      meervoudig:
+        range: boolean
+        description: >-
+          Of het argument een lijst is. Zonder vermelding enkelvoudig.
+          Met true kan de afnemer meerdere waarden opgeven, zoals
+          meerdere jaartallen.
+      verplicht:
+        range: boolean
+        description: >-
+          Of het argument verplicht is. Zonder vermelding verplicht.
+      type:
+        description: >-
+          Expliciet datatype. Zonder vermelding leidt de generator het
+          af: eerst een natuurlijke sleutel van een subject uit vanaf,
+          dan een attribuut van levert, dan het attribuut waar op naar
+          wijst. Lukt dat niet, dan is type verplicht.
+      op:
+        description: >-
+          Attribuut van het doel-objecttype waarop dit argument een
+          gelijkheid is, bijvoorbeeld belastingjaar.
+
+  Zoeksleutel:
+    description: >-
+      Natuurlijke sleutels waarop één query-ingang bevraagbaar is.
+    attributes:
+      objecttype:
+        required: true
+        description: >-
+          Naam van het objecttype dat als ingang dient; moet in
+          ingangen staan.
+      sleutels:
+        multivalued: true
+        required: true
+        description: >-
+          Namen van de attributen die als zoeksleutel dienen. Ze mogen
+          op de ingang zelf staan of op een subtype daarvan dat in dit
+          profiel wordt geleverd; bsn zit op IngeschrevenPersoon en
+          rsin en kvkNummer op NietNatuurlijkPersoon, terwijl Partij de
+          ingang is.
 
   RelatieAfhandeling:
     description: >-
@@ -165,6 +295,23 @@ classes:
           profiel waarnaar de range van de relatie wordt vernauwd.
 
 enums:
+
+  QuerySelectie:
+    description: >-
+      Documentatie-trefwoord bij een benoemde query. Bepaalt welke
+      standaardzin in de docstring komt; het heeft geen invloed op de
+      argumenten of de veldnaam.
+    permissible_values:
+      laatstBekend:
+        description: >-
+          De query levert uitsluitend de laatst bekende situatie op het
+          moment van bevragen. De peildatum zelf is leveringsmetadata en
+          staat in de antwoord-envelop, niet in het schema.
+      alles:
+        description: >-
+          De query levert de volledige historie in plaats van de laatst
+          bekende situatie. Voor bronnen waar juist het complete beeld
+          het antwoord is, zoals een diplomaregister.
 
   AfhandelingsWijze:
     description: >-

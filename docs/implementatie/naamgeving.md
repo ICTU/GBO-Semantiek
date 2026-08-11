@@ -1,6 +1,6 @@
 # Naamgeving
 
-Deze pagina beschrijft de naamgevingsconventies voor modelelementen en URI-paden in GBO-Semantiek. Naamgeving is een concrete uitwerking van het ontwerpprincipe [FAIR als basisraamwerk](../uitgangspunten/ontwerpprincipes.md#fair-als-basisraamwerk) en het [informatiemodel-principe](../uitgangspunten/ontwerpprincipes.md#principes-voor-het-informatiemodel) van hergebruik en betekenisvolle definities.
+Deze pagina beschrijft de naamgevingsconventies voor modelelementen en URI-paden in GBO-Semantiek. Naamgeving is een concrete uitwerking van het ontwerpprincipe [S-02 FAIR als basisraamwerk](../uitgangspunten/ontwerpprincipes.md#s-02-fair-als-basisraamwerk) en het [informatiemodel-principe](../uitgangspunten/ontwerpprincipes.md#principes-voor-het-informatiemodel) van hergebruik en betekenisvolle definities.
 
 Naamgeving heeft directe invloed op leesbaarheid, herbruikbaarheid en interoperabiliteit. Consistente conventies voorkomen dat hetzelfde begrip onder verschillende namen voorkomt, en maken modellen makkelijker te begrijpen voor domeinexperts.
 

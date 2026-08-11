@@ -13,7 +13,7 @@ dragen blijven zichtbaar.
 Per deelmodel staat de klasse waarmee de DVTP-pilot-rijen direct
 mappen voorop: `StudieLening` (saldo, maandtermijn, aflostermijn)
 voor DUO, `Arbeidsverhouding` plus `LoonBestanddeel` voor de
-UWV-loonketen, `Aftrekpost` plus `AuthentiekInkomen` voor de
+UWV-loonketen, `Aftrekpost` plus `Verzamelinkomen` voor de
 Belastingdienst, `KredietOvereenkomst` plus `AchterstandRegistratie`
 voor BKR, en `Tenaamstelling` plus `ZakelijkRecht` voor Kadaster.
 
@@ -116,7 +116,7 @@ class WOZWaarde <<waarde-onroerende-zaken>>
 
 ' ---- Fiscaal (Belastingdienst) ----
 together {
-  class AuthentiekInkomen <<belastingen>>
+  class Verzamelinkomen <<belastingen>>
   class LoonBestanddeel <<belastingen>>
   abstract class Aftrekpost <<belastingen>>
 }
@@ -157,7 +157,7 @@ Partij --> Tenaamstelling
 WOZWaarde --> AdresseerbaarObject
 
 ' ---- Fiscaal (BD) ----
-AuthentiekInkomen --> NatuurlijkPersoon
+Verzamelinkomen --> NatuurlijkPersoon
 LoonBestanddeel --> Arbeidsverhouding
 Aftrekpost --> NatuurlijkPersoon
 Aftrekpost --> KadastraleOnroerendeZaak

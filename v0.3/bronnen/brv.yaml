@@ -28,6 +28,32 @@ ingangen:
 lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om de
+# kentekentenaamstelling, met de sleutel van de houder als parameter.
+queries:
+  - naamQuery: kentekentenaamstellingOpBsn
+    levert: Kentekentenaamstelling
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: kentekentenaamstellingOpRsin
+    levert: Kentekentenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: kentekentenaamstellingOpKvkNummer
+    levert: Kentekentenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
 objecttypen:
   - Voertuig
   - Kentekentenaamstelling
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden.
+relatieAfhandeling:
+  - objecttype: Kentekentenaamstelling
+    relatie: tenaamgesteldeOp
+    afhandeling: weglaten

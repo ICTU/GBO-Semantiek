@@ -1,19 +1,19 @@
 ---
-title: "Bronnenprioritering: beslisregels GBO Core"
-description: "Vier-lagen-strategie L1 tot en met L4 voor het afleiden en refereren van GBO-Core-elementen uit basisregistraties, sectorale registers, nationale ankers en internationale vocabulaires."
+title: "Bronnenprioritering: beslisregels GBO-Kern"
+description: "Vier-lagen-strategie L1 tot en met L4 voor het afleiden en refereren van GBO-Kern-elementen uit basisregistraties, sectorale registers, nationale ankers en internationale vocabulaires."
 ---
 
-# Bronnenprioritering: beslisregels GBO Core
+# Bronnenprioritering: beslisregels GBO-Kern
 
-Voor de onderdelen waaruit GBO Core wordt opgebouwd zijn niet altijd
+Voor de onderdelen waaruit GBO-Kern wordt opgebouwd zijn niet altijd
 dezelfde of eenduidige bronnen. We hanteren een afwegingskader om
 tot goede modelafleidingen te komen. Dat afwegingskader staat in
 deze pagina.
 
-**Doel**: GBO Core is compatibel met de bestaande informatiemodellen
+**Doel**: GBO-Kern is compatibel met de bestaande informatiemodellen
 en koppelvlakken van de basisregistraties, sectorale registers en
 de DUO-, UWV- en Belastingdienst-administraties. Een afnemer die werkt
-vanuit een catalogus of een API moet GBO Core direct herkennen.
+vanuit een catalogus of een API moet GBO-Kern direct herkennen.
 
 We bereiken dat door voor elk UML-element (klasse, attribuut,
 datatype, multipliciteit, omschrijving) systematisch uit de
@@ -36,7 +36,7 @@ volgorde.
 
 ## Bronnen per laag
 
-GBO Core dekt op dit moment tien bronregisters of equivalente
+GBO-Kern dekt op dit moment tien bronregisters of equivalente
 administraties:
 
 - Vier basisregistraties met L1 datamodel: **BRP**, **BAG**, **BRK**,
@@ -222,7 +222,7 @@ privaatrechtelijke stichting.
 
 **Advies**: CKI is een private sectorregistratie. Wettelijk gegrondvest
 in Wft art. 4:32; afname feitelijk verplicht via Wft art. 4:34 en
-gedragsregels TRHK. L2 is permanent gated; voor GBO-Core-modellering
+gedragsregels TRHK. L2 is permanent gated; voor GBO-Kern-modellering
 volstaat L1 omdat alle concepten uit het reglement modelleerbaar zijn.
 
 ### HR: Handelsregister
@@ -372,7 +372,7 @@ bronverwijzing is een UML-element niet vastgesteld.
   op L2 wegens ontbrekend L1.
 - Voor **sectorale registers** (ROD, CKI, SGR) wordt L1 ontleend
   aan het reglement of de catalogus van de beheerder. CKI heeft
-  een gated L2; voor GBO-Core-modellering is dat geen blokkade,
+  een gated L2; voor GBO-Kern-modellering is dat geen blokkade,
   alle concepten zijn modelleerbaar uit L1.
 - Voor **SBR-NT en Loonheffingen** geldt L1+L2 gecombineerd: het
   document bevat zowel inhoudelijke definities als koppelvlak-
@@ -393,7 +393,7 @@ Per UML-element minimaal twee tagged-values:
 | `herkomst:` | Verwijzing per eigenschap, of compact als een bron volstaat | "IMBAG paragraaf X (definitie, multipliciteit); HC BAG (naam, datatype)" |
 | `bron-uri:` | Machine-leesbare bron-URI waar resolvable | "https://imbag.github.io/catalogus/objecttypen/Pand" |
 
-Bij eigen afleiding (GBO-Core-modellering zonder directe bron):
+Bij eigen afleiding (GBO-Kern-modellering zonder directe bron):
 
 | Tagged value | Wat | Voorbeeld |
 |---|---|---|
@@ -408,11 +408,11 @@ Voor cross-walks naar L3 en L4:
 
 ## Wat niet als bronlaag telt
 
-De methodologische standaarden die GBO Core toepast zijn geen
+De methodologische standaarden die GBO-Kern toepast zijn geen
 inhoudelijke definitie-bronnen en horen niet als laag in dit
 overzicht thuis:
 
-- **MIM 1.2** is de modelleer-methodiek waarin GBO Core wordt
+- **MIM 1.2** is de modelleer-methodiek waarin GBO-Kern wordt
   uitgedrukt. Conformance-statement op model-niveau, geen referentie-
   laag.
 - **SKOS** is het metamodel voor codelijsten. Per codelijst geldt
@@ -420,4 +420,4 @@ overzicht thuis:
 - **DCAT-AP-NL** is een dataset-metadata-standaard voor publicatie,
   niet voor inhoud.
 - **StUF** is een legacy-transportlaag voor de gemeentelijke
-  inkomende keten. Voor GBO Core de laagste terugval-bron.
+  inkomende keten. Voor GBO-Kern de laagste terugval-bron.

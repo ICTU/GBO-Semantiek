@@ -49,8 +49,6 @@ scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 interface IngeschrevenPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -109,8 +107,6 @@ interface IngeschrevenPersoon implements Partij {
 interface Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
 }
 
 """Een leesbare aanduiding van een locatie of correspondentiepunt waarmee een persoon of organisatie kan worden bereikt of waarop een rechtsbetrekking is gevestigd, samengesteld uit elementen van de bronregisters BAG, RSGB en BRP."""
@@ -123,8 +119,6 @@ interface Adres {
 type NatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -157,8 +151,6 @@ type NatuurlijkPersoon implements Partij {
 type Ingezetene implements IngeschrevenPersoon & Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -223,8 +215,6 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
 type NietIngezetene implements IngeschrevenPersoon & Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -457,6 +447,8 @@ enum IndicatieGezag {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
+  """IngeschrevenPersoon. Levert de overledene, niet de aanvrager: bsn is de aanvrager, bsnNaaste de persoon over wie het bewijs gaat."""
+  bewijsVanOverlijdenNaaste(bsn: BSN!, bsnNaaste: BSN!): [IngeschrevenPersoon!]
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
 }

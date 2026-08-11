@@ -38,8 +38,6 @@ scalar Identificatie
 scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
 """Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
 scalar NEN3610ID
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 """Een verplichting van een natuurlijk persoon of niet-natuurlijk persoon tot het verrichten van een geldelijke prestatie aan een tegenpartij, ontstaan uit overeenkomst of uit een wettelijke regeling."""
 interface FinancieleVerplichting {
@@ -95,16 +93,12 @@ interface KredietFeit {
 interface Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
 }
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -653,8 +647,6 @@ type BorgstellingRol {
 type NatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -789,6 +781,10 @@ enum Geslacht {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén IngeschrevenPersoon op bsn."""
-  ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
+  """KredietOvereenkomst."""
+  kredietOvereenkomstOverJaar(bsn: BSN!, jaar: [Int!]!): [KredietOvereenkomst!]
+  """SchuldhulpverleningTraject."""
+  schuldhulpverleningTrajectOverJaar(bsn: BSN!, jaar: [Int!]!): [SchuldhulpverleningTraject!]
+  """BorgstellingRol."""
+  borgstellingRolOverJaar(bsn: BSN!, jaar: [Int!]!): [BorgstellingRol!]
 }

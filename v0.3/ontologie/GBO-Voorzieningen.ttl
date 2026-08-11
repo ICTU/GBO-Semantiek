@@ -1,0 +1,1161 @@
+@prefix gbo: <https://lod.gbo-semantiek.nl/> .
+@prefix gbobegrip: <https://begrippen.gbo-semantiek.nl/id/begrip/> .
+@prefix gbovz: <https://lod.gbo-semantiek.nl/voorzieningen/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix mim: <https://lod.gbo-semantiek.nl/def/mim#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gbovz:Dienstencatalogus a owl:Class ;
+    rdfs:label "Dienstencatalogus" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:versie ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:geldigVanaf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbovz:geldigVanaf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Dienst ;
+            owl:onProperty gbovz:registreert ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:vastgesteldDoor ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:versie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:vastgesteldDoor ] ;
+    skos:definition "Het register van alle beschikbare diensten met hun scopes." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "Het register van alle beschikbare diensten met hun scopes." ;
+    skos:exactMatch gbobegrip:Dienstencatalogus,
+        gbovz:Dienstencatalogus ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Nadrukkelijk een register van diensten, niet van losse gegevens." ;
+    skos:prefLabel_nl "Dienstencatalogus" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:bevat a owl:ObjectProperty ;
+    rdfs:label "bevat" ;
+    skos:definition "De gegevenselementen die in deze bron voorkomen." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:bronElement a owl:ObjectProperty ;
+    rdfs:label "bronElement" ;
+    skos:definition "De gegevenselementen aan de bronzijde." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:ontsluit a owl:ObjectProperty ;
+    rdfs:label "ontsluit" ;
+    skos:definition "De bronnen die voor deze dienst worden ontsloten." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:registreert a owl:ObjectProperty ;
+    rdfs:label "registreert" ;
+    skos:definition "De diensten die in deze catalogusversie staan." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:Attestatie a owl:Class ;
+    rdfs:label "Attestatie" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:uitgever ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:attestatiesoort ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:geldigTot ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbovz:geldigTot ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:uitgever ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:attestatiesoort ;
+            owl:onProperty gbovz:attestatiesoort ],
+        gbovz:Levering ;
+    skos:definition "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is." ;
+    skos:definitionSource "eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework" ;
+    skos:definition_nl "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is." ;
+    skos:exactMatch gbobegrip:Attestatie,
+        gbovz:Attestatie ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Attestatie" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "eIDAS2 / ARF" .
+
+gbovz:Bron a owl:Class ;
+    rdfs:label "Bron" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:wettelijkeGrondslag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:bronhouder ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:wettelijkeGrondslag ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:bronhouder ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevenselement ;
+            owl:onProperty gbovz:bevat ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ] ;
+    skos:definition "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag." ;
+    skos:exactMatch gbobegrip:Bron,
+        gbovz:Bron ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Bron" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:BuitenlandseBetrokkene a owl:Class ;
+    rdfs:label "BuitenlandseBetrokkene" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:eidasIdentificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:CodelijstISO3166 ;
+            owl:onProperty gbovz:lidstaat ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:matchStatus ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:lidstaat ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:matchStatus ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:eidasIdentificatie ],
+        gbovz:Betrokkene ;
+    skos:definition "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een BSN beschikbaar hoeft te zijn." ;
+    skos:definitionSource "GBO (voorstel), afgeleid uit de SDG-verordening en het OOTS-identity-matching-patroon" ;
+    skos:definition_nl "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een burgerservicenummer beschikbaar hoeft te zijn." ;
+    skos:exactMatch gbobegrip:BuitenlandseBetrokkene,
+        gbovz:BuitenlandseBetrokkene ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Het koppelen van de buitenlandse identiteit aan een persoon in een Nederlandse registratie gebeurt via identity matching. Dat proces is een voorziening; hier wordt alleen het resultaat vastgelegd." ;
+    skos:prefLabel_nl "Buitenlandse betrokkene" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "OOTS (SDG-verordening)" .
+
+gbovz:Burger a owl:Class ;
+    rdfs:label "Burger" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:pseudoniem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:bsn ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:pseudoniem ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:BSN ;
+            owl:onProperty gbovz:bsn ],
+        gbovz:Betrokkene ;
+    skos:definition "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een BSN." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een burgerservicenummer." ;
+    skos:exactMatch gbobegrip:Burger,
+        gbovz:Burger ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Burger" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GBO PSA" .
+
+gbovz:Dienst a owl:Class ;
+    rdfs:label "Dienst" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:wettelijkeVerankering ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:maximaleScope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:wettelijkeVerankering ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Bron ;
+            owl:onProperty gbovz:ontsluit ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Scope ;
+            owl:onProperty gbovz:maximaleScope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ] ;
+    skos:definition "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope." ;
+    skos:exactMatch gbobegrip:Dienst,
+        gbovz:Dienst ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Dienst" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:Evidence a owl:Class ;
+    rdfs:label "Evidence" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:aanvragendeLidstaat ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:URI ;
+            owl:onProperty gbovz:evidenceType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:CodelijstISO3166 ;
+            owl:onProperty gbovz:aanvragendeLidstaat ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:evidenceType ],
+        gbovz:Levering ;
+    skos:altLabel_nl_0_source "Nederlandse aanduiding in de SDG-context" ;
+    skos:altLabel_nl_0_value "Bewijsstuk" ;
+    skos:definition "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat." ;
+    skos:definitionSource "SDG-verordening (EU) 2018/1724 en het OOTS Evidence Broker" ;
+    skos:definition_nl "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat." ;
+    skos:exactMatch gbobegrip:Evidence,
+        gbovz:Evidence ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Evidence" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "OOTS (SDG-verordening)" .
+
+gbovz:Gegevensset a owl:Class ;
+    rdfs:label "Gegevensset" ;
+    rdfs:subClassOf gbovz:Levering ;
+    skos:definition "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking." ;
+    skos:definitionSource "GBO (voorstel)" ;
+    skos:definition_nl "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking." ;
+    skos:exactMatch gbobegrip:Gegevensset,
+        gbovz:Gegevensset ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Dit is de leveringsvorm in het patroon waarin een private dienstverlener met toestemming gegevens ophaalt." ;
+    skos:prefLabel_nl "Gegevensset" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:Gegevensverzoek a owl:Class ;
+    rdfs:label "Gegevensverzoek" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Betrokkene ;
+            owl:onProperty gbovz:betrokkene ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:beantwoordDoor ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:volgtPatroon ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:grondslag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Grondslag ;
+            owl:onProperty gbovz:grondslag ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:betrokkene ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbovz:tijdstip ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:beantwoordDoor ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:tijdstip ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:initiatiefnemer ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:status ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:gevraagdeScope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Interactiepatroon ;
+            owl:onProperty gbovz:volgtPatroon ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:status ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:initiatiefnemer ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Scope ;
+            owl:onProperty gbovz:gevraagdeScope ] ;
+    skos:definition "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag." ;
+    skos:exactMatch gbobegrip:Gegevensverzoek,
+        gbovz:Gegevensverzoek ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "De initiatiefnemer is een Rol en geen vast objecttype. Daarmee kan het verzoek worden gestart door een dienstverlener, door de betrokkene zelf (wallet) of door een EU-overheidsdienst (OOTS)." ;
+    skos:prefLabel_nl "Gegevensverzoek" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:Interactiepatroon a owl:Class ;
+    rdfs:label "Interactiepatroon" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:rolsoort ;
+            owl:onProperty gbovz:initiatorRolsoort ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:initiatorRolsoort ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:patroonsoort ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:leveringsvorm ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:ontvangerRolsoort ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:rolsoort ;
+            owl:onProperty gbovz:ontvangerRolsoort ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:toegestaneGrondslag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:toegestaneGrondslag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:leveringsvorm ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ] ;
+    skos:definition "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt." ;
+    skos:definitionSource "GBO PSA, hoofdstuk Interactiepatronen" ;
+    skos:definition_nl "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt." ;
+    skos:exactMatch gbobegrip:Interactiepatroon,
+        gbovz:Interactiepatroon ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Het patroon is geexpliciteerd als objecttype zodat de verschillen tussen de drie kanalen in gegevens vastliggen in plaats van in de structuur van het model. Een nieuw kanaal is dan een nieuw voorkomen, geen modelwijziging." ;
+    skos:prefLabel_nl "Interactiepatroon" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GBO PSA, hoofdstuk Interactiepatronen" .
+
+gbovz:Mapping a owl:Class ;
+    rdfs:label "Mapping" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:URI ;
+            owl:onProperty gbovz:doelschema ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:doelschema ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:transformatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:transformatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevenselement ;
+            owl:onProperty gbovz:bronElement ] ;
+    skos:definition "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft." ;
+    skos:definitionSource "GBO (voorstel); de PSA benoemt de semantische mapping expliciet bij OOTS" ;
+    skos:definition_nl "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft." ;
+    skos:exactMatch gbobegrip:Mapping,
+        gbovz:Mapping ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "De PSA benoemt bij OOTS expliciet een semantische mapping tussen het SDG-formaat en het bronformaat. Dezelfde behoefte speelt bij EUDI-attestatieschema's. Door de mapping te benoemen is traceerbaar welk brongegeven achter een geleverd veld zit." ;
+    skos:prefLabel_nl "Mapping" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:Toestemming a owl:Class ;
+    rdfs:label "Toestemming" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:toestemmingsstatus ;
+            owl:onProperty gbovz:status ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:status ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:scope ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:aanvrager ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbovz:geldigTot ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:betrokkene ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:geldigTot ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Betrokkene ;
+            owl:onProperty gbovz:betrokkene ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:aanvrager ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Scope ;
+            owl:onProperty gbovz:scope ],
+        gbovz:Grondslag ;
+    skos:definition "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur." ;
+    skos:definitionSource "GBO PSA; AVG art. 4 lid 11 voor het toestemmingsbegrip" ;
+    skos:definition_nl "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur." ;
+    skos:exactMatch gbobegrip:Toestemming,
+        gbovz:Toestemming ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "De aanvrager is een Rol en geen Dienstverlener: in het wallet-patroon vraagt een QTSP of PubEAA-provider de toestemming, niet een private dienstverlener.",
+        "Een toestemming is niet overdraagbaar. Wanneer een andere partij de gegevens uiteindelijk gebruikt, is daarvoor een eigen toestemming nodig." ;
+    skos:prefLabel_nl "Toestemming" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GBO PSA" .
+
+gbovz:WettelijkeVerplichting a owl:Class ;
+    rdfs:label "WettelijkeVerplichting" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:regelingURI ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:wettelijkeBasis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:URI ;
+            owl:onProperty gbovz:regelingURI ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:wettelijkeBasis ],
+        gbovz:Grondslag ;
+    skos:definition "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt." ;
+    skos:definitionSource "GBO (voorstel); voor OOTS de SDG-verordening (EU) 2018/1724" ;
+    skos:definition_nl "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt." ;
+    skos:exactMatch gbobegrip:WettelijkeVerplichting,
+        gbovz:WettelijkeVerplichting ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Dit is de grondslag in het OOTS-patroon: de SDG-verordening verplicht tot verstrekking op verzoek van een bevoegde EU-overheidsdienst." ;
+    skos:prefLabel_nl "Wettelijke verplichting" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:aanvragendeLidstaat a owl:DatatypeProperty ;
+    rdfs:label "aanvragendeLidstaat" ;
+    skos:definition "De lidstaat van de bevoegde autoriteit die het bewijs vroeg." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:aanvrager a owl:ObjectProperty ;
+    rdfs:label "aanvrager" ;
+    skos:definition "De rol waarin een partij de toestemming heeft aangevraagd." ;
+    skos:inScheme gbo:voorzieningen .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#PubEAA> a owl:Class ;
+    rdfs:label "PubEAA" ;
+    rdfs:subClassOf gbovz:attestatiesoort ;
+    skos:definition "Attestatie uitgegeven onder verantwoordelijkheid van een overheidsorgaan." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#QEAA> a owl:Class ;
+    rdfs:label "QEAA" ;
+    rdfs:subClassOf gbovz:attestatiesoort ;
+    skos:definition "Attestatie uitgegeven door een gekwalificeerde vertrouwensdienstverlener." .
+
+gbovz:beantwoordDoor a owl:ObjectProperty ;
+    rdfs:label "beantwoordDoor" ;
+    skos:definition "De rol waarin een partij het verzoek beantwoordt; de rolsoort is Bronhouder." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:beantwoordt a owl:ObjectProperty ;
+    rdfs:label "beantwoordt" ;
+    skos:definition "Het verzoek waarop deze levering het antwoord is." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:begrip a owl:DatatypeProperty ;
+    rdfs:label "begrip" ;
+    skos:definition "Verwijzing naar precies een begrip in het begrippenkader, dat de betekenis van dit gegevenselement vastlegt." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:bronhouder a owl:ObjectProperty ;
+    rdfs:label "bronhouder" ;
+    skos:definition "De rol waarin een partij deze bron beheert; de rolsoort is Bronhouder." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:bsn a owl:DatatypeProperty ;
+    rdfs:label "bsn" ;
+    skos:definition "Het burgerservicenummer van de betrokkene. Wordt nooit aan een private dienstverlener verstrekt; die ontvangt een pseudoniem." ;
+    skos:inScheme gbo:voorzieningen ;
+    mim:authentiek "Authentiek" .
+
+gbovz:context a owl:DatatypeProperty ;
+    rdfs:label "context" ;
+    skos:definition "De dienst, het interactiepatroon of het stelsel waarbinnen de rol geldt. Een partij kan dezelfde rolsoort in meerdere contexten vervullen." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:datatype a owl:DatatypeProperty ;
+    rdfs:label "datatype" ;
+    skos:definition "Het datatype van het gegevenselement." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:datumEinde a owl:DatatypeProperty ;
+    rdfs:label "datumEinde" ;
+    skos:definition "Datum waarop de rolvervulling eindigt; leeg betekent lopend." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:datumIngang a owl:DatatypeProperty ;
+    rdfs:label "datumIngang" ;
+    skos:definition "Datum waarop de rolvervulling ingaat." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:doelbeschrijving a owl:DatatypeProperty ;
+    rdfs:label "doelbeschrijving" ;
+    skos:definition "Het doel waarvoor deze scope is samengesteld." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:doelschema a owl:DatatypeProperty ;
+    rdfs:label "doelschema" ;
+    skos:definition "Het schema aan de leveringszijde: een SDG-evidence-type of een EUDI-attestatieschema." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:eidasIdentificatie a owl:DatatypeProperty ;
+    rdfs:label "eidasIdentificatie" ;
+    skos:definition "De eIDAS-identificator waarmee de betrokkene door de notificerende lidstaat is geidentificeerd." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:evidenceType a owl:DatatypeProperty ;
+    rdfs:label "evidenceType" ;
+    skos:definition "Het SDG-evidence-type waaraan de levering voldoet, als verwijzing naar het Evidence Broker." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:gebaseerdOp a owl:ObjectProperty ;
+    rdfs:label "gebaseerdOp" ;
+    skos:definition "De mapping waarmee de brongegevens naar de leveringsvorm zijn omgezet; leeg wanneer een-op-een geleverd wordt." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:geldigVanaf a owl:DatatypeProperty ;
+    rdfs:label "geldigVanaf" ;
+    skos:definition "Datum vanaf wanneer deze versie geldt." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:gevraagdeScope a owl:ObjectProperty ;
+    rdfs:label "gevraagdeScope" ;
+    skos:definition "De gevraagde verzameling gegevenselementen; nooit ruimer dan de maximale scope van de dienst." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:grondslag a owl:ObjectProperty ;
+    rdfs:label "grondslag" ;
+    skos:definition "De juridische basis voor dit verzoek: een toestemming of een wettelijke verplichting." ;
+    skos:inScheme gbo:voorzieningen ;
+    mim:kardinaliteit "1..1" .
+
+gbovz:initiatiefnemer a owl:ObjectProperty ;
+    rdfs:label "initiatiefnemer" ;
+    skos:definition "De rol waarin het verzoek is gestart." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:initiatorRolsoort a owl:ObjectProperty ;
+    rdfs:label "initiatorRolsoort" ;
+    skos:definition "De rolsoort die in dit patroon het verzoek initieert." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:kardinaliteit a owl:DatatypeProperty ;
+    rdfs:label "kardinaliteit" ;
+    skos:definition "De kardinaliteit binnen de objectstructuur." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:leveringsvorm a owl:DatatypeProperty ;
+    rdfs:label "leveringsvorm" ;
+    skos:definition "De vorm waarin geleverd wordt: gegevensset, attestatie of evidence." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:lidstaat a owl:DatatypeProperty ;
+    rdfs:label "lidstaat" ;
+    skos:definition "De lidstaat die de identiteit heeft vastgesteld." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:matchStatus a owl:DatatypeProperty ;
+    rdfs:label "matchStatus" ;
+    skos:definition "Uitkomst van de identity matching tegen de Nederlandse registratie." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:maximaleScope a owl:ObjectProperty ;
+    rdfs:label "maximaleScope" ;
+    skos:definition "De ruimst toegestane verzameling gegevenselementen voor deze dienst." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:omvat a owl:ObjectProperty ;
+    rdfs:label "omvat" ;
+    skos:definition "De gegevenselementen die de scope omvat." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:ontvanger a owl:ObjectProperty ;
+    rdfs:label "ontvanger" ;
+    skos:definition "De rol waarin de levering wordt ontvangen." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:ontvangerRolsoort a owl:ObjectProperty ;
+    rdfs:label "ontvangerRolsoort" ;
+    skos:definition "De rolsoort die de levering ontvangt." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:partij a owl:ObjectProperty ;
+    rdfs:label "partij" ;
+    skos:definition "De partij die deze rol vervult." ;
+    skos:inScheme gbo:voorzieningen .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#OOTSEvidence> a owl:Class ;
+    rdfs:label "OOTSEvidence" ;
+    rdfs:subClassOf gbovz:patroonsoort ;
+    skos:definition "Een EU-overheidsdienst vraagt een bewijsstuk op bij een Nederlandse bron; grondslag is de SDG-verordening." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#ToestemmingPrivatePartij> a owl:Class ;
+    rdfs:label "ToestemmingPrivatePartij" ;
+    rdfs:subClassOf gbovz:patroonsoort ;
+    skos:definition "Een private dienstverlener haalt gegevens op met toestemming van de betrokkene." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#WalletAttestatie> a owl:Class ;
+    rdfs:label "WalletAttestatie" ;
+    rdfs:subClassOf gbovz:patroonsoort ;
+    skos:definition "De betrokkene vraagt een attestatie aan voor opslag in de EUDI-wallet; grondslag is toestemming." .
+
+gbovz:pseudoniem a owl:DatatypeProperty ;
+    rdfs:label "pseudoniem" ;
+    skos:definition "Betekenisloze identificator die in plaats van het BSN wordt gebruikt richting private partijen, verstrekt door de pseudonimiseringsdienst." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:regelingURI a owl:DatatypeProperty ;
+    rdfs:label "regelingURI" ;
+    skos:definition "Verwijzing naar de gepubliceerde regeling." ;
+    skos:inScheme gbo:voorzieningen .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Afnemer> a owl:Class ;
+    rdfs:label "Afnemer" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "De partij die de geleverde gegevens uiteindelijk gebruikt." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Betrokkene> a owl:Class ;
+    rdfs:label "Betrokkene" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Degene om wiens gegevens het gaat; initieert in het wallet-patroon zelf het verzoek." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Bronhouder> a owl:Class ;
+    rdfs:label "Bronhouder" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Eigenaar en beheerder van een bronregistratie, verantwoordelijk voor het Policy Enforcement Point dat elk verzoek toetst." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Dienstverlener> a owl:Class ;
+    rdfs:label "Dienstverlener" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "De partij die een dienst aan de betrokkene levert en daarvoor gegevens opvraagt." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#EUOverheidsdienst> a owl:Class ;
+    rdfs:label "EUOverheidsdienst" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Bevoegde autoriteit in een andere lidstaat die via OOTS een bewijsstuk opvraagt." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Pseudonimiseringsdienst> a owl:Class ;
+    rdfs:label "Pseudonimiseringsdienst" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Voorziening die een BSN omzet naar een pseudoniem voor gebruik door private partijen." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#PubEAAProvider> a owl:Class ;
+    rdfs:label "PubEAAProvider" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Uitgever van een attestatie onder verantwoordelijkheid van een overheidsorgaan." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#QTSP> a owl:Class ;
+    rdfs:label "QTSP" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Gekwalificeerde vertrouwensdienstverlener die een QEAA uitgeeft." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Toestemmingsvoorziening> a owl:Class ;
+    rdfs:label "Toestemmingsvoorziening" ;
+    rdfs:subClassOf gbovz:rolsoort ;
+    skos:definition "Voorziening waarin toestemmingen worden vastgelegd en gevalideerd." .
+
+gbovz:scope a owl:ObjectProperty ;
+    rdfs:label "scope" ;
+    skos:definition "De verzameling gegevenselementen waartoe de toestemming beperkt is." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:toegestaneGrondslag a owl:DatatypeProperty ;
+    rdfs:label "toegestaneGrondslag" ;
+    skos:definition "De grondslagvorm die in dit patroon van toepassing is: toestemming of wettelijke verplichting." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:toelichting a owl:DatatypeProperty ;
+    rdfs:label "toelichting" ;
+    skos:definition "Toelichting op de toepasselijkheid van deze grondslag." ;
+    skos:inScheme gbo:voorzieningen .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Aangevraagd> a owl:Class ;
+    rdfs:label "Aangevraagd" ;
+    rdfs:subClassOf gbovz:toestemmingsstatus ;
+    skos:definition "De toestemming is gevraagd maar nog niet verleend." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Ingetrokken> a owl:Class ;
+    rdfs:label "Ingetrokken" ;
+    rdfs:subClassOf gbovz:toestemmingsstatus ;
+    skos:definition "De betrokkene heeft de toestemming ingetrokken." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Verleend> a owl:Class ;
+    rdfs:label "Verleend" ;
+    rdfs:subClassOf gbovz:toestemmingsstatus ;
+    skos:definition "De betrokkene heeft de toestemming verleend." .
+
+<https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Vervallen> a owl:Class ;
+    rdfs:label "Vervallen" ;
+    rdfs:subClassOf gbovz:toestemmingsstatus ;
+    skos:definition "De geldigheidsduur van de toestemming is verstreken." .
+
+gbovz:transformatie a owl:DatatypeProperty ;
+    rdfs:label "transformatie" ;
+    skos:definition "Beschrijving van de omzetting, inclusief eventuele codelijstconversies." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:uitgever a owl:ObjectProperty ;
+    rdfs:label "uitgever" ;
+    skos:definition "De rol waarin de attestatie is uitgegeven; de rolsoort is PubEAAProvider of QTSP." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:vastgesteldDoor a owl:DatatypeProperty ;
+    rdfs:label "vastgesteldDoor" ;
+    skos:definition "De instantie die de catalogus heeft vastgesteld." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:versie a owl:DatatypeProperty ;
+    rdfs:label "versie" ;
+    skos:definition "Versieaanduiding van de catalogus." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:volgtPatroon a owl:ObjectProperty ;
+    rdfs:label "volgtPatroon" ;
+    skos:definition "Het interactiepatroon waarbinnen dit verzoek valt." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:wettelijkeBasis a owl:DatatypeProperty ;
+    rdfs:label "wettelijkeBasis" ;
+    skos:definition "Aanduiding van de wet, verordening of regeling met artikel." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:wettelijkeGrondslag a owl:DatatypeProperty ;
+    rdfs:label "wettelijkeGrondslag" ;
+    skos:definition "De wettelijke basis waarop de bron wordt gehouden." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:wettelijkeVerankering a owl:DatatypeProperty ;
+    rdfs:label "wettelijkeVerankering" ;
+    skos:definition "De AMvB of ministeriele regeling waarin de dienst is vastgelegd." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:Gegevenselement a owl:Class ;
+    rdfs:label "Gegevenselement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:kardinaliteit ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:datatype ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:kardinaliteit ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:begrip ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:datatype ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:URI ;
+            owl:onProperty gbovz:begrip ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ] ;
+    skos:definition "De kleinste adresseerbare eenheid van data. Verwijst naar precies een begrip in het begrippenkader en voegt structuurinformatie toe." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "De kleinste adresseerbare eenheid van data, die naar precies een begrip verwijst en daar structuurinformatie aan toevoegt." ;
+    skos:exactMatch gbobegrip:Gegevenselement,
+        gbovz:Gegevenselement ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Gegevenselement" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:Grondslag a owl:Class ;
+    rdfs:label "Grondslag" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:toelichting ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:UUID ;
+            owl:onProperty gbovz:id ],
+        [ owl:unionOf ( gbovz:Toestemming gbovz:WettelijkeVerplichting ) ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:toelichting ] ;
+    skos:definition "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting." ;
+    skos:exactMatch gbobegrip:Grondslag,
+        gbovz:Grondslag ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Grondslag is het supertype; Toestemming is een van de twee vormen, niet de enige. Een gegevensverzoek verwijst naar precies een grondslag. Dat maakt het OOTS-patroon modelleerbaar, waar de grondslag de SDG-verordening is en er geen toestemming aan te pas komt." ;
+    skos:prefLabel_nl "Grondslag" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:indicatieAbstractObject "Ja" .
+
+gbovz:Levering a owl:Class ;
+    rdfs:label "Levering" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevensverzoek ;
+            owl:onProperty gbovz:beantwoordt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Mapping ;
+            owl:onProperty gbovz:gebaseerdOp ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:gebaseerdOp ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbovz:tijdstip ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ owl:unionOf ( gbovz:Attestatie gbovz:Evidence gbovz:Gegevensset ) ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:beantwoordt ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:ontvanger ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:tijdstip ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:ontvanger ] ;
+    skos:definition "Het resultaat dat op een gegevensverzoek wordt teruggegeven." ;
+    skos:definitionSource "GBO (voorstel), afgeleid uit de drie leveringsvormen in de GBO PSA" ;
+    skos:definition_nl "Het resultaat dat op een gegevensverzoek wordt teruggegeven." ;
+    skos:exactMatch gbobegrip:Levering,
+        gbovz:Levering ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Het model stopte eerder bij het verzoek. Zonder Levering is niet uit te drukken dat hetzelfde brongegeven de ene keer als platte gegevensset en de andere keer als gekwalificeerde attestatie of als SDG-evidence het stelsel verlaat." ;
+    skos:prefLabel_nl "Levering" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:indicatieAbstractObject "Ja" .
+
+gbovz:Scope a owl:Class ;
+    rdfs:label "Scope" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:doelbeschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:doelbeschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevenselement ;
+            owl:onProperty gbovz:omvat ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty gbovz:omvat ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ] ;
+    skos:definition "Een benoemde verzameling gegevenselementen. De maximale scope wordt bepaald door wetgeving; een afnemer kan een kleinere scope vragen." ;
+    skos:definitionSource "GBO PSA" ;
+    skos:definition_nl "Een benoemde verzameling gegevenselementen; de maximale scope wordt bepaald door wetgeving, een afnemer kan een kleinere scope vragen." ;
+    skos:exactMatch gbobegrip:Scope,
+        gbovz:Scope ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Scope" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" .
+
+gbovz:betrokkene a owl:ObjectProperty ;
+    rdfs:label "betrokkene" ;
+    skos:definition "Degene die de toestemming verleent.",
+        "Degene om wiens gegevens het verzoek gaat." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:geldigTot a owl:DatatypeProperty ;
+    rdfs:label "geldigTot" ;
+    skos:definition "Moment waarop de attestatie vervalt.",
+        "Moment waarop de toestemming vervalt." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:patroonsoort a owl:Class ;
+    rdfs:label "Patroonsoort" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#WalletAttestatie> <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#OOTSEvidence> <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#ToestemmingPrivatePartij> ) ;
+    skos:definition "De drie interactiepatronen die de GBO PSA onderscheidt." ;
+    skos:definitionSource "GBO PSA, hoofdstuk Interactiepatronen" ;
+    skos:definition_nl "De drie interactiepatronen die de GBO PSA onderscheidt." ;
+    skos:exactMatch gbobegrip:Patroonsoort ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Patroonsoort" ;
+    skos:status "proposed" ;
+    mim:herkomst "GBO PSA, hoofdstuk Interactiepatronen" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#OOTSEvidence>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#ToestemmingPrivatePartij>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#WalletAttestatie> .
+
+gbovz:status a owl:DatatypeProperty,
+        owl:ObjectProperty ;
+    rdfs:label "status" ;
+    skos:definition "De actuele status van de toestemming.",
+        "De actuele status van het verzoek." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:tijdstip a owl:DatatypeProperty ;
+    rdfs:label "tijdstip" ;
+    skos:definition "Moment van levering.",
+        "Moment waarop het verzoek is gedaan." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:Betrokkene a owl:Class ;
+    rdfs:label "Betrokkene" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:id ],
+        [ owl:unionOf ( gbovz:BuitenlandseBetrokkene gbovz:Burger ) ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:UUID ;
+            owl:onProperty gbovz:id ] ;
+    skos:definition "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat." ;
+    skos:definitionSource "GBO (voorstel); term ontleend aan de AVG, waar de betrokkene degene is op wie persoonsgegevens betrekking hebben" ;
+    skos:definition_nl "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat." ;
+    skos:exactMatch gbobegrip:Betrokkene,
+        gbovz:Betrokkene ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Betrokkene is bewust abstract. In het Nederlandse patroon is de betrokkene een burger met een BSN; bij OOTS gaat het om een persoon die door een buitenlandse overheid is geidentificeerd en die geen BSN hoeft te hebben. Beide moeten in hetzelfde gegevensverzoek passen." ;
+    skos:prefLabel_nl "Betrokkene" ;
+    skos:status "proposed" ;
+    mim:elementtype "Objecttype" ;
+    mim:indicatieAbstractObject "Ja" .
+
+gbovz:attestatiesoort a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "Attestatiesoort",
+        "attestatiesoort" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#PubEAA> <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#QEAA> ) ;
+    skos:definition "De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden.",
+        "Of het een PubEAA is, uitgegeven onder verantwoordelijkheid van een overheidsorgaan, of een QEAA van een gekwalificeerde vertrouwensdienstverlener." ;
+    skos:definitionSource "eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework" ;
+    skos:definition_nl "De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden." ;
+    skos:exactMatch gbobegrip:Attestatiesoort ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Attestatiesoort" ;
+    skos:status "proposed" ;
+    mim:herkomst "eIDAS2 / ARF" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#PubEAA>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#QEAA> .
+
+gbovz:toestemmingsstatus a owl:Class ;
+    rdfs:label "Toestemmingsstatus" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Aangevraagd> <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Verleend> <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Ingetrokken> <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Vervallen> ) ;
+    skos:definition "De statussen die een toestemming kan doorlopen." ;
+    skos:definitionSource "GBO (voorstel)" ;
+    skos:definition_nl "De statussen die een toestemming kan doorlopen." ;
+    skos:exactMatch gbobegrip:Toestemmingsstatus ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Toestemmingsstatus" ;
+    skos:status "proposed" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Aangevraagd>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Ingetrokken>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Verleend>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Vervallen> .
+
+gbovz:id a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    skos:definition "GBO-eigen identifier voor een betrokkene.",
+        "GBO-eigen identifier voor een grondslag.",
+        "GBO-eigen identifier voor een rolvervulling." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:Rol a owl:Class ;
+    rdfs:label "Rol" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbovz:datumIngang ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:context ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:datumIngang ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:context ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:partij ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:id ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:rolsoort ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:UUID ;
+            owl:onProperty gbovz:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Partij ;
+            owl:onProperty gbovz:partij ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:datumEinde ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbovz:datumEinde ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:rolsoort ;
+            owl:onProperty gbovz:rolsoort ] ;
+    skos:definition "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering." ;
+    skos:definitionSource "GBO (voorstel), afgeleid uit de DvTP-functionele requirements en de rolverdeling in de GBO PSA" ;
+    skos:definition_nl "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering." ;
+    skos:exactMatch gbobegrip:Rol,
+        gbovz:Rol ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:note "Rol staat los van Partij: een partij is een rechtsdragend subject, een rol is wat die partij in een bepaalde context doet. Dezelfde niet-natuurlijke persoon kan tegelijk dienstverlener in het ene verzoek en afnemer in het andere zijn. Door rol en partij gescheiden te houden vermijdt het model een wildgroei aan subtypes van Partij voor elke nieuwe actor die een kanaal introduceert." ;
+    skos:prefLabel_nl "Rol" ;
+    skos:status "proposed" ;
+    mim:elementtype "Relatieklasse" ;
+    mim:herkomst "GBO" ;
+    mim:populatie "Alle voorkomens waarin een partij in de bronontsluiting een gedefinieerde functie vervult." ;
+    mim:uniekeAanduiding "samengesteld uit (partij, rolsoort, context, datumIngang)" .
+
+gbovz:naam a owl:DatatypeProperty ;
+    rdfs:label "naam" ;
+    skos:definition "Naam van de bron, bijvoorbeeld BRP of BAG.",
+        "Naam van de dienst.",
+        "Naam van de mapping.",
+        "Naam van de scope.",
+        "Naam van het gegevenselement.",
+        "Naam van het patroon." ;
+    skos:inScheme gbo:voorzieningen .
+
+gbovz:rolsoort a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "Rolsoort",
+        "rolsoort" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Betrokkene> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Bronhouder> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Dienstverlener> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Afnemer> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#QTSP> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#PubEAAProvider> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#EUOverheidsdienst> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Toestemmingsvoorziening> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Pseudonimiseringsdienst> ) ;
+    skos:definition "De functie die de partij in deze context vervult.",
+        "De functies die een partij binnen de bronontsluiting kan vervullen." ;
+    skos:definitionSource "GBO PSA, hoofdstuk Interactiepatronen" ;
+    skos:definition_nl "De functies die een partij binnen de bronontsluiting kan vervullen." ;
+    skos:exactMatch gbobegrip:Rolsoort ;
+    skos:inScheme gbo:voorzieningen ;
+    skos:prefLabel_nl "Rolsoort" ;
+    skos:status "proposed" ;
+    mim:herkomst "GBO PSA, hoofdstuk Interactiepatronen" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Afnemer>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Betrokkene>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Bronhouder>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Dienstverlener>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#EUOverheidsdienst>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Pseudonimiseringsdienst>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#PubEAAProvider>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#QTSP>,
+        <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Toestemmingsvoorziening> .
+
+gbovz:identificatie a owl:DatatypeProperty,
+        owl:ObjectProperty ;
+    rdfs:label "identificatie" ;
+    skos:definition "Aanduiding van het interactiepatroon.",
+        "Identificatie van de bron.",
+        "Identificatie van de dienst.",
+        "Identificatie van de levering.",
+        "Identificatie van de mapping.",
+        "Identificatie van de scope.",
+        "Identificatie van het gegevenselement.",
+        "Identificatie van het verzoek." ;
+    skos:inScheme gbo:voorzieningen .
+

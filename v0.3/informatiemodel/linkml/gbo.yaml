@@ -47,7 +47,7 @@ description: >-
   van de documentatie in docs/informatiemodel/gbo-kern/; de documentatie
   is leidend.
 license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
-version: 0.2.0
+version: 0.3.0
 
 # Parkeerlijst — openstaande punten, geconsolideerd uit de
 # deelmodel-bestanden. Op te pakken bij de harmonisatie van de wiki
@@ -115,6 +115,9 @@ prefixes:
   mim: https://lod.gbo-semantiek.nl/def/mim#
   dcterms: http://purl.org/dc/terms/
   skos: http://www.w3.org/2004/02/skos/core#
+  # Nodig om de datatype-URI's (xsd:string, xsd:date, ...) uit te klappen;
+  # zonder deze prefix schrijft gen-shacl ze weg als letterlijke <xsd:string>.
+  xsd: http://www.w3.org/2001/XMLSchema#
 default_prefix: gbo
 default_range: string
 

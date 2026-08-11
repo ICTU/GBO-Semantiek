@@ -36,8 +36,6 @@ scalar Identificatie
 scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
 """Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
 scalar NEN3610ID
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 """Een door of namens een belastingplichtige aan de Belastingdienst ingediende opgave waarmee de grondslag voor een specifieke belastingsoort en periode wordt vastgesteld."""
 interface BelastingAangifte {
@@ -75,8 +73,6 @@ interface FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding per concreet subtype."""
-  categorie: String!
 }
 
 """Een bezitting of schuld die op de peildatum 1 januari onder Box 3 van de inkomstenbelasting valt en als zelfstandige post in de aangifte wordt opgevoerd."""
@@ -85,10 +81,10 @@ interface VermogensBestanddeel implements FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -103,10 +99,10 @@ interface Aftrekpost implements FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Bedrag van de aftrek in het belastingjaar."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
 }
@@ -135,8 +131,6 @@ interface Toeslag implements InkomensOndersteuning {
 interface Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
 }
 
 """Een door of namens de overheid aan een natuurlijk persoon verstrekte financiele bijdrage met als doel inkomensondersteuning, in de vorm van een inkomensafhankelijke regeling of een sociale-zekerheidsuitkering."""
@@ -155,8 +149,6 @@ interface InkomensOndersteuning {
 type IngeschrevenPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -182,7 +174,7 @@ type IngeschrevenPersoon implements Partij {
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
   """De belastingaangiften die deze persoon heeft ingediend."""
-  heeftBelastingjaarAangifte: [BelastingjaarAangifte!]
+  heeftBelastingjaarAangifte(belastingjaar: [Int!]): [BelastingjaarAangifte!]
   """De vermogensbestanddelen die deze persoon houdt."""
   heeftVermogensBestanddeel: [VermogensBestanddeel!]
   """De aftrekposten die deze persoon opvoert."""
@@ -315,10 +307,10 @@ type BankSpaartegoed implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -341,10 +333,10 @@ type Belegging implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -369,10 +361,10 @@ type Cryptovaluta implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -391,10 +383,10 @@ type OnroerendeZaakOverigBezit implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -417,10 +409,10 @@ type Schuld implements VermogensBestanddeel & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: VermogensBestanddeelCategorie!
   """Waarde op peildatum 1 januari."""
   waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
   """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
   houderVan: NatuurlijkPersoon!
   """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
@@ -443,10 +435,10 @@ type Hypotheekrenteaftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Bedrag van de aftrek in het belastingjaar."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Betaalde rente in het belastingjaar."""
@@ -467,10 +459,10 @@ type AlimentatieAftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Het betaalde bedrag."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Aanduiding van de gewezen partner."""
@@ -483,10 +475,10 @@ type LijfrenteAftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Betaalde lijfrente-premie."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Maximaal aftrekbaar in dit jaar."""
@@ -501,10 +493,10 @@ type GiftenAftrek implements Aftrekpost & FiscaalFeit {
   peildatum: Datum
   """Het belastingjaar van toepassing."""
   belastingjaar: Int!
-  """Categorie-aanduiding."""
-  categorie: AftrekpostCategorie!
   """Het gegeven bedrag in het belastingjaar."""
   bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
   """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
   opgevoerdDoor: NatuurlijkPersoon!
   """Periodiek (geen drempel of plafond) of eenmalig."""
@@ -653,8 +645,6 @@ type Renseignering {
 type NatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -680,7 +670,7 @@ type NatuurlijkPersoon implements Partij {
   """De ouder(s) van deze persoon."""
   heeftOuder: [NatuurlijkPersoon!]
   """De belastingaangiften die deze persoon heeft ingediend."""
-  heeftBelastingjaarAangifte: [BelastingjaarAangifte!]
+  heeftBelastingjaarAangifte(belastingjaar: [Int!]): [BelastingjaarAangifte!]
   """De vermogensbestanddelen die deze persoon houdt."""
   heeftVermogensBestanddeel: [VermogensBestanddeel!]
   """De aftrekposten die deze persoon opvoert."""
@@ -817,6 +807,18 @@ enum Geslacht {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén IngeschrevenPersoon op bsn."""
-  ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
+  """BelastingjaarAangifte. Het argument jaar selecteert op belastingjaar."""
+  belastingjaarAangifteOverJaar(bsn: BSN!, jaar: [Int!]!): [BelastingjaarAangifte!]
+  """VermogensBestanddeel. Het argument jaar selecteert op belastingjaar."""
+  vermogensBestanddeelOverJaar(bsn: BSN!, jaar: [Int!]!): [VermogensBestanddeel!]
+  """Aftrekpost. Het argument jaar selecteert op belastingjaar."""
+  aftrekpostOverJaar(bsn: BSN!, jaar: [Int!]!): [Aftrekpost!]
+  """EigenWoning."""
+  eigenWoningOverJaar(bsn: BSN!, jaar: [Int!]!): [EigenWoning!]
+  """FiscalePartner. Het argument jaar selecteert op belastingjaar."""
+  fiscalePartnerOverJaar(bsn: BSN!, jaar: [Int!]!): [FiscalePartner!]
+  """Toeslag."""
+  toeslagOverJaar(bsn: BSN!, jaar: [Int!]!): [Toeslag!]
+  """Renseignering. Het argument jaar selecteert op renseigneringsjaar."""
+  renseigneringOverJaar(bsn: BSN!, jaar: [Int!]!): [Renseignering!]
 }

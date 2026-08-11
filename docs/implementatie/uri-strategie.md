@@ -4,7 +4,7 @@
 
 GBO-Semantiek hanteert een URI-strategie voor de identificatie van begrippen, klassen en eigenschappen. De strategie volgt de [aanbevelingen van het Platform Linked Data Nederland](https://www.pldn.nl/), de [URI-strategie voor de Nederlandse overheid](https://www.pilod.nl/wiki/Boek/URI-strategie), en de TOOI URI-strategie.
 
-De URI-strategie is de concrete uitwerking van het ontwerpprincipe [FAIR als basisraamwerk](../uitgangspunten/ontwerpprincipes.md#fair-als-basisraamwerk).
+De URI-strategie is de concrete uitwerking van het ontwerpprincipe [S-02 FAIR als basisraamwerk](../uitgangspunten/ontwerpprincipes.md#s-02-fair-als-basisraamwerk).
 
 ## Principes
 
@@ -27,10 +27,10 @@ Het basis-URI-patroon voor GBO-Semantiek volgt een driedeling conform W3C Best P
 
 | Type artefact | URI-patroon | Voorbeeld |
 |---------------|-------------|-----------|
-| Ontologie (klassen, properties) | `https://data.gbo.nl/ontologie/{Klasse}` | `https://data.gbo.nl/ontologie/Zaak` |
-| Begrippen (SKOS concepten) | `https://data.gbo.nl/begrippen/{Begrip}` | `https://data.gbo.nl/begrippen/Zaak` |
-| JSON-LD context | `https://data.gbo.nl/context/{usecase}.jsonld` | `https://data.gbo.nl/context/kern.jsonld` |
-| Instanties | `https://data.gbo.nl/id/{type}/{id}` | `https://data.gbo.nl/id/zaak/12345` |
+| Ontologie (klassen, properties) | `https://lod.gbo-semantiek.nl/{Klasse}` | `https://lod.gbo-semantiek.nl/Zaak` |
+| Begrippen (SKOS concepten) | `https://begrippen.gbo-semantiek.nl/id/begrip/{Begrip}` | `https://begrippen.gbo-semantiek.nl/id/begrip/Zaak` |
+| JSON-LD context | `https://lod.gbo-semantiek.nl/context/{usecase}.jsonld` | `https://lod.gbo-semantiek.nl/context/kern.jsonld` |
+| Instanties | `https://lod.gbo-semantiek.nl/id/{type}/{id}` | `https://lod.gbo-semantiek.nl/id/zaak/12345` |
 
 Conventies voor paden en elementnamen (lowercase paden, CamelCase klassen, lowerCamelCase properties) staan in [Naamgeving](naamgeving.md).
 

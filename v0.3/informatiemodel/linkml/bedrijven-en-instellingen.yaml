@@ -119,8 +119,9 @@ classes:
         unique_key_slots: [kvkNummer]
         description: >-
           Tweede findable key; enkelvoudig, 1:1 afgeleid via de
-          MaatschappelijkeActiviteit. id (geërfd van Partij) blijft de
-          technische identifier.
+          MaatschappelijkeActiviteit. Partij draagt sinds 2026-08-10
+          geen technische identifier meer; rsin en kvkNummer zijn samen
+          de sleutels van een niet-natuurlijke persoon.
     attributes:
       rsin:
         range: Tekst

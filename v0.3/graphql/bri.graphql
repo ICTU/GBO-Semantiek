@@ -26,7 +26,7 @@ scalar BSN @restrictie(patroon: "^[0-9]{9}$")
 scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
 
 """Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen."""
-type AuthentiekInkomen {
+type Verzamelinkomen {
   """Verzamelinkomen of belastbaar loon."""
   inkomenBedrag: Bedrag!
   """Het jaar waarop het inkomen betrekking heeft."""
@@ -40,7 +40,7 @@ type IngeschrevenPersoon {
   """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
   bsn: BSN!
   """De authentieke inkomens die voor deze persoon zijn vastgesteld, één per belastingjaar."""
-  heeftAuthentiekInkomen(belastingjaar: Int): [AuthentiekInkomen!]
+  heeftVerzamelinkomen(belastingjaar: [Int!]): [Verzamelinkomen!]
 }
 
 """Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
@@ -53,6 +53,6 @@ type Bedrag {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén IngeschrevenPersoon op bsn."""
-  ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
+  """Verzamelinkomen. Het argument jaar selecteert op belastingjaar."""
+  verzamelinkomenOverJaar(bsn: BSN!, jaar: [Int!]!): [Verzamelinkomen!]
 }

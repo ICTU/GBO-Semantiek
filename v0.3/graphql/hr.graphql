@@ -46,16 +46,12 @@ scalar Vestigingsnummer @restrictie(patroon: "^[0-9]{12}$")
 interface Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is."""
   ingeschrevenAls: [MaatschappelijkeActiviteit!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
 }
 
 """Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
 type NietNatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is."""
   ingeschrevenAls: [MaatschappelijkeActiviteit!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
   """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
@@ -332,8 +328,10 @@ enum SoortActiviteit {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
+  """Eén NietNatuurlijkPersoon op kvkNummer."""
+  nietNatuurlijkPersoonOpKvkNummer(kvkNummer: KVKnummer!): NietNatuurlijkPersoon
   """Eén NietNatuurlijkPersoon op rsin."""
-  nietNatuurlijkPersoon(rsin: String!): NietNatuurlijkPersoon
+  nietNatuurlijkPersoonOpRsin(rsin: String!): NietNatuurlijkPersoon
   """Eén MaatschappelijkeActiviteit op kvkNummer."""
   maatschappelijkeActiviteit(kvkNummer: KVKnummer!): MaatschappelijkeActiviteit
   """Eén Vestiging op vestigingsnummer."""

@@ -10,9 +10,9 @@ De eenvoudigste aanpak — een `@context`-verwijzing toevoegen aan de bestaande 
 
 ```json
 {
-  "@context": "https://data.gbo.nl/context/kern.jsonld",
+  "@context": "https://lod.gbo-semantiek.nl/context/kern.jsonld",
   "@type": "Persoon",
-  "@id": "https://data.gbo.nl/id/persoon/12345",
+  "@id": "https://lod.gbo-semantiek.nl/id/persoon/12345",
   "geboortedatum": "1990-01-15",
   "achternaam": "Jansen"
 }
@@ -23,7 +23,7 @@ De eenvoudigste aanpak — een `@context`-verwijzing toevoegen aan de bestaande 
 Voor API's die de body niet willen aanpassen, kan de `@context` via een HTTP Link header worden meegegeven:
 
 ```http
-Link: <https://data.gbo.nl/context/kern.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+Link: <https://lod.gbo-semantiek.nl/context/kern.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
 ```
 
 ## Patroon 3: Collecties
@@ -32,16 +32,16 @@ Bij het teruggeven van meerdere objecten wordt `@graph` gebruikt:
 
 ```json
 {
-  "@context": "https://data.gbo.nl/context/kern.jsonld",
+  "@context": "https://lod.gbo-semantiek.nl/context/kern.jsonld",
   "@graph": [
     {
       "@type": "Persoon",
-      "@id": "https://data.gbo.nl/id/persoon/12345",
+      "@id": "https://lod.gbo-semantiek.nl/id/persoon/12345",
       "achternaam": "Jansen"
     },
     {
       "@type": "Persoon",
-      "@id": "https://data.gbo.nl/id/persoon/67890",
+      "@id": "https://lod.gbo-semantiek.nl/id/persoon/67890",
       "achternaam": "De Vries"
     }
   ]
@@ -55,12 +55,12 @@ OSLO publiceert per vocabularium een herbruikbaar context-bestand dat door meerd
 ```json
 {
   "@context": [
-    "https://data.gbo.nl/context/kern.jsonld",
-    "https://data.gbo.nl/context/zaakgericht-werken.jsonld"
+    "https://lod.gbo-semantiek.nl/context/kern.jsonld",
+    "https://lod.gbo-semantiek.nl/context/zaakgericht-werken.jsonld"
   ],
   "@type": "gbo:Zaak",
   "gbo:status": {
-    "@id": "https://data.gbo.nl/begrippen/zaakstatus/afgerond"
+    "@id": "https://begrippen.gbo-semantiek.nl/id/begrip/zaakstatus/afgerond"
   }
 }
 ```

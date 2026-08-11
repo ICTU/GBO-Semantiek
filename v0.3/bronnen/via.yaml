@@ -19,7 +19,7 @@
 #
 # De rubriek-mapping van het VIA-bericht naar de GBO-objecttypen staat
 # in wiki/gbo-core/registers/via.md (sectie "Mapping VIA-bericht naar
-# GBO-Core"). Gezaghebbende specificatie: GSP IH-VIH 2026 v1
+# GBO-Kern"). Gezaghebbende specificatie: GSP IH-VIH 2026 v1
 # (2026-05-28) + SBR-NT-taxonomie IHZ Voor Invullen Aangifte 2026
 # (NT21_20261209 v02), in raw/belastingdienst/VIA Officieel/.
 # =============================================================================
@@ -43,9 +43,59 @@ schemabestand: ../informatiemodel/linkml/gbo.yaml
 # Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
 # lijst-query. Alle fiscale gegevens zijn navigeerbaar vanuit de
 # persoon via de gematerialiseerde inverse relaties.
-ingangen:
-  - IngeschrevenPersoon
 lijstQueries: false
+
+# Benoemde queries: de VIA levert de voor te vullen fiscale gegevens,
+# geen persoon. Uitsluitend over voorgaande, afgesloten belastingjaren.
+queries:
+  - naamQuery: belastingjaarAangifteOverJaar
+    levert: BelastingjaarAangifte
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: fiscalePartnerOverJaar
+    levert: FiscalePartner
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: vermogensBestanddeelOverJaar
+    levert: VermogensBestanddeel
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: aftrekpostOverJaar
+    levert: Aftrekpost
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: inkomstenverhoudingOverJaar
+    levert: Inkomstenverhouding
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: eigenWoningOverJaar
+    levert: EigenWoning
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
 
 objecttypen:
   - IngeschrevenPersoon

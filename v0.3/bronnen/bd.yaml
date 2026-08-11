@@ -9,7 +9,7 @@
 #       -C Bronprofiel bd.yaml
 #
 # Afbakening t.o.v. BRI: het authentieke inkomensgegeven en de onderliggende
-# inkomensketen (AuthentiekInkomen, Inkomstenverhouding, Inkomstenopgave,
+# inkomensketen (Verzamelinkomen, Inkomstenverhouding, Inkomstenopgave,
 # Inkomstenperiode, LoonBestanddeel, LoonAangifte) worden bij de bron BRI
 # gehouden; dit profiel dekt de aangifte-, vermogens-, aftrek- en toeslagen-
 # gegevens die de Belastingdienst zelf beheert.
@@ -26,11 +26,69 @@ beschrijving: >-
 schemabestand: ../informatiemodel/linkml/gbo.yaml
 
 # Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
-ingangen:
-  - IngeschrevenPersoon
 lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: de Belastingdienst levert fiscale gegevens, geen
+# persoon. Subtypen komen via het supertype mee.
+queries:
+  - naamQuery: belastingjaarAangifteOverJaar
+    levert: BelastingjaarAangifte
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: vermogensBestanddeelOverJaar
+    levert: VermogensBestanddeel
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: aftrekpostOverJaar
+    levert: Aftrekpost
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: fiscalePartnerOverJaar
+    levert: FiscalePartner
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: renseigneringOverJaar
+    levert: Renseignering
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: renseigneringsjaar
+  - naamQuery: toeslagOverJaar
+    levert: Toeslag
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: eigenWoningOverJaar
+    levert: EigenWoning
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+
 objecttypen:
   - IngeschrevenPersoon
   - BelastingAangifte

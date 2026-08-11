@@ -12,7 +12,7 @@ Framing kan worden ingezet om te valideren dat inkomende JSON-data de verwachte 
 
 ```json
 {
-  "@context": "https://data.gbo.nl/context/kern.jsonld",
+  "@context": "https://lod.gbo-semantiek.nl/context/kern.jsonld",
   "@type": "Zaak",
   "onderwerp": {},
   "datumIngang": {

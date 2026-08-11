@@ -7,9 +7,9 @@
 
 ## Over dit repository
 
-Dit repository bevat het **GBO-Semantiek informatiemodel**: een open standaard voor de semantische beschrijving van basisgegevens uit overheidsregistraties. Het doel is om een gedeeld begrippenkader en gegevensmodel te bieden dat overheidsorganisaties en ketenpartners kunnen gebruiken voor interoperabiliteit en datakwaliteit.
+Dit repository bevat het **GBO-Semantiek informatiemodel**: een open specificatie voor de semantische beschrijving van basisgegevens uit overheidsregistraties. Het doel is om een gedeeld begrippenkader en gegevensmodel te bieden dat overheidsorganisaties en ketenpartners kunnen gebruiken voor interoperabiliteit en datakwaliteit.
 
-Dit repository is opgezet conform het principe *documentation-first*: de documentatie is de primaire bron van waarheid voor de standaard. Artefacten zoals UML-modellen, JSON Schema's en RDF/OWL-beschrijvingen worden afgeleid van de documentatie.
+Dit repository is opgezet conform het principe *documentation-first*: de documentatie is de primaire bron van waarheid voor de specificatie. Artefacten zoals UML-modellen, JSON Schema's en RDF/OWL-beschrijvingen worden afgeleid van de documentatie.
 
 ### Gebaseerd op GGM
 

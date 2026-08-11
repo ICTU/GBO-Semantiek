@@ -10,7 +10,7 @@ Het diagram toont de drie lagen en hun onderlinge afhankelijkheden. De pijlen ge
 
 Het [GBO-Kernmodel](../informatiemodel/gbo-kern/hoofdmodel.md) bevat de kerngegevens die voor alle aangesloten overheidsdomeinen relevant zijn, ongeacht of een afnemer een gemeente, een uitvoeringsorganisatie of een private ketenpartner is. Het gaat om gegevens uit de landelijke basisregistraties en aanvullende bronnen die breed worden hergebruikt: personen (BRP), bedrijven (HR), panden (BAG), locaties (BGT, BRK), belastingen (BRI en overige), voertuigen (BRV, RDW), DUO (onderwijs en studieschuld) en aanverwante registraties. De inhoudelijke definities zijn voor een belangrijk deel afgeleid uit gemeentelijke referentiemodellen zoals het GGM en het RSGB; de scope van GBO zelf is landelijk.
 
-Deze laag is de gemeenschappelijke taal van het GBO-stelsel. Door kernbegrippen zoals "Natuurlijk persoon", "Verblijfsobject" of "Kadastraal perceel" centraal te definiëren, hoeven individuele domeinen deze begrippen niet opnieuw uit te vinden. Elke verwijzing naar een persoon of een adres in een sectormodel of in GBO-Voorzieningen verwijst naar dezelfde, eenduidig gedefinieerde entiteit in de GBO-Kern.
+Deze laag is de gemeenschappelijke taal van GBO. Door kernbegrippen zoals "Natuurlijk persoon", "Verblijfsobject" of "Kadastraal perceel" centraal te definiëren, hoeven individuele domeinen deze begrippen niet opnieuw uit te vinden. Elke verwijzing naar een persoon of een adres in een sectormodel of in GBO-Voorzieningen verwijst naar dezelfde, eenduidig gedefinieerde entiteit in de GBO-Kern.
 
 Uitwerking van het GBO-Kernmodel vind je in de sectie [GBO-Kernmodel binnen Informatiemodel](../informatiemodel/gbo-kern/hoofdmodel.md)
 

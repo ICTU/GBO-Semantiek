@@ -13,10 +13,10 @@ GBO volgt de NORA-principes die direct raken aan gegevensuitwisseling: *eenmalig
 
 ### GBO PSA — Project Start Architectuur
 
-De [GBO Project Start Architectuur (PSA)](https://ictu.github.io/GBO/latest/) beschrijft de architectuur van de Gemeenschappelijke Bronontsluiting als **stelsel**: een samenhangend geheel van architectuurprincipes, stelselfuncties, interactiepatronen en voorzieningen voor het ontsluiten van gegevens bij de bron.
+De [GBO Project Start Architectuur (PSA)](https://ictu.github.io/GBO-PSA/main/) beschrijft de architectuur van het **programma** Gemeenschappelijke Bronontsluiting: een samenhangende set generieke afspraken, standaarden, stelselfuncties en voorzieningen voor het ontsluiten van gegevens bij de bron, als aanvulling op en verbetering van bestaande landelijke stelsels.
 
 **Toepassing in GBO-Semantiek:**
-GBO-Semantiek levert de **semantische laag** bij dit stelsel. Waar de PSA de stelselfuncties en architectuurprincipes vaststelt, geven het begrippenkader en de informatiemodellen van GBO-Semantiek de uitgewisselde gegevens een eenduidige, beheerde betekenis. De terminologie in deze documentatie volgt die van de PSA.
+GBO-Semantiek levert de **semantische laag** bij deze oplossing. De veertien [PSA-ontwerpprincipes](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/) zijn per semantiek-principe herleidbaar gemaakt in [Ontwerpprincipes](ontwerpprincipes.md#herkomst-koppeling-met-de-psa). Waar de PSA de stelselfuncties en architectuurprincipes vaststelt, geven het begrippenkader en de informatiemodellen van GBO-Semantiek de uitgewisselde gegevens een eenduidige, beheerde betekenis. De terminologie in deze documentatie volgt die van de PSA.
 
 ## Standaarden
 

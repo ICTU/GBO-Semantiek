@@ -35,6 +35,14 @@ ingangen:
   - Vestiging
 lijstQueries: false
 
+# De niet-natuurlijke persoon is op beide eigen sleutels bevraagbaar.
+# Partij wordt niet bevraagd: het is een abstract supertype, geen ingang.
+zoeksleutels:
+  - objecttype: NietNatuurlijkPersoon
+    sleutels:
+      - kvkNummer
+      - rsin
+
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:
   - NietNatuurlijkPersoon
