@@ -2151,23 +2151,23 @@ MIM-equivalent bestaat is de notatie GBO-specifiek of BRP-specifiek.</p>
 <tr>
 <td><code>BAGID</code></td>
 <td><code>Identificatie</code></td>
-<td>BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10).</td>
+<td>BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10). Specialisatie van <code>NEN3610ID</code>.</td>
 <td><a href="https://www.kadaster.nl/-/bag-objecten">BAG-objecten (Kadaster)</a></td>
-<td>Gebruikt voor de BAG-objecten Pand, Verblijfsobject, Standplaats, Ligplaats, Nummeraanduiding, Openbare ruimte en Woonplaats, voor verwijzingen daarnaar (zoals <code>adresseerbaarObjectId</code>), en voor <code>Binnenlandsadres.adresId</code> (gelijk aan de identificatie van de Nummeraanduiding).</td>
+<td>Gebruikt voor de BAG-objecten Pand, Verblijfsobject, Standplaats, Ligplaats, Nummeraanduiding, Openbare ruimte en Woonplaats, voor verwijzingen daarnaar (zoals <code>adresseerbaarObjectId</code>), en voor <code>Binnenlandsadres.adresId</code> (gelijk aan de identificatie van de Nummeraanduiding). Een BAG-identificatie is een stelsel-objectidentificatie met de BAG als namespace; het patroon legt de lokaalID-vorm vast zoals de BAG die uitgeeft, dus zonder het <code>NL.IMBAG.&lt;objecttype&gt;</code>-voorvoegsel.</td>
 </tr>
 <tr>
 <td><code>NEN3610ID</code></td>
 <td><code>Identificatie</code> (in <a href="https://docs.geostandaarden.nl/nen3610/">NEN 3610</a> als gestructureerd datatype)</td>
-<td>Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit <code>namespace : lokalID : versie</code>.</td>
+<td>Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit <code>namespace : lokalID : versie</code>. Het algemene identificatietype; <code>BAGID</code> is de register-specifieke specialisatie ervan.</td>
 <td><a href="https://www.geonovum.nl/geo-standaarden">NEN 3610 Basismodel Geo-informatie</a> (<a href="https://docs.geostandaarden.nl/nen3610/">documentatie</a>)</td>
-<td>Gebruikt voor BRK-objecten (KadastraleOnroerendeZaak, ZakelijkRecht) en publiekrechtelijke beperkingen. Garandeert uniciteit over registers heen.</td>
+<td>Gebruikt voor BRK-objecten (KadastraleOnroerendeZaak, ZakelijkRecht) en publiekrechtelijke beperkingen, waar de waarde de vorm <code>NL.IMKAD.&lt;objecttype&gt;.&lt;lokaalID&gt;</code> heeft. Garandeert uniciteit over registers heen.</td>
 </tr>
 <tr>
 <td><code>UUID</code></td>
 <td>(geen)</td>
 <td>Universally Unique Identifier conform <a href="https://datatracker.ietf.org/doc/html/rfc4122">RFC 4122</a> (128 bits, hex-genotat).</td>
 <td><a href="https://datatracker.ietf.org/doc/html/rfc4122">RFC 4122</a></td>
-<td>Interne GBO-identifier voor objecten zonder externe authentieke identifier: <code>id</code>, <code>MaatschappelijkeActiviteit.identificatie</code> en het <code>adresId</code> van de niet-BAG-adresvormen (Buitenlandsadres, Locatie, Postadres, VerblijfplaatsOnbekend).</td>
+<td>Interne GBO-identifier voor objecten zonder externe authentieke identifier: <code>Onderneming.identificatie</code> en het <code>adresId</code> van de niet-BAG-adresvormen (Buitenlandsadres, Locatie, Postadres, VerblijfplaatsOnbekend). <code>Partij</code> droeg zo'n UUID tot 2026-08-10; dat attribuut is verwijderd, zie <a href="../hoofdmodel/">hoofdmodel</a>.</td>
 </tr>
 <tr>
 <td><code>BSN</code></td>
