@@ -1221,7 +1221,7 @@ classes:
   # --- Authentiek inkomen (BRI) -----------------------------------------------
 
     class_uri: gbobegrip:FiscalePartner
-  AuthentiekInkomen:
+  Verzamelinkomen:
     description: >-
       Het door de Belastingdienst vastgestelde verzamelinkomen of
       belastbaar loon van een natuurlijk persoon over een
@@ -1242,10 +1242,10 @@ classes:
         inkomensgegevens per natuurlijk persoon per belastingjaar,
         opgenomen in de Basisregistratie Inkomen.
       skos:status: proposed
-      skos:prefLabel_nl: Authentiek inkomen
+      skos:prefLabel_nl: Verzamelinkomen
       skos:altLabel_nl_0_value: Authentiek inkomen gegeven
       skos:altLabel_nl_0_source: Stelselcatalogus BRI
-      skos:altLabel_nl_1_value: Verzamelinkomen (in BRI-context)
+      skos:altLabel_nl_1_value: Authentiek inkomen
       skos:altLabel_nl_1_source: Wet BRI
       skos:definition_nl: Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen.
       skos:definitionSource: Wet basisregistratie inkomen art. 1 jo. art. 4
@@ -1292,7 +1292,7 @@ classes:
           gegrondvest.
         annotations:
           mim:kardinaliteit: "0..* -> 1"
-          gbo:inverseNaam: heeftAuthentiekInkomen
+          gbo:inverseNaam: heeftVerzamelinkomen
           gbo:inverseBeschrijving: >-
             De authentieke inkomens die voor deze persoon zijn
             vastgesteld, één per belastingjaar.
@@ -1301,7 +1301,7 @@ classes:
 
   # --- Toeslagen (Awir) -------------------------------------------------------
 
-    class_uri: gbobegrip:AuthentiekInkomen
+    class_uri: gbobegrip:Verzamelinkomen
     aliases:
       - Authentiek inkomen gegeven
       - Verzamelinkomen (in BRI-context)

@@ -18,6 +18,8 @@ directive @restrictie(
 
 """BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10). Identificeert pand, verblijfsobject, standplaats, ligplaats, nummeraanduiding, openbare ruimte en woonplaats in de BAG."""
 scalar BAGID @restrictie(patroon: "^[0-9]{16}$")
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
 """Rationaal getal als teller/noemer (1/2, 1/3), zodat mede-eigendom exact zonder afrondingsverlies wordt vastgelegd; gebruikt voor Tenaamstelling.aandeel."""
 scalar Breuk @restrictie(patroon: "^[0-9]+/[0-9]+$")
 """Waarde uit een BRK-codelijst die in de documentatie niet nader is gespecificeerd; gebruikt voor Aantekening.aardAantekening."""
@@ -30,12 +32,12 @@ scalar CodelijstKadaster
 scalar Datum
 """Object- of documentidentificatie zonder vaste structuur."""
 scalar Identificatie
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
 """Kadastrale aanduiding van een onroerende zaak: kadastrale gemeente, sectie en perceelnummer (bij een appartementsrecht aangevuld met een index), samen uniek binnen de BRK."""
 scalar KadastraleAanduiding
 """Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
 scalar NEN3610ID
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 """Het overkoepelende begrip voor een kadastraal afgebakend en als zelfstandige eenheid in de Basisregistratie Kadaster geregistreerd object: een perceel of een appartementsrecht."""
 interface KadastraleOnroerendeZaak {
@@ -173,8 +175,6 @@ type Tenaamstelling {
   datumIngang: Datum!
   """Datum waarop de tenaamstelling is geëindigd."""
   datumEinde: Datum
-  """Rechthebbende partij. (Sleutel-referentie naar Partij.)"""
-  tenaamgesteldOp: UUID!
   """Zakelijk recht waarvoor de tenaamstelling geldt."""
   voorZakelijkRecht: ZakelijkRecht!
 }
@@ -307,6 +307,12 @@ enum TypePubliekrechtelijkeBeperking {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
+  """Tenaamstelling."""
+  tenaamstellingOpBsn(bsn: BSN!): [Tenaamstelling!]
+  """Tenaamstelling."""
+  tenaamstellingOpRsin(rsin: String!): [Tenaamstelling!]
+  """Tenaamstelling."""
+  tenaamstellingOpKvkNummer(kvkNummer: KVKnummer!): [Tenaamstelling!]
   """Eén KadastraleOnroerendeZaak op identificatie."""
   kadastraleOnroerendeZaak(identificatie: NEN3610ID!): KadastraleOnroerendeZaak
 }

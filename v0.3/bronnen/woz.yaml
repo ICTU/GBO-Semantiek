@@ -24,8 +24,34 @@ ingangen:
 lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om het
+# belanghebbende-zijn, met de sleutel van de belanghebbende als parameter.
+queries:
+  - naamQuery: belanghebbendeOpBsn
+    levert: Belanghebbende
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: belanghebbendeOpRsin
+    levert: Belanghebbende
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: belanghebbendeOpKvkNummer
+    levert: Belanghebbende
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
 objecttypen:
   - WOZObject
   - WOZDeelobject
   - WOZWaarde
   - Belanghebbende
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden.
+relatieAfhandeling:
+  - objecttype: Belanghebbende
+    relatie: isPartij
+    afhandeling: weglaten

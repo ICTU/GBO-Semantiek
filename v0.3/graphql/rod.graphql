@@ -48,23 +48,17 @@ scalar DatumIncompleet @restrictie(patroon: "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
 scalar Identificatie
 """Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
 scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 """Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
 interface Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
 }
 
 """Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
 type IngeschrevenPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -133,8 +127,6 @@ type IngeschrevenPersoon implements Partij {
 type OnderwijsInstelling implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
   """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
@@ -383,8 +375,6 @@ type StudieLening {
 type NatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -425,8 +415,6 @@ type NatuurlijkPersoon implements Partij {
 type NietNatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
   rsin: String
   """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
@@ -729,8 +717,16 @@ enum TypeMaatschappelijk {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén IngeschrevenPersoon op bsn."""
-  ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
+  """OpleidingDeelname. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  opleidingDeelnameAlles(bsn: BSN!): [OpleidingDeelname!]
+  """OpleidingResultaat. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  opleidingResultaatAlles(bsn: BSN!): [OpleidingResultaat!]
+  """VerzuimMelding. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  verzuimMeldingAlles(bsn: BSN!): [VerzuimMelding!]
+  """StudieFinanciering. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  studieFinancieringAlles(bsn: BSN!): [StudieFinanciering!]
+  """StudieLening. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  studieLeningAlles(bsn: BSN!): [StudieLening!]
   """Eén OnderwijsInstelling op instellingscodeRIO."""
   onderwijsInstelling(instellingscodeRIO: Identificatie!): OnderwijsInstelling
 }

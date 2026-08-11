@@ -2,29 +2,9 @@
 
 Ontwerpprincipes zijn de richtinggevende uitgangspunten voor alle keuzes bij het ontwerp van het semantisch raamwerk van GBO. Ze beschrijven *waarom* we iets op een bepaalde manier doen en vormen de toetssteen bij het maken van het begrippenkader en het informatiemodel.
 
-## Herkomst: koppeling met de PSA
-
-De [GBO PSA](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/) stelt veertien ontwerpprincipes vast voor de architectuur als geheel. De semantiek-principes hieronder zijn daarvan de verbijzondering naar begrippenkader en informatiemodel; bij elk principe staat vermeld waar het vandaan komt.
-
-Een koppeling is **direct** wanneer het semantiek-principe hetzelfde stelt als het PSA-principe, toegepast op semantiek, en **naar analogie** wanneer de PSA het onderwerp niet als eigen principe benoemt en alleen de redenering wordt overgenomen. Een deel van de principes is een eigen aanvulling zonder PSA-herkomst; die staan er ook in, zodat de tabel alle semantiek-principes toont.
-
-| # | Semantiek-principe | PSA-herkomst | Koppeling |
-|---|---|---|---|
-| **S-01** | [Data bij de bron](#s-01-data-bij-de-bron) | [D-05](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-05-gegevens-bij-de-bron-geen-onnodige-kopieen) | Direct; hier ook toegepast op de semantiek zelf |
-| **S-02** | [FAIR als basisraamwerk](#s-02-fair-als-basisraamwerk) | [D-14](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming), [D-08](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden) | Direct; D-14 dekt *Interoperable* en *Reusable*, D-08 maakt *Accessible* concreet |
-| **S-03** | [Modulariteit: generiek vs. use-case-specifiek](#s-03-modulariteit-generiek-vs-use-case-specifiek) | [D-04](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp), [D-06](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-06-componentgebaseerd-werken-herbruikbare-bouwstenen) | Direct; separation of concerns op modelniveau in plaats van op componenten |
-| **S-04** | [Begrippen-first](#principes-voor-het-begrippenkader) | [D-14](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) | Direct; semantische afstemming begint bij gedeelde begripsvorming |
-| **S-05** | [Eén gezaghebbende definitie per begrip](#principes-voor-het-begrippenkader) | [D-14](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) | Direct; invulling van de eis van semantische eenduidigheid |
-| **S-06** | [Hiërarchische coherentie](#principes-voor-het-begrippenkader) | Geen | Eigen SKOS-regel; de PSA doet geen uitspraak over modelhygiëne |
-| **S-07** | [Expliciete scopeNotes](#principes-voor-het-begrippenkader) | Geen | Eigen SKOS-regel voor GBO-specifieke afbakening |
-| **S-08** | [Scheiding begrip en waardelijst](#principes-voor-het-begrippenkader) | Geen | Eigen modelleerregel |
-| **S-09** | [Koppeling aan bronwetgeving](#principes-voor-het-begrippenkader) | Geen | Eigen herkomsteis; volgt uit *Reusable*, niet uit een PSA-principe |
-| **S-10** | [Publiceer als Linked Data](#principes-voor-het-begrippenkader) | [D-08](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden) | Direct; SKOS en RDF staan op de pas-toe-of-leg-uit-lijst |
-| **S-11** | [Minimale ontologische committering](#s-11-minimale-ontologische-committering) | [D-01](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-01-decentraal-wat-kan-centraal-wat-moet) | Naar analogie; subsidiariteit toegepast op modelinhoud |
-| **S-12** | [Hergebruik boven herontwikkeling](#s-12-hergebruik-boven-herontwikkeling) | [D-13](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-13-standaardiseer-waar-mogelijk-maak-uitzonderingen-expliciet-en-zorg-dat-deze-in-bestaande-gremia-landen) | Direct; vertaald naar MIM-conforme modellen en bestaande ontologieën |
-| **S-13** | [Versioning en evolutie](#s-13-versioning-en-evolutie) | [D-04](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp) | Naar analogie; de PSA kent versiebeheer niet als eigen principe |
-
-Omgekeerd hebben zeven PSA-principes geen semantiek-pendant, omdat ze de architectuur en de uitvoering betreffen en niet de betekenis van gegevens: D-02 (ordening van het stelsel), D-03 (GDI-bouwstenen), D-07 (open source), D-09 (API-first) en D-10 tot en met D-12 (beveiliging, least privilege, aantoonbare veiligheid).
+Waar deze principes vandaan komen — welk PSA-ontwerpprincipe aan welk
+semantiek-principe ten grondslag ligt — staat in de
+[overzichtstabel achteraan dit hoofdstuk](#herkomst-koppeling-met-de-psa).
 
 ## S-01 — Data bij de bron
 
@@ -88,17 +68,49 @@ GBO past dit patroon toe:
 
 ## Principes voor het begrippenkader
 
-**PSA:** [D-14 — Interoperabiliteit](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) voor begrippen-first en één definitie per begrip, [D-08 — Pas toe of leg uit](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden) voor publicatie als Linked Data. De overige vier regels hieronder zijn eigen aanvullingen zonder PSA-pendant.
+Het begrippenkader als SKOS-thesaurus volgt zeven principes. Drie daarvan zijn een verbijzondering van een PSA-principe; de overige vier zijn eigen aanvullingen zonder PSA-pendant.
 
-Het begrippenkader als SKOS-thesaurus volgt specifieke principes:
+### S-04 — Begrippen-first
 
-- **S-04 Begrippen-first**, NORA-principe 3.1 stelt dat *"gemeenschappelijke begripsvorming het startpunt is"*: begrippen worden geexpliciteerd voordat informatiemodellen worden gemaakt
-- **S-05 Eén gezaghebbende definitie per begrip**, elk `skos:Concept` heeft precies een `skos:prefLabel` per taal en een `skos:definition`; meerdere namen zijn synoniemen (`skos:altLabel`)
-- **S-06 Hiërarchische coherentie**, `skos:broader`/`skos:narrower` relaties zijn transitief en mogen geen cycli bevatten
-- **S-07 Expliciete scopeNotes**, gebruik `skos:scopeNote` voor het afbakenen van het gebruik van een begrip in de specifieke GBO-context, naast een algemene definitie
-- **S-08 Scheiding begrip en waardelijst**, gebruik `skos:ConceptScheme` voor begrippenkaders en aparte schemes voor codelijsten/enumeraties; vermeng ze niet
-- **S-09 Koppeling aan bronwetgeving**, leg via `skos:exactMatch` of `dct:source` vast welke wet of regeling aan de grondslag ligt van een definitie
-- **S-10 Publiceer als Linked Data**, het begrippenkader is de-referenceable, conform NORA-principe 3.5: *"Metagegevens zijn beschikbaar als Linked Data"*
+**PSA:** [D-14 — Interoperabiliteit](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) — direct. Semantische afstemming begint bij gedeelde begripsvorming.
+
+NORA-principe 3.1 stelt dat *"gemeenschappelijke begripsvorming het startpunt is"*: begrippen worden geëxpliciteerd voordat informatiemodellen worden gemaakt.
+
+### S-05 — Eén gezaghebbende definitie per begrip
+
+**PSA:** [D-14 — Interoperabiliteit](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) — direct. Invulling van de eis van semantische eenduidigheid.
+
+Elk `skos:Concept` heeft precies één `skos:prefLabel` per taal en één `skos:definition`; meerdere namen zijn synoniemen (`skos:altLabel`).
+
+### S-06 — Hiërarchische coherentie
+
+**PSA:** geen. Eigen SKOS-regel; de PSA doet geen uitspraak over modelhygiëne.
+
+`skos:broader`- en `skos:narrower`-relaties zijn transitief en mogen geen cycli bevatten.
+
+### S-07 — Expliciete scopeNotes
+
+**PSA:** geen. Eigen SKOS-regel voor GBO-specifieke afbakening.
+
+Gebruik `skos:scopeNote` voor het afbakenen van het gebruik van een begrip in de specifieke GBO-context, naast een algemene definitie.
+
+### S-08 — Scheiding begrip en waardelijst
+
+**PSA:** geen. Eigen modelleerregel.
+
+Gebruik `skos:ConceptScheme` voor begrippenkaders en aparte schemes voor codelijsten en enumeraties; vermeng ze niet.
+
+### S-09 — Koppeling aan bronwetgeving
+
+**PSA:** geen. Eigen herkomsteis; volgt uit *Reusable*, niet uit een PSA-principe.
+
+Leg via `skos:exactMatch` of `dct:source` vast welke wet of regeling aan de grondslag ligt van een definitie.
+
+### S-10 — Publiceer als Linked Data
+
+**PSA:** [D-08 — Pas toe of leg uit](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden) — direct. SKOS en RDF staan op de pas-toe-of-leg-uit-lijst.
+
+Het begrippenkader is de-referenceable, conform NORA-principe 3.5: *"Metagegevens zijn beschikbaar als Linked Data"*.
 
 !!! info "Wat betekent dit voor GBO-Semantiek?"
     - Het informatiemodel verwijst naar het begrippenmodel
@@ -167,3 +179,27 @@ Verouderde klassen en properties worden gemarkeerd met `owl:deprecated` in plaat
     - De ontologie legt versie-informatie vast via `owl:versionInfo`, `dct:issued` en `dct:modified`
     - Verouderde elementen worden gemarkeerd met `owl:deprecated` en nooit verwijderd
     - Definities zijn in het Nederlands en gekoppeld aan het begrippenkader; conventies staan in [Naamgeving](../implementatie/naamgeving.md)
+
+## Herkomst: koppeling met de PSA
+
+De [GBO PSA](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/) stelt veertien ontwerpprincipes vast voor de architectuur als geheel. De semantiek-principes hieronder zijn daarvan de verbijzondering naar begrippenkader en informatiemodel; bij elk principe staat vermeld waar het vandaan komt.
+
+Een koppeling is **direct** wanneer het semantiek-principe hetzelfde stelt als het PSA-principe, toegepast op semantiek, en **naar analogie** wanneer de PSA het onderwerp niet als eigen principe benoemt en alleen de redenering wordt overgenomen. Een deel van de principes is een eigen aanvulling zonder PSA-herkomst; die staan er ook in, zodat de tabel alle semantiek-principes toont.
+
+| # | Semantiek-principe | PSA-herkomst | Koppeling |
+|---|---|---|---|
+| **S-01** | [Data bij de bron](#s-01-data-bij-de-bron) | [D-05](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-05-gegevens-bij-de-bron-geen-onnodige-kopieen) | Direct; hier ook toegepast op de semantiek zelf |
+| **S-02** | [FAIR als basisraamwerk](#s-02-fair-als-basisraamwerk) | [D-14](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming), [D-08](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden) | Direct; D-14 dekt *Interoperable* en *Reusable*, D-08 maakt *Accessible* concreet |
+| **S-03** | [Modulariteit: generiek vs. use-case-specifiek](#s-03-modulariteit-generiek-vs-use-case-specifiek) | [D-04](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp), [D-06](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-06-componentgebaseerd-werken-herbruikbare-bouwstenen) | Direct; separation of concerns op modelniveau in plaats van op componenten |
+| **S-04** | [Begrippen-first](#principes-voor-het-begrippenkader) | [D-14](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) | Direct; semantische afstemming begint bij gedeelde begripsvorming |
+| **S-05** | [Eén gezaghebbende definitie per begrip](#principes-voor-het-begrippenkader) | [D-14](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming) | Direct; invulling van de eis van semantische eenduidigheid |
+| **S-06** | [Hiërarchische coherentie](#principes-voor-het-begrippenkader) | Geen | Eigen SKOS-regel; de PSA doet geen uitspraak over modelhygiëne |
+| **S-07** | [Expliciete scopeNotes](#principes-voor-het-begrippenkader) | Geen | Eigen SKOS-regel voor GBO-specifieke afbakening |
+| **S-08** | [Scheiding begrip en waardelijst](#principes-voor-het-begrippenkader) | Geen | Eigen modelleerregel |
+| **S-09** | [Koppeling aan bronwetgeving](#principes-voor-het-begrippenkader) | Geen | Eigen herkomsteis; volgt uit *Reusable*, niet uit een PSA-principe |
+| **S-10** | [Publiceer als Linked Data](#principes-voor-het-begrippenkader) | [D-08](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden) | Direct; SKOS en RDF staan op de pas-toe-of-leg-uit-lijst |
+| **S-11** | [Minimale ontologische committering](#s-11-minimale-ontologische-committering) | [D-01](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-01-decentraal-wat-kan-centraal-wat-moet) | Naar analogie; subsidiariteit toegepast op modelinhoud |
+| **S-12** | [Hergebruik boven herontwikkeling](#s-12-hergebruik-boven-herontwikkeling) | [D-13](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-13-standaardiseer-waar-mogelijk-maak-uitzonderingen-expliciet-en-zorg-dat-deze-in-bestaande-gremia-landen) | Direct; vertaald naar MIM-conforme modellen en bestaande ontologieën |
+| **S-13** | [Versioning en evolutie](#s-13-versioning-en-evolutie) | [D-04](https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp) | Naar analogie; de PSA kent versiebeheer niet als eigen principe |
+
+Omgekeerd hebben zeven PSA-principes geen semantiek-pendant, omdat ze de architectuur en de uitvoering betreffen en niet de betekenis van gegevens: D-02 (ordening van het stelsel), D-03 (GDI-bouwstenen), D-07 (open source), D-09 (API-first) en D-10 tot en met D-12 (beveiliging, least privilege, aantoonbare veiligheid).

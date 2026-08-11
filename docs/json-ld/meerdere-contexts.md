@@ -11,7 +11,7 @@ Meerdere contexts worden samengevoegd in een array:
 ```json
 {
   "@context": [
-    "https://data.gbo.nl/context/kern.jsonld",
+    "https://lod.gbo-semantiek.nl/context/kern.jsonld",
     "https://bag.basisregistraties.overheid.nl/context.jsonld"
   ],
   "@type": "Persoon",
@@ -30,7 +30,7 @@ Een lokale context kan de GBO-context uitbreiden met domeinspecifieke termen:
 ```json
 {
   "@context": [
-    "https://data.gbo.nl/context/kern.jsonld",
+    "https://lod.gbo-semantiek.nl/context/kern.jsonld",
     {
       "bsn": {
         "@id": "gbo:burgerservicenummer",

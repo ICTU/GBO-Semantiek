@@ -29,19 +29,29 @@ schemabestand: ../informatiemodel/linkml/gbo.yaml
 
 # Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
 # lijst-query.
-ingangen:
-  - IngeschrevenPersoon
 lijstQueries: false
 
+# Benoemde queries: de BRI levert een verzamelinkomen, geen persoon.
+# De bsn is het argument, niet het antwoord.
+queries:
+  - naamQuery: verzamelinkomenOverJaar
+    levert: Verzamelinkomen
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+
 objecttypen:
-  - AuthentiekInkomen
+  - Verzamelinkomen
   - IngeschrevenPersoon
 
 # Whitelist: de BRI levert alleen deze gegevens. De navigatie van
-# persoon naar inkomen (heeftAuthentiekInkomen) materialiseert de
+# persoon naar inkomen (heeftVerzamelinkomen) materialiseert de
 # snoei-tool automatisch uit de inverse van gegrondvestOp.
 insluitingen:
-  - objecttype: AuthentiekInkomen
+  - objecttype: Verzamelinkomen
     attributen:
       - inkomenBedrag
       - belastingjaar
@@ -52,7 +62,7 @@ insluitingen:
 
 # Binnen de BRI is elke persoon een ingeschreven persoon (BSN-plicht):
 relatieAfhandeling:
-  - objecttype: AuthentiekInkomen
+  - objecttype: Verzamelinkomen
     relatie: gegrondvestOp
     afhandeling: vernauwen
     naar: IngeschrevenPersoon

@@ -33,13 +33,22 @@ classes:
     exact_mappings:
       - gbobegrip:Partij
     annotations:
-      mim:uniekeAanduiding: id
+      mim:uniekeAanduiding: bsn | rsin | kvkNummer (op de subtypen)
     comments:
       - >-
-        Conform de identifier-strategie in het hoofdmodel draagt Partij
-        de GBO-eigen UUID (id) als technische identifier waar
-        geen externe authentieke identifier bestaat of meerdere bronnen
-        samenkomen.
+        Partij draagt geen eigen identifier. Een partij is uitsluitend
+        aanwijsbaar met de authentieke sleutels van haar subtypen: bsn
+        (IngeschrevenPersoon), rsin en kvkNummer
+        (NietNatuurlijkPersoon). Besluit 2026-08-10; het eerdere
+        GBO-eigen UUID-attribuut (id) is verwijderd omdat het nergens
+        uit te vragen viel en als dood veld in de bronschema's van BRK,
+        BRV en WOZ terechtkwam.
+      - >-
+        Gevolg voor bron-profielen: een relatie naar Partij mag niet
+        tot een sleutel-referentie worden herleid. Wijst een relatie
+        naar Partij, dan hoort Partij met de relevante subtypen in het
+        profiel te staan, met een zoeksleutels-opgave op de ingang. De
+        snoei-tool bewaakt dat.
     attributes:
       ingeschrevenAls:
         range: MaatschappelijkeActiviteit
@@ -61,16 +70,6 @@ classes:
             NietNatuurlijkPersoon.voertMaatschappelijkeActiviteit (1:1).
             De inschrijvingseenheid is de MaatschappelijkeActiviteit in
             het deelmodel Bedrijven en instellingen.
-      id:
-        identifier: true
-        required: true
-        range: UUID
-        description: >-
-          GBO-eigen identifier voor een partij; gebruikt waar geen
-          externe authentieke identifier bestaat of meerdere bronnen
-          samenkomen.
-        annotations:
-          mim:authentiek: Basisgegeven
 
   Voorkomen:
     mixin: true

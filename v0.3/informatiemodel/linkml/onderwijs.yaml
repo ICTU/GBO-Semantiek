@@ -360,9 +360,9 @@ classes:
       instellingscodeRIO:
         unique_key_slots: [instellingscodeRIO]
         description: >-
-          MIM unieke aanduiding (uitgebreide vorm); id
-          (geërfd van Partij via NietNatuurlijkPersoon) blijft de
-          technische identifier.
+          MIM unieke aanduiding (uitgebreide vorm); daarnaast gelden
+          rsin en kvkNummer, geërfd van NietNatuurlijkPersoon. Partij
+          draagt sinds 2026-08-10 geen technische identifier meer.
       brincode:
         unique_key_slots: [brincode]
         description: >-

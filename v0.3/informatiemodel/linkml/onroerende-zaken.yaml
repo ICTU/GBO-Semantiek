@@ -670,12 +670,20 @@ classes:
         required: true
         description: Rechthebbende partij.
         annotations:
+          gbo:inverseNaam: heeftKadastraleTenaamstelling
+          gbo:inverseBeschrijving: >-
+            De kadastrale tenaamstellingen waarmee deze partij als
+            rechthebbende is geregistreerd.
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "* -> 1"
         comments:
           - Zie hoofdmodel (Partij-supertype).
+          - >-
+            De inverse maakt de BRK bevraagbaar vanaf een partij, dus
+            vanaf bsn, kvkNummer of rsin; zonder die navigatie is
+            eigendom alleen per onroerende zaak op te vragen.
       voorZakelijkRecht:
         range: ZakelijkRecht
         required: true

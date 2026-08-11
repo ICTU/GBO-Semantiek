@@ -132,10 +132,16 @@ De `.env` wordt geladen door Taskfile.yml en bevat onder andere:
 
 ### Vereiste tools
 
+De Python-afhankelijkheden staan in `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+Daarnaast zijn nodig, buiten pip om:
+
 - `go-task`
 - `rsync` (voor `task import:copy`)
-- `linkml` (incl. `gen-owl`, `gen-shacl`, `gen-yaml`, `linkml-validate`)
-- Python 3.9+ met `mkdocs-material` en `mike`
 - `jq`
 
 ---

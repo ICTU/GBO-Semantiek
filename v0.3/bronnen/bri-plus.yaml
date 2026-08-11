@@ -11,7 +11,7 @@
 # Materialiseren:
 #   python3 tools/genereer_bronschema.py v0.3/bronnen/bri-plus.yaml
 #
-# Naast het volledige authentieke gegeven (AuthentiekInkomen, inclusief
+# Naast het volledige authentieke gegeven (Verzamelinkomen, inclusief
 # vaststellingsdatum en vaststellingsbron) ontsluit dit profiel de
 # volledige inkomensketen (Inkomstenverhouding, Inkomstenopgave,
 # Inkomstenperiode, LoonBestanddeel, LoonAangifte) — ook al is bekend
@@ -35,12 +35,30 @@ schemabestand: ../informatiemodel/linkml/gbo.yaml
 # Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
 # lijst-query. Alle inkomensgegevens zijn navigeerbaar vanuit de
 # persoon via de gematerialiseerde inverse relaties.
-ingangen:
-  - IngeschrevenPersoon
 lijstQueries: false
 
+# Benoemde queries: de BRI-plus levert inkomensgegevens, geen persoon.
+# De loonketen hangt onder de inkomstenverhouding.
+queries:
+  - naamQuery: verzamelinkomenOverJaar
+    levert: Verzamelinkomen
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: inkomstenverhoudingOverJaar
+    levert: Inkomstenverhouding
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+
 objecttypen:
-  - AuthentiekInkomen
+  - Verzamelinkomen
   - Inkomstenverhouding
   - Inkomstenopgave
   - Inkomstenperiode
@@ -60,7 +78,7 @@ insluitingen:
 # Relaties naar de onderneming (werkgever, inhoudingsplichtige) blijven
 # default sleutel-referenties (MaatschappelijkeActiviteit.kvkNummer).
 relatieAfhandeling:
-  - objecttype: AuthentiekInkomen
+  - objecttype: Verzamelinkomen
     relatie: gegrondvestOp
     afhandeling: vernauwen
     naar: IngeschrevenPersoon

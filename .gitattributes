@@ -1,0 +1,23 @@
+* text eol=lf
+
+*.png binary
+*.pdf binary
+*.svg text
+*.drawio text
+
+# Gegenereerde RDF-artefacten uit gen-owl en gen-shacl.
+#
+# De serialisatie is niet deterministisch: twee runs op identieke invoer
+# leveren dezelfde tripels in een andere volgorde, wat neerkomt op enkele
+# duizenden regelverschillen zonder inhoudelijke wijziging. Het gevolg is
+# dat een diff op deze bestanden niets zegt en echte modelwijzigingen
+# erin verdwijnen.
+#
+# Ze worden daarom als niet-diffbaar gemarkeerd. Dat haalt de ruis weg,
+# maar maakt ze niet reviewbaar; zie het issue over deterministische
+# serialisatie. Gebruik voor een inhoudelijke vergelijking rdflib
+# (graph_diff of to_isomorphic), niet git.
+#
+# Het begrippenkader onder v*/begrippen/ valt hier bewust buiten: dat
+# bevat geen anonieme knopen en is wel regel-voor-regel stabiel.
+v*/ontologie/*.ttl -diff

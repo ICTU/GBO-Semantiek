@@ -84,6 +84,10 @@ def lcfirst(naam: str) -> str:
     return naam[0].lower() + naam[1:] if naam else naam
 
 
+def ucfirst(naam: str) -> str:
+    return naam[0].upper() + naam[1:] if naam else naam
+
+
 class SDLGenerator:
     def __init__(self, schema: dict):
         self.schema = schema
@@ -169,6 +173,95 @@ class SDLGenerator:
                     return slots[0], self.veldtype(induced[slots[0]],
                                                    kaal=True)
         return self.identifier_van(klasse)
+
+    @staticmethod
+    def annotatie(annotaties: dict, naam: str):
+        waarde = (annotaties or {}).get(naam)
+        if isinstance(waarde, dict):  # {tag, value}-vorm
+            waarde = waarde.get("value")
+        return waarde
+
+    def benoemde_queries(self) -> list[str]:
+        """Query-velden uit de querydeclaraties op de doel-objecttypen.
+
+        Een bron biedt niet alleen ingangen aan maar ook benoemde
+        vragen: de BRI levert een inkomen, geen persoon. Elke declaratie
+        (annotatie gbo:queries) levert precies een Query-veld op, met de
+        naam en de parameters zoals die in het bron-profiel staan. De
+        generator leidt alleen datatypes, het lijstresultaat en de
+        docstring af."""
+        regels: list[str] = []
+        for doel, definitie in self.classes.items():
+            rauw = self.annotatie((definitie or {}).get("annotations"),
+                                  "gbo:queries")
+            if not rauw:
+                continue
+            for declaratie in str(rauw).split("\n"):
+                velden = declaratie.split(";")
+                if len(velden) < 4:
+                    fout(f"onleesbare querydeclaratie op '{doel}'")
+                naam_query, selectie, toelichting, rauwe_pars = velden[:4]
+                argumenten, zinnen = [], []
+                for par in rauwe_pars.split("|"):
+                    onderdelen = (par.split("~") + [""] * 5)[:5]
+                    pnaam, ptype, meervoudig, optioneel, op = onderdelen
+                    basis = self.veldtype({"range": ptype}, kaal=True)
+                    typetekst = f"[{basis}!]" if meervoudig else basis
+                    if not optioneel:
+                        typetekst += "!"
+                    argumenten.append(
+                        f"{graphql_naam(pnaam)}: {typetekst}")
+                    if op:
+                        zinnen.append(f"Het argument {pnaam} selecteert "
+                                      f"op {op}.")
+                if selectie == "laatstBekend":
+                    zinnen.insert(0, "Levert uitsluitend de laatst "
+                                     "bekende situatie op het moment van "
+                                     "bevragen; de peildatum is "
+                                     "leveringsmetadata en staat in de "
+                                     "antwoord-envelop van de levering.")
+                elif selectie == "alles":
+                    zinnen.insert(0, "Levert de volledige historie, niet "
+                                     "alleen de laatst bekende situatie.")
+                if toelichting:
+                    zinnen.insert(0, toelichting)
+                regels.extend(docstring(
+                    " ".join([f"{doel}."] + zinnen), "  "))
+                regels.append(f"  {graphql_naam(naam_query)}"
+                              f"({', '.join(argumenten)}): "
+                              f"[{graphql_naam(doel)}!]")
+            self.query_ingangen.add(doel)
+        return regels
+
+    def zoeksleutels_van(self, klasse: str) -> list[tuple[str, str]]:
+        """Alternatieve natuurlijke sleutels van een ingang (annotatie
+        gbo:zoeksleutels op het objecttype).
+
+        Een abstracte ingang draagt de sleutels zelf niet: bsn zit op
+        IngeschrevenPersoon en rsin/kvkNummer op NietNatuurlijkPersoon.
+        Er wordt daarom gezocht op de klasse zelf plus alle klassen die
+        haar als voorouder hebben."""
+        ann = (self.classes.get(klasse) or {}).get("annotations") or {}
+        waarde = ann.get("gbo:zoeksleutels")
+        if isinstance(waarde, dict):  # {tag, value}-vorm
+            waarde = waarde.get("value")
+        if not waarde:
+            return []
+        kandidaten = [klasse] + [n for n in self.classes
+                                 if n != klasse
+                                 and klasse in self.voorouders(n)]
+        resultaat = []
+        for naam in [s.strip() for s in str(waarde).split(",") if s.strip()]:
+            for kandidaat in kandidaten:
+                attr = self.induced_attributen(kandidaat).get(naam)
+                if attr:
+                    resultaat.append(
+                        (naam, self.veldtype(attr, kaal=True)))
+                    break
+            else:
+                fout(f"zoeksleutel '{klasse}.{naam}' komt op geen enkel "
+                     f"objecttype in dit schema voor")
+        return resultaat
 
     # -- veldtypen -----------------------------------------------------------
 
@@ -279,19 +372,45 @@ class SDLGenerator:
         ingangen = [i.strip() for i in
                     (annotaties.get("gbo:ingangen") or "").split(",")
                     if i.strip()]
-        if not ingangen:
+        benoemd = self.benoemde_queries()
+        if not ingangen and not benoemd:
             melding("WAARSCHUWING",
-                    "geen gbo:ingangen-annotatie; Query-root blijft leeg")
+                    "geen ingangen en geen queries; Query-root blijft "
+                    "leeg")
             return []
         lijsten = str(annotaties.get("gbo:lijstQueries",
                                      True)).lower() \
             not in ("false", "nee", "uit")
         regels = ['"""Query-ingangen van dit bronprofiel."""',
-                  "type Query {"]
+                  "type Query {", *benoemd]
         for ingang in ingangen:
             if ingang not in self.classes:
                 fout(f"ingang '{ingang}' bestaat niet in het schema")
             veld = lcfirst(graphql_naam(ingang))
+            sleutels = self.zoeksleutels_van(ingang)
+            if sleutels:
+                # Meerdere natuurlijke sleutels: één Query-veld per
+                # sleutel, elk met precies één verplicht argument. Dat is
+                # eenduidiger dan één veld met evenzoveel optionele
+                # argumenten waarvan er precies één gevuld moet zijn: die
+                # regel is in de SDL niet uit te drukken en zou pas bij
+                # uitvoering afgedwongen worden. Nu noemt de operatie de
+                # gebruikte sleutel zelf, wat een policy-beslispunt
+                # rechtstreeks kan lezen.
+                for slotnaam, slottype in sleutels:
+                    arg = graphql_naam(slotnaam)
+                    regels.extend(docstring(
+                        f"Eén {ingang} op {slotnaam}.", "  "))
+                    regels.append(f"  {veld}Op{ucfirst(arg)}"
+                                  f"({arg}: {slottype}!): "
+                                  f"{graphql_naam(ingang)}")
+                self.query_ingangen.add(ingang)
+                if lijsten:
+                    regels.extend(docstring(
+                        f"Alle voorkomens van {ingang}.", "  "))
+                    regels.append(
+                        f"  {veld}Lijst: [{graphql_naam(ingang)}!]")
+                continue
             ident = self.zoeksleutel_van(ingang)
             if ident:
                 slotnaam, slottype = ident
@@ -371,9 +490,10 @@ class SDLGenerator:
             if onbereikbaar:
                 fout(f"objecttypen niet opvraagbaar vanuit de "
                      f"Query-root: {', '.join(onbereikbaar)}; voeg een "
-                     f"ingang toe of maak ze bereikbaar via navigatie "
-                     f"(bijvoorbeeld een gbo:inverseNaam-annotatie op "
-                     f"de relatie in het informatiemodel)")
+                     f"ingang of een query toe, of maak ze bereikbaar "
+                     f"via navigatie (bijvoorbeeld een "
+                     f"gbo:inverseNaam-annotatie op de relatie in het "
+                     f"informatiemodel)")
         # Scalars pas nu: self.gebruikte_scalars is gevuld. GraphQL-scalars
         # zijn opaak; de formaatrestricties uit het LinkML-datatype
         # (pattern, minimum, maximum) projecteren we als @restrictie-directive

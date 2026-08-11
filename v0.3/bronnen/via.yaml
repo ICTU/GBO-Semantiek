@@ -43,9 +43,19 @@ schemabestand: ../informatiemodel/linkml/gbo.yaml
 # Query-ingang: alleen IngeschrevenPersoon, alleen op bsn; geen
 # lijst-query. Alle fiscale gegevens zijn navigeerbaar vanuit de
 # persoon via de gematerialiseerde inverse relaties.
-ingangen:
-  - IngeschrevenPersoon
 lijstQueries: false
+
+# Benoemde queries: de VIA levert de voor te vullen fiscale gegevens,
+# geen persoon. Uitsluitend over voorgaande, afgesloten belastingjaren.
+queries:
+  - naamQuery: belastingjaarAangifteOverJaar
+    levert: BelastingjaarAangifte
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
 
 objecttypen:
   - IngeschrevenPersoon

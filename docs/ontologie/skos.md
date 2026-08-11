@@ -34,7 +34,7 @@ Enumeraties en waardelijsten uit het informatiemodel worden gepubliceerd als SKO
 ```json
 {
   "gbo:status": {
-    "@id": "https://data.gbo.nl/begrippen/zaakstatus/afgerond"
+    "@id": "https://begrippen.gbo-semantiek.nl/id/begrip/zaakstatus/afgerond"
   }
 }
 ```

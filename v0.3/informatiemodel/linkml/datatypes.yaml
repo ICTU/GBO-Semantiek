@@ -149,11 +149,17 @@ types:
       - https://docs.geostandaarden.nl/nen3610/
     comments:
       - >-
-        Gebruikt voor BRK-objecten; garandeert uniciteit over registers
-        heen. BAG-objecten dragen het specifiekere BAGID.
+        Het algemene stelsel-identificatietype; garandeert uniciteit
+        over registers heen. Gebruikt voor BRK-objecten
+        (KadastraleOnroerendeZaak, ZakelijkRecht,
+        PubliekrechtelijkeBeperking), waar de waarde de vorm
+        NL.IMKAD.<objecttype>.<lokaalID> heeft.
+      - >-
+        BAGID is hiervan de register-specifieke specialisatie
+        (typeof: NEN3610ID); zie daar.
 
   BAGID:
-    typeof: string
+    typeof: NEN3610ID
     description: >-
       BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit
       gemeentecode (4), objecttypecode (2) en objectvolgnummer (10).
@@ -164,6 +170,13 @@ types:
       - https://www.kadaster.nl/-/bag-objecten
     annotations:
       mim:herkomst: BAG
+    comments:
+      - >-
+        Specialisatie van NEN3610ID: een BAG-identificatie is een
+        stelsel-objectidentificatie, met de BAG als namespace. Het
+        patroon legt de lokaalID-vorm vast zoals de BAG die in
+        berichten en API's uitgeeft, dus zonder het
+        NL.IMBAG.<objecttype>-voorvoegsel.
 
   BSN:
     typeof: Tekst

@@ -8,17 +8,17 @@ De JSON-LD `@context` koppelt JSON-sleutels aan termen in de gepubliceerde ontol
 
 De GBO `@context` volgt het OSLO-patroon van context-bestanden per informatiemodel:
 
-- **Kern-context:** `https://data.gbo.nl/context/kern.jsonld` — de basismapping voor het generieke informatiemodel
-- **Use-case-context:** `https://data.gbo.nl/context/{usecase}.jsonld` — aanvullende mappings per applicatieprofiel
+- **Kern-context:** `https://lod.gbo-semantiek.nl/context/kern.jsonld` — de basismapping voor het generieke informatiemodel
+- **Use-case-context:** `https://lod.gbo-semantiek.nl/context/{usecase}.jsonld` — aanvullende mappings per applicatieprofiel
 
 De kern-context bevat:
 
 ```json
 {
   "@context": {
-    "@vocab": "https://data.gbo.nl/ontologie/",
-    "gbo": "https://data.gbo.nl/ontologie/",
-    "gbobegrip": "https://data.gbo.nl/begrippen/",
+    "@vocab": "https://lod.gbo-semantiek.nl/",
+    "gbo": "https://lod.gbo-semantiek.nl/",
+    "gbobegrip": "https://begrippen.gbo-semantiek.nl/id/begrip/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   }
@@ -32,13 +32,13 @@ Een API-response die GBO-gegevens als JSON-LD publiceert:
 ```json
 {
   "@context": [
-    "https://data.gbo.nl/context/kern.jsonld",
-    "https://data.gbo.nl/context/zaakgericht-werken.jsonld"
+    "https://lod.gbo-semantiek.nl/context/kern.jsonld",
+    "https://lod.gbo-semantiek.nl/context/zaakgericht-werken.jsonld"
   ],
   "@type": "gbo:Zaak",
   "@id": "https://bronhouder.nl/zaken/12345",
   "gbo:status": {
-    "@id": "https://data.gbo.nl/begrippen/zaakstatus/afgerond"
+    "@id": "https://begrippen.gbo-semantiek.nl/id/begrip/zaakstatus/afgerond"
   },
   "gbo:datumIngang": "2024-01-15"
 }
@@ -55,5 +55,5 @@ Hierbij:
 
 De `@context`-bestanden worden gepubliceerd op:
 
-- **URL:** `https://data.gbo.nl/context/`
+- **URL:** `https://lod.gbo-semantiek.nl/context/`
 - **Repository:** `v{versie}/ontologie/context/`

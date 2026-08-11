@@ -35,6 +35,9 @@ prefixes:
   gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
   mim: https://lod.gbo-semantiek.nl/def/mim#
   skos: http://www.w3.org/2004/02/skos/core#
+  # Nodig om de datatype-URI's (xsd:string, xsd:date, ...) uit te klappen;
+  # zonder deze prefix schrijft gen-shacl ze weg als letterlijke <xsd:string>.
+  xsd: http://www.w3.org/2001/XMLSchema#
   gbovz: https://lod.gbo-semantiek.nl/voorzieningen/
 default_prefix: gbovz
 default_range: string

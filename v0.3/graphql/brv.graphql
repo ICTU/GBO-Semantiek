@@ -16,16 +16,18 @@ directive @restrictie(
   maximum: Int
 ) on SCALAR
 
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
 """Europese voertuigcategorie (M, N, O, L, T, ...) conform het EU-kader voor voertuiggoedkeuring; gebruikt voor Voertuig.europeseVoertuigcategorie."""
 scalar CodelijstEUVoertuigcategorie
 """Voertuigmerk uit de door de RDW beheerde open merkenlijst; gebruikt voor Voertuig.merk."""
 scalar CodelijstRDWMerk
 """Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
 scalar Datum
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
 """Nederlands voertuigkenteken: zes posities (hoofdletters en cijfers) volgens het RDW-sidecodestelsel, optioneel met streepjes ter leesbaarheid (bijv. XX-99-99)."""
 scalar Kenteken @restrictie(patroon: "^[A-Z0-9-]{6,8}$")
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 """Een door de RDW in de Basisregistratie Voertuigen geregistreerd vervoermiddel dat met een uniek kenteken aan het verkeer kan deelnemen, met de bij dat kenteken horende technische en administratieve kerngegevens."""
 type Voertuig {
@@ -73,8 +75,6 @@ type Kentekentenaamstelling {
   datumTenaamstelling: Datum!
   """Datum waarop de tenaamstelling is geëindigd."""
   datumEinde: Datum
-  """De partij die als eigenaar en/of houder is geregistreerd. (Sleutel-referentie naar Partij.)"""
-  tenaamgesteldeOp: UUID!
   """Voertuig waarvoor de tenaamstelling geldt."""
   voorVoertuig: Voertuig!
 }
@@ -151,6 +151,12 @@ enum Tenaamstellingsrol {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
+  """Kentekentenaamstelling."""
+  kentekentenaamstellingOpBsn(bsn: BSN!): [Kentekentenaamstelling!]
+  """Kentekentenaamstelling."""
+  kentekentenaamstellingOpRsin(rsin: String!): [Kentekentenaamstelling!]
+  """Kentekentenaamstelling."""
+  kentekentenaamstellingOpKvkNummer(kvkNummer: KVKnummer!): [Kentekentenaamstelling!]
   """Eén Voertuig op kenteken."""
   voertuig(kenteken: Kenteken!): Voertuig
 }

@@ -23,10 +23,20 @@ Regels:
   uitgesloten (LinkML-beperking).
 - Insluitingen (whitelist) werken op eigen én geërfde attributen; de
   overerving wordt daarbij uitgevlakt (is_a/mixins vervallen en
-  supertypen worden niet automatisch meegenomen).
+  supertypen worden niet automatisch meegenomen). Met het veld
+  behoudSupertype blijft één voorouder wél als is_a staan, zodat het
+  objecttype in de SDL de bijbehorende interface implementeert; die
+  voorouder moet zelf in objecttypen staan.
 - Relaties met de annotatie gbo:inverseNaam krijgen op het doelobject
   een gematerialiseerde inverse (multivalued), zodat de SDL-navigatie
   ook van doel naar bron kan lopen.
+- Het profielveld zoeksleutels benoemt per ingang de natuurlijke
+  sleutels waarop die ingang bevraagbaar is; ze belanden als annotatie
+  gbo:zoeksleutels op het objecttype, waar de GraphQL-generator per
+  sleutel een eigen Query-veld van maakt (partijOpBsn,
+  partijOpKvkNummer, partijOpRsin). Partij is uitsluitend zo
+  bevraagbaar en mag nooit als sleutel-referentie op een technische id
+  terugvallen.
 
 Gebruik:
     python3 tools/genereer_bronschema.py v0.2/bronnen/brp.yaml \
@@ -46,6 +56,14 @@ AFHANDELING_SLEUTEL = "sleutel"
 AFHANDELING_WEGLATEN = "weglaten"
 AFHANDELING_VERNAUWEN = "vernauwen"
 DATATYPE_STEREOTYPE = "DataType"
+
+# Objecttypen die nooit tot een sleutel-referentie mogen worden
+# herleid. Partij draagt sinds 2026-08-10 geen technische id meer: een
+# partij is uitsluitend bevraagbaar op bsn, kvkNummer of rsin. Wijst een
+# relatie naar Partij, dan hoort Partij zelf in het profiel te staan.
+NOOIT_SLEUTELREFERENTIE = {"Partij"}
+
+BEREIKEN = ("laatstBekend", "overJaar", "alles")
 
 
 def melding(soort: str, tekst: str) -> None:
@@ -177,11 +195,52 @@ class Modelindex:
         return resultaat
 
 
+def natuurlijke_sleutels(klasse: str,
+                         index: Modelindex) -> list[tuple[str, str]]:
+    """Alle natuurlijke sleutels van een klasse, als (naam, range).
+
+    Een eigen identifier eerst, daarna elke enkelvoudige unique_key
+    (eigen of geerfd) in declaratievolgorde. NietNatuurlijkPersoon
+    levert zo rsin en kvkNummer, IngeschrevenPersoon alleen bsn."""
+    resultaat: list[tuple[str, str]] = []
+    for naam, attr in index.eigen_attributen(klasse).items():
+        if (attr or {}).get("identifier"):
+            resultaat.append((naam, (attr or {}).get("range", "string")))
+    induced = index.induced_attributen(klasse)
+    for kandidaat in [klasse] + index.voorouders(klasse):
+        for uk in ((index.classes.get(kandidaat) or {})
+                   .get("unique_keys") or {}).values():
+            slots = uk.get("unique_key_slots") or []
+            if len(slots) == 1 and slots[0] in induced:
+                paar = (slots[0],
+                        (induced[slots[0]] or {}).get("range", "string"))
+                if paar not in resultaat:
+                    resultaat.append(paar)
+    return resultaat
+
+
+def dragers_van_slot(klasse: str, slot: str, profiel: dict,
+                     index: Modelindex) -> list[str]:
+    """Objecttypen in dit profiel die het genoemde slot dragen.
+
+    Een abstracte ingang als Partij draagt de natuurlijke sleutels niet
+    zelf; bsn zit op IngeschrevenPersoon en rsin/kvkNummer op
+    NietNatuurlijkPersoon. Gezocht wordt daarom op de klasse zelf plus
+    haar afstammelingen, voor zover die in het profiel staan."""
+    kandidaten = [klasse] + [k for k in index.afstammelingen(klasse)
+                             if k in profiel["objecttypen"]]
+    return [k for k in kandidaten
+            if slot in index.induced_attributen(k)]
+
+
 def valideer_profiel(profiel: dict, index: Modelindex) -> None:
-    for veld in ("bron", "titel", "schemabestand", "ingangen",
-                 "objecttypen"):
+    for veld in ("bron", "titel", "schemabestand", "objecttypen"):
         if not profiel.get(veld):
             fout(f"verplicht profielveld '{veld}' ontbreekt of is leeg")
+    if not profiel.get("ingangen") and not profiel.get("queries"):
+        fout("profiel heeft geen ingangen en geen queries; minstens "
+             "een van beide is verplicht")
+    profiel.setdefault("ingangen", [])
 
     onbekend = [c for c in profiel["objecttypen"]
                 if c not in index.classes]
@@ -228,6 +287,72 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
             if attr not in induced:
                 fout(f"insluiting '{klasse}.{attr}': attribuut bestaat "
                      f"niet (eigen noch geërfd)")
+        behoud = insluiting.get("behoudSupertype")
+        if behoud:
+            if behoud not in index.voorouders(klasse):
+                fout(f"insluiting '{klasse}': behoudSupertype "
+                     f"'{behoud}' is geen voorouder van dit objecttype")
+            if behoud not in profiel["objecttypen"]:
+                fout(f"insluiting '{klasse}': behoudSupertype "
+                     f"'{behoud}' staat niet in objecttypen; een "
+                     f"behouden supertype moet zelf geleverd worden")
+
+    namen = set()
+    for q in profiel.get("queries") or []:
+        naam_query = q.get("naamQuery")
+        doel = q.get("levert")
+        subjecten = q.get("vanaf") or []
+        if isinstance(subjecten, str):
+            subjecten = [subjecten]
+        if not naam_query:
+            fout("query zonder 'naamQuery'; de veldnaam is verplicht")
+        if naam_query in namen:
+            fout(f"query '{naam_query}' is dubbel gedeclareerd")
+        namen.add(naam_query)
+        if doel not in profiel["objecttypen"]:
+            fout(f"query '{naam_query}': levert '{doel}' dat niet in "
+                 f"objecttypen staat")
+        if not subjecten:
+            fout(f"query '{naam_query}': 'vanaf' ontbreekt")
+        for subject in subjecten:
+            if subject not in index.classes:
+                fout(f"query '{naam_query}': subject '{subject}' bestaat "
+                     f"niet in het informatiemodel")
+        if q.get("selectie") not in (None, "laatstBekend", "alles"):
+            fout(f"query '{naam_query}': onbekende selectie "
+                 f"'{q['selectie']}'; kies uit laatstBekend, alles")
+        doel_attrs = index.induced_attributen(doel)
+        sleutels = {n for s in subjecten
+                    for n, _ in natuurlijke_sleutels(s, index)}
+        parameters = q.get("parameters") or []
+        if not parameters:
+            fout(f"query '{naam_query}': 'parameters' ontbreekt")
+        for par in parameters:
+            par = {"naam": par} if isinstance(par, str) else par
+            pnaam = par.get("naam")
+            if not pnaam:
+                fout(f"query '{naam_query}': parameter zonder naam")
+            op = par.get("op")
+            if op and op not in doel_attrs:
+                fout(f"query '{naam_query}', parameter '{pnaam}': op "
+                     f"'{op}' is geen attribuut van {doel}")
+            if not par.get("type") and pnaam not in sleutels \
+                    and pnaam not in doel_attrs and not op:
+                fout(f"query '{naam_query}', parameter '{pnaam}': type "
+                     f"niet af te leiden; geef 'type' op, of gebruik een "
+                     f"sleutel van het subject, een attribuut van "
+                     f"{doel}, of 'op'")
+
+    for sleutelregel in profiel.get("zoeksleutels") or []:
+        klasse = sleutelregel.get("objecttype")
+        if klasse not in profiel["ingangen"]:
+            fout(f"zoeksleutels verwijst naar objecttype '{klasse}' dat "
+                 f"geen ingang is")
+        for slot in sleutelregel.get("sleutels") or []:
+            if not dragers_van_slot(klasse, slot, profiel, index):
+                fout(f"zoeksleutel '{klasse}.{slot}': geen objecttype in "
+                     f"dit profiel draagt dit attribuut — noch "
+                     f"'{klasse}' zelf, noch een van zijn subtypen")
 
     for regel in profiel.get("relatieAfhandeling") or []:
         klasse = regel.get("objecttype")
@@ -293,6 +418,9 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
                    for r in profiel.get("relatieAfhandeling") or []}
     insluitingen = {i["objecttype"]: set(i.get("attributen") or [])
                     for i in profiel.get("insluitingen") or []}
+    behoud_supertype = {i["objecttype"]: i["behoudSupertype"]
+                        for i in profiel.get("insluitingen") or []
+                        if i.get("behoudSupertype")}
 
     resultaat: dict[str, dict] = {}
     wachtrij = list(selectie)
@@ -307,6 +435,17 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
             attributen = copy.deepcopy(index.induced_attributen(klasse))
             definitie.pop("is_a", None)
             definitie.pop("mixins", None)
+            behoud = behoud_supertype.get(klasse)
+            if behoud:
+                # Eén voorouder blijft staan, zodat het objecttype in de
+                # SDL de bijbehorende interface implementeert. De
+                # attributen van die voorouder komen via overerving en
+                # hoeven hier niet gematerialiseerd te worden.
+                definitie["is_a"] = behoud
+                for naam in index.induced_attributen(behoud):
+                    attributen.pop(naam, None)
+                melding("INFO", f"insluiting op '{klasse}': supertype "
+                                f"'{behoud}' behouden (is_a)")
         else:
             attributen = definitie.get("attributes") or {}
         nieuwe_attributen = {}
@@ -344,6 +483,12 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
                                     f"-> {doel}")
                     continue
                 else:
+                    if doel in NOOIT_SLEUTELREFERENTIE:
+                        fout(f"{klasse}.{naam}: '{doel}' mag geen "
+                             f"sleutel-referentie worden. Een partij is "
+                             f"uitsluitend bevraagbaar op bsn, kvkNummer "
+                             f"of rsin; neem '{doel}' met haar subtypen "
+                             f"op in objecttypen, of laat de relatie weg")
                     ident = index.sleutel_slot(doel)
                     if ident is None:
                         melding("INFO",
@@ -421,6 +566,63 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
             melding("INFO", f"inverse gematerialiseerd: "
                             f"{doel}.{inverse} <- {klasse}.{naam}")
 
+    # Querydeclaraties als annotatie op het doel-objecttype; de
+    # GraphQL-generator maakt er per declaratie een Query-veld van.
+    # Codering: declaraties gescheiden door een newline, velden binnen
+    # een declaratie door ";", parameters door "|" en parametervelden
+    # door "~".
+    per_doel: dict[str, list[str]] = {}
+    for q in profiel.get("queries") or []:
+        doel = q["levert"]
+        if doel not in resultaat:
+            continue
+        subjecten = q["vanaf"]
+        if isinstance(subjecten, str):
+            subjecten = [subjecten]
+        sleutels: dict[str, str] = {}
+        for subject in subjecten:
+            for n, r in natuurlijke_sleutels(subject, index):
+                sleutels.setdefault(n, r)
+        doel_attrs = index.induced_attributen(doel)
+        stukken = []
+        for par in q.get("parameters") or []:
+            par = {"naam": par} if isinstance(par, str) else par
+            pnaam = par["naam"]
+            ptype = par.get("type") or sleutels.get(pnaam)
+            if not ptype and pnaam in doel_attrs:
+                ptype = (doel_attrs[pnaam] or {}).get("range", "string")
+            if not ptype and par.get("op"):
+                ptype = (doel_attrs[par["op"]] or {}).get("range",
+                                                          "string")
+            stukken.append("~".join([
+                pnaam, ptype or "string",
+                "meervoudig" if par.get("meervoudig") else "",
+                "" if par.get("verplicht", True) else "optioneel",
+                par.get("op") or "",
+            ]))
+        per_doel.setdefault(doel, []).append(";".join([
+            q["naamQuery"], q.get("selectie") or "",
+            q.get("toelichting") or "", "|".join(stukken)]))
+        melding("INFO", f"query '{q['naamQuery']}' levert {doel} "
+                        f"({len(stukken)} parameter(s))")
+    for doel, declaraties in per_doel.items():
+        resultaat[doel].setdefault("annotations", {})
+        resultaat[doel]["annotations"]["gbo:queries"] = \
+            "\n".join(declaraties)
+
+    # Zoeksleutels als annotatie op het objecttype; de GraphQL-generator
+    # maakt er alternatieve query-argumenten van.
+    for sleutelregel in profiel.get("zoeksleutels") or []:
+        klasse = sleutelregel["objecttype"]
+        if klasse not in resultaat:
+            continue
+        sleutels = sleutelregel.get("sleutels") or []
+        resultaat[klasse].setdefault("annotations", {})
+        resultaat[klasse]["annotations"]["gbo:zoeksleutels"] = \
+            ", ".join(sleutels)
+        melding("INFO", f"zoeksleutels op '{klasse}': "
+                        f"{', '.join(sleutels)}")
+
     # Abstracte klassen zonder concreet subtype in het profiel.
     for klasse in resultaat:
         if index.classes[klasse].get("abstract"):
@@ -429,9 +631,9 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
                         and not index.classes[s].get("abstract")]
             if not concreet and klasse in profiel["objecttypen"]:
                 melding("INFO",
-                        f"abstract objecttype '{klasse}' is ingang zonder "
-                        f"concreet subtype in dit profiel "
-                        f"(interface-query)")
+                        f"abstract objecttype '{klasse}' heeft geen "
+                        f"concreet subtype in dit profiel; wordt een "
+                        f"gewoon type in de SDL")
     return resultaat
 
 
@@ -455,6 +657,18 @@ def verzamel_enums_en_types(klassen: dict[str, dict],
                 enums[doel] = copy.deepcopy(index.enums[doel])
             elif doel in index.types:
                 voeg_type_toe(doel)
+        # Sleuteltypen van benoemde queries: die komen als argument in de
+        # SDL terecht zonder dat een attribuut in dit profiel ze gebruikt
+        # (de BRV accepteert een bsn maar levert geen persoon).
+        rauw = (definitie.get("annotations") or {}).get("gbo:queries")
+        for declaratie in str(rauw or "").split("\n"):
+            velden = declaratie.split(";")
+            if len(velden) < 4:
+                continue
+            for par in velden[3].split("|"):
+                onderdelen = par.split("~")
+                if len(onderdelen) > 1 and onderdelen[1] in index.types:
+                    voeg_type_toe(onderdelen[1])
     return enums, typen
 
 

@@ -51,7 +51,7 @@ classes:
         grondslag: Burgerlijk Wetboek art. 1:1 BW (algemene grondslag
         voor het rechtssubject mens).
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: id (geërfd van Partij)
+      mim:uniekeAanduiding: bsn (op IngeschrevenPersoon)
       mim:populatie: >-
         Alle natuurlijke personen die voor een overheidsorganisatie
         relevant zijn: ingeschrevenen in BRP-GBA en BRP-RNI, en
@@ -264,8 +264,9 @@ classes:
       bsn:
         unique_key_slots: [bsn]
         description: >-
-          MIM unieke aanduiding; id (geërfd van Partij)
-          blijft de technische identifier.
+          MIM unieke aanduiding. Partij draagt sinds 2026-08-10 geen
+          technische identifier meer; bsn is de enige sleutel van een
+          ingeschreven persoon.
     attributes:
       bsn:
         range: BSN

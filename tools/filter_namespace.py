@@ -20,7 +20,7 @@ from __future__ import annotations
 import argparse
 
 import yaml
-from rdflib import Graph, URIRef
+from rdflib import BNode, Graph, URIRef
 
 
 def gedeclareerd(schema_pad) -> tuple[set[str], set[str]]:
@@ -71,16 +71,33 @@ def main() -> int:
     for prefix, uri in bron.namespaces():
         doel.bind(prefix, uri)
 
-    behouden = 0
     for triple in bron:
         if hoort_erbij(triple[0], args.namespace, namen, klassen):
             doel.add(triple)
-            behouden += 1
+
+    # Blank-node-sluiting. De inhoud van een klasse-axioma zit in anonieme
+    # knopen: owl:Restriction bij de ontologie, sh:property bij de shapes,
+    # plus de RDF-lijsten van owl:unionOf en sh:ignoredProperties. Die hebben
+    # een BNode als subject en vallen dus buiten de namespace-toets. Zonder
+    # deze stap blijven alleen de verwijzingen over en verdwijnen de
+    # constraints, wat een leeg ogend maar formeel geldig artefact oplevert.
+    grens = {o for _, _, o in doel if isinstance(o, BNode)}
+    gezien: set[BNode] = set()
+    while grens:
+        knoop = grens.pop()
+        if knoop in gezien:
+            continue
+        gezien.add(knoop)
+        for predicaat, obj in bron.predicate_objects(knoop):
+            doel.add((knoop, predicaat, obj))
+            if isinstance(obj, BNode):
+                grens.add(obj)
 
     doel.serialize(destination=args.output, format="turtle")
-    print(f"Tripels behouden: {behouden} van {len(bron)}")
+    print(f"Tripels behouden: {len(doel)} van {len(bron)} "
+          f"(waarvan {len(gezien)} anonieme knopen meegenomen)")
     print(f"Elementen in schema: {len(namen)} ({len(klassen)} klassen)")
-    return 0 if behouden else 1
+    return 0 if len(doel) else 1
 
 
 if __name__ == "__main__":

@@ -36,8 +36,6 @@ scalar Identificatie
 scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
 """Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
 scalar NEN3610ID
-"""Universally Unique Identifier conform RFC 4122 (128 bits, hexadecimaal genoteerd). Interne GBO-identifier voor objecten zonder externe authentieke identifier."""
-scalar UUID @restrictie(patroon: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 """Een door of namens een belastingplichtige aan de Belastingdienst ingediende opgave waarmee de grondslag voor een specifieke belastingsoort en periode wordt vastgesteld."""
 interface BelastingAangifte {
@@ -133,8 +131,6 @@ interface Toeslag implements InkomensOndersteuning {
 interface Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
 }
 
 """Een door of namens de overheid aan een natuurlijk persoon verstrekte financiele bijdrage met als doel inkomensondersteuning, in de vorm van een inkomensafhankelijke regeling of een sociale-zekerheidsuitkering."""
@@ -153,8 +149,6 @@ interface InkomensOndersteuning {
 type IngeschrevenPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -651,8 +645,6 @@ type Renseignering {
 type NatuurlijkPersoon implements Partij {
   """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
   ingeschrevenAls: [KVKnummer!]
-  """GBO-eigen identifier voor een partij; gebruikt waar geen externe authentieke identifier bestaat of meerdere bronnen samenkomen."""
-  id: UUID!
   """De officiële familienaam van de persoon."""
   geslachtsnaam: String!
   """Alle officiële voornamen van de persoon."""
@@ -815,6 +807,18 @@ enum Geslacht {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén IngeschrevenPersoon op bsn."""
-  ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
+  """BelastingjaarAangifte. Het argument jaar selecteert op belastingjaar."""
+  belastingjaarAangifteOverJaar(bsn: BSN!, jaar: [Int!]!): [BelastingjaarAangifte!]
+  """VermogensBestanddeel. Het argument jaar selecteert op belastingjaar."""
+  vermogensBestanddeelOverJaar(bsn: BSN!, jaar: [Int!]!): [VermogensBestanddeel!]
+  """Aftrekpost. Het argument jaar selecteert op belastingjaar."""
+  aftrekpostOverJaar(bsn: BSN!, jaar: [Int!]!): [Aftrekpost!]
+  """EigenWoning."""
+  eigenWoningOverJaar(bsn: BSN!, jaar: [Int!]!): [EigenWoning!]
+  """FiscalePartner. Het argument jaar selecteert op belastingjaar."""
+  fiscalePartnerOverJaar(bsn: BSN!, jaar: [Int!]!): [FiscalePartner!]
+  """Toeslag."""
+  toeslagOverJaar(bsn: BSN!, jaar: [Int!]!): [Toeslag!]
+  """Renseignering. Het argument jaar selecteert op renseigneringsjaar."""
+  renseigneringOverJaar(bsn: BSN!, jaar: [Int!]!): [Renseignering!]
 }

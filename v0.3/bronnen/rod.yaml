@@ -22,11 +22,44 @@ schemabestand: ../informatiemodel/linkml/gbo.yaml
 
 # Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
 ingangen:
-  - IngeschrevenPersoon
   - OnderwijsInstelling
 lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: de ROD levert onderwijsgegevens, geen persoon.
+# Alleen 'alles': bij een diplomaregister is het complete beeld het antwoord.
+queries:
+  - naamQuery: opleidingDeelname
+    levert: OpleidingDeelname
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+    selectie: alles
+  - naamQuery: opleidingResultaat
+    levert: OpleidingResultaat
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+    selectie: alles
+  - naamQuery: verzuimMelding
+    levert: VerzuimMelding
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+    selectie: alles
+  - naamQuery: studieFinanciering
+    levert: StudieFinanciering
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+    selectie: alles
+  - naamQuery: studieLening
+    levert: StudieLening
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+    selectie: alles
+
 objecttypen:
   - IngeschrevenPersoon
   - OnderwijsInstelling

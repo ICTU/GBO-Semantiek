@@ -374,12 +374,20 @@ classes:
         required: true
         description: De partij die als eigenaar en/of houder is geregistreerd.
         annotations:
+          gbo:inverseNaam: heeftKentekentenaamstelling
+          gbo:inverseBeschrijving: >-
+            De kentekentenaamstellingen waarmee deze partij als
+            eigenaar of houder is geregistreerd.
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "* -> 1"
         comments:
           - Zie hoofdmodel (Partij-supertype).
+          - >-
+            De inverse maakt de BRV bevraagbaar vanaf een partij, dus
+            vanaf bsn, kvkNummer of rsin; zonder die navigatie is
+            kentekenhouderschap alleen per kenteken op te vragen.
       voorVoertuig:
         range: Voertuig
         required: true

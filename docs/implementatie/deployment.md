@@ -6,11 +6,11 @@ Naar het voorbeeld van TOOI publiceert GBO elk artefact als apart document met e
 
 | Artefact | Formaat | URI-patroon |
 |----------|---------|-------------|
-| Begrippenkader | SKOS (Turtle) | `https://data.gbo.nl/begrippen/` |
+| Begrippenkader | SKOS (Turtle) | `https://begrippen.gbo-semantiek.nl/id/begrip/` |
 | Informatiemodel | MIM/UML (QEA) | Repository: `v{versie}/informatiemodel/` |
-| Ontologie | OWL (Turtle) | `https://data.gbo.nl/ontologie/` |
-| JSON-LD context | JSON-LD | `https://data.gbo.nl/context/{usecase}.jsonld` |
-| Waardelijsten | SKOS (Turtle) | `https://data.gbo.nl/begrippen/{waardelijst}/` |
+| Ontologie | OWL (Turtle) | `https://lod.gbo-semantiek.nl/` |
+| JSON-LD context | JSON-LD | `https://lod.gbo-semantiek.nl/context/{usecase}.jsonld` |
+| Waardelijsten | SKOS (Turtle) | `https://begrippen.gbo-semantiek.nl/id/begrip/{waardelijst}/` |
 
 ## Automatisch genereren
 

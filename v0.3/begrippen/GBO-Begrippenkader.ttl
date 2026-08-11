@@ -105,16 +105,6 @@ gbobegrip:Attestatiesoort a skos:Concept ;
     skos:prefLabel "Attestatiesoort"@nl ;
     adms:status "proposed" .
 
-gbobegrip:AuthentiekInkomen a skos:Concept ;
-    dcterms:source <https://wetten.overheid.nl/BWBR0028058>,
-        "Wet basisregistratie inkomen art. 1 jo. art. 4" ;
-    skos:altLabel "Authentiek inkomen gegeven"@nl,
-        "Verzamelinkomen (in BRI-context)"@nl ;
-    skos:definition "Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen."@nl ;
-    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
-    skos:prefLabel "Authentiek inkomen"@nl ;
-    adms:status "proposed" .
-
 gbobegrip:BankSpaartegoed a skos:Concept ;
     dcterms:source "Wet IB 2001 art. 5.3 jo. SBR-NT NT20" ;
     skos:definition "Een bank- of spaartegoed dat een natuurlijk persoon op de peildatum 1 januari aanhoudt bij een Nederlandse of buitenlandse financiele instelling en dat in Box 3 wordt opgegeven."@nl ;
@@ -789,6 +779,16 @@ gbobegrip:VermogensBestanddeel a skos:Concept ;
     skos:definition "Een bezitting of schuld die op de peildatum 1 januari onder Box 3 van de inkomstenbelasting valt."@nl ;
     skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
     skos:prefLabel "Vermogens bestanddeel"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Verzamelinkomen a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0028058>,
+        "Wet basisregistratie inkomen art. 1 jo. art. 4" ;
+    skos:altLabel "Authentiek inkomen"@nl,
+        "Authentiek inkomen gegeven"@nl ;
+    skos:definition "Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Verzamelinkomen"@nl ;
     adms:status "proposed" .
 
 gbobegrip:VerzuimMelding a skos:Concept ;

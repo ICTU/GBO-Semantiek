@@ -115,6 +115,9 @@ prefixes:
   mim: https://lod.gbo-semantiek.nl/def/mim#
   dcterms: http://purl.org/dc/terms/
   skos: http://www.w3.org/2004/02/skos/core#
+  # Nodig om de datatype-URI's (xsd:string, xsd:date, ...) uit te klappen;
+  # zonder deze prefix schrijft gen-shacl ze weg als letterlijke <xsd:string>.
+  xsd: http://www.w3.org/2001/XMLSchema#
 default_prefix: gbo
 default_range: string
 

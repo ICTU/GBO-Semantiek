@@ -13,7 +13,7 @@ dragen blijven zichtbaar.
 Per deelmodel staat de klasse waarmee de DVTP-pilot-rijen direct
 mappen voorop: `StudieLening` (saldo, maandtermijn, aflostermijn)
 voor DUO, `Arbeidsverhouding` plus `LoonBestanddeel` voor de
-UWV-loonketen, `Aftrekpost` plus `AuthentiekInkomen` voor de
+UWV-loonketen, `Aftrekpost` plus `Verzamelinkomen` voor de
 Belastingdienst, `KredietOvereenkomst` plus `AchterstandRegistratie`
 voor BKR, en `Tenaamstelling` plus `ZakelijkRecht` voor Kadaster.
 
@@ -116,7 +116,7 @@ class WOZWaarde <<waarde-onroerende-zaken>>
 
 ' ---- Fiscaal (Belastingdienst) ----
 together {
-  class AuthentiekInkomen <<belastingen>>
+  class Verzamelinkomen <<belastingen>>
   class LoonBestanddeel <<belastingen>>
   abstract class Aftrekpost <<belastingen>>
 }
@@ -157,7 +157,7 @@ Partij --> Tenaamstelling
 WOZWaarde --> AdresseerbaarObject
 
 ' ---- Fiscaal (BD) ----
-AuthentiekInkomen --> NatuurlijkPersoon
+Verzamelinkomen --> NatuurlijkPersoon
 LoonBestanddeel --> Arbeidsverhouding
 Aftrekpost --> NatuurlijkPersoon
 Aftrekpost --> KadastraleOnroerendeZaak
@@ -316,7 +316,7 @@ together {
 ' ---- Belastingen (Belastingdienst / BRI / loonketen) ----
 together {
   abstract class BelastingjaarAangifte <<belastingen>>
-  class AuthentiekInkomen <<belastingen>>
+  class Verzamelinkomen <<belastingen>>
   class EigenWoning <<belastingen>>
   abstract class Aftrekpost <<belastingen>>
   abstract class Toeslag <<belastingen>>
@@ -366,8 +366,8 @@ AdresseerbaarObject -[hidden]down- Pand
 KadastraleOnroerendeZaak -[hidden]down- ZakelijkRecht
 ZakelijkRecht -[hidden]down- Tenaamstelling
 WOZObject -[hidden]down- WOZWaarde
-BelastingjaarAangifte -[hidden]down- AuthentiekInkomen
-AuthentiekInkomen -[hidden]down- Aftrekpost
+BelastingjaarAangifte -[hidden]down- Verzamelinkomen
+Verzamelinkomen -[hidden]down- Aftrekpost
 Aftrekpost -[hidden]down- Inkomstenverhouding
 Inkomstenverhouding -[hidden]down- LoonBestanddeel
 KredietOvereenkomst -[hidden]down- AchterstandRegistratie
@@ -404,7 +404,7 @@ WOZObject "0..*" --> "1..*" Perceel : ligt op
 
 ' ---- Belastingen-bruggen ----
 NatuurlijkPersoon "1" <-- "0..*" BelastingjaarAangifte : ingediendDoor
-NatuurlijkPersoon "1" <-- "0..*" AuthentiekInkomen : gegrondvestOp
+NatuurlijkPersoon "1" <-- "0..*" Verzamelinkomen : gegrondvestOp
 NatuurlijkPersoon "1" <-- "0..*" Aftrekpost : opgevoerdDoor
 NatuurlijkPersoon "1" <-- "0..*" Toeslag : toegekendAan
 KadastraleOnroerendeZaak "1" <-- "1" EigenWoning : gekoppeldAan
@@ -444,7 +444,7 @@ NatuurlijkPersoon "1" <-- "0..*" StudieLening : aangegaanDoor
 | Adressen en gebouwen | `Adres`, `Binnenlandsadres`, `Postadres`, `AdresseerbaarObject`, `Verblijfsobject`, `Pand` | [Adressen en gebouwen](deelmodellen/adressen-en-gebouwen.md) |
 | Onroerende zaken | `KadastraleOnroerendeZaak`, `Perceel`, `Appartementsrecht`, `ZakelijkRecht`, `Tenaamstelling`, `PubliekrechtelijkeBeperking` | [Onroerende zaken](deelmodellen/onroerende-zaken.md) |
 | Waarde onroerende zaken | `WOZObject`, `WOZWaarde` | [Waarde onroerende zaken](deelmodellen/waarde-onroerende-zaken.md) |
-| Belastingen | `BelastingjaarAangifte`, `AuthentiekInkomen`, `EigenWoning`, `Aftrekpost`, `Toeslag`, `Inkomstenverhouding`, `LoonAangifte`, `LoonBestanddeel`, `Renseignering` | [Belastingen](deelmodellen/belastingen.md) |
+| Belastingen | `BelastingjaarAangifte`, `Verzamelinkomen`, `EigenWoning`, `Aftrekpost`, `Toeslag`, `Inkomstenverhouding`, `LoonAangifte`, `LoonBestanddeel`, `Renseignering` | [Belastingen](deelmodellen/belastingen.md) |
 | Krediet | `KredietOvereenkomst`, `HypothecairKredietEigenWoning`, `AchterstandRegistratie` | [Krediet](deelmodellen/krediet.md) |
 | Onderwijs | `OnderwijsInstelling`, `OpleidingDeelname`, `StudieLening` | [Onderwijs](deelmodellen/onderwijs.md) |
 | Werk en Inkomen | `Uitkering`, `Arbeidsverhouding` | [Werk en Inkomen](deelmodellen/werk-en-inkomen.md) |
@@ -536,7 +536,7 @@ loon- en periode-data hangt aan de Inkomstenverhouding zelf. De
 Belastingdienst is wettelijk eigenaar; UWV en SGR voeren operationeel
 uit, maar inhoudelijk hoort het in [Belastingen](deelmodellen/belastingen.md).
 
-**`AuthentiekInkomen`** is het enige authentieke gegeven binnen de
+**`Verzamelinkomen`** is het enige authentieke gegeven binnen de
 Basisregistratie Inkomen (BRI). De waarde komt uit een definitief
 vastgestelde IH-aangifte of, bij ontbreken, uit de loonaangifteketen.
 Afnemers van inkomensgegevens in inkomensafhankelijke regelingen zijn
@@ -656,12 +656,21 @@ intern nummer:
 - Kenteken voor `Voertuig`.
 - BRIN of instellingscode-RIO voor `OnderwijsInstelling`; opleidingscode
   (CROHO/CREBO) voor `Opleiding`.
-- `Partij` is een abstract supertype en wordt niet rechtstreeks
-  geïdentificeerd; de entree loopt via de concrete types. GBO-eigen UUID's
-  (`id`, en `adresId` van de niet-BAG-adresvormen) blijven interne
-  sleutels en worden niet als externe identifier gebruikt; het
-  `adresId` van `Binnenlandsadres` is de BAG-identificatie van de
-  Nummeraanduiding en daarmee wel extern bruikbaar.
+- `Partij` is een abstract supertype en draagt sinds v0.3 (besluit
+  2026-08-10) **geen eigen identifier**. Een partij is uitsluitend
+  aanwijsbaar met de authentieke sleutels van haar subtypen: `bsn`
+  (`IngeschrevenPersoon`), `rsin` en `kvkNummer`
+  (`NietNatuurlijkPersoon`). Het eerdere GBO-eigen UUID-attribuut is
+  verwijderd omdat het nergens uit te vragen viel en als dood veld in de
+  bronschema's van BRK, BRV en WOZ terechtkwam. Een relatie naar `Partij`
+  mag daarom niet tot een sleutel-referentie worden herleid: wijst een
+  relatie naar `Partij`, dan hoort `Partij` met de relevante subtypen in
+  het bron-profiel te staan.
+- De overige GBO-eigen UUID's (`adresId` van de niet-BAG-adresvormen,
+  `identificatie` van `Onderneming`) blijven interne sleutels en worden
+  niet als externe identifier gebruikt; het `adresId` van
+  `Binnenlandsadres` is de BAG-identificatie van de Nummeraanduiding en
+  daarmee wel extern bruikbaar.
 
 ### Voorkomen-mixin (bitemporaliteit)
 

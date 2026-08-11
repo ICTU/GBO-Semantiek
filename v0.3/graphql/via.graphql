@@ -560,6 +560,6 @@ enum AftrekpostCategorie {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
-  """Eén IngeschrevenPersoon op bsn."""
-  ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
+  """BelastingjaarAangifte. Het argument jaar selecteert op belastingjaar."""
+  belastingjaarAangifteOverJaar(bsn: BSN!, jaar: [Int!]!): [BelastingjaarAangifte!]
 }

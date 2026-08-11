@@ -26,8 +26,8 @@ De transformatieregels:
 
 De JSON-LD `@context` definieert een mapping van JSON-sleutels naar ontologie-URI's. OSLO publiceert per vocabularium een herbruikbaar context-bestand; GBO volgt hetzelfde patroon:
 
-- **Kern-context:** `https://data.gbo.nl/context/kern.jsonld`
-- **Use-case-context:** `https://data.gbo.nl/context/{usecase}.jsonld`
+- **Kern-context:** `https://lod.gbo-semantiek.nl/context/kern.jsonld`
+- **Use-case-context:** `https://lod.gbo-semantiek.nl/context/{usecase}.jsonld`
 
 Meerdere context-bestanden kunnen worden gecombineerd in een API-response.
 
@@ -38,7 +38,7 @@ SKOS-concept-URI's kunnen als **attribuutwaarden** in JSON-LD payloads verschijn
 ```json
 {
   "gbo:status": {
-    "@id": "https://data.gbo.nl/begrippen/zaakstatus/afgerond"
+    "@id": "https://begrippen.gbo-semantiek.nl/id/begrip/zaakstatus/afgerond"
   }
 }
 ```

@@ -5,9 +5,11 @@
 - `Handelsnaam`
 - `Kentekentenaamstelling`
 - `Onderneming`
+- `Verzamelinkomen`
 
 ### Verwijderde objecttypen
 
+- `AuthentiekInkomen`
 - `Bedrijf`
 - `BuitenlandseEntiteit`
 - `Inschrijving`
@@ -107,7 +109,6 @@
   - − `sector`
   - − `voertUit`
 **Partij**
-  - + `id`
   - − `partijnummer`
 **Postadres**
   - + `adresId`

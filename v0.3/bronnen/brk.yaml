@@ -25,6 +25,25 @@ ingangen:
 lijstQueries: false
 
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om de
+# tenaamstelling, met de sleutel van de rechthebbende als parameter.
+queries:
+  - naamQuery: tenaamstellingOpBsn
+    levert: Tenaamstelling
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: tenaamstellingOpRsin
+    levert: Tenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: tenaamstellingOpKvkNummer
+    levert: Tenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
 objecttypen:
   - KadastraleOnroerendeZaak
   - Perceel
@@ -35,3 +54,10 @@ objecttypen:
   - Tenaamstelling
   - PubliekrechtelijkeBeperking
   - Aantekening
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden.
+relatieAfhandeling:
+  - objecttype: Tenaamstelling
+    relatie: tenaamgesteldOp
+    afhandeling: weglaten
