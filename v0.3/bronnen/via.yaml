@@ -56,6 +56,46 @@ queries:
       - naam: jaar
         meervoudig: true
         op: belastingjaar
+  - naamQuery: fiscalePartnerOverJaar
+    levert: FiscalePartner
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: vermogensBestanddeelOverJaar
+    levert: VermogensBestanddeel
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: aftrekpostOverJaar
+    levert: Aftrekpost
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: inkomstenverhoudingOverJaar
+    levert: Inkomstenverhouding
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: eigenWoningOverJaar
+    levert: EigenWoning
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
 
 objecttypen:
   - IngeschrevenPersoon

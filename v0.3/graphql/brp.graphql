@@ -447,6 +447,8 @@ enum IndicatieGezag {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
+  """IngeschrevenPersoon. Levert de overledene, niet de aanvrager: bsn is de aanvrager, bsnNaaste de persoon over wie het bewijs gaat."""
+  bewijsVanOverlijdenNaaste(bsn: BSN!, bsnNaaste: BSN!): [IngeschrevenPersoon!]
   """Eén IngeschrevenPersoon op bsn."""
   ingeschrevenPersoon(bsn: BSN!): IngeschrevenPersoon
 }

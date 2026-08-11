@@ -44,6 +44,22 @@ queries:
       - naam: jaar
         meervoudig: true
         type: Numeriek
+  - naamQuery: arbeidsverledenFeitOverJaar
+    levert: ArbeidsverledenFeit
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: beslissingOverJaar
+    levert: Beslissing
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
 
 objecttypen:
   - IngeschrevenPersoon

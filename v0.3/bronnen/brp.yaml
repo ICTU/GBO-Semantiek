@@ -27,6 +27,26 @@ ingangen:
   - IngeschrevenPersoon
 lijstQueries: false
 
+# Benoemde query naast de ingang: het bewijs van overlijden gaat niet
+# over de aanvrager maar over een naaste. De BRP levert alleen wanneer
+# tussen beide personen een relatie bestaat die daartoe grondslag geeft
+# (ouder, kind of partner); die toets is niet in het schema uit te
+# drukken en is de verantwoordelijkheid van de bronhouder. Let op: het
+# antwoord is een volledige IngeschrevenPersoon, breder dan een
+# overlijdensbewijs nodig heeft. Een smalle uitsnede hoort in een
+# attestatieprofiel; zie wiki/gbo-core/clients/eid/attestatie-queries.md.
+queries:
+  - naamQuery: bewijsVanOverlijdenNaaste
+    levert: IngeschrevenPersoon
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: bsnNaaste
+        type: BSN
+    toelichting: >-
+      Levert de overledene, niet de aanvrager: bsn is de aanvrager,
+      bsnNaaste de persoon over wie het bewijs gaat.
+
 # Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
 objecttypen:
   - NatuurlijkPersoon

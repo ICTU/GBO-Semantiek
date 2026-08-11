@@ -29,31 +29,31 @@ lijstQueries: false
 # Benoemde queries: de ROD levert onderwijsgegevens, geen persoon.
 # Alleen 'alles': bij een diplomaregister is het complete beeld het antwoord.
 queries:
-  - naamQuery: opleidingDeelname
+  - naamQuery: opleidingDeelnameAlles
     levert: OpleidingDeelname
     vanaf: [IngeschrevenPersoon]
     parameters:
       - naam: bsn
     selectie: alles
-  - naamQuery: opleidingResultaat
+  - naamQuery: opleidingResultaatAlles
     levert: OpleidingResultaat
     vanaf: [IngeschrevenPersoon]
     parameters:
       - naam: bsn
     selectie: alles
-  - naamQuery: verzuimMelding
+  - naamQuery: verzuimMeldingAlles
     levert: VerzuimMelding
     vanaf: [IngeschrevenPersoon]
     parameters:
       - naam: bsn
     selectie: alles
-  - naamQuery: studieFinanciering
+  - naamQuery: studieFinancieringAlles
     levert: StudieFinanciering
     vanaf: [IngeschrevenPersoon]
     parameters:
       - naam: bsn
     selectie: alles
-  - naamQuery: studieLening
+  - naamQuery: studieLeningAlles
     levert: StudieLening
     vanaf: [IngeschrevenPersoon]
     parameters:

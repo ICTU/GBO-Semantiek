@@ -46,11 +46,6 @@ queries:
     vanaf: [NietNatuurlijkPersoon]
     parameters:
       - naam: kvkNummer
-  - naamQuery: voertuig
-    levert: Voertuig
-    vanaf: [Voertuig]
-    parameters:
-      - naam: kenteken
 
 objecttypen:
   - Voertuig

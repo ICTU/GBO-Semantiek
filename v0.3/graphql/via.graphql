@@ -560,6 +560,16 @@ enum AftrekpostCategorie {
 
 """Query-ingangen van dit bronprofiel."""
 type Query {
+  """FiscalePartner. Het argument jaar selecteert op belastingjaar."""
+  fiscalePartnerOverJaar(bsn: BSN!, jaar: [Int!]!): [FiscalePartner!]
   """BelastingjaarAangifte. Het argument jaar selecteert op belastingjaar."""
   belastingjaarAangifteOverJaar(bsn: BSN!, jaar: [Int!]!): [BelastingjaarAangifte!]
+  """Inkomstenverhouding."""
+  inkomstenverhoudingOverJaar(bsn: BSN!, jaar: [Int!]!): [Inkomstenverhouding!]
+  """EigenWoning."""
+  eigenWoningOverJaar(bsn: BSN!, jaar: [Int!]!): [EigenWoning!]
+  """VermogensBestanddeel. Het argument jaar selecteert op belastingjaar."""
+  vermogensBestanddeelOverJaar(bsn: BSN!, jaar: [Int!]!): [VermogensBestanddeel!]
+  """Aftrekpost. Het argument jaar selecteert op belastingjaar."""
+  aftrekpostOverJaar(bsn: BSN!, jaar: [Int!]!): [Aftrekpost!]
 }
