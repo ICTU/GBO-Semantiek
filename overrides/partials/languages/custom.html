@@ -1,0 +1,23 @@
+{#-
+  Aangepaste taaldefinitie voor GBO-Semantiek.
+
+  Basis is het Nederlandse taalbestand van MkDocs Material; alleen de hieronder
+  genoemde sleutels worden overschreven. Reden: het hoofdmenu bevat naast
+  GBO-Semantiek ook de andere GBO-onderdelen (Globaal Ontwerp, PSA, ...), die
+  ieder een eigen zoekindex hebben. De zoekplaceholder maakt duidelijk dat er
+  alleen binnen dit onderdeel gezocht wordt.
+
+  Gebruik: theme.language: custom + theme.custom_dir: overrides
+-#}
+{% import "partials/languages/nl.html" as language %}
+{% import "partials/languages/en.html" as fallback %}
+
+{% macro override(key) %}{{ {
+  "search.placeholder": "Zoeken",
+  "search.result.initializer": "Zoeken initialiseren",
+  "search.result.placeholder": "Let op: er wordt alleen gezocht binnen dit documentatie-onderdeel. Om in andere onderdelen te zoeken: ga via het hoofdmenu eerst naar het onderdeel en voer dan de zoekterm in."
+}[key] }}{% endmacro %}
+
+{% macro t(key) %}{{
+  override(key) or language.t(key) or fallback.t(key)
+}}{% endmacro %}

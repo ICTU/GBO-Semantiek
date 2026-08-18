@@ -27,30 +27,40 @@ edit_uri: edit/main/docs/
 docs_dir: docs
 site_dir: site
 
-# Mike-versioning: stel in zodat mike de versie-informatie correct injecteert
+# Mike-versioning: stel in zodat mike de versie-informatie correct injecteert.
+# alias: true toont de alias achter de versie in het versiemenu (v0.3 latest),
+# net als bij GBO, GBO-GO en GBO-PSA. 'main' is de stand van de hoofdbranch.
 extra:
   version:
     provider: mike
+    alias: true
     default: latest
 
-# Thema: Material (conform GGM-stijl)
+# Thema: Material (kleurstelling gelijk aan GBO, GBO-GO en GBO-PSA)
+# language: custom + custom_dir: overrides -> zie overrides/partials/languages/custom.html
+# (Nederlands, met een zoekplaceholder die aangeeft dat er alleen binnen dit
+#  GBO-onderdeel gezocht wordt). Zelfde patroon als GBO-GO en GBO-PSA.
 theme:
   name: material
-  language: nl
+  language: custom
+  custom_dir: overrides
+  # Geen primary/accent: net als de andere GBO-onderdelen wordt de standaard
+  # Material-kleurstelling (indigo) gebruikt.
+  # Bewust GEEN media: "(prefers-color-scheme: ...)": de site start altijd in
+  # het lichte schema, ook op een systeem dat in nachtstand staat. Alleen de
+  # toggle in de header schakelt om; die keuze wordt lokaal onthouden.
   palette:
     - scheme: default
-      primary: blue
-      accent: light blue
       toggle:
         icon: material/brightness-7
         name: Schakel naar donker thema
     - scheme: slate
-      primary: blue
-      accent: light blue
       toggle:
         icon: material/brightness-4
         name: Schakel naar licht thema
   features:
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
     - navigation.footer
@@ -70,6 +80,9 @@ plugins:
   - search:
       lang: nl
   - glightbox
+  # canonical_version: verwijst alle versies naar de /latest/-URL als canoniek
+  - mike:
+      canonical_version: "latest"
 
 # Custom CSS
 extra_css:
@@ -111,43 +124,53 @@ markdown_extensions:
       title: "GBO"
 
 # Navigatiestructuur
-# Links: alleen de hoofdsecties. Rechts: subpagina's en TOC van de huidige pagina.
-# Elke sectie heeft een index.md die de subpagina's linkt.
+# Hoofdmenu (tabs bovenin): de onderdelen van de Gemeenschappelijke Bronontsluiting.
+# Externe onderdelen zijn absolute links naar de eigen documentatiesites; alleen
+# 'Semantiek' is lokaal en klapt links uit in secties met per pagina rechts de TOC.
+# Houd deze lijst gelijk aan die van GBO, GBO-GO en GBO-PSA.
 nav:
-  - Inleiding: index.md
-  - Uitgangspunten:
-    - Ontwerprincipes: uitgangspunten/ontwerpprincipes.md
-    - Kaders en standaarden: uitgangspunten/kaders_standaarden.md
-    - Bronnenprioritering: informatiemodel/gbo-kern/bronnenprioritering.md
-  - Architectuur:
-    - Gegevensarchitectuur: architectuur/gegevensarchitectuur.md
-    - Gegevenscomponenten: architectuur/gegevenscomponenten.md
-  - "Begrippenmodel":
-    - Inleiding: begrippen/inleiding.md
-  - "Informatiemodel: GBO-Kernmodel":
-    - Hoofdmodel: informatiemodel/gbo-kern/hoofdmodel.md
-    - Hoofdmodel (compact): informatiemodel/gbo-kern/hoofdmodel-compact.md
-    - Deelmodel Personen: informatiemodel/gbo-kern/deelmodellen/personen.md
-    - Deelmodel Bedrijven en Instellingen: informatiemodel/gbo-kern/deelmodellen/bedrijven-en-instellingen.md
-    - Deelmodel Adressen en Gebouwen: informatiemodel/gbo-kern/deelmodellen/adressen-en-gebouwen.md
-    - Deelmodel Onroerende Zaken: informatiemodel/gbo-kern/deelmodellen/onroerende-zaken.md
-    - Deelmodel Waarde Onroerende Zaken: informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken.md
-    - Deelmodel Belastingen: informatiemodel/gbo-kern/deelmodellen/belastingen.md
-    - Deelmodel Krediet: informatiemodel/gbo-kern/deelmodellen/krediet.md
-    - Deelmodel Onderwijs: informatiemodel/gbo-kern/deelmodellen/onderwijs.md
-    - Deelmodel Werk en Inkomen: informatiemodel/gbo-kern/deelmodellen/werk-en-inkomen.md
-    - Deelmodel Voertuigen: informatiemodel/gbo-kern/deelmodellen/voertuigen.md
-    - Datatypes en codelijsten: informatiemodel/gbo-kern/datatypes-en-codelijsten.md
-  - "Informatiemodel: GBO-Voorzieningenmodel":
-    - Hoofdmodel: informatiemodel/gbo-voorzieningen.md
-  - "Ontologie":
-    - Inleiding: ontologie/inleiding.md
-  - Implementatie:
-    - URI-strategie: implementatie/uri-strategie.md
-    - Naamgeving: implementatie/naamgeving.md
-    - Deployment: implementatie/deployment.md
-    - Publicatie: implementatie/publicatie.md
-  - Bijlagen:
-    - Woordenlijst: bijlagen/woordenlijst.md
-    - Tooling: bijlagen/tooling.md
-    - URI-namespace: bijlagen/uri-namespace.md
+  - Gemeenschappelijke Bronontsluiting: https://ictu.github.io/GBO/
+  - Context: https://ictu.github.io/GBO/latest/context
+  - Globaal Ontwerp: https://ictu.github.io/GBO-GO/
+  - Projectstartarchitectuur: https://ictu.github.io/GBO-PSA/
+  - Technisch Ontwerp: https://ictu.github.io/GBO/main/underconstruction_to/
+  - Technische Requirements: https://ictu.github.io/GBO/main/underconstruction_tr/
+  - Semantiek:
+    - Inleiding: index.md
+    - Uitgangspunten:
+      - Ontwerprincipes: uitgangspunten/ontwerpprincipes.md
+      - Kaders en standaarden: uitgangspunten/kaders_standaarden.md
+      - Bronnenprioritering: informatiemodel/gbo-kern/bronnenprioritering.md
+    - Architectuur:
+      - Gegevensarchitectuur: architectuur/gegevensarchitectuur.md
+      - Gegevenscomponenten: architectuur/gegevenscomponenten.md
+    - "Begrippenmodel":
+      - Inleiding: begrippen/inleiding.md
+    - "Informatiemodel: GBO-Kernmodel":
+      - Hoofdmodel: informatiemodel/gbo-kern/hoofdmodel.md
+      - Hoofdmodel (compact): informatiemodel/gbo-kern/hoofdmodel-compact.md
+      - Deelmodel Personen: informatiemodel/gbo-kern/deelmodellen/personen.md
+      - Deelmodel Bedrijven en Instellingen: informatiemodel/gbo-kern/deelmodellen/bedrijven-en-instellingen.md
+      - Deelmodel Adressen en Gebouwen: informatiemodel/gbo-kern/deelmodellen/adressen-en-gebouwen.md
+      - Deelmodel Onroerende Zaken: informatiemodel/gbo-kern/deelmodellen/onroerende-zaken.md
+      - Deelmodel Waarde Onroerende Zaken: informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken.md
+      - Deelmodel Belastingen: informatiemodel/gbo-kern/deelmodellen/belastingen.md
+      - Deelmodel Krediet: informatiemodel/gbo-kern/deelmodellen/krediet.md
+      - Deelmodel Onderwijs: informatiemodel/gbo-kern/deelmodellen/onderwijs.md
+      - Deelmodel Werk en Inkomen: informatiemodel/gbo-kern/deelmodellen/werk-en-inkomen.md
+      - Deelmodel Voertuigen: informatiemodel/gbo-kern/deelmodellen/voertuigen.md
+      - Datatypes en codelijsten: informatiemodel/gbo-kern/datatypes-en-codelijsten.md
+    - "Informatiemodel: GBO-Voorzieningenmodel":
+      - Hoofdmodel: informatiemodel/gbo-voorzieningen.md
+    - "Ontologie":
+      - Inleiding: ontologie/inleiding.md
+    - Implementatie:
+      - URI-strategie: implementatie/uri-strategie.md
+      - Naamgeving: implementatie/naamgeving.md
+      - Deployment: implementatie/deployment.md
+      - Publicatie: implementatie/publicatie.md
+    - Bijlagen:
+      - Woordenlijst: bijlagen/woordenlijst.md
+      - Tooling: bijlagen/tooling.md
+      - URI-namespace: bijlagen/uri-namespace.md
+  - Demo: https://gbo.simulatie.datastelsel.nl/

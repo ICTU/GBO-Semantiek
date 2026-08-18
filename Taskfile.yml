@@ -392,7 +392,10 @@ tasks:
       - echo "Deploying documentation with Mike..."
       - '{{.VENV}}/mkdocs build --clean'
       - '{{.VENV}}/mike deploy "{{.VERSION}}" latest --update-aliases'
-      - '{{.VENV}}/mike set-default "{{.VERSION}}"'
+      # set-default op de alias, niet op de versie: de wortel-URL van de site
+      # verwijst dan naar /latest/ en blijft na een nieuwe versie kloppen.
+      # Zelfde inrichting als GBO, GBO-GO en GBO-PSA.
+      - '{{.VENV}}/mike set-default latest'
       - echo "Documentation deployed locally. Use 'mike serve' to view results..."
 
 
