@@ -1,0 +1,181 @@
+<mxfile host="Electron" agent="Claude" version="29.6.6">
+  <diagram name="Componenten overzicht" id="gbo-componenten">
+    <mxGraphModel dx="1300" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#222222;" value="&lt;b&gt;GBO-Semantiek Componentenoverzicht&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px;color:#666&quot;&gt;Van bronmodel tot publicatie-artefact&lt;/font&gt;" vertex="1">
+          <mxGeometry x="440" y="20" width="440" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- Phase labels -->
+        <mxCell id="phase1" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=12;fontColor=#b85450;fontStyle=1;" value="BRONMODELLEN" vertex="1">
+          <mxGeometry x="60" y="80" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="phase2" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=12;fontColor=#a88a2a;fontStyle=1;" value="TRANSFORMATIE" vertex="1">
+          <mxGeometry x="440" y="80" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="phase3" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=12;fontColor=#6c4a85;fontStyle=1;" value="PUBLICATIE" vertex="1">
+          <mxGeometry x="860" y="80" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Divider lines -->
+        <mxCell id="div1" parent="1" style="endArrow=none;html=1;strokeColor=#cccccc;strokeWidth=1;dashed=1;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="110" as="sourcePoint" />
+            <mxPoint x="340" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="div2" parent="1" style="endArrow=none;html=1;strokeColor=#cccccc;strokeWidth=1;dashed=1;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="110" as="sourcePoint" />
+            <mxPoint x="720" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Begrippenmodel -->
+        <mxCell id="begrippen" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;verticalAlign=middle;fontSize=12;spacingTop=0;" value="&lt;b&gt;Begrippenmodel&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;Het gedeelde woordenboek:&lt;br&gt;definities, hi&amp;euml;rarchie&amp;euml;n&lt;br&gt;en relaties tussen begrippen&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;SKOS &amp;middot; TopBraid / Excel&lt;/font&gt;" vertex="1">
+          <mxGeometry x="50" y="140" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Informatiemodel -->
+        <mxCell id="informatie" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;verticalAlign=middle;fontSize=12;spacingTop=0;" value="&lt;b&gt;Informatiemodel&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;De structuur van gegevens:&lt;br&gt;klassen, attributen&lt;br&gt;en relaties&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;MIM/UML &amp;middot; Enterprise Architect&lt;/font&gt;" vertex="1">
+          <mxGeometry x="50" y="310" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Annotation: waarom gescheiden -->
+        <mxCell id="annot-bron" parent="1" style="text;html=1;align=center;verticalAlign=top;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;fontStyle=2;" value="Bewust gescheiden: betekenis en structuur&lt;br&gt;hebben verschillende eigenaren en ritmes" vertex="1">
+          <mxGeometry x="50" y="460" width="220" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Transformatiecomponent -->
+        <mxCell id="transform" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Transformatie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;Geautomatiseerde&lt;br&gt;publicatiemotor&lt;/font&gt;" vertex="1">
+          <mxGeometry x="430" y="220" width="200" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Annotation: eenrichtingsverkeer -->
+        <mxCell id="annot-trans" parent="1" style="text;html=1;align=center;verticalAlign=top;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;fontStyle=2;" value="E&amp;eacute;nrichtingsverkeer: wijzigingen alleen in de bron,&lt;br&gt;nooit in de gegenereerde output" vertex="1">
+          <mxGeometry x="395" y="400" width="270" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Machine-leesbaar: groepskader -->
+        <mxCell id="lane-machine" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9673a6;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#6c4a85;align=left;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;Machine-leesbaar&lt;/b&gt;" vertex="1">
+          <mxGeometry x="760" y="280" width="560" height="250" as="geometry" />
+        </mxCell>
+
+        <!-- Ontologie -->
+        <mxCell id="ontologie" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Ontologie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;Canonieke formele beschrijving:&lt;br&gt;klassen, axioma&amp;#39;s, validatieshapes&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;SHACL/OWL/RDF (.ttl)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="780" y="320" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- JSON-LD -->
+        <mxCell id="jsonld" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;JSON-LD @context&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;Vertaaltabel: JSON-sleutels&lt;br&gt;→ ontologie-URI&amp;#39;s&lt;/font&gt;" vertex="1">
+          <mxGeometry x="1060" y="320" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- GraphQL -->
+        <mxCell id="graphql" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;GraphQL-endpoint&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;Bevragingslaag bovenop&lt;br&gt;de ontologie&lt;/font&gt;" vertex="1">
+          <mxGeometry x="1060" y="430" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Mens-leesbaar: groepskader -->
+        <mxCell id="lane-human" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#4d7a3a;align=left;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;Mens-leesbaar&lt;/b&gt;" vertex="1">
+          <mxGeometry x="760" y="120" width="300" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Specificatiepagina's -->
+        <mxCell id="html" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Specificatiepagina&amp;#39;s&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;Leesbare weergave van het&lt;br&gt;model voor mensen&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;HTML (uit Markdown)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="790" y="155" width="230" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Doelgroep-iconen -->
+        <mxCell id="actor-tech" parent="1" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalLabelPosition=bottom;verticalAlign=top;fontSize=9;" value="Ontwikkelaar /&lt;br&gt;data-engineer" vertex="1">
+          <mxGeometry x="780" y="560" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="actor-api" parent="1" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalLabelPosition=bottom;verticalAlign=top;fontSize=9;" value="API-ontwikkelaar /&lt;br&gt;afnemer" vertex="1">
+          <mxGeometry x="1140" y="560" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="actor-mens" parent="1" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalLabelPosition=bottom;verticalAlign=top;fontSize=9;" value="Architect /&lt;br&gt;beleidsmedewerker" vertex="1">
+          <mxGeometry x="1100" y="140" width="40" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: bronnen → transformatie -->
+        <mxCell id="e1" parent="1" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" source="begrippen" target="transform">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" parent="1" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" source="informatie" target="transform">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: transformatie → outputs -->
+        <mxCell id="e3" parent="1" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" source="transform" target="ontologie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" parent="1" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" source="transform" target="html">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: ontologie → JSON-LD → GraphQL -->
+        <mxCell id="e5" parent="1" style="endArrow=classic;html=1;strokeColor=#9673a6;strokeWidth=1;dashed=1;" edge="1" source="ontologie" target="jsonld" value="verwijst naar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" parent="1" style="endArrow=classic;html=1;strokeColor=#9673a6;strokeWidth=1;dashed=1;" edge="1" source="jsonld" target="graphql" value="afgeleid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: outputs → actors -->
+        <mxCell id="e7" parent="1" style="endArrow=classic;html=1;strokeColor=#82b366;strokeWidth=1;dashed=1;" edge="1" source="html" target="actor-mens" value="raadpleegt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" parent="1" style="endArrow=none;html=1;strokeColor=#9673a6;strokeWidth=1;dashed=1;startArrow=classic;startFill=1;" edge="1" source="ontologie" target="actor-tech">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" parent="1" style="endArrow=none;html=1;strokeColor=#9673a6;strokeWidth=1;dashed=1;startArrow=classic;startFill=1;" edge="1" source="graphql" target="actor-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Legenda -->
+        <mxCell id="legend-box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;strokeWidth=1;verticalAlign=top;align=left;fontSize=10;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;Legenda&lt;/b&gt;" vertex="1">
+          <mxGeometry x="50" y="560" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry x="60" y="588" width="40" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Bronmodel (input)" vertex="1">
+          <mxGeometry x="110" y="586" width="180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry x="60" y="613" width="40" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Transformatiecomponent" vertex="1">
+          <mxGeometry x="110" y="611" width="180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry x="60" y="638" width="40" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Machine-leesbare output" vertex="1">
+          <mxGeometry x="110" y="636" width="180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry x="60" y="663" width="40" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Mens-leesbare output" vertex="1">
+          <mxGeometry x="110" y="661" width="180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" parent="1" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" value="" vertex="1">
+          <mxGeometry x="65" y="685" width="20" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Doelgroep / gebruiker" vertex="1">
+          <mxGeometry x="110" y="683" width="180" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Version -->
+        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.3 &amp;middot; 2026-04-13" vertex="1">
+          <mxGeometry x="1140" y="740" width="160" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

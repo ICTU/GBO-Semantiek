@@ -1,0 +1,111 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="21.0.0">
+  <diagram name="MIM Beschouwingsniveaus" id="mim-niveaus">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="520" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;MIM Beschouwingsniveaus&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="310" y="15" width="210" height="25" as="geometry" />
+        </mxCell>
+        <!-- Headers -->
+        <mxCell id="h_niveau" value="&lt;b&gt;Niveau&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#f0f0f0;strokeColor=#cccccc;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="55" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="h_naam" value="&lt;b&gt;Naam&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#f0f0f0;strokeColor=#cccccc;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="120" y="55" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="h_doel" value="&lt;b&gt;Doel&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#f0f0f0;strokeColor=#cccccc;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="330" y="55" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="h_taal" value="&lt;b&gt;Modelleertaal&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#f0f0f0;strokeColor=#cccccc;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="570" y="55" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="h_doelgroep" value="&lt;b&gt;Doelgroep&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#f0f0f0;strokeColor=#cccccc;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="750" y="55" width="120" height="30" as="geometry" />
+        </mxCell>
+        <!-- Niveau I -->
+        <mxCell id="n1" value="&lt;b&gt;I&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n1_naam" value="&lt;b&gt;Semantisch&lt;/b&gt;&lt;br&gt;Begrippenmodel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="120" y="100" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n1_doel" value="Gemeenschappelijk begrip&lt;br&gt;creëren tussen stakeholders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="330" y="100" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n1_taal" value="&lt;b&gt;SKOS&lt;/b&gt;, SBVR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="570" y="100" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n1_doelgroep" value="Domeinexperts&lt;br&gt;Beleidsmakers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="750" y="100" width="120" height="70" as="geometry" />
+        </mxCell>
+        <!-- Niveau II -->
+        <mxCell id="n2" value="&lt;b&gt;II&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="185" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n2_naam" value="&lt;b&gt;Conceptueel&lt;/b&gt;&lt;br&gt;Informatiemodel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="120" y="185" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n2_doel" value="Domeinkennis expliciteren&lt;br&gt;in klassen en relaties" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="330" y="185" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n2_taal" value="&lt;b&gt;OWL&lt;/b&gt;, RDFS&lt;br&gt;UML (conceptueel)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="570" y="185" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n2_doelgroep" value="Modelleurs&lt;br&gt;Architecten" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="750" y="185" width="120" height="70" as="geometry" />
+        </mxCell>
+        <!-- Niveau III -->
+        <mxCell id="n3" value="&lt;b&gt;III&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n3_naam" value="&lt;b&gt;Logisch&lt;/b&gt;&lt;br&gt;Informatiemodel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="120" y="270" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n3_doel" value="Gegevensgebruik specificeren&lt;br&gt;met constraints en shapes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="330" y="270" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n3_taal" value="&lt;b&gt;SHACL&lt;/b&gt;&lt;br&gt;UML (logisch)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="570" y="270" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n3_doelgroep" value="Data-engineers&lt;br&gt;Ontwikkelaars" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="750" y="270" width="120" height="70" as="geometry" />
+        </mxCell>
+        <!-- Niveau IV -->
+        <mxCell id="n4" value="&lt;b&gt;IV&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="355" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4_naam" value="&lt;b&gt;Fysiek / Technisch&lt;/b&gt;&lt;br&gt;Gegevensmodel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="120" y="355" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4_doel" value="Implementatie in&lt;br&gt;systemen en API's" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="330" y="355" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4_taal" value="&lt;b&gt;JSON Schema&lt;/b&gt;&lt;br&gt;XSD, SQL DDL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="570" y="355" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4_doelgroep" value="Ontwikkelaars&lt;br&gt;Systeem-&lt;br&gt;beheerders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="750" y="355" width="120" height="70" as="geometry" />
+        </mxCell>
+        <!-- Arrows between levels -->
+        <mxCell id="a12" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#999999;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n1" target="n2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a23" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#999999;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n2" target="n3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a34" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#999999;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n3" target="n4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- GBO bracket -->
+        <mxCell id="bracket_label" value="&lt;font style=&quot;font-size:11px;color:#333&quot;&gt;&lt;b&gt;GBO scope&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="-15" y="240" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="bracket" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;size=0.5;strokeColor=#0066CC;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="15" y="100" width="20" height="325" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="21.0.0">
+  <diagram name="Semantic Web Layer Cake" id="layer-cake">
+    <mxGraphModel dx="820" dy="620" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="820" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Semantic Web Layer Cake&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="280" y="10" width="210" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Elke laag bouwt voort op de onderliggende — gekleurde lagen vormen de scope van GBO-Semantiek&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="140" y="35" width="510" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 1: URI / IRI + Unicode — grijs (fundament, niet GBO-specifiek) -->
+        <mxCell id="l1" value="&lt;b&gt;URI / IRI&lt;/b&gt;  +  &lt;b&gt;Unicode&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#999&quot;&gt;Identificatie en tekencodering&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;strokeWidth=1;verticalAlign=middle;fontSize=11;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="60" y="490" width="650" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 2: XML + Namespaces — grijs -->
+        <mxCell id="l2" value="&lt;b&gt;XML&lt;/b&gt;  +  &lt;b&gt;Namespaces&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#999&quot;&gt;Serialisatie en naamruimten&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;strokeWidth=1;verticalAlign=middle;fontSize=11;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="90" y="430" width="590" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 3: RDF + RDFS — GBO kleur (blauw) -->
+        <mxCell id="l3" value="&lt;b&gt;RDF&lt;/b&gt;  +  &lt;b&gt;RDFS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#4472C4&quot;&gt;Datamodel (triples) en basisvocabularium&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;verticalAlign=middle;fontSize=11;fontColor=#1F4E79;" vertex="1" parent="1">
+          <mxGeometry x="120" y="370" width="530" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 4: SPARQL — GBO kleur (groen) -->
+        <mxCell id="l4a" value="&lt;b&gt;SPARQL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#548235&quot;&gt;Bevraging&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=middle;fontSize=11;fontColor=#375623;" vertex="1" parent="1">
+          <mxGeometry x="150" y="310" width="210" height="50" as="geometry" />
+        </mxCell>
+        <!-- RIF — grijs (niet GBO-specifiek) -->
+        <mxCell id="l4b" value="&lt;b&gt;RIF&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#999&quot;&gt;Regels&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;strokeWidth=1;verticalAlign=middle;fontSize=11;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="410" y="310" width="210" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 5: OWL + SKOS + SHACL — GBO kleur (geel/oranje) -->
+        <mxCell id="l5a" value="&lt;b&gt;OWL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#BF8F00&quot;&gt;Ontologie&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;fontSize=11;fontColor=#806000;" vertex="1" parent="1">
+          <mxGeometry x="180" y="250" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="l5b" value="&lt;b&gt;SKOS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#BF8F00&quot;&gt;Begrippen&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;fontSize=11;fontColor=#806000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="250" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="l5c" value="&lt;b&gt;SHACL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#BF8F00&quot;&gt;Validatie&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;fontSize=11;fontColor=#806000;" vertex="1" parent="1">
+          <mxGeometry x="520" y="250" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 6: JSON-LD — GBO kleur (paars) -->
+        <mxCell id="l6" value="&lt;b&gt;JSON-LD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#7030A0&quot;&gt;Datapublicatie in API's&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=11;fontColor=#4A1A6B;" vertex="1" parent="1">
+          <mxGeometry x="220" y="190" width="330" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 7: Trust / Proof — grijs -->
+        <mxCell id="l7" value="&lt;b&gt;Trust&lt;/b&gt;  +  &lt;b&gt;Proof&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#999&quot;&gt;Vertrouwen, herkomst, digitale handtekeningen&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;strokeWidth=1;verticalAlign=middle;fontSize=11;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="260" y="130" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 8: User Interface + Applications — grijs -->
+        <mxCell id="l8" value="&lt;b&gt;User Interface  +  Applications&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;strokeWidth=1;verticalAlign=middle;fontSize=11;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="300" y="75" width="170" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="leg_gbo" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="65" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_gbo_t" value="&lt;font style=&quot;font-size:10px&quot;&gt;GBO-Semantiek scope&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="85" y="58" width="130" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_other" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="85" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_other_t" value="&lt;font style=&quot;font-size:10px&quot;&gt;Onderliggend / buiten scope&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="85" y="78" width="160" height="27" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

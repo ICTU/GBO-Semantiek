@@ -1,0 +1,112 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram name="GBO-Semantiek Toolchain" id="gbo-toolchain">
+    <mxGraphModel dx="1198" dy="914" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#222222;" value="&lt;b&gt;GBO-Semantiek Toolchain&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px;color:#666&quot;&gt;Van bron tot publicatie&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="360" x="420" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-bron" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#b85450;align=left;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;1. Bronmodellen&lt;/b&gt;" vertex="1">
+          <mxGeometry height="340" width="200" x="40" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="begrippen" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Begrippenmodel&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;SKOS · TopBraid / Excel&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="60" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="informatie" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Informatiemodel&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;UML · Enterprise Architect&lt;br&gt;(.qea)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="60" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-trans" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#d6b656;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#a88a2a;align=left;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;2. Transformatie&lt;/b&gt;" vertex="1">
+          <mxGeometry height="340" width="200" x="280" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="transform" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Publicatie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;crunch_uml&lt;/font&gt;" vertex="1">
+          <mxGeometry height="160" width="180" x="290" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="jsonld" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;JSON-LD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;@context&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="900" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="graphql" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;GraphQL endpoint&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;queryable API&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="900" y="518" as="geometry" />
+        </mxCell>
+        <mxCell id="actor-mens" parent="1" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalLabelPosition=bottom;verticalAlign=top;fontSize=10;" value="Architect /&lt;br&gt;beleidsmedewerker" vertex="1">
+          <mxGeometry height="60" width="40" x="960" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="begrippen" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="transform">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="informatie" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="transform">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="transform" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="turtle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="transform" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="html">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="turtle" style="endArrow=none;html=1;strokeColor=#9673a6;strokeWidth=1;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endFill=0;" target="jsonld" value="verwijst naar definitie">
+          <mxGeometry relative="1" y="-10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="jsonld" style="endArrow=none;html=1;strokeColor=#9673a6;strokeWidth=1;dashed=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endFill=0;" target="graphql" value="genereert">
+          <mxGeometry relative="1" x="-0.0909" y="-30" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="html" style="endArrow=classic;html=1;strokeColor=#82b366;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="actor-mens" value="raadpleegt">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend-box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;strokeWidth=1;verticalAlign=top;align=left;fontSize=10;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;Legenda&lt;/b&gt;" vertex="1">
+          <mxGeometry height="140" width="240" x="40" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=1;fontSize=9;" value="Bron" vertex="1">
+          <mxGeometry height="20" width="50" x="50" y="568" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Bronmodellen (input)" vertex="1">
+          <mxGeometry height="20" width="160" x="110" y="568" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="50" x="50" y="593" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Transformatieproces" vertex="1">
+          <mxGeometry height="20" width="160" x="110" y="593" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="50" x="50" y="618" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Machine-leesbare output" vertex="1">
+          <mxGeometry height="20" width="160" x="110" y="618" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="50" x="50" y="643" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Mens-leesbare output" vertex="1">
+          <mxGeometry height="20" width="160" x="110" y="643" as="geometry" />
+        </mxCell>
+        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.3 · 2026-04-07" vertex="1">
+          <mxGeometry height="20" width="160" x="1020" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="Qrr8wJZB_Ku0b79N1wXa-1" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="150" width="260" x="520" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-human" parent="Qrr8wJZB_Ku0b79N1wXa-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#4d7a3a;align=left;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;3b. Mens-leesbare publicatie&lt;/b&gt;" vertex="1">
+          <mxGeometry height="150" width="260" as="geometry" />
+        </mxCell>
+        <mxCell id="html" parent="Qrr8wJZB_Ku0b79N1wXa-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Specificatiepagina&#39;s&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;HTML (uit Markdown)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="190" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Qrr8wJZB_Ku0b79N1wXa-2" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="160" width="260" x="520" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-machine" parent="Qrr8wJZB_Ku0b79N1wXa-2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9673a6;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#6c4a85;align=left;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;3a. Machine-leesbare publicatie&lt;/b&gt;" vertex="1">
+          <mxGeometry height="160" width="260" as="geometry" />
+        </mxCell>
+        <mxCell id="turtle" parent="Qrr8wJZB_Ku0b79N1wXa-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;fontSize=12;" value="&lt;b&gt;Specificatie&lt;/b&gt;&lt;div&gt;SHACL/OWL/RDF Ontologie&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;(.ttl)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="180" x="40" y="45" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

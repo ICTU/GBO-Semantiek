@@ -1,0 +1,3734 @@
+<!DOCTYPE html><html lang="nl" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Vier-lagen-strategie L1 tot en met L4 voor het afleiden en refereren van GBO-Kern-elementen uit basisregistraties, sectorale registers, nationale ankers en internationale vocabulaires.">
+      
+      
+        <meta name="author" content="GBO-Semantiek Werkgroep">
+      
+      
+        <link rel="canonical" href="https://ictu.github.io/gbo-semantiek/latest/informatiemodel/gbo-kern/bronnenprioritering/">
+      
+      
+        <link rel="prev" href="../../../uitgangspunten/kaders_standaarden/">
+      
+      
+        <link rel="next" href="../../../architectuur/gegevensarchitectuur/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Bronnenprioritering: beslisregels GBO-Kern - GBO-Semantiek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bronnenprioritering-beslisregels-gbo-kern" class="md-skip">
+          Ga naar inhoud
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="GBO-Semantiek" class="md-header__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GBO-Semantiek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bronnenprioritering: beslisregels GBO-Kern
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar licht thema" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar donker thema" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Zoeken">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Zoeken initialiseren
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICTU/gbo-semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/gbo-semantiek
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Gemeenschappelijke Bronontsluiting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Context
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Globaal Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Projectstartarchitectuur
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technisch Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technische Requirements
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Semantiek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Demo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigatie" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="GBO-Semantiek" class="md-nav__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    GBO-Semantiek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICTU/gbo-semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/gbo-semantiek
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemeenschappelijke Bronontsluiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Globaal Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectstartarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technisch Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technische Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantiek
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Semantiek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uitgangspunten
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Uitgangspunten
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../uitgangspunten/ontwerpprincipes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontwerprincipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../uitgangspunten/kaders_standaarden/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaders en standaarden
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bronnenprioritering
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bronnenprioritering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#vier-lagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vier lagen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bronnen-per-laag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bronnen per laag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l1-authoritative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L1 Authoritative
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l2-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L2 Interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l3-nationaal-anker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L3 Nationaal anker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l4-internationaal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L4 Internationaal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-registratie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per registratie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Per registratie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bag-basisregistratie-adressen-en-gebouwen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BAG: Basisregistratie Adressen en Gebouwen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bri-basisregistratie-inkomen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRI: Basisregistratie Inkomen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brk-basisregistratie-kadaster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRK: Basisregistratie Kadaster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brp-basisregistratie-personen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRP: Basisregistratie Personen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cki-centraal-krediet-informatiesysteem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CKI: Centraal Krediet Informatiesysteem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hr-handelsregister" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HR: Handelsregister
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loonheffingen-gegevensspecificaties-aangifte-loonheffingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loonheffingen: Gegevensspecificaties aangifte loonheffingen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rod-register-onderwijsdeelnemers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROD: Register Onderwijsdeelnemers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbr-nt-nederlandse-taxonomie-belastingdienst-aangiften" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SBR-NT: Nederlandse Taxonomie (Belastingdienst-aangiften)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sgr-suwi-gegevensregister" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SGR: Suwi Gegevensregister
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#woz-waardering-onroerende-zaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZ: Waardering Onroerende Zaken
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beslisregels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beslisregels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bronvermelding-per-uml-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bronvermelding per UML-element
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wat-niet-als-bronlaag-telt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wat niet als bronlaag telt
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3">
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectuur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architectuur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architectuur/gegevensarchitectuur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevensarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architectuur/gegevenscomponenten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevenscomponenten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4">
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Begrippenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Begrippenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../begrippen/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5">
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hoofdmodel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hoofdmodel-compact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel (compact)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/personen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Personen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/bedrijven-en-instellingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Bedrijven en Instellingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/adressen-en-gebouwen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Adressen en Gebouwen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/waarde-onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Waarde Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/belastingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Belastingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/krediet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Krediet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/onderwijs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onderwijs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/werk-en-inkomen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Werk en Inkomen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/voertuigen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Voertuigen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datatypes-en-codelijsten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datatypes en codelijsten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6">
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-voorzieningen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontologie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ontologie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ontologie/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8">
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementatie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementatie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/uri-strategie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-strategie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/naamgeving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naamgeving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/publicatie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publicatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9">
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bijlagen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/woordenlijst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Woordenlijst
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/uri-namespace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-namespace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#vier-lagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vier lagen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bronnen-per-laag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bronnen per laag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l1-authoritative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L1 Authoritative
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l2-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L2 Interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l3-nationaal-anker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L3 Nationaal anker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l4-internationaal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L4 Internationaal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-registratie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per registratie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Per registratie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bag-basisregistratie-adressen-en-gebouwen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BAG: Basisregistratie Adressen en Gebouwen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bri-basisregistratie-inkomen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRI: Basisregistratie Inkomen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brk-basisregistratie-kadaster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRK: Basisregistratie Kadaster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brp-basisregistratie-personen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRP: Basisregistratie Personen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cki-centraal-krediet-informatiesysteem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CKI: Centraal Krediet Informatiesysteem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hr-handelsregister" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HR: Handelsregister
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loonheffingen-gegevensspecificaties-aangifte-loonheffingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loonheffingen: Gegevensspecificaties aangifte loonheffingen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rod-register-onderwijsdeelnemers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROD: Register Onderwijsdeelnemers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbr-nt-nederlandse-taxonomie-belastingdienst-aangiften" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SBR-NT: Nederlandse Taxonomie (Belastingdienst-aangiften)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sgr-suwi-gegevensregister" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SGR: Suwi Gegevensregister
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#woz-waardering-onroerende-zaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZ: Waardering Onroerende Zaken
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beslisregels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beslisregels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bronvermelding-per-uml-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bronvermelding per UML-element
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wat-niet-als-bronlaag-telt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wat niet als bronlaag telt
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICTU/gbo-semantiek/edit/main/docs/informatiemodel/gbo-kern/bronnenprioritering.md" title="Wijzig deze pagina" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="bronnenprioritering-beslisregels-gbo-kern">Bronnenprioritering: beslisregels GBO-Kern<a class="headerlink" href="#bronnenprioritering-beslisregels-gbo-kern" title="Permanent link">¶</a></h1>
+<p>Voor de onderdelen waaruit GBO-Kern wordt opgebouwd zijn niet altijd
+dezelfde of eenduidige bronnen. We hanteren een afwegingskader om
+tot goede modelafleidingen te komen. Dat afwegingskader staat in
+deze pagina.</p>
+<p><strong>Doel</strong>: GBO-Kern is compatibel met de bestaande informatiemodellen
+en koppelvlakken van de basisregistraties, sectorale registers en
+de DUO-, UWV- en Belastingdienst-administraties. Een afnemer die werkt
+vanuit een catalogus of een API moet GBO-Kern direct herkennen.</p>
+<p>We bereiken dat door voor elk UML-element (klasse, attribuut,
+datatype, multipliciteit, omschrijving) systematisch uit de
+bronregisters af te leiden. In principe komt de invulling uit L1; uit
+L2 of L3 als L1 ontbreekt of als er een functionele behoefte is. Waar
+bronnen onduidelijk zijn, formele modellen ontbreken, of registraties
+elkaar tegenspreken, leiden we zelf af, met heldere bronvermelding.</p>
+<h2 id="vier-lagen">Vier lagen<a class="headerlink" href="#vier-lagen" title="Permanent link">¶</a></h2>
+<p>Bij elk UML-element wordt de referentie-strategie afgepeld in deze
+volgorde.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Soort bron</th>
+<th>Levert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 Authoritative</td>
+<td>Datamodel van de registratie (voorkeur); anders functioneel ontwerp of catalogus</td>
+<td>Inhoudelijke definitie en structurele eigenschappen</td>
+</tr>
+<tr>
+<td>L2 Interface</td>
+<td>Koppelvlak-specificatie</td>
+<td>Naamgeving, datatype, uitwisselings-contract</td>
+</tr>
+<tr>
+<td>L3 Nationaal anker</td>
+<td>NL-overkoepelende begrippen, thesauri, referentiemodellen</td>
+<td>Cross-registratie-binding</td>
+</tr>
+<tr>
+<td>L4 Internationaal</td>
+<td>Generieke EU-vocabulaires</td>
+<td>Publicatie-binding en FAIR-conformiteit</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bronnen-per-laag">Bronnen per laag<a class="headerlink" href="#bronnen-per-laag" title="Permanent link">¶</a></h2>
+<p>GBO-Kern dekt op dit moment tien bronregisters of equivalente
+administraties:</p>
+<ul>
+<li>Vier basisregistraties met L1 datamodel: <strong>BRP</strong>, <strong>BAG</strong>, <strong>BRK</strong>,
+  <strong>BGT</strong>.</li>
+<li>Twee basisregistraties zonder L1 datamodel: <strong>HR</strong> en <strong>WOZ</strong>;
+  modellering via L2 en L3.</li>
+<li>Een basisregistratie met L1 als SKOS-begrip: <strong>BRI</strong> (een authentiek
+  gegeven, gepubliceerd via de Stelselcatalogus).</li>
+<li>Drie sectorale registers en hun L1-bronnen: <strong>ROD</strong>
+  (Register Onderwijsdeelnemers, DUO/OCW), <strong>CKI</strong> (Centraal Krediet
+  Informatiesysteem, Stichting BKR), <strong>SGR</strong> (Suwi Gegevensregister,
+  BKWI namens UWV).</li>
+<li>Twee L1+L2-bronnen die niet als register opereren maar wel
+  definitief inhoudelijk-leidend zijn: <strong>SBR-NT</strong> (Nederlandse
+  Taxonomie, Belastingdienst voor aangiften) en
+  <strong>Gegevensspecificaties aangifte loonheffingen</strong> (Belastingdienst
+  plus UWV voor de loonketen).</li>
+</ul>
+<p>BRT, BRO en BRV blijven voorlopig buiten scope; bij toekomstige
+ingest volgen zij hetzelfde patroon (L1 datamodel of catalogus,
+L2 koppelvlak).</p>
+<h2 id="l1-authoritative">L1 Authoritative<a class="headerlink" href="#l1-authoritative" title="Permanent link">¶</a></h2>
+<p>Per bronregister het officiele datamodel; bij ontbreken het
+functionele ontwerp, de catalogus of (in bijzondere gevallen) een
+SKOS-publicatie.</p>
+<table>
+<thead>
+<tr>
+<th>Bronregister</th>
+<th>Bron</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BAG</td>
+<td>IMBAG met Catalogus BAG</td>
+<td><code>https://imbag.github.io/catalogus/</code></td>
+</tr>
+<tr>
+<td>BGT</td>
+<td>IMGeo (Gegevenscatalogus BGT/IMGeo)</td>
+<td><code>https://docs.geostandaarden.nl/imgeo/catalogus/imgeo/</code></td>
+</tr>
+<tr>
+<td>BRI</td>
+<td>Stelselcatalogus, begrip <em>authentiek_inkomen</em> (SKOS-RDF)</td>
+<td><code>https://opendata.stelselcatalogus.nl/bri/id/begrip/authentiek_inkomen</code></td>
+</tr>
+<tr>
+<td>BRK</td>
+<td>IMKAD</td>
+<td><code>https://developer.kadaster.nl/schemas/imkad/20200130/cat/index.html</code></td>
+</tr>
+<tr>
+<td>BRK</td>
+<td>BRK-Catalogus</td>
+<td><code>https://www.kadaster.nl/-/catalogus-brk</code></td>
+</tr>
+<tr>
+<td>BRP</td>
+<td>LO BRP (Logisch Ontwerp BRP)</td>
+<td><code>https://www.rvig.nl/lo-brp</code></td>
+</tr>
+<tr>
+<td>CKI</td>
+<td>Algemeen Reglement CKI</td>
+<td><code>https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf</code></td>
+</tr>
+<tr>
+<td>HR</td>
+<td>L1 ontbreekt; modellering via L2 en L3</td>
+<td>n.v.t.</td>
+</tr>
+<tr>
+<td>Loonheffingen</td>
+<td>Gegevensspecificaties aangifte loonheffingen</td>
+<td><code>https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/brochures_en_publicaties/gegevensspecificaties-aangifte-loonheffingen</code></td>
+</tr>
+<tr>
+<td>ROD</td>
+<td>Programma van Eisen ROD per sector (PO, VO, MBO/VAVO, HO) plus Gegevenswoordenboek DUO</td>
+<td><code>https://duo.nl/zakelijk/standaarden-ocw/canonieke-gegevensmodellen/duo-gegevenswoordenboek.jsp</code></td>
+</tr>
+<tr>
+<td>SBR-NT</td>
+<td>Nederlandse Taxonomie NT20 (hoofdrelease en extensies)</td>
+<td><code>https://www.sbr-nl.nl/werken-met-sbr/taxonomie/documentatie-nederlandse-taxonomie</code></td>
+</tr>
+<tr>
+<td>SGR</td>
+<td>Suwi Gegevensregister, beheerd door BKWI</td>
+<td><code>https://sgr.bkwi.nl/sgr/index.html</code></td>
+</tr>
+<tr>
+<td>WOZ</td>
+<td>L1 ontbreekt; modellering via L2 en L3</td>
+<td>n.v.t.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="l2-interface">L2 Interface<a class="headerlink" href="#l2-interface" title="Permanent link">¶</a></h2>
+<p>Koppelvlak-specificaties per registratie. Voor BRI is er geen
+publiek koppelvlak; toegang verloopt via afnemers in het SUWI- en
+toeslagen-stelsel. Voor CKI is de detail-koppelvlak-laag gated (alleen
+voor erkende zakelijke klanten van Stichting BKR).</p>
+<table>
+<thead>
+<tr>
+<th>Bronregister</th>
+<th>Bron</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BAG</td>
+<td>Haal Centraal BAG Individuele Bevragingen</td>
+<td><code>https://lvbag.github.io/BAG-API/Technische%20specificatie/</code></td>
+</tr>
+<tr>
+<td>BGT</td>
+<td>PDOK BGT-services</td>
+<td><code>https://www.pdok.nl/introductie/-/article/basisregistratie-grootschalige-topografie-bgt-</code></td>
+</tr>
+<tr>
+<td>BRI</td>
+<td>Geen publiek koppelvlak; afname via SUWI- en toeslagen-stelsel</td>
+<td>n.v.t.</td>
+</tr>
+<tr>
+<td>BRK</td>
+<td>Haal Centraal BRK Bevragen</td>
+<td><code>https://kadaster.github.io/BRK-bevragen/</code></td>
+</tr>
+<tr>
+<td>BRP</td>
+<td>Haal Centraal BRP-suite (Personen, Historie, Bewoning, Reisdocumenten, Tabellen, Update)</td>
+<td><code>https://developer.rvig.nl/brp-api/overview/</code></td>
+</tr>
+<tr>
+<td>CKI</td>
+<td>Algemene Handleiding CKI (gated, alleen erkende zakelijke klanten)</td>
+<td><code>https://www.bkr.nl/nl/inloggen-portalen</code></td>
+</tr>
+<tr>
+<td>HR</td>
+<td>KVK Developer Portal (Zoeken, Basisprofiel, Vestigingsprofiel, Naamgeving, Mutatieservice)</td>
+<td><code>https://developers.kvk.nl/documentation</code></td>
+</tr>
+<tr>
+<td>Loonheffingen</td>
+<td>XSD-bijlage Gegevensspecificaties; transport via Digipoort</td>
+<td>(onderdeel van L1-URL)</td>
+</tr>
+<tr>
+<td>ROD</td>
+<td>PvE ROD per sector via Edukoppeling 1.3 (WUS-profiel)</td>
+<td><code>https://duo.nl/zakelijk/</code> (per sectorpagina)</td>
+</tr>
+<tr>
+<td>SBR-NT</td>
+<td>XBRL-entrypoints per belastingsoort en jaar</td>
+<td><code>https://www.sbr-nl.nl/werken-met-sbr/taxonomie/documentatie-nederlandse-taxonomie</code></td>
+</tr>
+<tr>
+<td>SGR</td>
+<td>SuwiML-berichten boven SGR (Polisadministratie-bevraging, Inkomstenopgaaf, Uitkeringsoverzicht)</td>
+<td><code>https://sgr.bkwi.nl/sgr/</code></td>
+</tr>
+<tr>
+<td>WOZ</td>
+<td>Haal Centraal WOZ Bevragen</td>
+<td><code>https://kadaster.github.io/WOZ-bevragen/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Renseigneringen aan de Belastingdienst (Bankproducten,
+Verzekeringsproducten, Pensioenproducten) verlopen via het ODB; de
+detail-specificaties zijn gated achter een ondersteuningsabonnement.</p>
+<h2 id="l3-nationaal-anker">L3 Nationaal anker<a class="headerlink" href="#l3-nationaal-anker" title="Permanent link">¶</a></h2>
+<p>NL-overkoepelende begrippen-bronnen voor cross-registratie-binding.</p>
+<table>
+<thead>
+<tr>
+<th>Bron</th>
+<th>Functie</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stelselcatalogus</td>
+<td>Cross-registratie-begrippen; ook publicatie van het BRI-begrip in SKOS-RDF</td>
+<td><code>https://www.stelselcatalogus.nl/</code></td>
+</tr>
+<tr>
+<td>CBS Begrippen</td>
+<td>Statistische en afgeleide begrippen</td>
+<td><code>https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen</code></td>
+</tr>
+<tr>
+<td>TOOI</td>
+<td>Overheidsorganisaties, informatieobjecten, regelgevingstermen</td>
+<td><code>https://standaarden.overheid.nl/tooi</code></td>
+</tr>
+<tr>
+<td>GGM</td>
+<td>Gemeentelijk gegevensmodel; sector-uitbreidingen</td>
+<td><code>https://www.gemeentelijkgegevensmodel.nl/</code></td>
+</tr>
+<tr>
+<td>RSGB</td>
+<td>Historische gemeentelijke baseline (onder GEMMA)</td>
+<td><code>https://www.gemmaonline.nl/index.php/Referentiemodel_Stelsel_van_Gemeentelijke_Basisgegevens</code></td>
+</tr>
+<tr>
+<td>NORA</td>
+<td>Nederlandse Overheid Referentie Architectuur; positionering sectorale registers</td>
+<td><code>https://www.noraonline.nl/</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="l4-internationaal">L4 Internationaal<a class="headerlink" href="#l4-internationaal" title="Permanent link">¶</a></h2>
+<p>Generieke EU- en internationale vocabulaires voor publicatie-binding
+en FAIR.</p>
+<table>
+<thead>
+<tr>
+<th>Bron</th>
+<th>Functie</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EU Core Vocabularies (SEMIC)</td>
+<td>Persoon, onderneming, locatie, overheidsorganisatie</td>
+<td><code>https://semiceu.github.io/</code></td>
+</tr>
+<tr>
+<td>schema.org</td>
+<td>SEO en AI-vindbaarheid bij publicatie</td>
+<td><code>https://schema.org/</code></td>
+</tr>
+<tr>
+<td>ELMO</td>
+<td>Europees onderwijs-uitwisselings-format (Learner Mobility)</td>
+<td><code>https://elmo.eu/</code></td>
+</tr>
+<tr>
+<td>FIBO</td>
+<td>Financial Industry Business Ontology (krediet, financiele verplichting)</td>
+<td><code>https://spec.edmcouncil.org/fibo/</code></td>
+</tr>
+<tr>
+<td>ESCO</td>
+<td>European Skills, Competences, Qualifications and Occupations</td>
+<td><code>https://ec.europa.eu/esco/</code></td>
+</tr>
+<tr>
+<td>ISO 3166</td>
+<td>Landcodes (alpha-2, alpha-3, numeriek)</td>
+<td><code>https://www.iso.org/iso-3166-country-codes.html</code></td>
+</tr>
+<tr>
+<td>MCD 2014/17/EU</td>
+<td>Richtlijn hypothecair krediet</td>
+<td><code>https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX%3A32014L0017</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="per-registratie">Per registratie<a class="headerlink" href="#per-registratie" title="Permanent link">¶</a></h2>
+<p>Per bronregister of equivalente administratie de bronvolgorde van
+L1 naar L4. Sub-secties alfabetisch.</p>
+<h3 id="bag-basisregistratie-adressen-en-gebouwen">BAG: Basisregistratie Adressen en Gebouwen<a class="headerlink" href="#bag-basisregistratie-adressen-en-gebouwen" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Kadaster (LVBAG) met het Ministerie van BZK als
+vaststeller van de catalogus.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Catalogus BAG / IMBAG</td>
+<td><code>https://imbag.github.io/catalogus/</code></td>
+<td>Formeel IM plus objecttype-catalogus</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Haal Centraal BAG Individuele Bevragingen</td>
+<td><code>https://lvbag.github.io/BAG-API/Technische%20specificatie/</code></td>
+<td>REST/OpenAPI met HAL</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>BAG 2.0 Extract / LVBAG-levering</td>
+<td>via Kadaster-aansluiting</td>
+<td>Bulk</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>PDOK BAG WMS/WFS</td>
+<td>via PDOK-portaal</td>
+<td>Geo-services voor geometrie</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: IMBAG is volledig formeel (UML en XSD); gebruik
+IMBAG-URI's direct als <code>bron-uri</code>. Wijk- en Buurt-data zitten niet in
+BAG; daarvoor CBS. Het BAG-bitemporaliteits-patroon
+(<code>voorkomen</code>-blok) is anker voor het GBO Voorkomen-mixin.</p>
+<h3 id="bri-basisregistratie-inkomen">BRI: Basisregistratie Inkomen<a class="headerlink" href="#bri-basisregistratie-inkomen" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Belastingdienst (inhoudelijk); Logius beheert de
+Stelselcatalogus-publicatie.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Stelselcatalogus, begrip <em>authentiek_inkomen</em> (SKOS-RDF)</td>
+<td><code>https://opendata.stelselcatalogus.nl/bri/id/begrip/authentiek_inkomen</code></td>
+<td>Eén SKOS-Concept; content-negotiation ttl, jsonld, rdf</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Wet basisregistratie inkomen</td>
+<td><code>https://wetten.overheid.nl/BWBR0028058</code></td>
+<td>Juridische definitie en aanwijzing als authentiek</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Geen publiek koppelvlak</td>
+<td>n.v.t.</td>
+<td>Afname via SUWI- en toeslagen-stelsel</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: BRI is een one-attribute-register; uitsluitend het
+authentieke inkomen-gegeven is gedefinieerd. Citeer
+<em>Wet BRI art. 4</em> en de Stelselcatalogus-URI in herkomst-velden.
+Voeden van BRI gebeurt vanuit aangiften IH (SBR-NT) of vanuit de
+loonketen (Loonheffingen).</p>
+<h3 id="brk-basisregistratie-kadaster">BRK: Basisregistratie Kadaster<a class="headerlink" href="#brk-basisregistratie-kadaster" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Kadaster.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>IMKAD (Informatiemodel Kadaster)</td>
+<td><code>https://developer.kadaster.nl/schemas/imkad/20200130/cat/index.html</code></td>
+<td>UML conform MIM</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>BRK-Catalogus</td>
+<td><code>https://www.kadaster.nl/-/catalogus-brk</code></td>
+<td>Narratief plus objecttype-overzicht</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Haal Centraal BRK Bevragen</td>
+<td><code>https://kadaster.github.io/BRK-bevragen/</code></td>
+<td>REST/OpenAPI</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>BRK-Levering (bulk-feed)</td>
+<td>via Kadaster-aansluiting</td>
+<td>XML-bulk inclusief Aantekening en akte-stukken</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: IMKAD en de BRK-Catalogus zijn complementair: IMKAD voor
+formele structuur, BRK-Catalogus voor wettelijk-juridische
+definities. HC BRK plat <code>Tenaamstelling × ZakelijkRecht × Partij</code> tot
+één resource; GBO splitst expliciet uit.</p>
+<h3 id="brp-basisregistratie-personen">BRP: Basisregistratie Personen<a class="headerlink" href="#brp-basisregistratie-personen" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: RvIG (Rijksdienst voor Identiteitsgegevens) onder het
+Ministerie van BZK.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Logisch Ontwerp BRP</td>
+<td><code>https://www.rvig.nl/lo-brp</code></td>
+<td>Narratief plus tabellen; geen UML of RDF</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>BRP Persoonslijst-categorieen</td>
+<td>in LO BRP paragraaf 3</td>
+<td>Categorieen 01 t/m 63, historische +50</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Haal Centraal BRP-suite</td>
+<td><code>https://developer.rvig.nl/brp-api/overview/</code></td>
+<td>Zes REST/OpenAPI's</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>BRP-V berichtenverkeer (op basis van LO-A)</td>
+<td>via RvIG-aansluiting</td>
+<td>SOAP/XML, voor historie-rubrieken niet in HC</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: LO BRP is dwingend voor definities; citeer altijd
+<code>LO BRP §rubriek</code> in herkomst-veld. Voor attribuut-naamgeving volgt
+GBO de HC-conventie tenzij L1 expliciet een Nederlandstalig
+alternatief biedt dat semantisch sterker is.</p>
+<h3 id="cki-centraal-krediet-informatiesysteem">CKI: Centraal Krediet Informatiesysteem<a class="headerlink" href="#cki-centraal-krediet-informatiesysteem" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Stichting BKR (Bureau Kredietregistratie) te Tiel,
+privaatrechtelijke stichting.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Algemeen Reglement CKI</td>
+<td><code>https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf</code></td>
+<td>Juridisch reglement; 43 artikelen, 30 paginas</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Wet op het financieel toezicht art. 4:32</td>
+<td><code>https://wetten.overheid.nl/BWBR0020368</code></td>
+<td>Sectorregistratie-grondslag</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Toelichtingsbrochure BKR</td>
+<td><code>https://www.bkr.nl/media/ssqbz200/kredietregistratie-bij-stichting-bkr.pdf</code></td>
+<td>Publieke uitleg met uitsluitings-lijst</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Algemene Handleiding CKI</td>
+<td><code>https://www.bkr.nl/nl/inloggen-portalen</code></td>
+<td>Gated, alleen voor erkende zakelijke klanten</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>NORA-pagina CKI</td>
+<td><code>https://www.noraonline.nl/wiki/Centraal_Krediet_Informatiesysteem_(CKI)</code></td>
+<td>Sectorregistratie-positionering</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: CKI is een private sectorregistratie. Wettelijk gegrondvest
+in Wft art. 4:32; afname feitelijk verplicht via Wft art. 4:34 en
+gedragsregels TRHK. L2 is permanent gated; voor GBO-Kern-modellering
+volstaat L1 omdat alle concepten uit het reglement modelleerbaar zijn.</p>
+<h3 id="hr-handelsregister">HR: Handelsregister<a class="headerlink" href="#hr-handelsregister" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: KVK (Kamer van Koophandel) onder het Ministerie van EZ.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>L1 ontbreekt; modellering via L2 en L3</td>
+<td>n.v.t.</td>
+<td>Geen publiek formeel HR-IM van KVK</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>KVK Developer Portal (vijf API's: Zoeken, Basisprofiel, Vestigingsprofiel, Naamgeving, Mutatieservice)</td>
+<td><code>https://developers.kvk.nl/documentation</code></td>
+<td>REST/OpenAPI</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>SBR-HR / XBRL</td>
+<td>via SBR-banken</td>
+<td>Optioneel, voor jaarverslag-keten</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Handelsregisterwet 2007 + Handelsregisterbesluit 2008</td>
+<td>wetten.overheid.nl</td>
+<td>Wettelijke definities Inschrijving, Onderneming, Vestiging</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Substituutstrategie HR</strong>: GBO leunt op een driepoot:
+Handelsregisterwet 2007, de KVK-API-spec als surrogaat-IM, en
+externe adviesmodellen als sanity-check. Citeer in elke
+HR-attribuut: <code>herkomst: GBO-afleiding op basis van KVK Basisprofiel
+en GGM Handelsregister-domein</code> (of relevante combinatie).</p>
+<h3 id="loonheffingen-gegevensspecificaties-aangifte-loonheffingen">Loonheffingen: Gegevensspecificaties aangifte loonheffingen<a class="headerlink" href="#loonheffingen-gegevensspecificaties-aangifte-loonheffingen" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Belastingdienst en UWV gezamenlijk.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1+L2</td>
+<td>Gegevensspecificaties aangifte loonheffingen</td>
+<td><code>https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/brochures_en_publicaties/gegevensspecificaties-aangifte-loonheffingen</code></td>
+<td>PDF met rubrieknummers plus XSD 1.0</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Wet LB 1964</td>
+<td><code>https://wetten.overheid.nl/BWBR0002471</code></td>
+<td>Materiele loonheffing</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Wfsv (Wet financiering sociale verzekeringen)</td>
+<td><code>https://wetten.overheid.nl/BWBR0017745</code></td>
+<td>Premiegrondslag</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Besluit SUWI art. 5.1</td>
+<td><code>https://wetten.overheid.nl/BWBR0013467</code></td>
+<td>Loonketen-governance (UWV operationeel)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: De loonketen-definities zijn inhoudelijk eigendom van de
+Belastingdienst, ook al loopt de operationele keten via UWV. Modelleer
+Inkomstenverhouding, Inkomstenopgave, Inkomstenperiode en
+LoonBestanddeel daarom in deelmodel
+<a href="../deelmodellen/belastingen/">Belastingen</a>, niet in
+<a href="../deelmodellen/werk-en-inkomen/">Werk en Inkomen</a>. SGR ontsluit
+dezelfde data operationeel.</p>
+<h3 id="rod-register-onderwijsdeelnemers">ROD: Register Onderwijsdeelnemers<a class="headerlink" href="#rod-register-onderwijsdeelnemers" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: DUO (Dienst Uitvoering Onderwijs) namens het
+Ministerie van OCW.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Wet op het onderwijsnummer</td>
+<td><code>https://wetten.overheid.nl/BWBR0014522</code></td>
+<td>Wettelijke basis voor het register</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Sectorwetten WPO, WVO 2020, WEB, WHW</td>
+<td>wetten.overheid.nl per wet</td>
+<td>Inhoudelijke kaders per sector</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Gegevenswoordenboek DUO</td>
+<td><code>https://duo.nl/zakelijk/standaarden-ocw/canonieke-gegevensmodellen/duo-gegevenswoordenboek.jsp</code></td>
+<td>Canoniek gegevensmodel; nog in bewerking</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>PvE ROD MBO en VAVO</td>
+<td><code>https://duo.nl/zakelijk/middelbaar-beroepsonderwijs/softwareleveranciers/softwareleveranciers-las.jsp</code></td>
+<td>PDF plus XSD; transport via Edukoppeling 1.3</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>PvE ROD HO</td>
+<td><code>https://www.duo.nl/zakelijk/hoger-onderwijs/studentenadministratie/programma-van-eisen-rod-ho.jsp</code></td>
+<td>Idem</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>PvE ROD PO</td>
+<td><code>https://duo.nl/zakelijk/primair-onderwijs/softwareleveranciers/softwareleveranciers-las.jsp</code></td>
+<td>Idem</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Handleiding ROD VO</td>
+<td><code>https://www.duo.nl/zakelijk/voortgezet-onderwijs/leerlingenadministratie/leerlinggegevens-uitwisselen-met-rod.jsp</code></td>
+<td>Idem</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: ROD is geen basisregistratie maar wel een wettelijk
+verplicht sectoraal register. Citeer per attribuut de sector-
+specifieke PvE-rubriek. Wanneer het Gegevenswoordenboek DUO
+formeel verschijnt, schuift L1 op van wettekst naar het
+Gegevenswoordenboek.</p>
+<h3 id="sbr-nt-nederlandse-taxonomie-belastingdienst-aangiften">SBR-NT: Nederlandse Taxonomie (Belastingdienst-aangiften)<a class="headerlink" href="#sbr-nt-nederlandse-taxonomie-belastingdienst-aangiften" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Belastingdienst CCT binnen SBR-NL governance,
+samenwerking met Logius en KvK.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1+L2</td>
+<td>SBR-NT NT20 hoofdrelease (NT20_20251210)</td>
+<td><code>https://www.sbr-nl.nl/werken-met-sbr/taxonomie/documentatie-nederlandse-taxonomie</code></td>
+<td>XBRL-taxonomie; entrypoints voor IH 2025, VPB 2025, VIA, OWR</td>
+</tr>
+<tr>
+<td>L1+L2</td>
+<td>SBR-NT NT20 1e extensie (NT20_20260218.a)</td>
+<td>(zelfde portaal, alfaversie)</td>
+<td>Entrypoints Schenk 2026, Erf 2026, Servicebericht Toeslagen 2026</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Wet IB 2001</td>
+<td><code>https://wetten.overheid.nl/BWBR0011353</code></td>
+<td>Materiele wetgeving inkomstenbelasting</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Successiewet 1956</td>
+<td><code>https://wetten.overheid.nl/BWBR0002226</code></td>
+<td>Schenkbelasting, erfbelasting</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Awir</td>
+<td><code>https://wetten.overheid.nl/BWBR0018472</code></td>
+<td>Toeslagen-grondslag</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advies</strong>: Combineer L1 (materiele wet) en L2 (XBRL-conceptnaam) in
+het herkomst-veld. Citeer release-naam expliciet (NT20_20251210 voor
+hoofdrelease, NT20_20260218.a voor extensie). Vermeng labels en
+references uit verschillende releases niet. Voor de
+XBRL-naar-MIM-mapping geldt: <code>xbrl:label role=documentation</code> levert
+de definitie, <code>xbrl:reference role=disclosure</code> levert de
+wetreferentie, <code>xbrl:periodType</code> levert de tijdkarakteristiek.</p>
+<h3 id="sgr-suwi-gegevensregister">SGR: Suwi Gegevensregister<a class="headerlink" href="#sgr-suwi-gegevensregister" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: BKWI (Bureau Keteninformatisering Werk en Inkomen)
+namens UWV.</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Suwi Gegevensregister</td>
+<td><code>https://sgr.bkwi.nl/sgr/index.html</code></td>
+<td>SuwiML XSD plus HTML-catalogus; circa 250 entiteiten</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Bijlage 1 SGR (wettelijke grondslag per attribuut)</td>
+<td>apart document op zelfde domein</td>
+<td>Koppelt attribuut aan wetsartikel</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Wet SUWI</td>
+<td><code>https://wetten.overheid.nl/BWBR0013060</code></td>
+<td>Stelselgrondslag UWV en SVB</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Werknemers- en volksverzekeringswetten (WW, ZW, WIA, Wajong, AOW)</td>
+<td>wetten.overheid.nl per wet</td>
+<td>Inhoudelijke kaders per uitkering</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>SuwiML-berichten boven SGR (Polisadministratie-bevraging, Inkomstenopgaaf, Uitkeringsoverzicht)</td>
+<td><code>https://sgr.bkwi.nl/sgr/</code></td>
+<td>XML-payload boven SGR-entiteiten</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Eigendomsverdeling binnen SGR</strong>: SGR is L1 authoritative voor
+UWV-eigen concepten (uitkeringen, beslissingen, dagloon,
+arbeidsongeschiktheids-percentage, arbeidsverhouding). Voor
+loonaangifteketen-afgeleide concepten (Inkomstenverhouding,
+Inkomstenopgave, Inkomstenperiode, LoonBestanddeel) is de
+Belastingdienst wettelijk eigenaar; SGR is daar een ontsluitings-
+kanaal. AOW-administratie is operationeel SVB; SGR-dekking kan
+beperkt zijn.</p>
+<h3 id="woz-waardering-onroerende-zaken">WOZ: Waardering Onroerende Zaken<a class="headerlink" href="#woz-waardering-onroerende-zaken" title="Permanent link">¶</a></h3>
+<p><strong>Beheerder</strong>: Waarderingskamer (toezicht), gemeenten (uitvoering),
+Kadaster (LV-WOZ).</p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Bron</th>
+<th>URL</th>
+<th>Karakter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>L1 ontbreekt; modellering via L2 en L3</td>
+<td>n.v.t.</td>
+<td>Geen vrij-toegankelijk WOZ-Gegevenswoordenboek</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Haal Centraal WOZ Bevragen</td>
+<td><code>https://kadaster.github.io/WOZ-bevragen/</code></td>
+<td>REST/OpenAPI</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>LV-WOZ-bevraagservice (Kadaster)</td>
+<td>via aansluiting</td>
+<td>Bevraging</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Wet WOZ en uitvoeringsbesluit</td>
+<td>wetten.overheid.nl</td>
+<td>Wettelijke definities WOZ-object, peildatum</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Waarderingsinstructie (Waarderingskamer)</td>
+<td><code>https://www.waarderingskamer.nl/voor-gemeenten/hulpmiddelen/</code></td>
+<td>Beleidsmatige uitwerking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Substituutstrategie WOZ</strong>: GBO leunt voor WOZ-objecttypering op de
+combinatie Wet WOZ, Waarderingsinstructie en HC WOZ-schema. Geen van
+drieën is L1; ze worden samen gebruikt conform de beslisregel "leid
+zelf af bij gaten, niet ruimer dan de bron toelaat".</p>
+<h2 id="beslisregels">Beslisregels<a class="headerlink" href="#beslisregels" title="Permanent link">¶</a></h2>
+<p><strong>L1 is default; L2 of L3 op functionele gronden.</strong> De invulling van
+elk UML-element komt in principe uit L1 zolang die beschikbaar is.
+L2 of L3 wordt gebruikt wanneer L1 ontbreekt, niet voldoet, of wanneer
+een functionele behoefte daarom vraagt (bijvoorbeeld afnemer-
+herkenbaarheid in API-naamgeving, datatype-conventies, of
+cross-registratie-binding).</p>
+<p><strong>Leid zelf af bij gaten of conflicten.</strong> Wanneer ook L2 en L3 geen
+invulling leveren (HR en WOZ missen L1; sommige rubrieken zitten
+alleen in legacy-koppelvlakken; twee L1's modelleren hetzelfde
+concept anders), vul je de UML-eigenschap zelf in op basis van de
+best beschikbare informatie. De afleiding moet semantisch passen bij
+wat L1, L2 of L3 wel zegt, en mag niet ruimer zijn dan wat de bron
+toelaat.</p>
+<p><strong>Vermeld altijd de bron per UML-element.</strong> Elke klasse en elk
+attribuut krijgt verplichte herkomstvermelding waarin zichtbaar is
+uit welke laag of welke combinatie de invulling komt. Zonder
+bronverwijzing is een UML-element niet vastgesteld.</p>
+<p><strong>Specifieke regels per bron-type</strong>:</p>
+<ul>
+<li>Voor <strong>basisregistraties</strong> (BRP, BAG, BRK, BGT, WOZ, BRI) geldt de
+  reguliere L1-default. Bij HR en WOZ leunt de eerste keus altijd
+  op L2 wegens ontbrekend L1.</li>
+<li>Voor <strong>sectorale registers</strong> (ROD, CKI, SGR) wordt L1 ontleend
+  aan het reglement of de catalogus van de beheerder. CKI heeft
+  een gated L2; voor GBO-Kern-modellering is dat geen blokkade,
+  alle concepten zijn modelleerbaar uit L1.</li>
+<li>Voor <strong>SBR-NT en Loonheffingen</strong> geldt L1+L2 gecombineerd: het
+  document bevat zowel inhoudelijke definities als koppelvlak-
+  specificaties. Citaten kunnen daarom van een PDF-pagina-anker zijn
+  (definitie) of van een XBRL-conceptnaam (koppelvlak).</li>
+<li>Voor <strong>InkomensOndersteuning</strong> als cross-domein supertype boven
+  Toeslag en Uitkering geldt een GBO-eigen afleiding op basis van
+  Awir art. 1, Wet SUWI en de individuele werknemers- en
+  volksverzekeringswetten. De koepel zelf staat niet in een enkele
+  bron.</li>
+</ul>
+<h2 id="bronvermelding-per-uml-element">Bronvermelding per UML-element<a class="headerlink" href="#bronvermelding-per-uml-element" title="Permanent link">¶</a></h2>
+<p>Per UML-element minimaal twee tagged-values:</p>
+<table>
+<thead>
+<tr>
+<th>Tagged value</th>
+<th>Wat</th>
+<th>Voorbeeld</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>herkomst:</code></td>
+<td>Verwijzing per eigenschap, of compact als een bron volstaat</td>
+<td>"IMBAG paragraaf X (definitie, multipliciteit); HC BAG (naam, datatype)"</td>
+</tr>
+<tr>
+<td><code>bron-uri:</code></td>
+<td>Machine-leesbare bron-URI waar resolvable</td>
+<td>"https://imbag.github.io/catalogus/objecttypen/Pand"</td>
+</tr>
+</tbody>
+</table>
+<p>Bij eigen afleiding (GBO-Kern-modellering zonder directe bron):</p>
+<table>
+<thead>
+<tr>
+<th>Tagged value</th>
+<th>Wat</th>
+<th>Voorbeeld</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>herkomst:</code></td>
+<td>Markeert afleiding plus gebruikte bronnen</td>
+<td>"GBO-afleiding op basis van KVK Basisprofiel en GGM Handelsregister-domein"</td>
+</tr>
+</tbody>
+</table>
+<p>Voor cross-walks naar L3 en L4:</p>
+<table>
+<thead>
+<tr>
+<th>Tagged value</th>
+<th>Wat</th>
+<th>Voorbeeld</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>verwantBegrip:</code></td>
+<td>L3-binding</td>
+<td>"https://standaarden.overheid.nl/tooi/id/"</td>
+</tr>
+<tr>
+<td><code>internationaal-equivalent:</code></td>
+<td>L4-binding via SKOS-mapping-relatie</td>
+<td>"cpv:Person via skos:exactMatch"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wat-niet-als-bronlaag-telt">Wat niet als bronlaag telt<a class="headerlink" href="#wat-niet-als-bronlaag-telt" title="Permanent link">¶</a></h2>
+<p>De methodologische standaarden die GBO-Kern toepast zijn geen
+inhoudelijke definitie-bronnen en horen niet als laag in dit
+overzicht thuis:</p>
+<ul>
+<li><strong>MIM 1.2</strong> is de modelleer-methodiek waarin GBO-Kern wordt
+  uitgedrukt. Conformance-statement op model-niveau, geen referentie-
+  laag.</li>
+<li><strong>SKOS</strong> is het metamodel voor codelijsten. Per codelijst geldt
+  een afzonderlijke L1- of L3-bron.</li>
+<li><strong>DCAT-AP-NL</strong> is een dataset-metadata-standaard voor publicatie,
+  niet voor inhoud.</li>
+<li><strong>StUF</strong> is een legacy-transportlaag voor de gemeentelijke
+  inkomende keten. Voor GBO-Kern de laagste terugval-bron.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Terug naar boven
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../../../uitgangspunten/kaders_standaarden/" class="md-footer__link md-footer__link--prev" aria-label="Vorige: Kaders en standaarden">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Vorige
+              </span>
+              <div class="md-ellipsis">
+                Kaders en standaarden
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../architectuur/gegevensarchitectuur/" class="md-footer__link md-footer__link--next" aria-label="Volgende: Gegevensarchitectuur">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Volgende
+              </span>
+              <div class="md-ellipsis">
+                Gegevensarchitectuur
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Let op: er wordt alleen gezocht binnen dit documentatie-onderdeel. Om in andere onderdelen te zoeken: ga via het hoofdmenu eerst naar het onderdeel en voer dan de zoekterm in.", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../../assets/javascripts/mermaid-init.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

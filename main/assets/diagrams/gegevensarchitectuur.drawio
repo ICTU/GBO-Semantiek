@@ -1,0 +1,205 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36">
+  <diagram name="Gegevensarchitectuur" id="gbo-gegevensarchitectuur">
+    <mxGraphModel dx="1006" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#222222;" value="&lt;b&gt;GBO Gegevensarchitectuur&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px;color:#666&quot;&gt;Drie lagen: sector- en clientmodellen, kerngegevens en GBO-Voorzieningenmodel&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size:11px;color:#666&quot;&gt;De hier getoonde modellen zijn niet compleet; deze zijn elders verder uitgewerkt&amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="410" x="345" y="11" as="geometry" />
+        </mxCell>
+        <mxCell id="layer-sector" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=top;fontSize=11;fontColor=#6c4a85;align=center;spacingTop=6;arcSize=8;" value="&lt;b&gt;Sector- en clientmodellen&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;Domeinspecifieke sectorsilo&#39;s én Europese clientmodellen (EDI, OOTS) die bouwen op de kerngegevens en het GBO-Voorzieningenmodel&lt;/font&gt;" vertex="1">
+          <mxGeometry height="210" width="980" x="60" y="93" as="geometry" />
+        </mxCell>
+        <mxCell id="silo-zv" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0e4ee;strokeColor=#9673a6;strokeWidth=1;verticalAlign=top;fontSize=11;fontColor=#6c4a85;align=center;spacingTop=4;" value="&lt;b&gt;Zorgeloos Vastgoed&lt;/b&gt;" vertex="1">
+          <mxGeometry height="150" width="225" x="80" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-woz" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="WOZ-waarde" vertex="1">
+          <mxGeometry height="26" width="100" x="90" y="176" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-eigendom" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Eigendomsrecht" vertex="1">
+          <mxGeometry height="26" width="100" x="195" y="176" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-hypotheek" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Hypotheek" vertex="1">
+          <mxGeometry height="26" width="100" x="90" y="208" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-taxatie" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Taxatierapport" vertex="1">
+          <mxGeometry height="26" width="100" x="195" y="208" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-energie" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Inkomen" vertex="1">
+          <mxGeometry height="26" width="205" x="90" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="silo-gi" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0e4ee;strokeColor=#9673a6;strokeWidth=1;verticalAlign=top;fontSize=11;fontColor=#6c4a85;align=center;spacingTop=4;" value="&lt;b&gt;Gebouwinformatie&lt;/b&gt;" vertex="1">
+          <mxGeometry height="150" width="225" x="318" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="gi-verblijf" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Verblijfsobject" vertex="1">
+          <mxGeometry height="26" width="100" x="328" y="176" as="geometry" />
+        </mxCell>
+        <mxCell id="gi-gebruik" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Gebruiksdoel" vertex="1">
+          <mxGeometry height="26" width="100" x="433" y="176" as="geometry" />
+        </mxCell>
+        <mxCell id="gi-bouwjaar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Bouwjaar" vertex="1">
+          <mxGeometry height="26" width="100" x="328" y="208" as="geometry" />
+        </mxCell>
+        <mxCell id="gi-opp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Oppervlakte" vertex="1">
+          <mxGeometry height="26" width="100" x="433" y="208" as="geometry" />
+        </mxCell>
+        <mxCell id="gi-status" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Pandstatus" vertex="1">
+          <mxGeometry height="26" width="205" x="328" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="silo-edi" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=1;verticalAlign=top;fontSize=11;fontColor=#a35200;align=center;spacingTop=4;" value="&lt;font style=&quot;color: rgb(163, 82, 0);&quot;&gt;&lt;b&gt;EUDI-wallet · attestaties&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="225" x="556" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="edi-pid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="PID (persoonsidentificatie)" vertex="1">
+          <mxGeometry height="24" width="205" x="566" y="173" as="geometry" />
+        </mxCell>
+        <mxCell id="edi-mdl" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Birth Certificate" vertex="1">
+          <mxGeometry height="24" width="205" x="566" y="201" as="geometry" />
+        </mxCell>
+        <mxCell id="edi-ehic" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Age" vertex="1">
+          <mxGeometry height="24" width="205" x="566" y="229" as="geometry" />
+        </mxCell>
+        <mxCell id="edi-meer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#999999;" value="… (o.a. Citizenship)" vertex="1">
+          <mxGeometry height="24" width="205" x="566" y="257" as="geometry" />
+        </mxCell>
+        <mxCell id="silo-oots" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=1;verticalAlign=top;fontSize=11;fontColor=#a35200;align=center;spacingTop=4;" value="&lt;b&gt;OOTS&amp;nbsp;&lt;/b&gt;&lt;font style=&quot;color: rgb(163, 82, 0);&quot;&gt;&lt;b&gt;evidence/bewijsstukken&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="225" x="794" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="oots-woonplaats" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Proof of birth" vertex="1">
+          <mxGeometry height="24" width="205" x="804" y="173" as="geometry" />
+        </mxCell>
+        <mxCell id="oots-hr" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Proof of residence" vertex="1">
+          <mxGeometry height="24" width="205" x="804" y="201" as="geometry" />
+        </mxCell>
+        <mxCell id="oots-kenteken" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;" value="Proof of roadworthiness" vertex="1">
+          <mxGeometry height="24" width="205" x="804" y="229" as="geometry" />
+        </mxCell>
+        <mxCell id="oots-woz" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2e6;strokeColor=#d79b00;strokeWidth=0.5;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#999999;" value="… (14 evidence types)" vertex="1">
+          <mxGeometry height="24" width="205" x="804" y="257" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-sc1" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#6c8ebf;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="192" y="303" as="sourcePoint" />
+            <mxPoint x="192" y="338" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-sc2" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#6c8ebf;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="303" as="sourcePoint" />
+            <mxPoint x="430" y="338" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-sc-label" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#6c8ebf;fontStyle=2;" value="gebruikt definities uit" vertex="1">
+          <mxGeometry height="18" width="120" x="240" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-sc3" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#d79b00;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="668" y="303" as="sourcePoint" />
+            <mxPoint x="668" y="338" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-sc4" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#d79b00;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="906" y="303" as="sourcePoint" />
+            <mxPoint x="906" y="338" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-sc-label2" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#a35200;fontStyle=2;" value="ontleent gegevens aan" vertex="1">
+          <mxGeometry height="18" width="130" x="708" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="layer-core" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;verticalAlign=top;fontSize=11;fontColor=#2a5a8a;align=center;spacingTop=6;arcSize=8;" value="&lt;b&gt;GBO-Kernmodel&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;Gedeelde kerngegevens uit de basisregistraties: de gemeenschappelijke taal voor alle domeinen&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="980" x="60" y="343" as="geometry" />
+        </mxCell>
+        <mxCell id="core-personen" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Personen&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;BRP&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="80" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="core-bedrijven" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Bedrijven&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;HR&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="215" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="core-voertuigen" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Voertuigen&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;BRV, RDW&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="350" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="core-belastingen" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Belastingen&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;BRI, Belastingdienst&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="485" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="core-kredieten" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Kredieten&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;BKR&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="620" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="core-woz" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;WOZ&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Waardering&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="755" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="core-overig" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8daf0;strokeColor=#6c8ebf;strokeWidth=1;verticalAlign=middle;fontSize=11;" value="&lt;b&gt;...&lt;/b&gt;" vertex="1">
+          <mxGeometry height="55" width="127" x="890" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-gc1" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#6c8ebf;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="518" as="sourcePoint" />
+            <mxPoint x="330" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-gc1-label" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#6c8ebf;fontStyle=2;" value="gebruikt definities uit" vertex="1">
+          <mxGeometry height="18" width="120" x="340" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-gc2" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#6c8ebf;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="518" as="sourcePoint" />
+            <mxPoint x="770" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-gc2-label" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#6c8ebf;fontStyle=2;" value="gebruikt definities uit" vertex="1">
+          <mxGeometry height="18" width="120" x="780" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="layer-gbo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=top;fontSize=11;fontColor=#4d7a3a;align=center;spacingTop=6;arcSize=8;" value="&lt;b&gt;GBO-Voorzieningenmodel&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;Objecttypen voor gestructureerde, verantwoorde gegevensdeling&lt;/font&gt;" vertex="1">
+          <mxGeometry height="140" width="980" x="60" y="518" as="geometry" />
+        </mxCell>
+        <mxCell id="gbo-bron" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f7ef;strokeColor=#82b366;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Bron&lt;/b&gt;" vertex="1">
+          <mxGeometry height="58" width="120" x="100" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gbo-dienst" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f7ef;strokeColor=#82b366;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Dienst&lt;/b&gt;" vertex="1">
+          <mxGeometry height="58" width="120" x="240" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gbo-scope" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f7ef;strokeColor=#82b366;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Scope&lt;/b&gt;" vertex="1">
+          <mxGeometry height="58" width="120" x="380" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gbo-toestemming" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f7ef;strokeColor=#82b366;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Toestemming&lt;/b&gt;" vertex="1">
+          <mxGeometry height="58" width="140" x="520" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gbo-verzoek" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f7ef;strokeColor=#82b366;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Gegevensverzoek&lt;/b&gt;" vertex="1">
+          <mxGeometry height="58" width="160" x="680" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gbo-grondslag" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f7ef;strokeColor=#82b366;strokeWidth=1;verticalAlign=middle;fontSize=10;" value="&lt;b&gt;Grondslag&lt;/b&gt;" vertex="1">
+          <mxGeometry height="58" width="120" x="860" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;strokeWidth=1;verticalAlign=top;align=left;fontSize=10;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;Legenda&lt;/b&gt;" vertex="1">
+          <mxGeometry height="55" width="600" x="60" y="683" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="12" width="22" x="70" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;" value="Sectormodellen" vertex="1">
+          <mxGeometry height="20" width="90" x="96" y="711" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="12" width="22" x="196" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;" value="Clientmodellen" vertex="1">
+          <mxGeometry height="20" width="90" x="222" y="711" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="12" width="22" x="322" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;" value="GBO-Kernmodel" vertex="1">
+          <mxGeometry height="20" width="95" x="348" y="711" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=1;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="12" width="22" x="455" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;" value="GBO-Voorzieningen" vertex="1">
+          <mxGeometry height="20" width="120" x="481" y="711" as="geometry" />
+        </mxCell>
+        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.3 &amp;middot; 2026-06-26" vertex="1">
+          <mxGeometry height="20" width="160" x="880" y="708" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
