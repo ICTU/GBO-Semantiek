@@ -45,19 +45,20 @@ theme:
   language: custom
   custom_dir: overrides
   # Geen primary/accent: net als de andere GBO-onderdelen wordt de standaard
-  # Material-kleurstelling (indigo) gebruikt.
-  # Bewust GEEN media: "(prefers-color-scheme: ...)": de site start altijd in
-  # het lichte schema, ook op een systeem dat in nachtstand staat. Alleen de
-  # toggle in de header schakelt om; die keuze wordt lokaal onthouden.
+  # Material-kleurstelling (indigo) gebruikt. Het schema volgt de voorkeur van
+  # het besturingssysteem (nachtstand -> slate); de toggle in de header
+  # schakelt handmatig om. Zelfde gedrag als GBO, GBO-GO en GBO-PSA.
   palette:
-    - scheme: default
-      toggle:
-        icon: material/brightness-7
-        name: Schakel naar donker thema
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       toggle:
         icon: material/brightness-4
         name: Schakel naar licht thema
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Schakel naar donker thema
   features:
     - navigation.tabs
     - navigation.tabs.sticky
