@@ -1,8 +1,8 @@
 publiccodeYmlVersion: "0.2"
 
 name: GBO-Semantiek
-url: "https://github.com/ICTU/gbo-semantiek.git"
-landingURL: "https://ictu.github.io/gbo-semantiek/"
+url: "https://github.com/ICTU/GBO-Semantiek.git"
+landingURL: "https://ictu.github.io/GBO-Semantiek/"
 softwareVersion: "0.1"
 releaseDate: "2026-04-02"
 

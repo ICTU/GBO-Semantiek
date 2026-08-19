@@ -37,4 +37,4 @@ Begrippen worden in principe **niet verwijderd**, maar kunnen worden gemarkeerd 
 
 ### Communicatie
 
-Alle wijzigingen aan het begrippenkader worden bijgehouden in de [CHANGELOG](https://github.com/ICTU/gbo-semantiek/blob/main/CHANGELOG.md).
+Alle wijzigingen aan het begrippenkader worden bijgehouden in de [CHANGELOG](https://github.com/ICTU/GBO-Semantiek/blob/main/CHANGELOG.md).

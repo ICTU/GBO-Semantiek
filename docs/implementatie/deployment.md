@@ -44,8 +44,8 @@ GBO hanteert **twee afzonderlijke versieringssystematieken**:
 
 De documentatiewebsite wordt gepubliceerd met [mike](https://github.com/jimporter/mike), dat meerdere versies naast elkaar beheert op GitHub Pages:
 
-- `https://ictu.github.io/gbo-semantiek/v0.3/`
-- `https://ictu.github.io/gbo-semantiek/latest/`
+- `https://ictu.github.io/GBO-Semantiek/v0.3/`
+- `https://ictu.github.io/GBO-Semantiek/latest/`
 
 ### Artefactversies (via repository-mappen)
 

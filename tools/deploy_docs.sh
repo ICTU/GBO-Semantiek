@@ -55,4 +55,4 @@ fi
 
 echo ""
 echo "==> Publicatie geslaagd."
-echo "    URL: https://ictu.github.io/gbo-semantiek/${VERSION}/"
+echo "    URL: https://ictu.github.io/GBO-Semantiek/${VERSION}/"

@@ -34,7 +34,7 @@ De artefacten in deze map zijn bedoeld voor:
 De documentatie die bij deze versie hoort, is gepubliceerd via:
 
 ```
-https://ictu.github.io/gbo-semantiek/v0.2/
+https://ictu.github.io/GBO-Semantiek/v0.2/
 ```
 
 Zie [docs/versiebeheer.md](../../docs/versiebeheer.md) voor uitleg over het versiebeleid.

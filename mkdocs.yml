@@ -16,11 +16,11 @@ site_description: >-
   specificatie met begrippenkader en informatiemodel voor het landelijk,
   sectoroverstijgend ontsluiten en delen van basisgegevens.
 site_author: GBO-Semantiek Werkgroep
-site_url: https://ictu.github.io/gbo-semantiek/
+site_url: https://ictu.github.io/GBO-Semantiek/
 
 # Repository-link in de navigatie
-repo_name: ICTU/gbo-semantiek
-repo_url: https://github.com/ICTU/gbo-semantiek
+repo_name: ICTU/GBO-Semantiek
+repo_url: https://github.com/ICTU/GBO-Semantiek
 edit_uri: edit/main/docs/
 
 # Documentatiedirectory

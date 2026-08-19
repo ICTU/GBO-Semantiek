@@ -25,8 +25,8 @@ Er zijn **twee afzonderlijke versieringssystematieken** in dit repository:
 
 De documentatiewebsite wordt beheerd met [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) en gepubliceerd via [mike](https://github.com/jimporter/mike). Hierdoor kunnen meerdere versies van de documentatie naast elkaar gepubliceerd worden op GitHub Pages:
 
-- `v0.1` → `https://<organisatie>.github.io/gbo-semantiek/v0.1/`
-- `v0.2` → `https://<organisatie>.github.io/gbo-semantiek/v0.2/`
+- `v0.1` → `https://<organisatie>.github.io/GBO-Semantiek/v0.1/`
+- `v0.2` → `https://<organisatie>.github.io/GBO-Semantiek/v0.2/`
 
 Mike beheert de gepubliceerde documentatieversies en staat los van de inhoudelijke modelversies.
 

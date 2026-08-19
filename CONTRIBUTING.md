@@ -14,7 +14,7 @@ Door bij te dragen aan dit project, ga je akkoord met respectvol en constructief
 
 ### 1. Issues aanmaken
 
-Heb je een fout gevonden, een vraag of een verbetervoorstel? Open dan een [issue](https://github.com/ICTU/gbo-semantiek/issues).
+Heb je een fout gevonden, een vraag of een verbetervoorstel? Open dan een [issue](https://github.com/ICTU/GBO-Semantiek/issues).
 
 Gebruik de beschikbare issue-templates:
 - **Bug report** — voor fouten in de documentatie of artefacten
@@ -129,4 +129,4 @@ Door bij te dragen, ga je ermee akkoord dat je bijdrage wordt gepubliceerd onder
 
 ## Vragen?
 
-Heb je vragen over het bijdrageproces? Open een [issue](https://github.com/ICTU/gbo-semantiek/issues) of start een [discussie](https://github.com/ICTU/gbo-semantiek/discussions).
+Heb je vragen over het bijdrageproces? Open een [issue](https://github.com/ICTU/GBO-Semantiek/issues) of start een [discussie](https://github.com/ICTU/GBO-Semantiek/discussions).

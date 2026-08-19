@@ -86,6 +86,6 @@ onder "Niet uitgebracht" stond.
 
 ---
 
-[Niet uitgebracht]: https://github.com/ICTU/gbo-semantiek/compare/v0.3...HEAD
-[v0.3]: https://github.com/ICTU/gbo-semantiek/compare/v0.2...v0.3
-[0.1.0]: https://github.com/ICTU/gbo-semantiek/releases/tag/v0.1.0
+[Niet uitgebracht]: https://github.com/ICTU/GBO-Semantiek/compare/v0.3...HEAD
+[v0.3]: https://github.com/ICTU/GBO-Semantiek/compare/v0.2...v0.3
+[0.1.0]: https://github.com/ICTU/GBO-Semantiek/releases/tag/v0.1.0
