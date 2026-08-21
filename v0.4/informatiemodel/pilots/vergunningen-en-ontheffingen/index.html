@@ -2788,6 +2788,10 @@ hoofdmodel wordt daarom niet toegepast.</p>
         +Identificatie document
     }
 
+    class NatuurlijkPersoon {
+        +Tekst geslachtsnaam
+    }
+
     class Evenementenvergunning {
         +Tekst soortEvenement
         +Tekst tijdvakPerDag
@@ -2859,9 +2863,7 @@ hoofdmodel wordt daarom niet toegepast.</p>
         +Decimaal hoogte
     }
 
-    class NatuurlijkPersoon {
-        +Tekst geslachtsnaam
-    }
+    Toestemming "*" --&gt; "1" NatuurlijkPersoon : houder
 
     Toestemming &lt;|-- Evenementenvergunning
     Toestemming &lt;|-- Straatartiestenontheffing
@@ -2871,7 +2873,6 @@ hoofdmodel wordt daarom niet toegepast.</p>
     Toestemming &lt;|-- Parkeerontheffing
     Toestemming &lt;|-- Ligplaatsontheffing
 
-    Toestemming "*" --&gt; "1" NatuurlijkPersoon : houder
     Evenementenvergunning "*" --&gt; "1" OpenbareActiviteit : betreft
     Ligplaatsontheffing "*" --&gt; "1" Vaartuig : betreft
     Marktvergunning "*" --&gt; "*" NatuurlijkPersoon : vervanger
