@@ -172,7 +172,7 @@
         </mxCell>
 
         <!-- Version -->
-        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.3 &amp;middot; 2026-04-13" vertex="1">
+        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.4 &amp;middot; 2026-04-13" vertex="1">
           <mxGeometry x="1140" y="740" width="160" height="20" as="geometry" />
         </mxCell>
       </root>

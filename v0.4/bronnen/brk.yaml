@@ -1,0 +1,71 @@
+# =============================================================================
+# Bron-profiel BRK — welke onderdelen van het GBO-informatiemodel de
+# Basisregistratie Kadaster via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel brk.yaml
+#
+# Supertypen en mixins (Voorkomen) en de codelijst CodelijstBRK worden door
+# de snoei-tool automatisch meegenomen en hoeven hier niet genoemd te worden.
+# =============================================================================
+bron: BRK
+titel: Basisregistratie Kadaster
+beschrijving: >-
+  Kadastrale onroerende zaken (percelen en appartementsrechten),
+  zakelijke en zekerheidsrechten, tenaamstellingen, publiekrechtelijke
+  beperkingen en aantekeningen uit het Kadaster.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Geen graafingang op KadastraleOnroerendeZaak: een NEN3610-ID van een
+# kadastrale onroerende zaak is voor een afnemer geen bruikbaar
+# aanknopingspunt. Alle bevraging loopt via benoemde queries.
+lijstQueries: false
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om de
+# tenaamstelling, met de sleutel van de rechthebbende als parameter.
+# Het appartementsrecht is bevraagbaar vanaf het adres: Appartementsrecht
+# .betreft wijst naar AdresseerbaarObject, waarvan de identificatie een
+# BAGID is. Zo komt een afnemer met een BAG-id bij het recht.
+queries:
+  - naamQuery: AppartementsrechtOpBAGID
+    levert: Appartementsrecht
+    vanaf: [AdresseerbaarObject]
+    parameters:
+      - naam: identificatie
+  - naamQuery: tenaamstellingOpBsn
+    levert: Tenaamstelling
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: tenaamstellingOpRsin
+    levert: Tenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: tenaamstellingOpKvkNummer
+    levert: Tenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
+objecttypen:
+  - KadastraleOnroerendeZaak
+  - Perceel
+  - Appartementsrecht
+  - Appartementsrechtsplitsing
+  - ZakelijkRecht
+  - Zekerheidsrecht
+  - Tenaamstelling
+  - PubliekrechtelijkeBeperking
+  - Aantekening
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden.
+relatieAfhandeling:
+  - objecttype: Tenaamstelling
+    relatie: tenaamgesteldOp
+    afhandeling: weglaten

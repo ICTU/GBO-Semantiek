@@ -1,0 +1,996 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix gbobegrip: <https://begrippen.gbo-semantiek.nl/id/begrip/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+gbobegrip:Aangifte a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002320>,
+        "GBO-Kern, afgeleid uit AWR art. 6-9" ;
+    skos:altLabel "Belastingaangifte"@nl ;
+    skos:definition "Een opgave van de gegevens die de grondslag voor een aanslag vormen, door of namens de belastingplichtige ingediend dan wel door de Belastingdienst vooringevuld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aangifte"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:AangifteErfbelasting a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002226>,
+        "Successiewet 1956 jo. SBR-NT NT20 extensie" ;
+    skos:definition "De aangifte erfbelasting waarin de nalatenschap van een overledene en de verdeling daarvan over de erfgenamen wordt opgegeven."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aangifte erfbelasting"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:AangifteInkomstenbelasting a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011353>,
+        "Wet IB 2001 jo. SBR-NT NT20" ;
+    skos:altLabel "IB-aangifte"@nl,
+        "IH 2025"@nl ;
+    skos:definition "De jaaraangifte inkomstenbelasting van een natuurlijk persoon waarin het verzamelinkomen over een belastingjaar wordt opgegeven."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aangifte inkomstenbelasting"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:AangifteSchenkbelasting a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002226>,
+        "Successiewet 1956 jo. SBR-NT NT20 extensie" ;
+    skos:definition "De aangifte schenkbelasting waarin een schenking met haar fiscale waarde, betrokken personen, vrijstellingen en eventuele schenking-op-papier-constructie wordt opgegeven."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aangifte schenkbelasting"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Aanslag a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002320>,
+        "AWR art. 2 lid 3 sub e jo. art. 11" ;
+    skos:altLabel "Belastingaanslag"@nl ;
+    skos:definition "De door de inspecteur vastgestelde belastingaanslag over een belastingjaar, waarin de grondslag en het te betalen of terug te ontvangen bedrag zijn vastgesteld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aanslag"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:AchterstandRegistratie a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 12 lid 1-2" ;
+    skos:altLabel "A-codering"@nl ;
+    skos:definition "Een melding aan het Centraal Krediet Informatiesysteem dat een kredietnemer een achterstand heeft opgelopen in de nakoming van zijn verplichtingen onder een specifieke kredietovereenkomst."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Achterstand registratie"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:AflopendKrediet a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 16" ;
+    skos:altLabel "Persoonlijke lening"@nl ;
+    skos:definition "Een kredietovereenkomst met een vooraf vastgesteld kredietbedrag, een vaste looptijd en periodieke aflossingen die het krediet stapsgewijs verminderen tot nul aan het einde van de looptijd."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aflopend krediet"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Aftrekpost a skos:Concept ;
+    dcterms:source "Wet IB 2001 hoofdstuk 6 jo. SBR-NT NT20" ;
+    skos:definition "Een door de belastingplichtige in de IH-aangifte op te voeren betaalde uitgave die op grond van Wet IB 2001 het belastbaar inkomen verlaagt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Aftrekpost"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:AlimentatieAftrek a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 6.3" ;
+    skos:altLabel "Partneralimentatie betaald"@nl ;
+    skos:definition "De op grond van Wet IB 2001 art. 6.3 aftrekbare partneralimentatie die de belastingplichtige in een belastingjaar aan een gewezen partner heeft betaald."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Alimentatie aftrek"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Arbeidsongeschiktheidspercentage a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011478>,
+        "Schattingsbesluit arbeidsongeschiktheidswetten" ;
+    skos:altLabel "AO-percentage"@nl ;
+    skos:definition "Het door een verzekeringsarts en arbeidsdeskundige vastgestelde percentage waarmee de verdiencapaciteit van een werknemer ten opzichte van zijn oude loon is verminderd."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Arbeidsongeschiktheidspercentage"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Arbeidsverhouding a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005290>,
+        "BW Boek 7 titel 10; SGR-cluster Arbeidsverhouding" ;
+    skos:altLabel "Arbeidsrelatie"@nl,
+        "Dienstverband"@nl ;
+    skos:definition "De juridische en feitelijke relatie tussen een natuurlijk persoon als werknemer en een werkgever op grond waarvan arbeid wordt verricht tegen beloning."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Arbeidsverhouding"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:ArbeidsverledenFeit a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0004045>,
+        "Werkloosheidswet jo. SGR-cluster Arbeidsverhouding" ;
+    skos:altLabel "Loonhistorie-element"@nl ;
+    skos:definition "Een afzonderlijk feit in het arbeids- of inkomensverleden van een natuurlijk persoon dat relevant is voor de berekening van werknemersverzekerings-rechten."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Arbeidsverleden feit"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Attestatie a skos:Concept ;
+    dcterms:source "eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework" ;
+    skos:definition "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Attestatie"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Attestatiesoort a skos:Concept ;
+    dcterms:source "eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework" ;
+    skos:definition "De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Attestatiesoort"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:BankSpaartegoed a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 5.3 jo. SBR-NT NT20" ;
+    skos:definition "Een bank- of spaartegoed dat een natuurlijk persoon op de peildatum 1 januari aanhoudt bij een Nederlandse of buitenlandse financiele instelling en dat in Box 3 wordt opgegeven."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Bank spaartegoed"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Belegging a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 5.3 jo. SBR-NT NT20" ;
+    skos:definition "Een in Box 3 op te geven vermogensbestanddeel dat bestaat uit aandelen, obligaties, beleggingsfondsen, derivaten of vergelijkbare effecten."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Belegging"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:BeroepspraktijkvormingPeriode a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0007625>,
+        "GBO-Kern, afgeleid uit WEB art. 7.2.8 en art. 7.2.9" ;
+    skos:altLabel "Work-based learning period"@en,
+        "BPV-periode"@nl,
+        "Stageperiode"@nl ;
+    skos:definition "Een afgebakende periode waarin een MBO-student bij een erkend leerbedrijf het beroepspraktijkvorming-deel van een MBO-opleiding doorloopt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Beroepspraktijkvorming periode"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Beslissing a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005537>,
+        "Wet SUWI jo. Algemene wet bestuursrecht" ;
+    skos:altLabel "Beschikking"@nl ;
+    skos:definition "Een door een uitvoerings-instelling in het SUWI-stelsel genomen besluit over het recht op, de hoogte van of de beeindiging van een uitkering of een andere voorziening voor een natuurlijk persoon."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Beslissing"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:BestuurlijkeToestemming a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005537>,
+        "RIHa 2.0, begrip TOESTEMMING; Awb art. 1:3 (beschikking)" ;
+    skos:altLabel "Ontheffing"@nl,
+        "Toestemming"@nl,
+        "Vergunning"@nl ;
+    skos:definition "Een door een bestuursorgaan aan een houder verleende toestemming om een activiteit te verrichten of een situatie in stand te houden die zonder die toestemming niet is toegestaan (vergunning, ontheffing, vrijstelling, instemming met een melding, maatwerkvoorschrift, gedoogbeschikking)."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Bestuurlijke toestemming"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Betrokkene a skos:Concept ;
+    dcterms:source "GBO (voorstel); term ontleend aan de AVG, waar de betrokkene degene is op wie persoonsgegevens betrekking hebben" ;
+    skos:definition "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Betrokkene"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:BijzonderheidsCodering a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 13" ;
+    skos:altLabel "B-codering"@nl ;
+    skos:definition "Een melding aan het Centraal Krediet Informatiesysteem dat een specifieke bijzonderheid is opgetreden bij de afhandeling van een kredietovereenkomst."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Bijzonderheids codering"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:BorgstellingRol a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005290>,
+        "Algemeen Reglement CKI 2024-07-01 art. 1; BW 7:850" ;
+    skos:altLabel "Borg"@nl ;
+    skos:definition "De rol van een natuurlijk persoon die zich heeft verbonden tot het voldoen van de verplichtingen van een kredietnemer onder een specifieke kredietovereenkomst indien de kredietnemer zelf in gebreke blijft."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Borgstelling rol"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Bron a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Bron"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:BuitenlandseBetrokkene a skos:Concept ;
+    dcterms:source "GBO (voorstel), afgeleid uit de SDG-verordening en het OOTS-identity-matching-patroon" ;
+    skos:definition "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een burgerservicenummer beschikbaar hoeft te zijn."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Buitenlandse betrokkene"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Burger a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een burgerservicenummer."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Burger"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Cryptovaluta a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 5.3 jo. SBR-NT NT20" ;
+    skos:definition "Een in Box 3 op te geven vermogensbestanddeel dat bestaat uit een digitale valuta of cryptotegoed, vastgesteld op marktwaarde per peildatum 1 januari."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Cryptovaluta"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Dagloon a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0034857>,
+        "Dagloonregels werknemersverzekeringen 2015" ;
+    skos:altLabel "Uitkeringsdagloon"@nl ;
+    skos:definition "Het op grond van de Dagloonregels werknemersverzekeringen voor een specifieke uitkering vastgestelde dagloon, dat dient als grondslag voor de hoogte van de uitkering en wordt berekend op basis van de inkomstenopgaven over de referteperiode."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Dagloon"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Dienst a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Dienst"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Dienstencatalogus a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "Het register van alle beschikbare diensten met hun scopes."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Dienstencatalogus"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:DoorlopendKrediet a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 17" ;
+    skos:altLabel "Revolverend krediet"@nl ;
+    skos:definition "Een kredietovereenkomst waarbij de kredietnemer tot een afgesproken kredietlimiet steeds opnieuw kan opnemen en aflossen, zonder vaste looptijd en zonder verplicht aflossingsschema."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Doorlopend krediet"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:EigenWoning a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 3.111" ;
+    skos:definition "Een onroerende zaak die op grond van Wet IB 2001 art. 3.111 als hoofdverblijf van de belastingplichtige of zijn fiscale partner wordt aangemerkt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Eigen woning"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Evenementenvergunning a skos:Concept ;
+    dcterms:source <https://vng.nl/artikelen/model-apv>,
+        "VNG Model-APV art. 2:25" ;
+    skos:definition "Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte, zoals een muziekevenement, braderie, optocht, sportevenement, buurtfeest, kermis of circus."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Evenementenvergunning"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Evidence a skos:Concept ;
+    dcterms:source "SDG-verordening (EU) 2018/1724 en het OOTS Evidence Broker" ;
+    skos:altLabel "Bewijsstuk"@nl ;
+    skos:definition "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Evidence"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:FinancieleVerplichting a skos:Concept ;
+    dcterms:source "GBO-Kern, afgeleid uit het verbintenisrecht en het Algemeen Reglement CKI" ;
+    skos:altLabel "Financial Obligation"@en,
+        "Schuld"@nl ;
+    skos:definition "Een verplichting van een natuurlijk persoon of niet-natuurlijk persoon tot het verrichten van een geldelijke prestatie aan een tegenpartij, ontstaan uit overeenkomst of uit een wettelijke regeling."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Financiele verplichting"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:FiscaalFeit a skos:Concept ;
+    dcterms:source "GBO-Kern, afgeleid uit SBR-NT NT20" ;
+    skos:altLabel "Aangiftecomponent"@nl ;
+    skos:definition "Een fiscaal relevant gegeven over een belastingplichtige dat in een specifiek belastingjaar als component in een belastingaangifte verschijnt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Fiscaal feit"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:FiscaleOpgave a skos:Concept ;
+    dcterms:source "GBO-Kern" ;
+    skos:definition "Een samenhangende opgave van de fiscale positie van een belastingplichtige over een belastingjaar, waarin fiscale feiten als rubriek zijn opgenomen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Fiscale opgave"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:FiscalePartner a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011353>,
+        "Wet IB 2001 art. 5a" ;
+    skos:definition "Een relatie tussen twee natuurlijke personen die op grond van Wet IB 2001 art. 5a fiscaal als partners worden aangemerkt en gezamenlijk gemeenschappelijke inkomensbestanddelen en aftrekposten kunnen toedelen tussen de boxen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Fiscale partner"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Gegevenselement a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "De kleinste adresseerbare eenheid van data, die naar precies een begrip verwijst en daar structuurinformatie aan toevoegt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Gegevenselement"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Gegevensset a skos:Concept ;
+    dcterms:source "GBO (voorstel)" ;
+    skos:definition "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Gegevensset"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Gegevensverzoek a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Gegevensverzoek"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Gehandicaptenparkeerkaart a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0007702>,
+        "BABW art. 49-55; Regeling gehandicaptenparkeerkaart" ;
+    skos:altLabel "Europese gehandicaptenparkeerkaart"@nl ;
+    skos:definition "Kaart volgens Europees model, door het college verstrekt aan een persoon met een beperking (bestuurder of passagier) of aan een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen en op de daaraan verbonden uitzonderingen op parkeerverboden."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Gehandicaptenparkeerkaart"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:GiftenAftrek a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 6.32 en 6.33" ;
+    skos:definition "De op grond van Wet IB 2001 art. 6.32 aftrekbare giften die de belastingplichtige in een belastingjaar heeft gedaan aan een algemeen nut beogende instelling of culturele instelling."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Giften aftrek"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Grondslag a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Grondslag"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:HerstelMelding a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 12 lid 3" ;
+    skos:altLabel "H-melding"@nl ;
+    skos:definition "Een melding aan het Centraal Krediet Informatiesysteem dat een eerder gemelde achterstand op een kredietovereenkomst is opgelost."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Herstel melding"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Huurtoeslag a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0008659>,
+        "Wet op de huurtoeslag art. 1" ;
+    skos:definition "Een inkomensafhankelijke toeslag op grond van de Wet op de huurtoeslag, toegekend aan huurders met een laag inkomen ter tegemoetkoming in de woonlasten."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Huurtoeslag"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:HypothecairKredietEigenWoning a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 19" ;
+    skos:altLabel "Eigenwoningschuld"@nl ;
+    skos:definition "Een kredietovereenkomst tot financiering van de eigen woning van de kredietnemer, waarbij een hypotheekrecht is gevestigd op die onroerende zaak, en waarvan op grond van het Algemeen Reglement CKI uitsluitend negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Hypothecair krediet eigen woning"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:HypothecairKredietOverigeOnroerendeZaken a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 20" ;
+    skos:definition "Een kredietovereenkomst waarbij een hypotheekrecht is gevestigd op een onroerende zaak die niet de eigen woning van de kredietnemer is, zoals een tweede woning, een verhuurde woning of een beleggingspand."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Hypothecair krediet overige onroerende zaken"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Hypotheekrenteaftrek a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011353>,
+        "Wet IB 2001 art. 3.120" ;
+    skos:altLabel "Eigenwoningrente"@nl ;
+    skos:definition "De op grond van Wet IB 2001 art. 3.120 in Box 1 aftrekbare rente die de belastingplichtige in een belastingjaar heeft betaald voor een eigenwoningschuld op zijn eigen woning."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Hypotheekrenteaftrek"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:InkomensOndersteuning a skos:Concept ;
+    dcterms:source "GBO-Kern abstractie boven Awir en sociale-zekerheidsregelingen" ;
+    skos:definition "Een door of namens de overheid aan een natuurlijk persoon verstrekte financiele bijdrage met als doel inkomensondersteuning."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Inkomens ondersteuning"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Inkomstenopgave a skos:Concept ;
+    dcterms:source "Gegevensspecificaties aangifte loonheffingen 2026" ;
+    skos:definition "De aggregatie van loongegevens van een werknemer binnen een aangifte loonheffingen over een aangifteperiode."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Inkomstenopgave"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Inkomstenperiode a skos:Concept ;
+    dcterms:source "Gegevensspecificaties aangifte loonheffingen 2026" ;
+    skos:definition "Een tijdvak binnen een inkomstenopgave waarin specifieke loongegevens gelden."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Inkomstenperiode"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Inkomstenverhouding a skos:Concept ;
+    dcterms:source "Gegevensspecificaties aangifte loonheffingen 2026" ;
+    skos:altLabel "IKV"@nl ;
+    skos:definition "De administratieve relatie tussen een inhoudingsplichtige en een natuurlijk persoon op grond waarvan over een doorlopende periode loon wordt uitbetaald."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Inkomstenverhouding"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Interactiepatroon a skos:Concept ;
+    dcterms:source "GBO PSA, hoofdstuk Interactiepatronen" ;
+    skos:definition "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Interactiepatroon"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Kentekentenaamstelling a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0006622>,
+        "Wegenverkeerswet 1994, Kentekenreglement (tenaamstelling)" ;
+    skos:altLabel "Vehicle registration (keepership)"@en,
+        "Kentekenhouderschap"@nl,
+        "Tenaamstelling (voertuig)"@nl ;
+    skos:definition "De geregistreerde rechtsbetrekking waarbij een kenteken (en daarmee een voertuig) op naam van een partij staat; de partij is daarmee de kentekenhouder."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Kentekentenaamstelling"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:KinderopvangToeslag a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0017017>,
+        "Wet kinderopvang" ;
+    skos:definition "Een inkomensafhankelijke tegemoetkoming in de kosten van formele kinderopvang, toegekend op grond van de Wet kinderopvang."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Kinderopvang toeslag"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:KindgebondenBudget a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0023491>,
+        "Wet op het kindgebonden budget" ;
+    skos:definition "Een inkomensafhankelijke tegemoetkoming in de kosten voor de opvoeding en het levensonderhoud van kinderen, toegekend op grond van de Wet op het kindgebonden budget."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Kindgebonden budget"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:KortKrediet a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 26" ;
+    skos:altLabel "Flash-lening"@nl,
+        "Mini-lening"@nl ;
+    skos:definition "Een kredietovereenkomst met een korte looptijd, doorgaans korter dan drie maanden, met een betrekkelijk klein kredietbedrag."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Kort krediet"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:KredietFeit a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 12 en art. 13" ;
+    skos:altLabel "Credit Event"@en,
+        "Kredietgebeurtenis"@nl ;
+    skos:definition "Een tijdens de looptijd van een kredietovereenkomst opgetreden gebeurtenis die op grond van het Algemeen Reglement CKI aan het Centraal Krediet Informatiesysteem wordt gemeld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Krediet feit"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:KredietOvereenkomst a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 1 en art. 15" ;
+    skos:altLabel "Credit Agreement"@en,
+        "Loan Contract"@en,
+        "Kredietverstrekking"@nl,
+        "Overeenkomst"@nl ;
+    skos:definition "Een overeenkomst tussen een kredietverstrekker en een kredietnemer waarbij de verstrekker een geldsom of geldbedragen ter beschikking stelt en de nemer zich verbindt tot terugbetaling onder afgesproken voorwaarden, en die op grond van het Algemeen Reglement CKI aan het Centraal Krediet Informatiesysteem wordt gemeld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Krediet overeenkomst"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Levering a skos:Concept ;
+    dcterms:source "GBO (voorstel), afgeleid uit de drie leveringsvormen in de GBO PSA" ;
+    skos:definition "Het resultaat dat op een gegevensverzoek wordt teruggegeven."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Levering"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Ligplaatsontheffing a skos:Concept ;
+    dcterms:source <https://vng.nl/artikelen/model-apv>,
+        "VNG Model-APV art. 5:25; gemeentelijke havenverordening" ;
+    skos:altLabel "Ligplaatsvergunning"@nl ;
+    skos:definition "Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water waar een ligplaatsverbod geldt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Ligplaatsontheffing"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:LijfrenteAftrek a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 3.124 e.v." ;
+    skos:altLabel "Aftrek lijfrentepremie"@nl,
+        "Derde pijler-aftrek"@nl ;
+    skos:definition "De op grond van Wet IB 2001 art. 3.124 aftrekbare lijfrente-premies en stortingen op bancaire lijfrente-rekeningen die de belastingplichtige in een belastingjaar heeft betaald binnen de jaarruimte- of reserveringsruimte."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Lijfrente aftrek"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:LoonAangifte a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002471>,
+        "Wet LB 1964 art. 28; Wfsv" ;
+    skos:altLabel "Aangifte loonheffingen"@nl ;
+    skos:definition "De periodieke aangifte loonheffingen die een inhoudingsplichtige op grond van de Wet LB 1964 indient bij de Belastingdienst over een aangifteperiode."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Loon aangifte"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:LoonBestanddeel a skos:Concept ;
+    dcterms:source "Gegevensspecificaties aangifte loonheffingen 2026" ;
+    skos:altLabel "Loonelement"@nl ;
+    skos:definition "Een afzonderlijke component van het loon binnen een inkomstenopgave, gecodeerd volgens de soort-inkomen-codelijst en met een eigen bedrag, herkomst en fiscale behandeling."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Loon bestanddeel"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Mapping a skos:Concept ;
+    dcterms:source "GBO (voorstel); de PSA benoemt de semantische mapping expliciet bij OOTS" ;
+    skos:definition "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Mapping"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Marktvergunning a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005416>,
+        "VNG Model Marktverordening art. 2 e.v.; Gemeentewet art. 160" ;
+    skos:definition "Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Marktvergunning"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:ModuleInschrijving a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005682>,
+        "GBO-Kern, afgeleid uit WHW art. 7.3a en PvE ROD HO" ;
+    skos:altLabel "Module enrollment"@en,
+        "MBI"@nl,
+        "Onderwijseenheid-inschrijving"@nl ;
+    skos:definition "De inschrijving van een student voor een onderwijseenheid binnen een opleiding-deelname in het hoger onderwijs, met een vastgestelde studielast in ECTS."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Module inschrijving"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:NatuurlijkPersoon a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002656>,
+        "Burgerlijk Wetboek art. 1:1 BW" ;
+    skos:altLabel "Mens"@nl,
+        "Persoon"@nl ;
+    skos:definition "Een mens als drager van burgerlijke rechten en plichten."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Natuurlijk persoon"@nl ;
+    adms:status "concept" .
+
+gbobegrip:OnderwijsInstelling a skos:Concept ;
+    dcterms:source "GBO-Kern, afgeleid uit sectorwetten" ;
+    skos:altLabel "Educational Institution"@en,
+        "Bevoegd gezag"@nl,
+        "Onderwijsorganisatie"@nl,
+        "School"@nl ;
+    skos:definition "Een door OCW erkende rechtspersoon of bestuurlijke entiteit die onderwijs aanbiedt in een of meer Nederlandse onderwijssectoren."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Onderwijsinstelling"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OnroerendeZaakOverigBezit a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 5.3 jo. SBR-NT NT20" ;
+    skos:altLabel "Tweede woning"@nl,
+        "Verhuurpand"@nl ;
+    skos:definition "Een in Box 3 op te geven onroerende zaak die niet de eigen woning is, zoals een tweede woning, een verhuurd pand of grond."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Onroerende zaak overig bezit"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OpenbareActiviteit a skos:Concept ;
+    dcterms:source "GGM Model VTH (bestaande klasse OpenbareActiviteit)" ;
+    skos:altLabel "Evenement"@nl ;
+    skos:definition "Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Openbare activiteit"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OperationalAutolease a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 22" ;
+    skos:altLabel "Private lease"@nl ;
+    skos:definition "Een leaseovereenkomst voor een personenvoertuig waarbij de leasemaatschappij eigenaar blijft van het voertuig en de leasenemer een maandelijkse vergoeding betaalt voor het gebruik."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Operational autolease"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Opleiding a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0005682>,
+        "GBO-Kern, afgeleid uit WHW art. 7.3 en WEB art. 7.1.3" ;
+    skos:altLabel "Curriculum"@en,
+        "Programme"@en,
+        "Onderwijsaanbod"@nl,
+        "Opleidingseenheid"@nl ;
+    skos:definition "Een door een bevoegd gezag aangeboden, samenhangend geheel van onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld kwalificatie- of diploma-niveau leidt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Opleiding"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OpleidingDeelname a skos:Concept ;
+    dcterms:source "GBO-Kern, afgeleid uit PvE ROD per sector" ;
+    skos:altLabel "Enrollment"@en,
+        "Inschrijving"@nl,
+        "Onderwijsdeelname"@nl,
+        "Onderwijsinschrijving"@nl ;
+    skos:definition "De inschrijving van een natuurlijk persoon voor het volgen van een opleiding bij een onderwijsinstelling, geldig binnen een afgebakende periode."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Opleiding deelname"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OpleidingResultaat a skos:Concept ;
+    dcterms:source "GBO-Kern, afgeleid uit PvE ROD per sector" ;
+    skos:altLabel "Learner Achievement"@en,
+        "Diploma"@nl,
+        "Examenresultaat"@nl,
+        "Onderwijsresultaat"@nl ;
+    skos:definition "Het door een natuurlijk persoon behaalde resultaat voor (een onderdeel van) een opleiding bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Opleiding resultaat"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OverigeFinancieleVerplichtingPrive a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 23" ;
+    skos:definition "Een overige privefinanciele verplichting van een natuurlijk persoon die niet onder een specifieke kredietvorm valt en waarvan alleen negatieve betalingservaringen worden gemeld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Overige financiele verplichting prive"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:OverigeToestemming a skos:Concept ;
+    dcterms:source "GBO, afgeleid van het GGM-wijzigingsvoorstel \"Toestemming en Product\" (generiek gebruik van Toestemming)" ;
+    skos:definition "Een door een bestuursorgaan verleende toestemming van een soort waarvoor geen eigen objecttype is uitgewerkt, vastgelegd met uitsluitend de generieke gegevens."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Overige toestemming"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Parkeerontheffing a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0004825>,
+        "RVV 1990 art. 87; VNG Model-APV art. 5:2-5:8" ;
+    skos:definition "Ontheffing van het college van een parkeerverbod, een parkeerschijfzone (blauwe zone) of een geslotenverklaring voor een bepaald voertuig, bijvoorbeeld voor bewoners van een blauwe zone, voor het voetgangersgebied of voor grote voertuigen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Parkeerontheffing"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Patroonsoort a skos:Concept ;
+    dcterms:source "GBO PSA, hoofdstuk Interactiepatronen" ;
+    skos:definition "De drie interactiepatronen die de GBO PSA onderscheidt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Patroonsoort"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Productstatus a skos:Concept ;
+    dcterms:source "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; waarden afgestemd op Open Product" ;
+    skos:definition "De status van een toestemming in haar levensloop, van aanvraag tot einde."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Productstatus"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Renseignering a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002320>,
+        "AWR art. 53; ODB Belastingdienst" ;
+    skos:definition "Een melding die een renseigneringsplichtige derde aan de Belastingdienst doet over gegevens die relevant zijn voor de belastingheffing van een natuurlijk persoon."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Renseignering"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:RestschuldHypothecairKredietMetNHG a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 21" ;
+    skos:definition "Een resterende schuld na verkoop van een onroerende zaak waarop een hypothecair krediet rustte met dekking door de Nationale Hypotheek Garantie."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Restschuld hypothecair krediet met NHG"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:RestschuldHypothecairKredietZonderNHG a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 21" ;
+    skos:definition "Een resterende schuld na verkoop van een onroerende zaak waarop een hypothecair krediet rustte zonder dekking door de Nationale Hypotheek Garantie."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Restschuld hypothecair krediet zonder NHG"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Rol a skos:Concept ;
+    dcterms:source "GBO (voorstel), afgeleid uit de DvTP-functionele requirements en de rolverdeling in de GBO PSA" ;
+    skos:definition "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Rol"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Rolsoort a skos:Concept ;
+    dcterms:source "GBO PSA, hoofdstuk Interactiepatronen" ;
+    skos:definition "De functies die een partij binnen de bronontsluiting kan vervullen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Rolsoort"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Saneringskrediet a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 18" ;
+    skos:definition "Een kredietovereenkomst waarbij een gemeente of door de gemeente aangewezen kredietbank een persoonlijke lening verstrekt aan een schuldenaar om bestaande schulden te bundelen en gefaseerd af te lossen onder begeleiding van schuldhulpverlening."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Saneringskrediet"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Schuld a skos:Concept ;
+    dcterms:source "Wet IB 2001 art. 5.3 jo. art. 5.5" ;
+    skos:altLabel "Box-3-schuld"@nl ;
+    skos:definition "Een in Box 3 op te geven schuld van een natuurlijk persoon die boven de schulddrempel uitkomt en die op peildatum 1 januari het Box-3-vermogen vermindert."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Schuld"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:SchuldhulpverleningTraject a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0031331>,
+        "WGS art. 4a en 4b; Algemeen Reglement CKI 2024-07-01 art. 18a" ;
+    skos:altLabel "Schuldhulptraject"@nl,
+        "WGS-traject"@nl ;
+    skos:definition "Een wettelijk schuldhulpverleningstraject dat door een gemeente bij beschikking aan een natuurlijk persoon wordt toegekend op grond van de Wet gemeentelijke schuldhulpverlening."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Schuldhulpverlening traject"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Scope a skos:Concept ;
+    dcterms:source "GBO PSA" ;
+    skos:definition "Een benoemde verzameling gegevenselementen; de maximale scope wordt bepaald door wetgeving, een afnemer kan een kleinere scope vragen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Scope"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:SoortGehandicaptenparkeerkaart a skos:Concept ;
+    dcterms:source "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; Regeling gehandicaptenparkeerkaart" ;
+    skos:definition "De soort gehandicaptenparkeerkaart naar de hoedanigheid van de houder."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Soort gehandicaptenparkeerkaart"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:SoortMarktplaats a skos:Concept ;
+    dcterms:source "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; VNG Model Marktverordening" ;
+    skos:definition "De soort plaats op een warenmarkt waarvoor de marktvergunning geldt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Soort marktplaats"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:SoortStandplaats a skos:Concept ;
+    dcterms:source "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; VNG Model-APV art. 5:17-5:18" ;
+    skos:definition "De soort standplaats naar de tijdsduur waarvoor zij geldt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Soort standplaats"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:SoortToestemming a skos:Concept ;
+    dcterms:source "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; RIHa 2.0" ;
+    skos:definition "De juridische soort van een toestemming, oftewel de vorm waarin het bestuursorgaan haar verleent."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Soort toestemming"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Standplaatsvergunning a skos:Concept ;
+    dcterms:source <https://vng.nl/artikelen/model-apv>,
+        "VNG Model-APV art. 5:17-5:18" ;
+    skos:definition "Toestemming van het college voor het innemen of hebben van een standplaats, een vaste plaats op of aan de weg of op een andere openbare plaats buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Standplaatsvergunning"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Straatartiestenontheffing a skos:Concept ;
+    dcterms:source <https://vng.nl/artikelen/model-apv>,
+        "VNG Model-APV art. 2:9" ;
+    skos:altLabel "Straatartiestenvergunning"@nl ;
+    skos:definition "Ontheffing van de burgemeester van het verbod om als straatartiest, straatfotograaf, tekenaar, filmoperateur of gids op te treden op door hem aangewezen wegen of op aangewezen dagen en uren."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Straatartiestenontheffing"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:StudieFinanciering a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011453>,
+        "GBO-Kern, afgeleid uit WSF 2000" ;
+    skos:altLabel "Student grant"@en,
+        "Beurs"@nl,
+        "Studentenreisproduct"@nl ;
+    skos:definition "Een door DUO aan een student toegekende tegemoetkoming in de kosten van levensonderhoud en/of studie, in de vorm van een basisbeurs, aanvullende beurs, studentenreisproduct of bestuursbeurs."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Studie financiering"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:StudieLening a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011453>,
+        "GBO-Kern, afgeleid uit WSF 2000 hoofdstuk 6" ;
+    skos:altLabel "Student loan"@en,
+        "DUO-schuld"@nl,
+        "Studieschuld"@nl ;
+    skos:definition "Het door een (oud-)student bij DUO opgebouwde renteloze of laagrentende leningbedrag op grond van de Wet studiefinanciering 2000, samen met de aflosregeling waaronder het bedrag moet worden terugbetaald."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Studie lening"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Toeslag a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0018472>,
+        "Awir art. 1 jo. art. 2" ;
+    skos:definition "Een inkomensafhankelijke bijdrage die op grond van de Algemene wet inkomensafhankelijke regelingen door Belastingdienst/Toeslagen aan een natuurlijk persoon wordt toegekend voor een specifiek doel."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Toeslag"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Toestemming a skos:Concept ;
+    dcterms:source "GBO PSA; AVG art. 4 lid 11 voor het toestemmingsbegrip" ;
+    skos:definition "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Toestemming"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Toestemmingsstatus a skos:Concept ;
+    dcterms:source "GBO (voorstel)" ;
+    skos:definition "De statussen die een toestemming kan doorlopen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Toestemmingsstatus"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Uitkering a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0013060>,
+        "Wet SUWI; SGR-cluster Uitkering" ;
+    skos:altLabel "Sociale-zekerheidsuitkering"@nl ;
+    skos:definition "Een door of namens de overheid aan een natuurlijk persoon toegekende periodieke uitkering op grond van een werknemersverzekering of volksverzekering, ter vervanging of aanvulling van loon."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringAOW a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002221>,
+        "Algemene Ouderdomswet" ;
+    skos:definition "Een door SVB op grond van de Algemene Ouderdomswet toegekende periodieke uitkering aan personen vanaf de AOW-gerechtigde leeftijd."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering AOW"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringIVA a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0019057>,
+        "Wet WIA hoofdstuk IV" ;
+    skos:definition "De Inkomensvoorziening Volledig Arbeidsongeschikten op grond van de WIA, toegekend aan werknemers die duurzaam minder dan 20% van hun oude loon kunnen verdienen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering IVA"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringWGA a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0019057>,
+        "Wet WIA hoofdstuk VII" ;
+    skos:definition "De Werkhervatting Gedeeltelijk Arbeidsongeschikten op grond van de WIA, toegekend aan werknemers die 35% tot 80% arbeidsongeschikt zijn, of volledig arbeidsongeschikt maar niet duurzaam."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering WGA"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringWIA a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0019057>,
+        "Wet WIA" ;
+    skos:definition "Een door UWV op grond van de Wet werk en inkomen naar arbeidsvermogen toegekende periodieke uitkering aan een werknemer die na een wachttijd van twee jaar van ziekte gedeeltelijk of volledig arbeidsongeschikt is."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering WIA"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringWW a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0004045>,
+        "Werkloosheidswet hoofdstuk II" ;
+    skos:definition "Een door UWV aan een werkloze werknemer toegekende periodieke uitkering op grond van de Werkloosheidswet, ter vervanging van het weggevallen loon."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering WW"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringWajong a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0008657>,
+        "Wajong" ;
+    skos:definition "Een door UWV op grond van de Wet arbeidsongeschiktheidsvoorziening jonggehandicapten toegekende periodieke uitkering aan jonggehandicapten."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering Wajong"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:UitkeringZW a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0001888>,
+        "Ziektewet" ;
+    skos:definition "Een door UWV aan een zieke werknemer of vangnetter toegekende periodieke uitkering op grond van de Ziektewet."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Uitkering ZW"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Vaartuig a skos:Concept ;
+    dcterms:source "GGM Model VTH (bestaande klasse Vaartuig)" ;
+    skos:definition "Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is: naam, registratienummer, kleur en afmetingen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Vaartuig"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:VermogensBestanddeel a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0011353>,
+        "Wet IB 2001 art. 5.2 jo. SBR-NT NT20" ;
+    skos:altLabel "Box-3-bestanddeel"@nl ;
+    skos:definition "Een bezitting of schuld die op de peildatum 1 januari onder Box 3 van de inkomstenbelasting valt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Vermogens bestanddeel"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Verzamelinkomen a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0028058>,
+        "Wet basisregistratie inkomen art. 1 jo. art. 4" ;
+    skos:altLabel "Authentiek inkomen"@nl,
+        "Authentiek inkomen gegeven"@nl ;
+    skos:definition "Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Verzamelinkomen"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:VerzuimMelding a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0002628>,
+        "GBO-Kern, afgeleid uit Leerplichtwet art. 21a en WEB art. 8.1.7" ;
+    skos:altLabel "Melding voortijdig schoolverlater"@nl,
+        "Verzuimmelding"@nl ;
+    skos:definition "Een wettelijk verplichte melding door een onderwijsinstelling van ongeoorloofd verzuim van een leerplichtige of kwalificatieplichtige leerling, of van verzuim van een 18-plus deelnemer dat langer dan vier weken aaneengesloten duurt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Verzuim melding"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Voertuig a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0006622>,
+        "Wegenverkeerswet 1994 (kentekenregister), Kentekenreglement" ;
+    skos:altLabel "Vehicle"@en,
+        "Kentekenhoudend voertuig"@nl,
+        "Motorrijtuig"@nl ;
+    skos:definition "Een voertuig dat in het kentekenregister staat geregistreerd en daarvoor een kenteken heeft gekregen, zoals een personenauto, motorfiets, vrachtwagen, aanhangwagen of bromfiets met kenteken."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Voertuig"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Vooropleiding a skos:Concept ;
+    dcterms:source "GBO-Kern, afgeleid uit PvE ROD en sectorwetten" ;
+    skos:altLabel "Prior qualification"@en,
+        "Instroom-bewijs"@nl,
+        "Toelatingsdiploma"@nl ;
+    skos:definition "Een eerder behaald opleidingsresultaat dat bij een volgende onderwijsdeelname wordt aangereikt als bewijs voor de toelating tot of de instroom-positionering in een opleiding."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Vooropleiding"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:WettelijkeVerplichting a skos:Concept ;
+    dcterms:source "GBO (voorstel); voor OOTS de SDG-verordening (EU) 2018/1724" ;
+    skos:definition "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Wettelijke verplichting"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:ZakelijkKrediet a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 24" ;
+    skos:definition "Een kredietovereenkomst aangegaan ten behoeve van een onderneming waarbij sprake is van persoonlijke aansprakelijkheid van een of meer natuurlijke personen."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Zakelijk krediet"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:ZakelijkeOverigeFinancieleVerplichting a skos:Concept ;
+    dcterms:source <https://www.bkr.nl/media/4dyezfiz/algemeen-reglement-cki-juli-2024.pdf>,
+        "Algemeen Reglement CKI 2024-07-01 art. 25" ;
+    skos:definition "Een overige zakelijke financiele verplichting die niet onder ZakelijkKrediet valt en waarvan alleen negatieve betalingservaringen worden gemeld."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Zakelijke overige financiele verplichting"@nl ;
+    adms:status "proposed" .
+
+gbobegrip:Zorgtoeslag a skos:Concept ;
+    dcterms:source <https://wetten.overheid.nl/BWBR0018451>,
+        "Wet op de zorgtoeslag" ;
+    skos:definition "Een inkomensafhankelijke tegemoetkoming in de premie van de basiszorgverzekering, toegekend op grond van de Wet op de zorgtoeslag."@nl ;
+    skos:inScheme <https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> ;
+    skos:prefLabel "Zorgtoeslag"@nl ;
+    adms:status "proposed" .
+
+<https://begrippen.gbo-semantiek.nl/id/conceptscheme/gbo-kern> a skos:ConceptScheme ;
+    dcterms:description "Begrippenkader van de Gemeenschappelijke Bronontsluiting, gegenereerd uit de SKOS-annotaties in de LinkML-modelbron."@nl ;
+    dcterms:title "GBO-begrippenkader"@nl ;
+    owl:versionInfo "v0.4" .
+

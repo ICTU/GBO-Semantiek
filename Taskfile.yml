@@ -53,18 +53,27 @@ vars:
   CHANGES_MD: "{{.VERSION_DIR}}/{{.CHANGES_MD_FILE}}"
   BEGRIPPEN_DIR: "{{.VERSION_DIR}}/begrippen"
   BEGRIPPEN: "{{.VERSION_DIR}}/begrippen/GBO-Begrippenkader.ttl"
+  # LinkML-pipeline; moet vóór de vars staan die eraan refereren, want
+  # task lost vars in declaratievolgorde op.
+  LINKML_DIR: "{{.VERSION_DIR}}/{{.INFORMATIEMODEL}}/linkml"
   # Voorzieningenmodel: eigen schema en eigen ontologie-namespace naast de kern.
   VOORZIENINGEN_LINKML: "{{.LINKML_DIR}}/voorzieningen.yaml"
   VOORZIENINGEN_NS: "https://lod.gbo-semantiek.nl/voorzieningen"
   VOORZIENINGEN_LOD: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Voorzieningen.ttl"
   VOORZIENINGEN_SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Voorzieningen-Shapes.ttl"
+  # Toestemmingenmodel: eigen schema en eigen ontologie-namespace naast de kern.
+  TOESTEMMINGEN_LINKML: "{{.LINKML_DIR}}/toestemmingen.yaml"
+  TOESTEMMINGEN_NS: "https://lod.gbo-semantiek.nl/toestemmingen"
+  TOESTEMMINGEN_LOD: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Toestemmingen.ttl"
+  TOESTEMMINGEN_SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Toestemmingen-Shapes.ttl"
   # Wiki-repo (modelleer-/bronrepo) waaruit model + profielen worden gekopieerd.
   # Override via env: `WIKI_REPO=/pad/naar/llm-wiki task import:copy`.
   WIKI_REPO: '{{.WIKI_REPO | default "../llm-wiki-GBI-core-model"}}'
   # LinkML-pipeline (informatiemodel, bron-profielen, GraphQL, LOD)
-  LINKML_DIR: "{{.VERSION_DIR}}/{{.INFORMATIEMODEL}}/linkml"
   GBO_LINKML: "{{.LINKML_DIR}}/gbo.yaml"
   PREVIOUS_LINKML: "{{.PREVIOUS_VERSION_DIR}}/{{.INFORMATIEMODEL}}/linkml/gbo.yaml"
+  PREVIOUS_VOORZIENINGEN_LINKML: "{{.PREVIOUS_VERSION_DIR}}/{{.INFORMATIEMODEL}}/linkml/voorzieningen.yaml"
+  PREVIOUS_TOESTEMMINGEN_LINKML: "{{.PREVIOUS_VERSION_DIR}}/{{.INFORMATIEMODEL}}/linkml/toestemmingen.yaml"
   BRONPROFIEL_SCHEMA: "{{.LINKML_DIR}}/bronprofiel.yaml"
   BRONNEN_DIR: "{{.VERSION_DIR}}/bronnen"
   CLIENTS_DIR: "{{.VERSION_DIR}}/clients"
@@ -178,6 +187,11 @@ tasks:
       # Het voorzieningenmodel is een eigen model naast gbo-kern en landt
       # als losse pagina, zodat de bestaande nav en links blijven kloppen.
       - cp "{{.WIKI_REPO}}/publicatie/voorzieningen/voorzieningenmodel.md" "{{.DOCS}}/{{.INFORMATIEMODEL}}/gbo-voorzieningen.md"
+      # Idem voor het toestemmingenmodel. Dit is een pilot en staat
+      # daarom niet bij de kern- en voorzieningenmodellen, maar onder
+      # informatiemodel/pilots/ (nav-kop "Informatiemodellen Pilots").
+      - mkdir -p "{{.DOCS}}/{{.INFORMATIEMODEL}}/pilots"
+      - cp "{{.WIKI_REPO}}/publicatie/toestemmingen/toestemmingenmodel.md" "{{.DOCS}}/{{.INFORMATIEMODEL}}/pilots/vergunningen-en-ontheffingen.md"
       - echo "Model, profielen en model-docs gekopieerd."
     sources:
       - "{{.WIKI_REPO}}/publicatie/**/*"
@@ -317,6 +331,45 @@ tasks:
           --input /tmp/gbo-vz-shacl-vol.ttl --output "{{.VOORZIENINGEN_SHACL}}"
 
 
+  generate:toestemmingen-lod:
+    desc: "Genereer OWL en SHACL voor het toestemmingenmodel in zijn eigen namespace."
+    deps: [generate:check-model]
+    sources:
+      - "{{.LINKML_DIR}}/*.yaml"
+      - tools/filter_namespace.py
+      - tools/kwalificeer_uris.py
+    generates:
+      - "{{.TOESTEMMINGEN_LOD}}"
+      - "{{.TOESTEMMINGEN_SHACL}}"
+    cmds:
+      - mkdir -p "{{.VERSION_DIR}}/{{.ONTOLOGIE}}"
+      - |
+        # Zelfde kwalificatie-slag als generate:lod, in een eigen werkkopie.
+        Q=/tmp/gbo-linkml-tm
+        rm -rf "$Q" && cp -r "{{.LINKML_DIR}}" "$Q"
+        for f in "$Q"/*.yaml; do
+          stem=$(basename "$f" .yaml)
+          case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
+          {{.VENV}}/python tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+        done
+        # gen-owl/gen-shacl nemen het geimporteerde kernmodel mee; de
+        # filterstap houdt alleen over wat toestemmingen.yaml zelf declareert.
+        echo "Generating OWL-ontologie '{{.TOESTEMMINGEN_LOD}}' ..."
+        {{.VENV}}/gen-owl --skip-vacuous-min-zero-cardinality-axioms \
+          --skip-vacuous-local-range-axioms --consolidate-cardinality-axioms \
+          "$Q/toestemmingen.yaml" > /tmp/gbo-tm-owl-vol.ttl
+        {{.VENV}}/python tools/filter_namespace.py --schema "$Q/toestemmingen.yaml" \
+          --namespace "{{.TOESTEMMINGEN_NS}}" \
+          --input /tmp/gbo-tm-owl-vol.ttl --output "{{.TOESTEMMINGEN_LOD}}"
+        echo "Generating SHACL-shapes '{{.TOESTEMMINGEN_SHACL}}' ..."
+        {{.VENV}}/gen-yaml "$Q/toestemmingen.yaml" > /tmp/gbo-tm-merged.yaml
+        {{.VENV}}/python -c "import yaml; s=yaml.safe_load(open('/tmp/gbo-tm-merged.yaml')); s.pop('imports',None); yaml.dump(s, open('/tmp/gbo-tm-merged-noimports.yaml','w'), sort_keys=False, allow_unicode=True)"
+        {{.VENV}}/gen-shacl /tmp/gbo-tm-merged-noimports.yaml > /tmp/gbo-tm-shacl-vol.ttl
+        {{.VENV}}/python tools/filter_namespace.py --schema "$Q/toestemmingen.yaml" \
+          --namespace "{{.TOESTEMMINGEN_NS}}" \
+          --input /tmp/gbo-tm-shacl-vol.ttl --output "{{.TOESTEMMINGEN_SHACL}}"
+
+
   generate:begrippen:
     desc: "Genereer het SKOS-begrippenkader uit de SKOS-annotaties in de LinkML ({{.BEGRIPPEN}})."
     deps: [generate:check-model]
@@ -338,10 +391,28 @@ tasks:
     deps: [import:copy]
     cmds:
       - echo "Genereren changelog {{.PREVIOUS_VERSION}} -> {{.VERSION}} in {{.CHANGES_MD}} ..."
+      # Een versie bevat drie schema's. Het voorzieningen- en het
+      # toestemmingenmodel worden niet door gbo.yaml geimporteerd, dus een
+      # diff op gbo.yaml alleen ziet ze niet; elk schema krijgt een sectie.
       - |
         {{.VENV}}/python tools/genereer_changelog.py \
           --previous "{{.PREVIOUS_LINKML}}" --previous-version "{{.PREVIOUS_VERSION}}" \
           --current  "{{.GBO_LINKML}}"      --current-version  "{{.VERSION}}" \
+          --model    "Kernmodel" \
+          --output   "{{.CHANGES_MD}}"
+      - |
+        {{.VENV}}/python tools/genereer_changelog.py \
+          --previous "{{.PREVIOUS_VOORZIENINGEN_LINKML}}" \
+          --previous-version "{{.PREVIOUS_VERSION}}" \
+          --current  "{{.VOORZIENINGEN_LINKML}}" --current-version "{{.VERSION}}" \
+          --model    "Voorzieningenmodel" --alleen-eigen --append \
+          --output   "{{.CHANGES_MD}}"
+      - |
+        {{.VENV}}/python tools/genereer_changelog.py \
+          --previous "{{.PREVIOUS_TOESTEMMINGEN_LINKML}}" \
+          --previous-version "{{.PREVIOUS_VERSION}}" \
+          --current  "{{.TOESTEMMINGEN_LINKML}}" --current-version "{{.VERSION}}" \
+          --model    "Toestemmingenmodel" --alleen-eigen --append \
           --output   "{{.CHANGES_MD}}"
 
 
@@ -387,7 +458,7 @@ tasks:
   # ==========================================================================
   publish:local:
     desc: "Deploy versioned documentation locally using Mike."
-    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:begrippen, generate:diff]
+    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:toestemmingen-lod, generate:begrippen, generate:diff]
     cmds:
       - echo "Deploying documentation with Mike..."
       - '{{.VENV}}/mkdocs build --clean'
@@ -401,7 +472,7 @@ tasks:
 
   publish:main:
     desc: "Publiceer de huidige werkversie als 'main' in het mike-versiemenu."
-    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:begrippen]
+    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:toestemmingen-lod, generate:begrippen]
     cmds:
       # Naast de vastgestelde versies staat 'main' voor de stand van de
       # hoofdbranch: wat er nu in de documentatie zit, nog niet vastgesteld.

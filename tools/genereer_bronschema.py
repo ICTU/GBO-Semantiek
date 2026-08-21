@@ -29,7 +29,9 @@ Regels:
   voorouder moet zelf in objecttypen staan.
 - Relaties met de annotatie gbo:inverseNaam krijgen op het doelobject
   een gematerialiseerde inverse (multivalued), zodat de SDL-navigatie
-  ook van doel naar bron kan lopen.
+  ook van doel naar bron kan lopen. Met "inverse: false" in
+  relatieAfhandeling blijft die inverse achterwege, voor bronnen die
+  het objecttype uitsluitend via een ander pad aanbieden.
 - Het profielveld zoeksleutels benoemt per ingang de natuurlijke
   sleutels waarop die ingang bevraagbaar is; ze belanden als annotatie
   gbo:zoeksleutels op het objecttype, waar de GraphQL-generator per
@@ -99,14 +101,31 @@ class Modelindex:
         self.types: dict[str, dict] = {}
         self.herkomst: dict[str, str] = {}  # elementnaam -> bestandsnaam
 
-        bestanden = [hoofdschema]
-        for imp in self.raw.get("imports", []):
-            if ":" in imp:  # linkml:types en andere externe imports
-                continue
-            bestanden.append(hoofdschema.parent / f"{imp}.yaml")
+        # De import-keten wordt recursief afgelopen, elk bestand eenmaal.
+        # Nodig omdat een model naast de kern (toestemmingen.yaml,
+        # voorzieningen.yaml) gbo.yaml importeert, en gbo.yaml zelf geen
+        # klassen draagt maar alleen de deelmodellen bundelt.
+        bestanden: list[Path] = []
+        inhoud_per_pad: dict[Path, dict] = {}
+        gezien: set[Path] = set()
+
+        def verzamel(pad: Path, raw: dict | None = None) -> None:
+            sleutel = pad.resolve()
+            if sleutel in gezien:
+                return
+            gezien.add(sleutel)
+            deel = raw if raw is not None else laad_yaml(pad)
+            bestanden.append(pad)
+            inhoud_per_pad[pad] = deel
+            for imp in deel.get("imports", []):
+                if ":" in imp:  # linkml:types en andere externe imports
+                    continue
+                verzamel(pad.parent / f"{imp}.yaml")
+
+        verzamel(hoofdschema, self.raw)
 
         for pad in bestanden:
-            deel = laad_yaml(pad) if pad != hoofdschema else self.raw
+            deel = inhoud_per_pad[pad]
             for sectie, index in (("classes", self.classes),
                                   ("enums", self.enums),
                                   ("types", self.types)):
@@ -544,6 +563,9 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
     # de navigatie ook van doel naar bron kan lopen; nodig nu de
     # Query-root van een profiel tot de natuurlijke sleutel beperkt kan
     # zijn (lijstQueries: false).
+    geen_inverse = {(r["objecttype"], r["relatie"])
+                    for r in profiel.get("relatieAfhandeling") or []
+                    if r.get("inverse") is False}
     for klasse in list(resultaat):
         for naam, attr in list(
                 (resultaat[klasse].get("attributes") or {}).items()):
@@ -551,6 +573,10 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
             inverse = ann.get("gbo:inverseNaam")
             doel = (attr or {}).get("range")
             if not inverse or doel not in resultaat:
+                continue
+            if (klasse, naam) in geen_inverse:
+                melding("INFO", f"inverse onderdrukt door profiel: "
+                                f"{doel}.{inverse} <- {klasse}.{naam}")
                 continue
             doel_attrs = resultaat[doel].setdefault("attributes", {})
             if inverse in doel_attrs:
@@ -600,9 +626,19 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
                 "" if par.get("verplicht", True) else "optioneel",
                 par.get("op") or "",
             ]))
+        # De declaratie wordt als annotatie weggeschreven met ";", "|" en
+        # "~" als veldscheiders. Die tekens in de vrije tekst zouden de
+        # velden stilzwijgend verschuiven: de rest van de toelichting
+        # belandt dan als parameternaam in de SDL. Daarom hier weigeren.
+        toelichting = q.get("toelichting") or ""
+        verboden = [t for t in (";", "|", "~", "\n") if t in toelichting]
+        if verboden:
+            fout(f"toelichting van query '{q['naamQuery']}' bevat een "
+                 f"veldscheider ({', '.join(repr(t) for t in verboden)}); "
+                 f"herschrijf de zin zonder dat teken")
         per_doel.setdefault(doel, []).append(";".join([
             q["naamQuery"], q.get("selectie") or "",
-            q.get("toelichting") or "", "|".join(stukken)]))
+            toelichting, "|".join(stukken)]))
         melding("INFO", f"query '{q['naamQuery']}' levert {doel} "
                         f"({len(stukken)} parameter(s))")
     for doel, declaraties in per_doel.items():

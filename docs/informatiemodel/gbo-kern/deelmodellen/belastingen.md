@@ -80,15 +80,16 @@ class NietNatuurlijkPersoon <<personen>>
 class Onderneming <<bedrijven-en-instellingen>>
 class KadastraalOnroerendeZaak <<onroerende-zaken>>
 
-abstract class BelastingAangifte <<belastingen>>
+abstract class FiscaleOpgave <<belastingen>>
 abstract class FiscaalFeit <<belastingen>>
 abstract class InkomensOndersteuning <<belastingen>>
 
 together {
-  class BelastingjaarAangifte <<belastingen>>
-  class AangifteIH <<belastingen>>
-  class AangifteSchenk <<belastingen>>
-  class AangifteErf <<belastingen>>
+  abstract class Aangifte <<belastingen>>
+  class AangifteInkomstenbelasting <<belastingen>>
+  class AangifteSchenkbelasting <<belastingen>>
+  class AangifteErfbelasting <<belastingen>>
+  class Aanslag <<belastingen>>
 }
 
 class FiscalePartner <<belastingen>>
@@ -134,10 +135,11 @@ class Renseignering <<belastingen>>
 Partij <|-- NatuurlijkPersoon
 Partij <|-- NietNatuurlijkPersoon
 Partij <|-- Onderneming
-BelastingAangifte <|-- BelastingjaarAangifte
-BelastingjaarAangifte <|-- AangifteIH
-BelastingjaarAangifte <|-- AangifteSchenk
-BelastingjaarAangifte <|-- AangifteErf
+FiscaleOpgave <|-- Aangifte
+FiscaleOpgave <|-- Aanslag
+Aangifte <|-- AangifteInkomstenbelasting
+Aangifte <|-- AangifteSchenkbelasting
+Aangifte <|-- AangifteErfbelasting
 FiscaalFeit <|-- VermogensBestanddeel
 FiscaalFeit <|-- Aftrekpost
 VermogensBestanddeel <|-- BankSpaartegoed
@@ -155,7 +157,11 @@ Toeslag <|-- Zorgtoeslag
 Toeslag <|-- KinderopvangToeslag
 Toeslag <|-- KindgebondenBudget
 
-NatuurlijkPersoon "1" <-- "0..*" BelastingjaarAangifte : ingediendDoor
+NatuurlijkPersoon "1" <-- "0..*" Aangifte : betreft
+NatuurlijkPersoon "1" <-- "0..*" Aanslag : opgelegdAan
+FiscaleOpgave "0..1" <-- "0..*" FiscaalFeit : onderdeelVan
+FiscaleOpgave "0..1" <-- "0..*" EigenWoning : onderdeelVan
+FiscaleOpgave "0..1" <-- "0..*" FiscalePartner : onderdeelVan
 NatuurlijkPersoon "2" <-- "0..*" FiscalePartner : tussenPersonen
 NatuurlijkPersoon "1" <-- "0..*" Verzamelinkomen : gegrondvestOp
 NatuurlijkPersoon "1" <-- "0..*" VermogensBestanddeel : houderVan
@@ -176,10 +182,19 @@ Inkomstenopgave "1" <-- "0..*" LoonBestanddeel : onderdeelVan
 Onderneming "1" <-- "0..*" LoonAangifte : ingediendDoor
 Onderneming "1" <-- "0..*" Renseignering : aangeleverdDoor
 
-note right of BelastingjaarAangifte
+note right of Aangifte
   Concreet objecttype per jaar
   en belastingsoort, met
   SBR-NT entrypoint als anker.
+  De VIA levert deze met
+  status Voorinvulling.
+end note
+
+note left of Aanslag
+  Bevraging levert de laatst
+  vastgestelde aanslag per jaar;
+  soortAanslag maakt kenbaar
+  welke stand dat is.
 end note
 
 note bottom of EigenWoning
@@ -206,7 +221,46 @@ end note
 
 ## Objecttypen
 
-### AangifteErf
+### Aangifte
+
+**Definitie**: Een opgave van de gegevens die de grondslag voor een
+aanslag vormen: door of namens de belastingplichtige bij de
+Belastingdienst ingediend, dan wel door de Belastingdienst
+vooringevuld en nog niet ingediend.
+
+**Herkomst definitie**: Algemene wet inzake rijksbelastingen art. 6
+tot en met 9; SBR-NT NT20.
+
+**Toelichting**: Het stadium staat in `status`. De vooringevulde
+aangifte (VIA) is een niet-vastgesteld gegeven: de belastingplichtige
+mag corrigeren en de definitieve aanslag kan afwijken. Wat vastgesteld
+is staat in [Aanslag](#aanslag), niet hier. Drie concrete varianten:
+AangifteInkomstenbelasting (Wet IB 2001), AangifteSchenkbelasting en
+AangifteErfbelasting (Successiewet 1956). De belastingsoort is de
+subtype-as en daarom geen apart attribuut.
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | Aangifte |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Aangifte` |
+| Herkomst | AWR; SBR-NT NT20 |
+| Datum opname | 2026-05-19 |
+| Indicatie abstract object | Ja |
+| Unieke aanduiding | Combinatie van belastingplichtige, belastingsoort en belastingjaar. |
+| Populatie | Alle aangiften over een belastingjaar, in elk stadium: vooringevuld door de Belastingdienst, ingediend door of namens de belastingplichtige, of na indiening herzien. |
+
+**Attribuutsoorten**:
+
+| Naam | Type | Kard. | Definitie | Herkomst |
+|---|---|---|---|---|
+| `belastingjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het belastingjaar waarop de opgave betrekking heeft. | AWR |
+| `aangifteIdentificatie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Identificatie van de aangifte. | AWR |
+| `status` | [AangifteStatus](#aangiftestatus) | 1 | Het stadium van de aangifte: vooringevuld, ingediend of herzien. | AWR |
+| `indieningsdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Datum van feitelijke indiening; leeg zolang de aangifte alleen is vooringevuld. | AWR art. 9 |
+| `ingangsdatumAangifte` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Begin van de aangifteperiode. | AWR |
+| `einddatumAangifte` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einde van de aangifteperiode. | AWR |
+
+### AangifteErfbelasting
 
 **Definitie**: De aangifte erfbelasting waarin de nalatenschap van
 een overledene en de verdeling daarvan over de erfgenamen wordt
@@ -220,8 +274,8 @@ vrijstellingen.
 
 | MIM-veld | Waarde |
 |---|---|
-| Naam | AangifteErf |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteErf` |
+| Naam | AangifteErfbelasting |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteErfbelasting` |
 | Notation | Erf |
 | Herkomst | SBR-NT NT20 |
 | Datum opname | 2026-05-19 |
@@ -236,7 +290,7 @@ vrijstellingen.
 | `omvangNalatenschap` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Fiscale waarde van de nalatenschap. | Successiewet 1956 |
 | `aantalErfgenamen` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Aantal erfgenamen. | Successiewet 1956 |
 
-### AangifteIH
+### AangifteInkomstenbelasting
 
 **Definitie**: De jaaraangifte inkomstenbelasting van een natuurlijk
 persoon waarin het verzamelinkomen over een belastingjaar wordt
@@ -253,8 +307,8 @@ authentieke inkomen voor de Basisregistratie Inkomen.
 
 | MIM-veld | Waarde |
 |---|---|
-| Naam | AangifteIH |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteIH` |
+| Naam | AangifteInkomstenbelasting |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteInkomstenbelasting` |
 | Notation | IH |
 | Herkomst | SBR-NT NT20 |
 | Datum opname | 2026-05-19 |
@@ -271,7 +325,7 @@ authentieke inkomen voor de Basisregistratie Inkomen.
 | `box3Inkomen` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Inkomen uit sparen en beleggen. | Wet IB hoofdstuk 5 |
 | `boxCategorie` | [BoxCategorie](#boxcategorie) | 0..\* | Toepasselijke boxen. | Wet IB |
 
-### AangifteSchenk
+### AangifteSchenkbelasting
 
 **Definitie**: De aangifte schenkbelasting waarin een schenking met
 haar fiscale waarde, betrokken personen, vrijstellingen en eventuele
@@ -286,8 +340,8 @@ aan de begiftigde-zijde een vordering.
 
 | MIM-veld | Waarde |
 |---|---|
-| Naam | AangifteSchenk |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteSchenk` |
+| Naam | AangifteSchenkbelasting |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteSchenkbelasting` |
 | Notation | Schenk |
 | Herkomst | SBR-NT NT20 |
 | Datum opname | 2026-05-19 |
@@ -302,6 +356,46 @@ aan de begiftigde-zijde een vordering.
 | `schenkingsbedrag` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Fiscale waarde. | Successiewet 1956 |
 | `schenkingOpPapier` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Schuldig-gebleven schenking. | Successiewet 1956 |
 | `vrijstellingToegepast` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Toegepaste vrijstelling. | Successiewet 1956 |
+
+### Aanslag
+
+**Definitie**: De door de inspecteur vastgestelde belastingaanslag over
+een belastingjaar, waarin de grondslag en het te betalen of terug te
+ontvangen bedrag zijn vastgesteld.
+
+**Herkomst definitie**: Algemene wet inzake rijksbelastingen art. 2
+lid 3 sub e (begrip belastingaanslag), art. 11 (vaststelling), art. 13
+(voorlopige aanslag) en art. 16 (navordering).
+
+**Toelichting**: De bevraging levert de laatst vastgestelde aanslag
+over een belastingjaar; `soortAanslag` maakt kenbaar wat de afnemer
+heeft gekregen, want voor een recent jaar kan dat nog een voorlopige
+aanslag zijn. Eerdere standen zijn langs deze weg niet opvraagbaar.
+Dit wijkt af van het patroon bij WOZWaarde, waar alle standen bewaard
+blijven met een eigen status. Alleen de aanslag inkomstenbelasting
+draagt de volledige rubriekenset; de aanslagen schenk- en erfbelasting
+volgen een andere sleutel (per schenking respectievelijk per
+nalatenschap) en zijn daarom niet als subtype opgenomen.
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | Aanslag |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Aanslag` |
+| Herkomst | AWR |
+| Datum opname | 2026-08-21 |
+| Unieke aanduiding | aanslagnummer |
+| Populatie | Alle door de inspecteur vastgestelde belastingaanslagen over een belastingjaar: voorlopig, definitief, na navordering of na herziening. |
+
+**Attribuutsoorten**:
+
+| Naam | Type | Kard. | Definitie | Herkomst |
+|---|---|---|---|---|
+| `belastingjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het belastingjaar waarop de opgave betrekking heeft. | AWR |
+| `aanslagnummer` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het door de Belastingdienst toegekende aanslagnummer. | AWR |
+| `soortAanslag` | [SoortAanslag](#soortaanslag) | 1 | Voorlopig, definitief, na navordering of na herziening. | AWR art. 11, 13 en 16 |
+| `dagtekening` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Dagtekening van het aanslagbiljet; bepalend voor de bezwaartermijn. | AWR art. 5 |
+| `bedragTeBetalen` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Het op grond van de aanslag te betalen bedrag. | AWR |
+| `bedragTerugTeOntvangen` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Het op grond van de aanslag terug te ontvangen bedrag. | AWR |
 
 ### Aftrekpost
 
@@ -425,71 +519,6 @@ rapportage-eisen onder de CRS.
 | `valuta` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Valuta-code. | SBR-NT |
 | `saldoPeildatum` | [Bedrag](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Saldo op 1 januari belastingjaar. | Wet IB art. 5.3 |
 | `land` | [`Codelijst~ISO3166`](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 1 | Land van de bankvestiging. | SBR-NT |
-
-### BelastingAangifte
-
-**Definitie**: Een door of namens een belastingplichtige aan de
-Belastingdienst ingediende opgave waarmee de grondslag voor een
-specifieke belastingsoort en periode wordt vastgesteld.
-
-**Herkomst definitie**: Algemene wet inzake rijksbelastingen art. 6
-tot en met 9; SBR-NT NT20.
-
-**Toelichting**: Dit is de algemene categorie die alle
-aangifteconcepten groepeert. De jaargang-gebonden variant is
-BelastingjaarAangifte; aangiften zonder vaste jaargang (zoals BTW)
-zijn voor toekomstige uitbreiding.
-
-| MIM-veld | Waarde |
-|---|---|
-| Naam | BelastingAangifte |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/BelastingAangifte` |
-| Herkomst | AWR; SBR-NT NT20 |
-| Datum opname | 2026-05-19 |
-| Indicatie abstract object | Ja |
-| Unieke aanduiding | Combinatie van belastingplichtige, belastingsoort en periode. |
-| Populatie | Alle door of namens belastingplichtigen ingediende aangiften voor een specifieke belastingsoort en periode. |
-
-**Attribuutsoorten**:
-
-| Naam | Type | Kard. | Definitie | Herkomst |
-|---|---|---|---|---|
-| `aangifteIdentificatie` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Identificatie van de aangifte. | AWR |
-| `indieningsdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Datum van feitelijke indiening. | AWR art. 9 |
-| `status` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Bijvoorbeeld Ingediend, Aangeslagen, Bezwaar lopend. | AWR |
-
-### BelastingjaarAangifte
-
-**Definitie**: Een belastingaangifte die op een specifiek
-belastingjaar betrekking heeft en die de grondslag voor de aanslag
-over dat jaar vaststelt.
-
-**Herkomst definitie**: AWR art. 9 jo. de materiele belastingwetten;
-SBR-NT NT20 entrypoints per belastingsoort en jaar.
-
-**Toelichting**: Drie concrete varianten zijn opgenomen: AangifteIH
-(Wet IB), AangifteSchenk en AangifteErf (Successiewet 1956).
-Vennootschapsbelasting valt onder de bredere SBR-NT NT20 maar is
-voor de eerste batch buiten scope.
-
-| MIM-veld | Waarde |
-|---|---|
-| Naam | BelastingjaarAangifte |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/BelastingjaarAangifte` |
-| Herkomst | SBR-NT NT20 |
-| Datum opname | 2026-05-19 |
-| Indicatie abstract object | Ja |
-| Unieke aanduiding | Combinatie van belastingplichtige, belastingsoort en belastingjaar. |
-| Populatie | Alle belastingaangiften die op een specifiek belastingjaar betrekking hebben, ongeacht de belastingsoort (IH, Schenk, Erf). |
-
-**Attribuutsoorten**:
-
-| Naam | Type | Kard. | Definitie | Herkomst |
-|---|---|---|---|---|
-| `belastingjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het jaar waarop de aangifte betrekking heeft. | SBR-NT |
-| `belastingsoort` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | IH, Schenk, Erf. | SBR-NT |
-| `ingangsdatumAangifte` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Begin van de aangifteperiode. | AWR |
-| `einddatumAangifte` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einde van de aangifteperiode. | AWR |
 
 ### Belegging
 
@@ -618,6 +647,41 @@ hanteren een eigen, wettelijk afgebakende waardenverzameling
 [AftrekpostCategorie](#aftrekpostcategorie)); een attribuut op dit niveau
 zou geen eigen waardenverzameling hebben en door beide subtypen worden
 overschreven.
+
+### FiscaleOpgave
+
+**Definitie**: Een samenhangende opgave van de fiscale positie van een
+belastingplichtige over een belastingjaar, waarin fiscale feiten als
+rubriek zijn opgenomen.
+
+**Herkomst definitie**: Geconstrueerd modelbegrip. Er is geen
+wettelijke koepelterm die zowel de aangifte (AWR art. 8) als de
+belastingaanslag (AWR art. 2 lid 3 sub e) omvat; beide dragen wel
+dezelfde rubrieken.
+
+**Toelichting**: Dit supertype bestaat om de rubriekrelatie te dragen
+die [Aangifte](#aangifte) en [Aanslag](#aanslag) gemeen hebben: een
+fiscaal feit hangt met een enkele relatie (`onderdeelVan`) aan beide.
+De VIA levert de rubrieken als voorinvulling onder een Aangifte, de
+Belastingdienst levert dezelfde rubrieken vastgesteld onder een
+Aanslag. De rubriekenset verschilt per belastingsoort: Box 3-vermogen,
+aftrekposten, eigen woning en fiscaal partnerschap horen bij de
+inkomstenbelasting.
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | FiscaleOpgave |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/FiscaleOpgave` |
+| Herkomst | GBO-Kern |
+| Datum opname | 2026-08-21 |
+| Indicatie abstract object | Ja |
+| Populatie | Alle aangiften en belastingaanslagen die de fiscale positie van een belastingplichtige over een belastingjaar vastleggen. |
+
+**Attribuutsoorten**:
+
+| Naam | Type | Kard. | Definitie | Herkomst |
+|---|---|---|---|---|
+| `belastingjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het belastingjaar waarop de opgave betrekking heeft. | AWR |
 
 ### FiscalePartner
 
@@ -1152,6 +1216,7 @@ of terugvordering.
 
 | Naam | Type | Kard. | Definitie | Herkomst |
 |---|---|---|---|---|
+| `berekeningsjaar` | [Geheel](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Het jaar waarover de toeslag wordt berekend en vastgesteld. | Awir art. 2 lid 1 sub e |
 | `toeslagSoort` | [ToeslagSoort](#toeslagsoort) | 1 | Welke toeslag. | Awir |
 | `ingangsdatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Aanvang van de toekenning. | Awir |
 | `einddatum` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Einde van de toekenning. | Awir |
@@ -1217,6 +1282,34 @@ van Toeslag.
 
 ## Enumeraties
 
+### AangifteStatus
+
+**Definitie**: Het stadium waarin een aangifte verkeert: vooringevuld
+door de Belastingdienst, ingediend door of namens de
+belastingplichtige, of na indiening herzien.
+
+**Herkomst definitie**: Algemene wet inzake rijksbelastingen art. 8
+(het doen van aangifte). De waarde Voorinvulling volgt uit de
+dienstverlening vooringevulde aangifte (VIA) en heeft geen
+zelfstandige wettelijke grondslag.
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | AangifteStatus |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/AangifteStatus` |
+| Herkomst | AWR |
+| Datum opname | 2026-08-21 |
+
+**Gebruikt door**: `Aangifte.status`.
+
+**Waarden**:
+
+| Code | Naam | Definitie | Toelichting |
+|---|---|---|---|
+| Voorinvulling | Voorinvulling | Door de Belastingdienst vooringevuld en nog niet ingediend; niet-vastgesteld gegeven. | De belastingplichtige mag corrigeren; de definitieve aanslag kan afwijken. |
+| Ingediend | Ingediend | Door of namens de belastingplichtige ingediend. | Rechtshandeling op grond van AWR art. 8. |
+| Herzien | Herzien | Na indiening door de belastingplichtige gewijzigd opnieuw ingediend. | — |
+
 ### AftrekpostCategorie
 
 **Definitie**: De categorieen van aftrekposten die op grond van Wet
@@ -1263,7 +1356,7 @@ hoofdstuk 5.
 | Herkomst | Wet IB 2001 |
 | Datum opname | 2026-05-19 |
 
-**Gebruikt door**: `AangifteIH.boxCategorie`.
+**Gebruikt door**: `AangifteInkomstenbelasting.boxCategorie`.
 
 **Waarden**:
 
@@ -1474,6 +1567,33 @@ vroegere arbeid of beide wordt gebruikt.
 | 62 | OntslagOfTransitievergoeding | Ontslagvergoeding of transitievergoeding. | vroeger |
 | 63 | OverigPensioenOfSamenloop | Overige pensioenen, samenloop van meerdere pensioenen/lijfrenten of betaling op grond van een afspraak na einde dienstbetrekking. | vroeger |
 
+### SoortAanslag
+
+**Definitie**: De soort belastingaanslag die de inspecteur heeft
+vastgesteld.
+
+**Herkomst definitie**: Algemene wet inzake rijksbelastingen art. 2
+lid 3 sub e (begrip belastingaanslag), art. 11 (aanslag), art. 13
+(voorlopige aanslag) en art. 16 (navorderingsaanslag).
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | SoortAanslag |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/SoortAanslag` |
+| Herkomst | AWR |
+| Datum opname | 2026-08-21 |
+
+**Gebruikt door**: `Aanslag.soortAanslag`.
+
+**Waarden**:
+
+| Code | Naam | Definitie | Toelichting |
+|---|---|---|---|
+| Voorlopig | Voorlopig | Voorlopige aanslag, vastgesteld vooruitlopend op de definitieve vaststelling. | AWR art. 13. |
+| Definitief | Definitief | Definitieve aanslag na beoordeling van de aangifte. | AWR art. 11. |
+| Navordering | Navordering | Navorderingsaanslag, opgelegd nadat is gebleken dat te weinig belasting is geheven. | AWR art. 16. |
+| Herziening | Herziening | Herziene aanslag na bezwaar, beroep of ambtshalve vermindering. | — |
+
 ### ToeslagSoort
 
 **Definitie**: De vier inkomensafhankelijke toeslagen die op grond
@@ -1564,8 +1684,10 @@ de [Datatypes en codelijsten](../datatypes-en-codelijsten.md).
 
 | Codelijst | Bron / beheerder | GBO-typering | Gebruikt door |
 |---|---|---|---|
+| [AangifteStatus](#aangiftestatus) | AWR / Belastingdienst | inline-enum | `Aangifte.status` |
+| [SoortAanslag](#soortaanslag) | AWR / Belastingdienst | inline-enum | `Aanslag.soortAanslag` |
 | [AftrekpostCategorie](#aftrekpostcategorie) | Wet IB 2001 + SBR-NT / Belastingdienst | inline-enum | `Aftrekpost.categorie` |
-| [BoxCategorie](#boxcategorie) | Wet IB 2001 / Belastingdienst | inline-enum | `AangifteIH.boxCategorie` |
+| [BoxCategorie](#boxcategorie) | Wet IB 2001 / Belastingdienst | inline-enum | `AangifteInkomstenbelasting.boxCategorie` |
 | [CodeAardArbeidsverhouding](#codeaardarbeidsverhouding) | Loonheffingen 2026 / Belastingdienst en UWV | inline-enum | `Inkomstenverhouding.codeAardArbeidsverhouding` |
 | [CodeRedenEindeArbeidsverhouding](#coderedeneindearbeidsverhouding) | Loonheffingen 2026 / Belastingdienst en UWV | inline-enum | `Inkomstenverhouding.codeRedenEinde` |
 | [CodeSectorindelingWhk](#codesectorindelingwhk) | Loonheffingen 2026 + UWV | inline-enum | sectie-context |

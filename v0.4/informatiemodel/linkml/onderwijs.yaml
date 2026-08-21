@@ -1,0 +1,1997 @@
+# =============================================================================
+# GBO — Deelmodel Onderwijs
+# Bron (leidend): docs/informatiemodel/gbo-kern/deelmodellen/onderwijs.md
+#
+# Personen in een Nederlandse onderwijssector, hun lopende en
+# afgesloten onderwijsdeelnames, behaalde resultaten en, zolang DUO
+# deze administreert, hun studiefinanciering en studielening.
+# Inclusief de instellingen waar dit gebeurt en de wettelijke
+# verzuimregistratie voor leerplichtige en kwalificatieplichtige
+# leerlingen.
+#
+# Verwijzingen naar andere deelmodellen (NatuurlijkPersoon,
+# NietNatuurlijkPersoon) worden opgelost via gbo.yaml; valideer dus
+# altijd via gbo.yaml.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/informatiemodel/onderwijs
+name: gbo-onderwijs
+title: "GBO deelmodel: Onderwijs"
+description: >-
+  Personen in een Nederlandse onderwijssector, hun lopende en
+  afgesloten onderwijsdeelnames, behaalde resultaten en, zolang DUO
+  deze administreert, hun studiefinanciering en studielening.
+  Inclusief de instellingen waar dit gebeurt en de wettelijke
+  verzuimregistratie voor leerplichtige en kwalificatieplichtige
+  leerlingen.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+default_prefix: gbo
+default_range: string
+
+imports:
+  - linkml:types
+  - datatypes
+  - hoofdmodel
+
+classes:
+
+  # --- Objecttypen ------------------------------------------------------------
+
+  BeroepspraktijkvormingPeriode:
+    description: >-
+      Een afgebakende periode waarin een MBO-student bij een erkend
+      leerbedrijf het beroepspraktijkvorming-deel van een
+      MBO-opleiding doorloopt.
+    annotations:
+      mim:herkomst: Register Onderwijsdeelnemers, cluster MBO
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD MBO en VAVO (DUO), versie
+        2025-12-19. Wettelijke grondslag: Wet educatie en
+        beroepsonderwijs (WEB) art. 7.2.8 en art. 7.2.9
+        (beroepspraktijkvorming en BPV-overeenkomst); WEB art. 1.5.5
+        (erkenning leerbedrijf door SBB).
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: periodeId binnen OpleidingDeelname
+      mim:populatie: >-
+        Alle BPV-perioden voor MBO-studenten met een lopende
+        OpleidingDeelname in BOL of BBL.
+      mim:kwaliteit: >-
+        MBO-instelling levert; geldigheid van de BPV-overeenkomst
+        wordt geborgd door SBB-erkenning van het leerbedrijf en door
+        registratie in ROD.
+      skos:status: proposed
+      skos:prefLabel_nl: Beroepspraktijkvorming periode
+      skos:altLabel_nl_0_value: BPV-periode
+      skos:altLabel_nl_0_source: WEB art. 7.2.8 (afkorting in gangbaar gebruik)
+      skos:altLabel_nl_1_value: Stageperiode
+      skos:altLabel_nl_1_source: WEB-context (informele alias)
+      skos:altLabel_en_0_value: Work-based learning period
+      skos:altLabel_en_0_source: Cedefop terminologie
+      skos:definition_nl: Een afgebakende periode waarin een MBO-student bij een erkend leerbedrijf het beroepspraktijkvorming-deel van een MBO-opleiding doorloopt.
+      skos:definitionSource: GBO-Kern, afgeleid uit WEB art. 7.2.8 en art. 7.2.9
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0007625
+      skos:needsReview_0: Exacte XSD-elementnaam in PvE ROD MBO bevestigen.
+      skos:needsReview_1: Modellering van leerbedrijf als aparte entiteit (subtype van NNP) of als verwijzing-string?
+    comments:
+      - >-
+        BeroepspraktijkvormingPeriode hangt als component aan een
+        lopende MBO-OpleidingDeelname. In de beroepsopleidende
+        leerweg (BOL) ligt het aandeel BPV doorgaans tussen twintig
+        en zestig procent van de studielast; in de
+        beroepsbegeleidende leerweg (BBL) bedraagt het ten minste
+        zestig procent. Het onderscheid BOL/BBL zit op de
+        moederinschrijving (OpleidingDeelname.leerweg), niet op de
+        BPV-periode zelf. Erkenning van leerbedrijven verloopt via
+        SBB (Samenwerkingsorganisatie Beroepsonderwijs
+        Bedrijfsleven).
+    unique_keys:
+      periodeIdBinnenOpleidingDeelname:
+        unique_key_slots: [binnen, periodeId]
+        description: >-
+          MIM unieke aanduiding: periodeId binnen OpleidingDeelname;
+          als samengestelde sleutel gemodelleerd omdat periodeId
+          alleen binnen de moederinschrijving uniek is.
+    attributes:
+      periodeId:
+        range: Tekst
+        required: true
+        description: >-
+          Identificatie van de BPV-periode binnen de
+          moederinschrijving.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD MBO
+      begindatum:
+        range: Datum
+        required: true
+        description: De startdatum van de BPV-periode.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD MBO
+      einddatum:
+        range: Datum
+        required: true
+        description: De einddatum van de BPV-periode.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD MBO
+      omvangInUren:
+        range: Numeriek
+        description: De omvang van de BPV-periode in uren.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD MBO
+        comments:
+          - >-
+            Alternatief in dagen wanneer de instelling die maat
+            hanteert.
+          - Wiki-type Geheel; gemodelleerd als Numeriek (geheel getal).
+      leerbedrijfIdentificatie:
+        range: Tekst
+        required: true
+        description: Verwijzing naar het SBB-erkende leerbedrijf.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD MBO
+      binnen:
+        range: OpleidingDeelname
+        required: true
+        description: >-
+          Componentbinding aan de moeder-OpleidingDeelname (MBO).
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+
+    class_uri: gbobegrip:BeroepspraktijkvormingPeriode
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OpleidingDeelname
+    aliases:
+      - BPV-periode
+      - Stageperiode
+      - Work-based learning period
+  ModuleInschrijving:
+    description: >-
+      De inschrijving van een student voor een onderwijseenheid
+      binnen een lopende opleiding-deelname in het hoger onderwijs,
+      met een vastgestelde studielast in ECTS.
+    annotations:
+      mim:herkomst: Register Onderwijsdeelnemers, cluster HO
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD HO (DUO). Wettelijke
+        grondslag: Wet op het hoger onderwijs en wetenschappelijk
+        onderzoek (WHW) art. 7.3 (opleiding) en art. 7.3a
+        (onderwijseenheden en studiepunten); studielast uitgedrukt
+        in EC, conform het Europese ECTS-systeem.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: moduleIdentificatie binnen OpleidingDeelname
+      mim:populatie: >-
+        Inschrijvingen van HO-studenten voor onderwijseenheden die
+        de instelling op grond van de WHW als examenonderdeel
+        registreert.
+      mim:kwaliteit: >-
+        Aangeleverd door de HO-instelling; resultaatstatus volgt de
+        instellings-administratie.
+      skos:status: proposed
+      skos:prefLabel_nl: Module inschrijving
+      skos:altLabel_nl_0_value: Onderwijseenheid-inschrijving
+      skos:altLabel_nl_0_source: WHW art. 7.3a (terminologie)
+      skos:altLabel_nl_1_value: MBI
+      skos:altLabel_nl_1_source: PvE ROD HO (afkorting in koppelvlak; te bevestigen)
+      skos:altLabel_en_0_value: Module enrollment
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: De inschrijving van een student voor een onderwijseenheid binnen een opleiding-deelname in het hoger onderwijs, met een vastgestelde studielast in ECTS.
+      skos:definitionSource: GBO-Kern, afgeleid uit WHW art. 7.3a en PvE ROD HO
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005682
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Exacte XSD-elementnaam in PvE ROD HO bevestigen (vermoedelijk 'BekostigingsRecordOnderwijseenheid' of vergelijkbaar).
+      skos:needsReview_1: Wel/geen aparte ModuleResultaat-objecttype, of resultaat als attribuut op ModuleInschrijving?
+    comments:
+      - >-
+        ModuleInschrijving is een fijnmazige gebeurtenis binnen een
+        OpleidingDeelname: één deelname kan meerdere
+        moduleinschrijvingen omvatten. Eén EC komt overeen met circa
+        achtentwintig studieuren. Een moduleinschrijving levert geen
+        zelfstandig bewijsstuk; het cumulatief behalen van modules
+        leidt tot een getuigschrift, gemodelleerd als
+        OpleidingResultaat.
+      - >-
+        needs_review, brondocument-versie te verifiëren (Programma
+        van Eisen ROD HO versiedatum nog niet bevestigd).
+    unique_keys:
+      moduleIdentificatieBinnenOpleidingDeelname:
+        unique_key_slots: [binnen, moduleIdentificatie]
+        description: >-
+          MIM unieke aanduiding: moduleIdentificatie binnen
+          OpleidingDeelname; als samengestelde sleutel gemodelleerd
+          omdat moduleIdentificatie alleen binnen de
+          moederinschrijving uniek is.
+    attributes:
+      moduleIdentificatie:
+        range: Tekst
+        required: true
+        description: >-
+          Identificatie van de onderwijseenheid binnen de
+          instelling.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD HO
+        comments:
+          - Instelling-eigen sleutel.
+      ects:
+        range: Decimaal
+        required: true
+        description: >-
+          De studielast van de onderwijseenheid uitgedrukt in EC.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD HO
+      inschrijfdatum:
+        range: Datum
+        required: true
+        description: >-
+          De datum waarop de student zich voor de onderwijseenheid
+          heeft ingeschreven.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD HO
+      resultaatstatus:
+        range: Resultaatstatus
+        description: De uitkomst van de moduledeelname.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD HO
+      cijfer:
+        range: Tekst
+        description: >-
+          Het beoordelingsresultaat in numerieke of pass/fail-vorm.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD HO
+        comments:
+          - Vorm-afhankelijk per instelling.
+      binnen:
+        range: OpleidingDeelname
+        required: true
+        description: >-
+          Componentbinding aan de moeder-OpleidingDeelname (HO).
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+
+    class_uri: gbobegrip:ModuleInschrijving
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OpleidingDeelname
+    close_mappings:
+      - https://elmo.eu/module-enrollment
+    aliases:
+      - Onderwijseenheid-inschrijving
+      - MBI
+      - Module enrollment
+  OnderwijsInstelling:
+    is_a: NietNatuurlijkPersoon
+    description: >-
+      Een door OCW erkende rechtspersoon of bestuurlijke entiteit
+      die onderwijs aanbiedt in een of meer Nederlandse
+      onderwijssectoren.
+    annotations:
+      mim:herkomst: >-
+        RIO (instellings-laag); Handelsregister (rechtspersoon-laag)
+      mim:herkomstDefinitie: >-
+        Wet op het primair onderwijs (WPO) art. 1 (basisschool); Wet
+        voortgezet onderwijs 2020 (WVO 2020) art. 1.1 (school voor
+        voortgezet onderwijs); Wet educatie en beroepsonderwijs
+        (WEB) art. 1.1.1 (instelling); Wet op het hoger onderwijs en
+        wetenschappelijk onderzoek (WHW) art. 1.2 (instelling).
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: brincode of instellingscodeRIO
+      mim:populatie: >-
+        Alle in RIO geregistreerde Nederlandse
+        onderwijsinstellingen, zowel bekostigde publieke
+        instellingen als private aanbieders met erkenning.
+      mim:kwaliteit: >-
+        RIO is autoritatief; BRIN-codes worden door DUO uitgegeven;
+        mutaties in bestuurs- of vestigingsstructuur zijn na
+        publicatie in RIO bindend.
+      skos:status: proposed
+      skos:prefLabel_nl: Onderwijsinstelling
+      skos:altLabel_nl_0_value: School
+      skos:altLabel_nl_0_source: WPO art. 1 (in PO-context)
+      skos:altLabel_nl_1_value: Onderwijsorganisatie
+      skos:altLabel_nl_1_source: RIO
+      skos:altLabel_nl_2_value: Bevoegd gezag
+      skos:altLabel_nl_2_source: WVO 2020 art. 1.1 (rol-aanduiding)
+      skos:altLabel_en_0_value: Educational Institution
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: Een door OCW erkende rechtspersoon of bestuurlijke entiteit die onderwijs aanbiedt in een of meer Nederlandse onderwijssectoren.
+      skos:definitionSource: GBO-Kern, afgeleid uit sectorwetten
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: Een instelling in de zin van WHW art. 1.2 is een hogeschool of universiteit die op grond van die wet hoger onderwijs verzorgt.
+      skos:additional_0_source: WHW art. 1.2
+      skos:additional_1_as: scopeNote
+      skos:additional_1_nl: Een school in de zin van WPO art. 1 is een onder een schoolbestuur ressorterende, in de WPO erkende voorziening voor basisonderwijs.
+      skos:additional_1_source: WPO art. 1
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Verhouding tussen Bestuur en Instelling in RIO-hiërarchie modelleren als generalisatie of als compositie?
+      skos:needsReview_1: BRIN-code is historisch gegroeid; voor sommige sectoren ontbreekt deze. Te bevestigen welke sector-fallback geldt.
+    comments:
+      - >-
+        Onderwijsinstelling is een NietNatuurlijkPersoon in een
+        specifieke rol als bevoegd gezag. De registratie
+        Instellingen en Opleidingen (RIO) kent een hiërarchie van
+        onderwijsbestuur, instelling, vestiging en
+        opleidingsaanbod-eenheid. Dit deelmodel bindt het
+        Onderwijsinstelling-objecttype aan het instelling-niveau.
+        Het bestuur-niveau correspondeert met de rechtspersoon in
+        het Handelsregister; voor het instelling-niveau is BRIN de
+        korte identifier en de RIO-instellingscode de uitgebreide.
+      - >-
+        NietNatuurlijkPersoon: zie deelmodel Bedrijven en
+        instellingen.
+    unique_keys:
+      instellingscodeRIO:
+        unique_key_slots: [instellingscodeRIO]
+        description: >-
+          MIM unieke aanduiding (uitgebreide vorm); daarnaast gelden
+          rsin en kvkNummer, geërfd van NietNatuurlijkPersoon. Partij
+          draagt sinds 2026-08-10 geen technische identifier meer.
+      brincode:
+        unique_key_slots: [brincode]
+        description: >-
+          MIM unieke aanduiding (korte vorm); voor sommige sectoren
+          niet uitgegeven.
+    attributes:
+      brincode:
+        range: BRINcode
+        description: >-
+          De vier-tekens-code waarmee een onderwijsinstelling
+          historisch wordt aangeduid.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: RIO en DUO
+        comments:
+          - Voor sommige sectoren niet uitgegeven.
+          - >-
+            Wiki-type Alfanumeriek4 ontbreekt in datatypes.yaml;
+            voorlopig Alfanumeriek. Validatie via Codelijst~BRIN.
+      instellingscodeRIO:
+        range: Identificatie
+        required: true
+        description: De uitgebreide instellingscode in RIO.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: RIO
+      naam:
+        range: Tekst
+        required: true
+        description: De officiële benaming van de instelling.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: RIO
+      onderwijssector:
+        range: Onderwijssector
+        required: true
+        multivalued: true
+        description: Sector waarin de instelling actief is.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: RIO
+        comments:
+          - Een instelling kan in meerdere sectoren actief zijn.
+      heeftBestuur:
+        range: NietNatuurlijkPersoon
+        required: true
+        description: >-
+          Verwijzing naar de rechtspersoon van het schoolbestuur.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+        comments:
+          - Zie deelmodel Bedrijven en instellingen.
+      biedtAan:
+        range: Opleiding
+        multivalued: true
+        description: Het aanbod aan opleidingen.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 0..*"
+
+    class_uri: gbobegrip:OnderwijsInstelling
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/NietNatuurlijkPersoon
+    close_mappings:
+      - http://schema.org/EducationalOrganization
+    aliases:
+      - School
+      - Onderwijsorganisatie
+      - Bevoegd gezag
+      - Educational Institution
+  Opleiding:
+    description: >-
+      Een door een bevoegd gezag aangeboden, samenhangend geheel van
+      onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld
+      kwalificatie- of diplomaniveau leidt.
+    annotations:
+      mim:herkomst: RIO; sector-codelijsten CROHO, CREBO en schoolsoort
+      mim:herkomstDefinitie: >-
+        WHW art. 7.3 en 7.3a (HO-opleidingen en studiepunten); WEB
+        art. 7.1.3 (MBO-opleiding gekoppeld aan
+        kwalificatiedossier); WPO en WVO 2020 voor PO- en VO-aanbod.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: opleidingscode binnen codestelsel
+      mim:populatie: >-
+        Alle opleidingen die in een Nederlandse onderwijssector door
+        een erkend bevoegd gezag worden aangeboden en in RIO of de
+        bijbehorende sectorlijst zijn geregistreerd.
+      mim:kwaliteit: >-
+        CROHO-registratie is voorwaarde voor bekostiging van
+        HO-opleidingen; CREBO-registratie geldt analoog voor MBO.
+        Een opleiding zonder geldige registratie geeft geen recht op
+        bekostigde diploma-uitreiking.
+      skos:status: proposed
+      skos:prefLabel_nl: Opleiding
+      skos:altLabel_nl_0_value: Onderwijsaanbod
+      skos:altLabel_nl_0_source: RIO (rio-onderwijs.nl)
+      skos:altLabel_nl_1_value: Opleidingseenheid
+      skos:altLabel_nl_1_source: PvE ROD (te bevestigen)
+      skos:altLabel_en_0_value: Programme
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:altLabel_en_1_value: Curriculum
+      skos:altLabel_en_1_source: schema.org Course (gerelateerd)
+      skos:definition_nl: Een door een bevoegd gezag aangeboden, samenhangend geheel van onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld kwalificatie- of diploma-niveau leidt.
+      skos:definitionSource: GBO-Kern, afgeleid uit WHW art. 7.3 en WEB art. 7.1.3
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005682
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: 'Voor HO: een opleiding leidt op tot graadverlening (bachelor, master, associate degree).'
+      skos:additional_0_source: WHW art. 7.3a
+      skos:additional_1_as: scopeNote
+      skos:additional_1_nl: 'Voor MBO: een opleiding is gekoppeld aan een kwalificatiedossier en leidt tot een MBO-diploma.'
+      skos:additional_1_source: WEB art. 7.1.3
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Codelijsten CROHO/CREBO als aparte enumeratie-pagina onder wiki/gbo-core/enumeraties/ opnemen.
+      skos:needsReview_1: NLQF-niveau-bron en update-frequentie bevestigen (NCP-NLQF maakt de afleiding).
+      skos:needsReview_2: RIO-element-naam voor Opleidingseenheid bevestigen tegen rio-onderwijs.nl-documentatie.
+    comments:
+      - >-
+        Opleiding abstraheert van de sector-eigen
+        identificatiestelsels: CROHO (Centraal Register Opleidingen
+        Hoger Onderwijs) voor HO, CREBO (Centraal Register
+        Beroepsopleidingen) voor MBO, en schoolsoort-codes voor PO
+        en VO. Het attribuut codestelsel zegt welk stelsel de
+        opleidingscode volgt. Sectoroverstijgende vergelijking
+        gebeurt via opleidingsniveau op de NLQF-schaal (Nederlands
+        Kwalificatieraamwerk).
+    unique_keys:
+      opleidingscodeBinnenCodestelsel:
+        unique_key_slots: [opleidingscode, codestelsel]
+        description: >-
+          MIM unieke aanduiding: opleidingscode binnen codestelsel;
+          als samengestelde sleutel gemodelleerd omdat de
+          opleidingscode alleen binnen het codestelsel uniek is.
+    attributes:
+      opleidingscode:
+        range: Tekst
+        required: true
+        description: De sector-specifieke code van de opleiding.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: RIO of sectorlijst
+        comments:
+          - >-
+            Vorm en patroon zijn afhankelijk van het codestelsel.
+      codestelsel:
+        range: Codestelsel
+        required: true
+        description: >-
+          Het identificatiestelsel waarvan de opleidingscode deel
+          uitmaakt.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO-Kern
+      opleidingsnaam:
+        range: Tekst
+        required: true
+        description: De officiële benaming van de opleiding.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: RIO
+      opleidingsniveau:
+        range: CodelijstNLQF
+        description: >-
+          Het kwalificatieniveau op de NLQF-schaal van een tot acht.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: Afgeleide; NCP-NLQF
+        comments:
+          - Sectoroverstijgende vergelijking.
+      onderwijssector:
+        range: Onderwijssector
+        required: true
+        description: De sector waarin de opleiding wordt aangeboden.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: RIO
+      wordtAangebodenDoor:
+        range: OnderwijsInstelling
+        required: true
+        multivalued: true
+        description: De instelling waar de opleiding wordt aangeboden.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "0..* -> 1..*"
+
+    class_uri: gbobegrip:Opleiding
+    close_mappings:
+      - https://ec.europa.eu/esco/ontology/qualification
+    related_mappings:
+      - http://schema.org/Course
+    aliases:
+      - Onderwijsaanbod
+      - Opleidingseenheid
+      - Programme
+      - Curriculum
+  OpleidingDeelname:
+    description: >-
+      De inschrijving van een natuurlijk persoon voor het volgen van
+      een opleiding bij een onderwijsinstelling, geldig binnen een
+      afgebakende periode.
+    annotations:
+      mim:herkomst: Register Onderwijsdeelnemers per sector
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD per sector (DUO): PvE ROD PO
+        (versie 2025-07-02), Handleiding ROD VO, PvE ROD MBO en VAVO
+        (versie 2025-12-19) en PvE ROD HO. Wettelijke grondslag: Wet
+        op het onderwijsnummer art. 1 onder b (deelnemer);
+        sectorwetten WPO, WVO 2020, WEB en WHW; operationele
+        invulling in het Programma van Eisen voor het Register
+        Onderwijsdeelnemers per sector.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: deelnameId
+      mim:populatie: >-
+        Alle inschrijvingen die op grond van een sectorwet aan ROD
+        moeten worden gemeld: in PO en VO ingeschreven leerlingen,
+        in MBO en VAVO ingeschreven studenten, in HO ingeschreven
+        studenten en, waar van toepassing, extranei.
+      mim:kwaliteit: >-
+        ROD-bijhouding is per sector wettelijk verplicht; de
+        onderwijsinstelling levert via Edukoppeling. Tijdigheid van
+        overgangs- en uitschrijfmeldingen en juistheid van
+        peilmoment worden door DUO teruggekoppeld aan de instelling.
+      skos:status: proposed
+      skos:prefLabel_nl: Opleiding deelname
+      skos:altLabel_nl_0_value: Onderwijsdeelname
+      skos:altLabel_nl_0_source: '[[gbo-core/sources/duo-gegevenswoordenboek]] (te bevestigen)'
+      skos:altLabel_nl_1_value: Inschrijving
+      skos:altLabel_nl_1_source: PvE ROD per sector
+      skos:altLabel_nl_2_value: Onderwijsinschrijving
+      skos:altLabel_nl_2_source: PvE ROD HO
+      skos:altLabel_en_0_value: Enrollment
+      skos:altLabel_en_0_source: ELMO 1.4 (te bevestigen)
+      skos:definition_nl: De inschrijving van een natuurlijk persoon voor het volgen van een opleiding bij een onderwijsinstelling, geldig binnen een afgebakende periode.
+      skos:definitionSource: GBO-Kern, afgeleid uit PvE ROD per sector
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: Vaststelling van het feit dat een leerling/student aan een opleiding bij een onderwijsinstelling deelneemt, op grond van de Wet op het onderwijsnummer en bijbehorende sectorwet.
+      skos:additional_0_source: Wet op het onderwijsnummer art. 1 onder b
+      skos:closeMatch_0_reviewed: 'false'
+      skos:needsReview_0: Concrete XSD-elementnaam per sector nog te bevestigen tegen lokale PvE-XSD-bijlage.
+      skos:needsReview_1: altLabel 'Onderwijsdeelname' bron-citatie afhankelijk van Gegevenswoordenboek-DUO-publicatie (zie [[gbo-core/sources/duo-gegevenswoordenboek]], DVTP-DUO-OQ-001).
+      skos:needsReview_2: closeMatch op ELMO-enrollment scope-vergelijking nog niet handmatig geverifieerd.
+      skos:needsReview_3: Generalisatie naar [[gbo-core/concepts/bedrijven-en-instellingen/inschrijving]] te bevestigen als concrete modeleerkeuze.
+    comments:
+      - >-
+        OpleidingDeelname is de centrale registratie van het feit
+        dat een persoon onderwijs volgt. Eén deelname dekt één
+        combinatie van Persoon, Opleiding en Onderwijsinstelling
+        binnen één periode. Een wijziging van leerweg of vestiging
+        leidt doorgaans tot een nieuwe deelname; de exacte
+        sectorregel staat in het bijbehorende PvE. Een afgeronde
+        deelname leidt vaak, niet altijd, tot een
+        OpleidingResultaat. Voortijdige beëindiging zonder resultaat
+        heeft een redenUitschrijving uit de sector-specifieke
+        codelijst.
+      - >-
+        needs_review, brondocument-versie te verifiëren
+        (versiedatums van Handleiding ROD VO en PvE ROD HO nog niet
+        bevestigd).
+    attributes:
+      deelnameId:
+        identifier: true
+        range: Identificatie
+        required: true
+        description: Interne identificatie van de deelname.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO-Kern
+      inschrijfdatum:
+        range: Datum
+        required: true
+        description: De datum waarop de deelname is aangevangen.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD per sector
+      uitschrijfdatum:
+        range: Datum
+        description: De datum waarop de deelname is geëindigd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD per sector
+        comments:
+          - Leeg zolang de deelname loopt.
+      redenUitschrijving:
+        range: CodelijstRedenUitschrijving
+        description: De reden waarom de deelname is geëindigd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD per sector
+        comments:
+          - Sector-specifieke codelijst.
+      onderwijssoort:
+        range: Onderwijssoort
+        required: true
+        description: Het soort onderwijs binnen de sector.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD per sector
+      leerweg:
+        range: Leerweg
+        description: >-
+          De leerweg waarbinnen de deelname valt, voor zover de
+          sector dit hanteert.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD MBO en VO
+      cohort:
+        range: Numeriek
+        description: Het instroomjaar waarmee de deelname is gestart.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD MBO en HO
+        comments:
+          - Wiki-type Geheel; gemodelleerd als Numeriek (geheel getal).
+      deelnemer:
+        range: NatuurlijkPersoon
+        required: true
+        description: De persoon die de opleiding volgt.
+        annotations:
+          gbo:inverseNaam: heeftOpleidingDeelname
+          gbo:inverseBeschrijving: >-
+            De opleidingsdeelnames van deze persoon.
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+        comments:
+          - Zie deelmodel Personen.
+      betreft:
+        range: Opleiding
+        required: true
+        description: De opleiding waarvoor is ingeschreven.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+      bijInstelling:
+        range: OnderwijsInstelling
+        required: true
+        description: De instelling die het onderwijs verzorgt.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+      omvat:
+        range: ModuleInschrijving
+        multivalued: true
+        description: >-
+          Onderwijseenheid-inschrijvingen binnen de deelname (HO).
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 0..*"
+      kent:
+        range: BeroepspraktijkvormingPeriode
+        multivalued: true
+        description: BPV-periodes binnen de deelname (MBO).
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 0..*"
+      leidtTot:
+        range: OpleidingResultaat
+        multivalued: true
+        description: >-
+          Resultaten die uit de deelname zijn voortgekomen.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "0..1 -> 0..*"
+
+    class_uri: gbobegrip:OpleidingDeelname
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Inschrijving
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/ModuleInschrijving
+      - https://begrippen.gbo-semantiek.nl/id/begrip/BeroepspraktijkvormingPeriode
+    close_mappings:
+      - https://elmo.eu/learner-enrollment
+    aliases:
+      - Onderwijsdeelname
+      - Inschrijving
+      - Onderwijsinschrijving
+      - Enrollment
+  OpleidingResultaat:
+    description: >-
+      Het door een natuurlijk persoon behaalde resultaat voor een
+      opleiding of onderdeel daarvan bij een onderwijsinstelling,
+      blijkend uit een diploma, certificaat, deelcertificaat of
+      vergelijkbaar bewijsstuk.
+    annotations:
+      mim:herkomst: Register Onderwijsdeelnemers per sector
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD per sector (DUO): PvE ROD PO
+        (versie 2025-07-02), Handleiding ROD VO, PvE ROD MBO en VAVO
+        (versie 2025-12-19) en PvE ROD HO. Wettelijke grondslag: WHW
+        art. 7.10a (HO-getuigschrift); WEB art. 7.4.6 (MBO-diploma);
+        WVO 2020 art. 2.61 (VO-eindexamen); Wet op het
+        onderwijsnummer voor de meldingsplicht naar DUO.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: resultaatId
+      mim:populatie: >-
+        Alle resultaten die op grond van de sectorregels in ROD
+        worden gemeld: diploma's, certificaten, deelcertificaten en
+        in HO afsluitende getuigschriften plus tussentijdse
+        propedeuse-uitkomsten.
+      mim:kwaliteit: >-
+        Resultaatmelding is verplicht na uitreiken. Authenticiteit
+        is geborgd doordat alleen erkende instellingen mogen melden
+        via Edukoppeling. Een ten onrechte verstrekt diploma kan via
+        een terugkoppelmelding worden ingetrokken; de bijhouding
+        registreert dat als correctie.
+      skos:status: proposed
+      skos:prefLabel_nl: Opleiding resultaat
+      skos:altLabel_nl_0_value: Onderwijsresultaat
+      skos:altLabel_nl_0_source: '[[gbo-core/sources/duo-gegevenswoordenboek]] (te bevestigen)'
+      skos:altLabel_nl_1_value: Diploma
+      skos:altLabel_nl_1_source: PvE ROD per sector
+      skos:altLabel_nl_2_value: Examenresultaat
+      skos:altLabel_nl_2_source: PvE ROD VO
+      skos:altLabel_en_0_value: Learner Achievement
+      skos:altLabel_en_0_source: ELMO 1.4 (te bevestigen)
+      skos:definition_nl: Het door een natuurlijk persoon behaalde resultaat voor (een onderdeel van) een opleiding bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk.
+      skos:definitionSource: GBO-Kern, afgeleid uit PvE ROD per sector
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: Een diploma is een door of namens een onderwijsinstelling verleend bewijsstuk waaruit blijkt dat aan de eisen van een opleiding is voldaan.
+      skos:additional_0_source: WHW art. 7.10a (HO), WEB art. 7.4.6 (MBO), WVO 2020 art. 2.61 (VO), naar betekenis
+      skos:closeMatch_0_reviewed: 'false'
+      skos:closeMatch_1_reviewed: 'false'
+      skos:needsReview_0: Diplomasoort-codelijst per sector bevestigen tegen PvE-bijlage.
+      skos:needsReview_1: 'Verhouding tussen OpleidingResultaat en Getuigschrift (HO) verifiëren: subtype of synoniem?'
+      skos:needsReview_2: closeMatch op schema:EducationalOccupationalCredential scope-vergelijking nog niet handmatig geverifieerd.
+    comments:
+      - >-
+        OpleidingResultaat ontstaat na succesvolle afronding of bij
+        een deelresultaat zoals een propedeuse in HO of een
+        deelcertificaat in MBO. Een uitschrijving zonder resultaat
+        leidt niet tot een OpleidingResultaat-record. Hetzelfde
+        resultaat-record speelt twee rollen in het deelmodel: als
+        afsluiting van een OpleidingDeelname via leidtTot en als
+        Vooropleiding bij een volgende deelname. In het HO is
+        "Getuigschrift" de wettelijke benaming voor het bachelor- of
+        master-bewijsstuk; dat is een voorkomen met
+        resultaatsoort = Getuigschrift.
+      - >-
+        needs_review, brondocument-versie te verifiëren
+        (versiedatums van Handleiding ROD VO en PvE ROD HO nog niet
+        bevestigd).
+    attributes:
+      resultaatId:
+        identifier: true
+        range: Identificatie
+        required: true
+        description: Interne identificatie van het resultaat.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO-Kern
+      behaaldatum:
+        range: Datum
+        required: true
+        description: De datum waarop het resultaat is behaald.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD per sector
+      diplomasoort:
+        range: CodelijstDiplomasoort
+        description: De aanduiding van het diploma of bewijsstuk.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD per sector
+        comments:
+          - Sector-specifieke codelijst.
+      resultaatsoort:
+        range: Resultaatsoort
+        required: true
+        description: Het type resultaat.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD per sector
+      graad:
+        range: Tekst
+        description: De academische graad bij HO-resultaten.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD HO
+        comments:
+          - Bachelor, Master of Associate degree.
+      specialisatie:
+        range: Tekst
+        description: >-
+          De afstudeerrichting of track binnen de opleiding.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD HO
+      behaaldDoor:
+        range: NatuurlijkPersoon
+        required: true
+        description: De persoon aan wie het resultaat is uitgereikt.
+        annotations:
+          gbo:inverseNaam: heeftOpleidingResultaat
+          gbo:inverseBeschrijving: >-
+            De opleidingsresultaten die deze persoon heeft behaald.
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+        comments:
+          - Zie deelmodel Personen.
+      voorOpleiding:
+        range: Opleiding
+        required: true
+        description: >-
+          De opleiding waarop het resultaat betrekking heeft.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+      uitgereiktDoor:
+        range: OnderwijsInstelling
+        required: true
+        description: >-
+          De instelling die het resultaat heeft uitgereikt.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+      volgtOpDeelname:
+        range: OpleidingDeelname
+        description: >-
+          De voorafgaande deelname waaruit het resultaat is
+          voortgekomen, voor zover bekend.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "0..1 -> 0..1"
+
+    class_uri: gbobegrip:OpleidingResultaat
+    narrow_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Vooropleiding
+    close_mappings:
+      - https://elmo.eu/learner-achievement
+      - http://schema.org/EducationalOccupationalCredential
+    aliases:
+      - Onderwijsresultaat
+      - Diploma
+      - Examenresultaat
+      - Learner Achievement
+  VerzuimMelding:
+    description: >-
+      Een wettelijk verplichte melding door een onderwijsinstelling
+      van ongeoorloofd verzuim van een leerplichtige of
+      kwalificatieplichtige leerling, of van verzuim van een
+      achttienplus-deelnemer dat langer dan vier weken
+      aaneengesloten duurt.
+    annotations:
+      mim:herkomst: Register Onderwijsdeelnemers, clusters VO en MBO
+      mim:herkomstDefinitie: >-
+        Bron: Handleiding ROD VO (DUO) en Programma van Eisen ROD
+        MBO en VAVO (DUO), versie 2025-12-19. Wettelijke grondslag:
+        Leerplichtwet 1969 art. 21a (meldingsplicht ongeoorloofd
+        verzuim); WEB art. 8.1.7 (kwalificatieplicht en verzuim
+        achttienplus); WVO 2020 art. 8.6.4.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: meldingId
+      mim:populatie: >-
+        Alle door scholen en MBO-instellingen aan DUO gemelde
+        verzuim-incidenten die voldoen aan de wettelijke drempel.
+      mim:kwaliteit: >-
+        Aanlevering binnen wettelijke termijn (zeven dagen na
+        constatering) bepaalt of de melding rechtsgeldig in ROD
+        staat.
+      skos:status: proposed
+      skos:prefLabel_nl: Verzuim melding
+      skos:altLabel_nl_0_value: Verzuimmelding
+      skos:altLabel_nl_0_source: Leerplichtwet 1969 art. 21a (één-woord-variant)
+      skos:altLabel_nl_1_value: Melding voortijdig schoolverlater
+      skos:altLabel_nl_1_source: WEB art. 8.1.7 (deeloverlap)
+      skos:definition_nl: Een wettelijk verplichte melding door een onderwijsinstelling van ongeoorloofd verzuim van een leerplichtige of kwalificatieplichtige leerling, of van verzuim van een 18-plus deelnemer dat langer dan vier weken aaneengesloten duurt.
+      skos:definitionSource: GBO-Kern, afgeleid uit Leerplichtwet art. 21a en WEB art. 8.1.7
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002628
+      skos:needsReview_0: VSV-melding (voortijdig schoolverlater) is gerelateerd maar niet identiek; relatie tot VerzuimMelding modelleren.
+      skos:needsReview_1: Exacte drempelwaardes per regime herverifiëren tegen actuele Leerplichtwet.
+    comments:
+      - >-
+        VerzuimMelding zit niet in het PO-koppelvlak; het
+        verzuimregime begint in het voortgezet onderwijs vanaf de
+        leerplicht-leeftijd en loopt door tot achttien jaar via de
+        kwalificatieplicht. Drie regimes: leerplicht voor leeftijd
+        vijf tot zestien jaar, kwalificatieplicht voor zestien tot
+        achttien jaar zonder startkwalificatie, en
+        achttienplus-verzuim in MBO. DUO routeert de melding op
+        grond van leeftijd en regime naar de leerplicht-ambtenaar
+        van de gemeente of naar het Regionaal Meld- en
+        Coördinatiepunt (RMC). Geoorloofd verzuim, zoals ziekte of
+        vakantie met toestemming, valt niet onder de wettelijke
+        meldingsplicht en daarmee niet onder dit objecttype.
+      - >-
+        needs_review, brondocument-versie te verifiëren (versiedatum
+        van Handleiding ROD VO nog niet bevestigd).
+    attributes:
+      meldingId:
+        identifier: true
+        range: Identificatie
+        required: true
+        description: Identificatie van de melding.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD VO en MBO
+      begindatum:
+        range: Datum
+        required: true
+        description: De eerste verzuim-dag.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD VO en MBO
+      einddatum:
+        range: Datum
+        description: De einddatum van het verzuim.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD VO en MBO
+        comments:
+          - Leeg zolang het verzuim voortduurt.
+      grondslag:
+        range: GrondslagVerzuim
+        required: true
+        description: Het regime waaronder de melding valt.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD VO en MBO
+      omvang:
+        range: Tekst
+        description: Het aantal lesuren of aaneengesloten dagen.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD VO en MBO
+        comments:
+          - Eenheid hangt af van het regime.
+      betreft:
+        range: NatuurlijkPersoon
+        required: true
+        description: >-
+          De persoon waarop het verzuim betrekking heeft.
+        annotations:
+          gbo:inverseNaam: heeftVerzuimMelding
+          gbo:inverseBeschrijving: >-
+            De verzuimmeldingen over deze persoon.
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+        comments:
+          - Zie deelmodel Personen.
+      gemeldDoor:
+        range: OnderwijsInstelling
+        required: true
+        description: De instelling die de melding heeft gedaan.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+
+    class_uri: gbobegrip:VerzuimMelding
+    aliases:
+      - Verzuimmelding
+      - Melding voortijdig schoolverlater
+  Vooropleiding:
+    is_a: OpleidingResultaat
+    description: >-
+      Een eerder behaald opleidingsresultaat dat bij een volgende
+      onderwijsdeelname wordt aangereikt als bewijs voor de
+      toelating tot of de instroompositionering in een opleiding.
+    annotations:
+      mim:herkomst: Register Onderwijsdeelnemers per sector
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD per sector (DUO): PvE ROD PO
+        (versie 2025-07-02), Handleiding ROD VO, PvE ROD MBO en VAVO
+        (versie 2025-12-19) en PvE ROD HO. Wettelijke grondslag: WHW
+        art. 7.24 en volgende (toelatingseisen HO); WEB art. 8.2.1
+        (toelating MBO); WVO 2020 voor doorstroomeisen binnen VO.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: >-
+        Combinatie van persoon, diplomasoort, behaaldatum en
+        verstrekkende instelling.
+      mim:populatie: >-
+        Alle door instellingen geregistreerde vooropleidingen bij
+        ROD-inschrijvingen, inclusief in het buitenland behaalde
+        gelijkstellingen.
+      mim:kwaliteit: >-
+        ROD valideert de combinatie persoon-vooropleiding tegen het
+        bestaande OpleidingResultaat-record waar aanwezig.
+        Buitenlandse vooropleidingen worden aangereikt zonder
+        ROD-tegenpaar; de instelling staat in voor de
+        gelijkstelling.
+      skos:status: proposed
+      skos:prefLabel_nl: Vooropleiding
+      skos:altLabel_nl_0_value: Toelatingsdiploma
+      skos:altLabel_nl_0_source: WHW art. 7.24 (toelatingseisen HO)
+      skos:altLabel_nl_1_value: Instroom-bewijs
+      skos:altLabel_nl_1_source: PvE ROD MBO
+      skos:altLabel_en_0_value: Prior qualification
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: Een eerder behaald opleidingsresultaat dat bij een volgende onderwijsdeelname wordt aangereikt als bewijs voor de toelating tot of de instroom-positionering in een opleiding.
+      skos:definitionSource: GBO-Kern, afgeleid uit PvE ROD en sectorwetten
+      skos:needsReview_0: 'Verhouding tot OpleidingResultaat: opslaan als zelfstandig record met sterke koppeling, of als view op OpleidingResultaat in een specifieke rol?'
+      skos:needsReview_1: 'Buitenlandse vooropleidingen: aparte codelijst voor gelijkstelling (DUO doet hier gelijkwaardigheidsbepaling) bevestigen.'
+    comments:
+      - >-
+        Vooropleiding is hetzelfde objecttype als
+        OpleidingResultaat, ingezet in een tweede rol. Een
+        MBO-deelname met een HAVO-diploma als vooropleiding wordt in
+        ROD doorgegeven met een verwijzing naar het
+        VO-OpleidingResultaat; analoog voor een HO-deelname met een
+        MBO-niveau-4-diploma als instroom. Buitenlandse
+        vooropleidingen worden niet door ROD geverifieerd tegen een
+        binnenlands resultaat; de instelling beoordeelt de
+        gelijkstelling, doorgaans op basis van een
+        gelijkwaardigheidsverklaring (door DUO of Nuffic afgegeven).
+      - >-
+        needs_review, brondocument-versie te verifiëren
+        (versiedatums van Handleiding ROD VO en PvE ROD HO nog niet
+        bevestigd).
+    unique_keys:
+      vooropleidingAanduiding:
+        unique_key_slots:
+          - behaaldDoor
+          - diplomasoort
+          - behaaldatum
+          - verstrekkendeInstellingscode
+        description: >-
+          MIM unieke aanduiding; resultaatId (geërfd van
+          OpleidingResultaat) blijft de technische identifier.
+    attributes:
+      behaaldatum:
+        range: Datum
+        required: true
+        description: De datum waarop de vooropleiding is behaald.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD per sector
+        comments:
+          - Geërfd van OpleidingResultaat.
+      diplomasoort:
+        range: CodelijstDiplomasoort
+        required: true
+        description: De aanduiding van het instroom-bewijs.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD per sector
+      verstrekkendeInstellingscode:
+        range: Tekst
+        description: >-
+          De BRIN of, voor buitenlandse vooropleidingen, een
+          landcode.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: PvE ROD per sector
+      landVerwerving:
+        range: CodelijstISO3166
+        description: Het land waar de vooropleiding is behaald.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: PvE ROD per sector
+        comments:
+          - NL bij binnenlandse vooropleiding.
+      isBaseerd:
+        range: OpleidingResultaat
+        description: >-
+          De binnenlandse resultaatregistratie waarop deze
+          vooropleiding teruggrijpt, voor zover aanwezig.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 0..1"
+        comments:
+          - >-
+            Relatienaam letterlijk uit de wiki; vermoedelijk is
+            "isGebaseerd" bedoeld.
+      toelatingsbewijsBij:
+        range: OpleidingDeelname
+        required: true
+        description: >-
+          De volgende deelname die op grond van deze vooropleiding
+          is toegestaan.
+        annotations:
+          gbo:inverseNaam: heeftVooropleiding
+          gbo:inverseBeschrijving: >-
+            De vooropleidingen die als toelatingsbewijs bij deze deelname gelden.
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+
+  # --- DUO-administraties zonder formele registratie --------------------------
+  # Studiefinanciering en studielening worden door DUO geadministreerd
+  # maar vallen niet onder een wettelijk register zoals ROD of RIO.
+  # Voor beide geldt: geen publiek B2B-koppelvlak. Derden zijn
+  # afhankelijk van inzage door de (oud-)student via Mijn DUO of via
+  # een door de student gemachtigde dienstverlening.
+
+    class_uri: gbobegrip:Vooropleiding
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/OpleidingResultaat
+    aliases:
+      - Toelatingsdiploma
+      - Instroom-bewijs
+      - Prior qualification
+  StudieFinanciering:
+    description: >-
+      Een door DUO aan een student toegekende tegemoetkoming in de
+      kosten van levensonderhoud en studie, in de vorm van een
+      basisbeurs, aanvullende beurs, studentenreisproduct of
+      bestuursbeurs.
+    annotations:
+      mim:herkomst: DUO-administratie studiefinanciering
+      mim:herkomstDefinitie: >-
+        Wet studiefinanciering 2000 (WSF 2000); voor onderdelen MBO
+        en VO ook de Wet tegemoetkoming onderwijsbijdrage en
+        schoolkosten (WTOS).
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: >-
+        Combinatie van persoon, beurssoort en periode.
+      mim:populatie: >-
+        Personen die op grond van WSF 2000 of WTOS aanspraak maken
+        op tegemoetkoming, beperkt tot HBO-, WO- en (voor
+        reisproduct en aanvullende toelage) MBO-studenten.
+      mim:kwaliteit: >-
+        DUO is autoritatief; status (toegekend, ingetrokken, omgezet
+        in gift) wordt door DUO bijgehouden. Bevestiging aan derden
+        alleen via gewaarmerkte burgerinzage of een door de student
+        gemachtigde dienstverlening.
+      skos:status: proposed
+      skos:prefLabel_nl: Studie financiering
+      skos:altLabel_nl_0_value: Beurs
+      skos:altLabel_nl_0_source: WSF 2000 hoofdstuk 3 (beurzen)
+      skos:altLabel_nl_1_value: Studentenreisproduct
+      skos:altLabel_nl_1_source: WSF 2000 art. 3.7
+      skos:altLabel_en_0_value: Student grant
+      skos:altLabel_en_0_source: ELMO 1.4
+      skos:definition_nl: Een door DUO aan een student toegekende tegemoetkoming in de kosten van levensonderhoud en/of studie, in de vorm van een basisbeurs, aanvullende beurs, studentenreisproduct of bestuursbeurs.
+      skos:definitionSource: GBO-Kern, afgeleid uit WSF 2000
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011453
+      skos:needsReview_0: Bestaat StudieFinanciering bij dezelfde herkomst-beperking als StudieLening (geen B2B)? Aannemelijk; te verifiëren.
+      skos:needsReview_1: Aanvullende toelage MBO via WTOS apart objecttype of subtype?
+    comments:
+      - >-
+        StudieFinanciering omvat de beurscomponent en het
+        reisproduct, niet de leencomponent (zie StudieLening). Een
+        basisbeurs is forfaitair en voor HO-studenten; sinds het
+        studiejaar 2023-2024 is deze terug na de leenstelsel-periode
+        2015 tot 2023. Een aanvullende beurs is inkomensafhankelijk.
+        Het studentenreisproduct is een OV-product op werkdagen of
+        weekenden. Een bestuursbeurs ondersteunt bestuurlijke
+        activiteiten aan een HO-instelling. Voor MBO geldt deels de
+        WTOS voor jongeren tot achttien en deels de WSF 2000 boven
+        achttien.
+      - >-
+        De MIM unieke aanduiding (combinatie van persoon, beurssoort
+        en periode) is niet als unique_key uitgedrukt omdat
+        "periode" geen enkelvoudig attribuut is; zie annotatie
+        mim:uniekeAanduiding.
+    attributes:
+      beurssoort:
+        range: Beurssoort
+        required: true
+        description: De vorm van de tegemoetkoming.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: DUO
+      toekenningsbedragMaand:
+        range: Bedrag
+        description: Het maandelijks toegekende bedrag.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO
+        comments:
+          - Niet van toepassing voor reisproduct.
+      ingangsdatum:
+        range: Datum
+        required: true
+        description: >-
+          De datum waarop de tegemoetkoming is ingegaan.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO
+      einddatum:
+        range: Datum
+        description: >-
+          De datum waarop de tegemoetkoming is geëindigd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO
+      status:
+        range: Tekst
+        required: true
+        description: Administratieve status van de toekenning.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO
+        comments:
+          - Toegekend, Ingetrokken, OmgezetInGift.
+      ontvanger:
+        range: NatuurlijkPersoon
+        required: true
+        description: >-
+          De persoon aan wie de tegemoetkoming is toegekend.
+        annotations:
+          gbo:inverseNaam: heeftStudieFinanciering
+          gbo:inverseBeschrijving: >-
+            De studiefinanciering die deze persoon ontvangt of ontving.
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+        comments:
+          - Zie deelmodel Personen.
+      voorOpleiding:
+        range: Opleiding
+        required: true
+        description: >-
+          De opleiding waarbinnen de tegemoetkoming is toegekend.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "0..1 -> 1"
+
+    class_uri: gbobegrip:StudieFinanciering
+    aliases:
+      - Beurs
+      - Studentenreisproduct
+      - Student grant
+  StudieLening:
+    description: >-
+      Het door een (oud-)student bij DUO opgebouwde renteloze of
+      laagrentende leningbedrag op grond van de Wet
+      studiefinanciering 2000, samen met de aflosregeling waaronder
+      het bedrag moet worden terugbetaald.
+    annotations:
+      mim:herkomst: DUO-administratie studielening
+      mim:herkomstDefinitie: >-
+        WSF 2000 hoofdstuk 6 (lening en terugbetaling); aanvullende
+        regelingen rond aflosregimes per leenstelsel-cohort.
+      mim:datumOpname: "2026-05-19"
+      mim:uniekeAanduiding: Per persoon één lening-administratie.
+      mim:populatie: >-
+        Alle (oud-)studenten met een uitstaande studieschuld bij
+        DUO, ongeacht aflosfase.
+      mim:kwaliteit: >-
+        DUO is autoritatief; aflosregeling-cohort bepaalt
+        aflostermijn en renteregime. Gegevenskwaliteit voor derden
+        is afhankelijk van de gebruikte alternatieve route.
+      skos:status: proposed
+      skos:prefLabel_nl: Studie lening
+      skos:altLabel_nl_0_value: Studieschuld
+      skos:altLabel_nl_0_source: WSF 2000 hoofdstuk 6 (gangbaar gebruik)
+      skos:altLabel_nl_1_value: DUO-schuld
+      skos:altLabel_nl_1_source: Algemeen taalgebruik
+      skos:altLabel_en_0_value: Student loan
+      skos:altLabel_en_0_source: OECD terminologie
+      skos:definition_nl: Het door een (oud-)student bij DUO opgebouwde renteloze of laagrentende leningbedrag op grond van de Wet studiefinanciering 2000, samen met de aflosregeling waaronder het bedrag moet worden terugbetaald.
+      skos:definitionSource: GBO-Kern, afgeleid uit WSF 2000 hoofdstuk 6
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0011453
+      skos:needsReview_0: Of het zinvol is leen-cohort als eigen objecttype te modelleren (verschillen tussen oude regeling, leenstelsel, na-leenstelsel zijn aanzienlijk).
+      skos:needsReview_1: Of de 'OV-schuld' (uit niet-omgezet reisproduct) een aparte StudieLening-instance is of een component-attribuut.
+    comments:
+      - >-
+        Het aflosregime hangt af van het leenstelsel-cohort
+        waaronder de lening is opgebouwd. In de oude regeling,
+        geldend tot 2015-2016, geldt een aflostermijn van vijftien
+        jaar. In het leenstelsel, geldend tussen 2015-2016 en
+        2022-2023, geldt een aflostermijn van vijfendertig jaar met
+        prestatiebeurs-elementen. In de hervormde regeling vanaf
+        2023-2024 is de basisbeurs teruggekeerd en blijft de
+        aflostermijn voor het leen-deel vijfendertig jaar. Een
+        OV-schuld kan ontstaan wanneer een studentenreisproduct niet
+        binnen de gestelde termijn in een gift wordt omgezet
+        (afhankelijk van het behalen van een diploma binnen tien
+        jaar).
+      - >-
+        Beschikbaarheid voor derden: DUO biedt geen publiek
+        B2B-koppelvlak voor studielening-data. Dit is geen
+        tijdelijke beperking maar een vastgestelde lijn, bevestigd
+        in een Kamerbrief uit 2019 (kenmerk 2019Z18615) nadat de
+        Tweede Kamer per motie verzocht de in ontwikkeling zijnde
+        "Blauwe Knop", een gewaarmerkte digitale schuldverklaring,
+        niet uit te rollen. DUO heeft die ontwikkeling stopgezet. De
+        facto-routes waarlangs derden, bijvoorbeeld
+        hypotheekverstrekkers in het kader van een woonlastentoets
+        onder de Wet op het financieel toezicht art. 4:34,
+        studielening-gegevens kunnen ontvangen, zijn: inzage door de
+        student zelf via Mijn DUO (handmatige download van een
+        gewaarmerkt overzicht), of een door de student gemachtigde
+        dienstverlening die Mijn DUO uitleest. De wettelijke
+        verplichting om studieschuld in de kredietbeoordeling mee te
+        wegen bestaat dus zonder een verplichte bron.
+    unique_keys:
+      schuldenaar:
+        unique_key_slots: [schuldenaar]
+        description: >-
+          MIM unieke aanduiding: per persoon één
+          lening-administratie.
+    attributes:
+      openstaandSaldo:
+        range: Bedrag
+        required: true
+        description: >-
+          Het bedrag dat nog openstaat ter terugbetaling.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO via burgerinzage
+        comments:
+          - Per peildatum.
+      maandelijkseAflossing:
+        range: Bedrag
+        description: Het maandelijkse aflosbedrag.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO via burgerinzage
+        comments:
+          - Pas relevant na aanvang aflosfase.
+      aflostermijnTotaalMaanden:
+        range: Numeriek
+        required: true
+        description: De volledige aflostermijn in maanden.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: Afgeleid uit leenstelsel-cohort
+        comments:
+          - >-
+            180 voor de oude regeling, 420 voor het leenstelsel en
+            de hervormde regeling.
+          - Wiki-type Geheel; gemodelleerd als Numeriek (geheel getal).
+      aflostermijnRestantMaanden:
+        range: Numeriek
+        description: De resterende aflostermijn in maanden.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: DUO via burgerinzage
+        comments:
+          - Pas relevant na aanvang aflosfase.
+          - Wiki-type Geheel; gemodelleerd als Numeriek (geheel getal).
+      leenstelselCohort:
+        range: LeenstelselCohort
+        required: true
+        description: >-
+          Het regime waaronder de lening is opgebouwd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: DUO
+      renteregime:
+        range: Tekst
+        description: >-
+          Het renteregime dat op de lening van toepassing is.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: DUO
+        comments:
+          - Vast of variabel, cohort-afhankelijk.
+      schuldenaar:
+        range: NatuurlijkPersoon
+        required: true
+        description: >-
+          De (oud-)student aan wie de lening is toegekend.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+          gbo:inverseNaam: heeftStudieLening
+          gbo:inverseBeschrijving: >-
+            De studieleningen waarvoor deze persoon schuldenaar is.
+        comments:
+          - Zie deelmodel Personen.
+
+    class_uri: gbobegrip:StudieLening
+    aliases:
+      - Studieschuld
+      - DUO-schuld
+      - Student loan
+enums:
+
+  Beurssoort:
+    description: >-
+      Type tegemoetkoming binnen de Wet studiefinanciering 2000 en
+      de Wet tegemoetkoming onderwijsbijdrage en schoolkosten.
+    exact_mappings:
+      - gbobegrip:Beurssoort
+    annotations:
+      mim:herkomst: WSF 2000 en WTOS
+      mim:herkomstDefinitie: >-
+        WSF 2000 hoofdstuk 3 (beurzen) en art. 3.7
+        (studentenreisproduct); WTOS voor de MBO-toelage.
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        De keuzelijst onderscheidt de hoofdvormen van beurs en
+        reisproduct. De leencomponent is geen waarde in deze lijst;
+        die wordt op het zelfstandige objecttype StudieLening
+        bijgehouden.
+    permissible_values:
+      Basisbeurs:
+        description: Forfaitaire maandbeurs voor HO-studenten.
+        comments:
+          - Sinds studiejaar 2023-2024 weer ingevoerd.
+      AanvullendeBeurs:
+        description: Inkomensafhankelijke maandbeurs.
+        comments:
+          - Hoogte afhankelijk van ouderlijk inkomen.
+      Studentenreisproduct:
+        description: OV-product voor werkdagen of weekenden.
+        comments:
+          - >-
+            Niet uitgedrukt als maandbedrag in
+            toekenningsbedragMaand.
+      Bestuursbeurs:
+        description: >-
+          Tegemoetkoming voor bestuurlijke activiteiten aan een
+          HO-instelling.
+
+  Codestelsel:
+    description: >-
+      Identificatiestelsel waarvan een opleidingscode deel uitmaakt.
+    exact_mappings:
+      - gbobegrip:Codestelsel
+    annotations:
+      mim:herkomst: GBO-Kern
+      mim:herkomstDefinitie: >-
+        GBO-Kern, op basis van de sectorpraktijk in RIO en de PvE
+        ROD per sector.
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        Het stelsel bepaalt vorm en betekenis van de opleidingscode.
+        CROHO geldt voor het hoger onderwijs, CREBO voor het
+        middelbaar beroepsonderwijs; voor PO en VO is er geen unieke
+        nationale opleidingscode, daar werkt het deelmodel met een
+        schoolsoort-code.
+    permissible_values:
+      CROHO:
+        description: Centraal Register Opleidingen Hoger Onderwijs.
+        comments:
+          - Voor HO.
+      CREBO:
+        description: Centraal Register Beroepsopleidingen.
+        comments:
+          - Voor MBO en VAVO.
+      SchoolsoortPO:
+        description: Sectorlijst voor primair onderwijs.
+        comments:
+          - Geen unieke opleidingscode op landelijk niveau.
+      SchoolsoortVO:
+        description: Sectorlijst voor voortgezet onderwijs.
+        comments:
+          - VMBO met leerweg, HAVO, VWO.
+
+  GrondslagVerzuim:
+    description: >-
+      Het regime op grond waarvan een VerzuimMelding moet worden
+      gedaan.
+    exact_mappings:
+      - gbobegrip:GrondslagVerzuim
+    annotations:
+      mim:herkomst: Leerplichtwet 1969; WEB
+      mim:herkomstDefinitie: >-
+        Leerplichtwet 1969 (leerplicht en kwalificatieplicht); WEB
+        art. 8.1.7 (verzuim achttienplus).
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        Een melding valt onder precies één regime. Het regime
+        bepaalt naar welke partij DUO de melding routeert (gemeente
+        voor leerplicht, RMC voor kwalificatieplicht en
+        achttienplus).
+    permissible_values:
+      Leerplicht:
+        description: Verzuim van een leerplichtige leerling.
+        comments:
+          - >-
+            Vijf tot zestien jaar; melddrempel zestien lesuren in
+            vier weken.
+      Kwalificatieplicht:
+        description: Verzuim van een kwalificatieplichtige leerling.
+        comments:
+          - Zestien tot achttien jaar zonder startkwalificatie.
+      Achttienplus:
+        description: >-
+          Verzuim van een MBO-deelnemer van achttien jaar of ouder.
+        comments:
+          - Melddrempel langer dan vier weken aaneengesloten.
+
+  LeenstelselCohort:
+    description: >-
+      Het studiefinancieringsregime waaronder een studielening is
+      opgebouwd.
+    exact_mappings:
+      - gbobegrip:LeenstelselCohort
+    annotations:
+      mim:herkomst: WSF 2000
+      mim:herkomstDefinitie: >-
+        WSF 2000 met de aanpassingen van het leenstelsel (Wet
+        studievoorschot hoger onderwijs, 2015) en van de hervorming
+        basisbeurs (Wet hervorming studiefinanciering, 2023).
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        Het cohort bepaalt aflostermijn en regelingen rond
+        prestatiebeurs-omzetting. Een student die zowel in een oud
+        als in een nieuw regime heeft geleend kan over meer dan één
+        cohort beschikken in zijn lening-administratie; in dit
+        deelmodel geldt per studielening het hoofdcohort, met de
+        overige cohorten als toelichting bij DUO zelf.
+    permissible_values:
+      OudeRegeling:
+        description: >-
+          Studiefinanciering uit de periode tot 2015-2016.
+        comments:
+          - Aflostermijn vijftien jaar.
+      Leenstelsel:
+        description: >-
+          Studiefinanciering uit de periode 2015-2016 tot 2022-2023.
+        comments:
+          - >-
+            Aflostermijn vijfendertig jaar;
+            prestatiebeurs-elementen.
+      Hervormd:
+        description: Studiefinanciering vanaf 2023-2024.
+        comments:
+          - >-
+            Basisbeurs terug; aflostermijn vijfendertig jaar voor
+            leen-deel.
+
+  Leerweg:
+    description: >-
+      De manier waarop een onderwijsdeelname is ingericht, voor
+      zover de sectorregels die onderscheiden.
+    exact_mappings:
+      - gbobegrip:Leerweg
+    annotations:
+      mim:herkomst: WEB; WVO 2020
+      mim:herkomstDefinitie: >-
+        WEB voor het MBO (BOL en BBL); WVO 2020 voor de
+        VMBO-leerwegen.
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        Leerweg is alleen relevant in het MBO en in VMBO-deelnames;
+        voor andere sectoren blijft het attribuut leeg.
+    permissible_values:
+      BOL:
+        description: Beroepsopleidende leerweg in het MBO.
+        comments:
+          - >-
+            Onderwijs op school met BPV-aandeel doorgaans twintig
+            tot zestig procent.
+      BBL:
+        description: Beroepsbegeleidende leerweg in het MBO.
+        comments:
+          - >-
+            Werken bij een leerbedrijf met schoolbegeleiding;
+            BPV-aandeel ten minste zestig procent.
+      BB:
+        description: Basisberoepsgerichte leerweg VMBO.
+      KB:
+        description: Kaderberoepsgerichte leerweg VMBO.
+      GL:
+        description: Gemengde leerweg VMBO.
+      TL:
+        description: Theoretische leerweg VMBO.
+
+  Onderwijssector:
+    description: >-
+      De onderwijssector in het Nederlandse stelsel waaronder een
+      opleiding of instelling valt.
+    exact_mappings:
+      - gbobegrip:Onderwijssector
+    annotations:
+      mim:herkomst: Sectorwetten WPO, WVO 2020, WEB, WHW
+      mim:herkomstDefinitie: >-
+        Wet op het onderwijsnummer; sectorwetten WPO, WVO 2020, WEB
+        en WHW.
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        Een instelling kan in meerdere sectoren actief zijn (een ROC
+        bedient typisch MBO en VAVO; een AOC ook VO). Een opleiding
+        hoort altijd tot precies één sector.
+    permissible_values:
+      PO:
+        description: Primair onderwijs.
+        comments:
+          - WPO.
+      VO:
+        description: Voortgezet onderwijs.
+        comments:
+          - WVO 2020.
+      VAVO:
+        description: Voortgezet algemeen volwassenenonderwijs.
+        comments:
+          - Onder de WEB belegd.
+      MBO:
+        description: Middelbaar beroepsonderwijs.
+        comments:
+          - WEB.
+      HBO:
+        description: Hoger beroepsonderwijs.
+        comments:
+          - WHW.
+      WO:
+        description: Wetenschappelijk onderwijs.
+        comments:
+          - WHW.
+
+  Onderwijssoort:
+    description: Het soort onderwijs binnen een onderwijssector.
+    exact_mappings:
+      - gbobegrip:Onderwijssoort
+    annotations:
+      mim:herkomst: PvE ROD per sector
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD per sector (DUO): PvE ROD PO
+        (versie 2025-07-02), Handleiding ROD VO, PvE ROD MBO en VAVO
+        (versie 2025-12-19) en PvE ROD HO. Wettelijke grondslag:
+        sector-specifieke aanduiding in PvE ROD per sector.
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        needs_review, brondocument-versie te verifiëren (versiedatums
+        van Handleiding ROD VO en PvE ROD HO nog niet bevestigd).
+      - >-
+        Onderwijssoort verfijnt de sector waar de sectorregels dat
+        vragen: BOL of BBL in het MBO, voltijd-deeltijd-duaal in het
+        HO, schoolsoort-aanduidingen in PO en VO.
+    permissible_values:
+      BOL:
+        description: Beroepsopleidende leerweg MBO.
+        comments:
+          - >-
+            Idem als waarde in Leerweg; in MBO worden onderwijssoort
+            en leerweg samen gehanteerd.
+      BBL:
+        description: Beroepsbegeleidende leerweg MBO.
+      Voltijd:
+        description: Voltijds HO-onderwijs.
+      Deeltijd:
+        description: Deeltijds HO-onderwijs.
+      Duaal:
+        description: >-
+          Duaal HO-onderwijs (combinatie werken en studeren).
+      Basisonderwijs:
+        description: Regulier primair onderwijs.
+        comments:
+          - WPO.
+      SpeciaalBasisonderwijs:
+        description: >-
+          Primair onderwijs voor leerlingen met extra
+          ondersteuningsbehoefte.
+        comments:
+          - WPO.
+      VMBO:
+        description: Voortgezet onderwijs op het VMBO-niveau.
+        comments:
+          - Met leerweg-attribuut voor de verfijning.
+      HAVO:
+        description: Voortgezet onderwijs op het HAVO-niveau.
+      VWO:
+        description: Voortgezet onderwijs op het VWO-niveau.
+        comments:
+          - Atheneum of gymnasium.
+
+  Resultaatsoort:
+    description: >-
+      Het type onderwijsresultaat dat in ROD wordt geregistreerd.
+    exact_mappings:
+      - gbobegrip:Resultaatsoort
+    annotations:
+      mim:herkomst: WHW; WEB; WVO 2020
+      mim:herkomstDefinitie: >-
+        WHW art. 7.10a (HO-getuigschrift); WEB art. 7.4.6
+        (MBO-diploma en deelcertificaat); WVO 2020 art. 2.61
+        (VO-diploma).
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        Resultaatsoort onderscheidt het zelfstandig bewijsstuk
+        (diploma, getuigschrift) van een tussenresultaat
+        (certificaat, deelcertificaat, propedeuse).
+    permissible_values:
+      Diploma:
+        description: Afsluitend bewijsstuk in PO, VO en MBO.
+      Getuigschrift:
+        description: >-
+          Afsluitend bewijsstuk in HO (bachelor, master, associate
+          degree).
+        comments:
+          - WHW-terminologie.
+      Certificaat:
+        description: Tussenliggend bewijsstuk in MBO.
+        comments:
+          - Onderdeel van een diploma-uitkering.
+      Deelcertificaat:
+        description: >-
+          Bewijsstuk voor een afgerond deel van een MBO-opleiding.
+      Propedeuse:
+        description: Tussentijds resultaat in HO.
+        comments:
+          - >-
+            Markeert succesvolle afronding van het propedeutisch
+            jaar.
+
+  Resultaatstatus:
+    description: >-
+      Uitkomststatus van een moduledeelname in het hoger onderwijs.
+    exact_mappings:
+      - gbobegrip:Resultaatstatus
+    annotations:
+      mim:herkomst: PvE ROD HO
+      mim:herkomstDefinitie: >-
+        Bron: Programma van Eisen ROD HO (DUO). Wettelijke
+        grondslag: PvE ROD HO; uitexaminerings-praktijk per
+        HO-instelling.
+      mim:datumOpname: "2026-05-19"
+    comments:
+      - >-
+        needs_review, brondocument-versie te verifiëren (Programma
+        van Eisen ROD HO versiedatum nog niet bevestigd).
+      - >-
+        De status zegt of de student de onderwijseenheid heeft
+        afgerond. Een numeriek of pass/fail-cijfer staat in
+        ModuleInschrijving.cijfer; de status hier dient als
+        koppelbare samenvatting.
+    permissible_values:
+      Behaald:
+        description: Module met succes afgerond.
+      NietBehaald:
+        description: Module niet succesvol afgerond.
+      Vrijstelling:
+        description: >-
+          Module vrijgesteld op grond van eerdere prestaties.
+
+types:
+
+  # --- «Codelijst»-typen: deelmodel-specifiek ---------------------------------
+  # De sector-codelijsten worden beheerd door DUO (RIO en de PvE ROD
+  # per sector); NLQF door NCP-NLQF.
+
+  CodelijstCROHO:
+    typeof: string
+    aliases: ["Codelijst~CROHO"]
+    description: >-
+      Opleidingscode conform het CROHO Opleidingsaanbod HO (Centraal
+      Register Opleidingen Hoger Onderwijs), beheerd door DUO en
+      RIO; gebruikt voor Opleiding.opleidingscode voor HO.
+      Mutatieritme: per studiejaar.
+    see_also:
+      - https://www.rio-onderwijs.nl/
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstCREBO:
+    typeof: string
+    aliases: ["Codelijst~CREBO"]
+    description: >-
+      Opleidingscode conform CREBO Beroepsopleidingen (Centraal
+      Register Beroepsopleidingen), beheerd door DUO en RIO;
+      gebruikt voor Opleiding.opleidingscode voor MBO.
+      Mutatieritme: per studiejaar.
+    see_also:
+      - https://www.rio-onderwijs.nl/
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstNLQF:
+    typeof: string
+    aliases: ["Codelijst~NLQF"]
+    description: >-
+      NLQF Kwalificatieniveaus, beheerd door NCP-NLQF; gebruikt voor
+      Opleiding.opleidingsniveau. Mutatieritme: sporadisch.
+    see_also:
+      - https://www.nlqf.nl/
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstBRIN:
+    typeof: string
+    aliases: ["Codelijst~BRIN"]
+    description: >-
+      BRIN Onderwijsinstellingen, beheerd door DUO; gebruikt als
+      validatie van OnderwijsInstelling.brincode. Mutatieritme:
+      continu (bij elke nieuwe instelling).
+    see_also:
+      - https://duo.nl/
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstDiplomasoort:
+    typeof: string
+    aliases: ["Codelijst~Diplomasoort"]
+    description: >-
+      Diplomasoort per sector, beheerd door DUO via PvE ROD per
+      sector; gebruikt voor OpleidingResultaat.diplomasoort en
+      Vooropleiding.diplomasoort. Mutatieritme: sporadisch, per
+      sectorwet-aanpassing.
+    see_also:
+      - https://duo.nl/
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstRedenUitschrijving:
+    typeof: string
+    aliases: ["Codelijst~RedenUitschrijving"]
+    description: >-
+      RedenUitschrijving per sector, beheerd door DUO via PvE ROD
+      per sector; gebruikt voor
+      OpleidingDeelname.redenUitschrijving. Mutatieritme:
+      sporadisch.
+    see_also:
+      - https://duo.nl/
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstVBT:
+    typeof: string
+    aliases: ["Codelijst~VBT"]
+    description: >-
+      Verblijfstitelcode (VBT) MBO, beheerd door DUO via PvE ROD
+      MBO; gebruikt voor het bekostigingsrecht achttienplus in MBO
+      (niet als hoofd-attribuut in dit deelmodel). Mutatieritme: per
+      IND-beleidswijziging.
+    see_also:
+      - https://duo.nl/
+    annotations:
+      mim:stereotype: Codelijst

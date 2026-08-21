@@ -1,0 +1,86 @@
+# =============================================================================
+# Bron-profiel BRP — welke onderdelen van het GBO-informatiemodel de
+# Basisregistratie Personen via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel brp.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.2/bronnen/brp.yaml
+#
+# Supertypen en mixins (Partij, Adres, Voorkomen) worden door de
+# snoei-tool automatisch meegenomen en hoeven hier niet genoemd te
+# worden.
+# =============================================================================
+bron: BRP
+titel: Basisregistratie Personen
+beschrijving: >-
+  Persoonsgegevens uit de BRP (GBA en RNI), inclusief de
+  persoonslijst-categorieën nationaliteit, huwelijk, verblijfstitel,
+  gezagsverhouding en immigratie, en het binnenlandse verblijfadres.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+ingangen:
+  - IngeschrevenPersoon
+lijstQueries: false
+
+# Benoemde query naast de ingang: het bewijs van overlijden gaat niet
+# over de aanvrager maar over een naaste. De BRP levert alleen wanneer
+# tussen beide personen een relatie bestaat die daartoe grondslag geeft
+# (ouder, kind of partner); die toets is niet in het schema uit te
+# drukken en is de verantwoordelijkheid van de bronhouder. Let op: het
+# antwoord is een volledige IngeschrevenPersoon, breder dan een
+# overlijdensbewijs nodig heeft. Een smalle uitsnede hoort in een
+# attestatieprofiel; zie wiki/gbo-core/clients/eid/attestatie-queries.md.
+queries:
+  - naamQuery: bewijsVanOverlijdenNaaste
+    levert: IngeschrevenPersoon
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: bsnNaaste
+        type: BSN
+    toelichting: >-
+      Levert de overledene, niet de aanvrager: bsn is de aanvrager,
+      bsnNaaste de persoon over wie het bewijs gaat.
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+objecttypen:
+  - NatuurlijkPersoon
+  - IngeschrevenPersoon
+  - Ingezetene
+  - NietIngezetene
+  - Nationaliteit
+  - Huwelijk
+  - Verblijfstitel
+  - Gezagsverhouding
+  - Immigratie
+  - Binnenlandsadres
+  - Buitenlandsadres
+
+# Attributen die deze bron niet levert.
+uitsluitingen:
+  - objecttype: IngeschrevenPersoon
+    attributen:
+      - aNummer    # intern BRP-administratienummer, niet voor afnemers
+
+# Afwijkende afhandeling van relaties buiten het profiel; zonder
+# vermelding geldt de default "sleutel".
+# woontOp gedraagt zich op beide persoonssoorten hetzelfde: het levert
+# een echt adres-objecttype (Ingezetene -> Binnenlandsadres,
+# NietIngezetene -> Buitenlandsadres; beide in dit profiel).
+relatieAfhandeling:
+  - objecttype: Ingezetene
+    relatie: heeftBriefadres
+    afhandeling: weglaten    # briefadres wordt via de adressen-bron ontsloten
+  - objecttype: Binnenlandsadres
+    relatie: wordtGevormdDoor
+    afhandeling: weglaten
+    # Zou als sleutel-referentie exact dezelfde BAG-code dragen als
+    # adresId (dat per definitie gelijk is aan de identificatie van de
+    # Nummeraanduiding); de dubbeling verwart afnemers. In de
+    # BAG-bron, waar Nummeraanduiding wél in het profiel zit, blijft
+    # het een echte relatie.

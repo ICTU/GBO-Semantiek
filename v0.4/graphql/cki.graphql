@@ -1,0 +1,790 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel CKI, gegenereerd uit gbo-bron-cki.yaml.
+# Regenereer met: task generate:graphql
+#
+# Geregistreerde kredieten en financiële verplichtingen per persoon, met
+# achterstanden, herstelmeldingen, bijzonderheidscoderingen,
+# borgstellingsrollen en schuldhulpverleningstrajecten.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Landcode conform ISO 3166-1 alpha-2. Stelselbreed voor land- en nationaliteit-typering; cross-walks naar BRP-LT 32 (nationaliteit) en BRP-LT 34 (landen) staan in de documentatie."""
+scalar CodelijstISO3166 @restrictie(patroon: "^[A-Z]{2}$")
+"""Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
+scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+"""Gemeentecode conform BRP-Landelijke Tabel 33 Gemeenten. Formeel een BRP-codelijst, feitelijk de stelselbrede gemeente-codering inclusief historische gemeenten met einddatum."""
+scalar CodelijstLT33 @restrictie(patroon: "^[0-9]{4}$")
+"""Adellijke titel / predicaat conform BRP-Landelijke Tabel 38."""
+scalar CodelijstLT38
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Datum waarin jaar, maand of dag elk afzonderlijk onbekend kan zijn. Formaten: jjjj, jjjj-mm of jjjj-mm-dd; nullen op de onbekende positie."""
+scalar DatumIncompleet @restrictie(patroon: "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$")
+"""Tijdsduur in ISO 8601-periode-notatie (P5Y, P3M, P7D)."""
+scalar Duur
+"""Object- of documentidentificatie zonder vaste structuur."""
+scalar Identificatie
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
+"""Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
+scalar NEN3610ID
+
+"""Een verplichting van een natuurlijk persoon of niet-natuurlijk persoon tot het verrichten van een geldelijke prestatie aan een tegenpartij, ontstaan uit overeenkomst of uit een wettelijke regeling."""
+interface FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+}
+
+"""Een overeenkomst tussen een kredietverstrekker en een kredietnemer waarbij de verstrekker een geldsom of geldbedragen ter beschikking stelt en de nemer zich verbindt tot terugbetaling onder afgesproken voorwaarden, en die op grond van het Algemeen Reglement CKI aan het Centraal Krediet Informatiesysteem wordt gemeld."""
+interface KredietOvereenkomst implements FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Tweeletter-code per concrete subklasse."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """Afhankelijk van kredietvorm; zie subtypen."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+}
+
+"""Een tijdens de looptijd van een kredietovereenkomst opgetreden gebeurtenis die op grond van het Algemeen Reglement CKI aan het Centraal Krediet Informatiesysteem wordt gemeld, zoals het ontstaan van een achterstand, het herstel van een achterstand of het optreden van een bijzonderheid."""
+interface KredietFeit {
+  """Datum van de gebeurtenis; bindend voor termijnen."""
+  datumGebeurtenis: Datum!
+}
+
+"""Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
+interface Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+}
+
+"""Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
+type IngeschrevenPersoon implements Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """De officiële familienaam van de persoon."""
+  geslachtsnaam: String!
+  """Alle officiële voornamen van de persoon."""
+  voornamen: String
+  """Het voorvoegsel bij de geslachtsnaam."""
+  voorvoegsel: String
+  """Adellijke titel of predicaat."""
+  adellijkeTitelPredicaat: CodelijstLT38
+  """De datum waarop de persoon is geboren."""
+  geboortedatum: DatumIncompleet
+  """De gemeente of plaats waar de persoon is geboren."""
+  geboorteplaats: String
+  """Het land waar de persoon is geboren."""
+  geboorteland: CodelijstISO3166
+  """Het geslacht van de persoon."""
+  geslacht: Geslacht
+  """De datum waarop de persoon is overleden."""
+  datumOverlijden: DatumIncompleet
+  """De plaats waar de persoon is overleden."""
+  plaatsOverlijden: String
+  """Het land waar de persoon is overleden."""
+  landOverlijden: CodelijstISO3166
+  """De ouder(s) van deze persoon."""
+  heeftOuder: [NatuurlijkPersoon!]
+  """De kredietovereenkomsten die deze persoon is aangegaan."""
+  heeftKredietOvereenkomst: [KredietOvereenkomst!]
+  """De schuldhulpverleningstrajecten van deze persoon."""
+  heeftSchuldhulpverleningTraject: [SchuldhulpverleningTraject!]
+  """De borgstellingen die deze persoon draagt."""
+  heeftBorgstellingRol: [BorgstellingRol!]
+  """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
+  bsn: BSN!
+  """Het interne BRP-administratienummer."""
+  aNummer: String
+  """Het persoonsnummer dat een ander land aan deze persoon heeft toegekend."""
+  tin: String
+  """De datum waarop deze persoon voor het eerst in de BRP werd opgenomen."""
+  datumEersteInschrijving: DatumIncompleet
+  """De gemeente die de persoonslijst bijhoudt."""
+  gemeenteVanInschrijving: CodelijstLT33
+  """Reden waarom bijhouding van de persoonslijst is opgeschort."""
+  opschortingBijhouding: OpschortingBijhouding
+  """Aanduiding dat de persoon door rechterlijke uitspraak van het kiesrecht voor de Tweede Kamer en provinciale staten is uitgesloten."""
+  uitsluitingKiesrecht: IndicatieJaNee
+  """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
+  europeesKiesrecht: IndicatieJaNee
+  """Datum en bron van de laatste gegevensverificatie."""
+  verificatie: Verificatie
+  """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
+  inOnderzoek: Indicatie!
+  """Nationaliteiten conform BRP cat 04. (Sleutel-referentie naar Nationaliteit.)"""
+  heeftNationaliteit: [String!]
+  """Aanwezig bij niet-Nederlandse onderdanen. (Sleutel-referentie naar Verblijfstitel.)"""
+  heeftVerblijfstitel: String
+  """Aanwezig bij minderjarigheid of curatele. (Sleutel-referentie naar Gezagsverhouding.)"""
+  gezag: String
+  """Aanwezig bij vestiging vanuit het buitenland. (Sleutel-referentie naar Immigratie.)"""
+  heeftImmigratie: String
+}
+
+"""Een kredietovereenkomst met een vooraf vastgesteld kredietbedrag, een vaste looptijd en periodieke aflossingen die het krediet stapsgewijs verminderen tot nul aan het einde van de looptijd."""
+type AflopendKrediet implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: AK."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """De vaste looptijd in maanden."""
+  looptijdMaanden: Int!
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P2M (twee maanden)."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250."""
+  meldingsdrempel: Bedrag!
+}
+
+"""Een kredietovereenkomst waarbij de kredietnemer tot een afgesproken kredietlimiet steeds opnieuw kan opnemen en aflossen, zonder vaste looptijd en zonder verplicht aflossingsschema."""
+type DoorlopendKrediet implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: RK."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P3M (drie maanden)."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250 als kredietlimiet, niet als uitstaand saldo."""
+  meldingsdrempel: Bedrag!
+  """Maximaal opneembaar bedrag."""
+  kredietlimiet: Bedrag!
+}
+
+"""Een kredietovereenkomst waarbij een gemeente of een door de gemeente aangewezen kredietbank een persoonlijke lening verstrekt aan een schuldenaar om bestaande schulden te bundelen en gefaseerd af te lossen onder begeleiding van schuldhulpverlening."""
+type Saneringskrediet implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: SK."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P2M."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250."""
+  meldingsdrempel: Bedrag!
+}
+
+"""Een kredietovereenkomst met een korte looptijd, doorgaans korter dan drie maanden, met een betrekkelijk klein kredietbedrag, en die op grond van de specifieke bepalingen van het Algemeen Reglement CKI in CKI wordt geregistreerd."""
+type KortKrediet implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Tweeletter-code per concrete subklasse."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Doorgaans korter dan drie."""
+  looptijdMaanden: Int!
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """Afhankelijk van kredietvorm; zie subtypen."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """Situatie-afhankelijk; geen vaste drempel."""
+  meldingsdrempel: Bedrag
+}
+
+"""Een kredietovereenkomst tot financiering van de eigen woning van de kredietnemer, waarbij een hypotheekrecht is gevestigd op die onroerende zaak, en waarvan op grond van het Algemeen Reglement CKI uitsluitend negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld."""
+type HypothecairKredietEigenWoning implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: HY."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P3M (drie volledige maandtermijnen)."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """Het onderpand; zie deelmodel Onroerende zaken. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
+  gevestigdOp: NEN3610ID!
+}
+
+"""Een kredietovereenkomst waarbij een hypotheekrecht is gevestigd op een onroerende zaak die niet de eigen woning van de kredietnemer is, zoals een tweede woning, een verhuurde woning of een beleggingspand, en die boven de meldingsdrempel valt."""
+type HypothecairKredietOverigeOnroerendeZaken implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: HO."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P2M."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250."""
+  meldingsdrempel: Bedrag!
+  """Het onderpand; zie deelmodel Onroerende zaken. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
+  gevestigdOp: NEN3610ID!
+}
+
+"""Een resterende schuld die overblijft na verkoop van een onroerende zaak waarop een hypothecair krediet rustte zonder dekking door de Nationale Hypotheek Garantie, voor zover de restschuld boven de meldingsdrempel valt en in CKI wordt geregistreerd."""
+type RestschuldHypothecairKredietZonderNHG implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: RH."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P3M."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250."""
+  meldingsdrempel: Bedrag!
+  """De oorspronkelijke hypotheek waar deze restschuld uit voortkomt."""
+  voortgekomenUit: HypothecairKredietEigenWoning!
+}
+
+"""Een resterende schuld na verkoop van een onroerende zaak waarop een hypothecair krediet rustte met dekking door de Nationale Hypotheek Garantie, voor zover de restschuld boven de meldingsdrempel valt en in CKI wordt geregistreerd."""
+type RestschuldHypothecairKredietMetNHG implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: RN."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P3M."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250."""
+  meldingsdrempel: Bedrag!
+  """De oorspronkelijke hypotheek waar deze restschuld uit voortkomt."""
+  voortgekomenUit: HypothecairKredietEigenWoning!
+}
+
+"""Een leaseovereenkomst voor een personenvoertuig waarbij de leasemaatschappij eigenaar blijft van het voertuig en de leasenemer een maandelijkse vergoeding betaalt voor het gebruik, het onderhoud en de afschrijving, en die boven de meldingsdrempel valt."""
+type OperationalAutolease implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: OA."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """De vaste leaseperiode."""
+  looptijdMaanden: Int!
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P2M."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 250 op totaal contractbedrag."""
+  meldingsdrempel: Bedrag!
+}
+
+"""Een overige privefinanciele verplichting van een natuurlijk persoon die niet onder een specifieke kredietvorm valt en waarvan op grond van het Algemeen Reglement CKI alleen negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld."""
+type OverigeFinancieleVerplichtingPrive implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: RO."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P4M; drempel EUR 250."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+}
+
+"""Een kredietovereenkomst aangegaan ten behoeve van een onderneming waarbij sprake is van persoonlijke aansprakelijkheid van een of meer natuurlijke personen, en die boven de meldingsdrempel valt."""
+type ZakelijkKrediet implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: ZK."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P2M."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+  """EUR 1.000."""
+  meldingsdrempel: Bedrag!
+  """De onderneming waarvoor het krediet is aangegaan; zie deelmodel Bedrijven en instellingen. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  tenBehoeveVan: KVKnummer!
+}
+
+"""Een overige zakelijke financiele verplichting die niet onder zakelijk krediet valt en waarvan op grond van het Algemeen Reglement CKI alleen negatieve betalingservaringen aan het Centraal Krediet Informatiesysteem worden gemeld."""
+type ZakelijkeOverigeFinancieleVerplichting implements KredietOvereenkomst & FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Vast: ZO."""
+  kredietvormCode: KredietVormCode!
+  """Niet gemeld voor HY (alleen negatieve betalingservaringen)."""
+  kredietbedragOorspronkelijk: Bedrag
+  """Restschuld op peildatum."""
+  kredietbedragActueel: Bedrag
+  """Niet voor doorlopend krediet."""
+  looptijdMaanden: Int
+  """Niet altijd gemeld."""
+  rentepercentage: Float
+  """P4M; drempel EUR 1.000."""
+  achterstandstermijn: Duur!
+  """De kredietnemer; zie deelmodel Personen."""
+  aangegaanDoor: NatuurlijkPersoon!
+  """De kredietverstrekker. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  verstrektDoor: String!
+  """Achterstanden op deze overeenkomst."""
+  kent: [AchterstandRegistratie!]
+  """Bijzonderheidscodes op deze overeenkomst."""
+  begeleidDoor: [BijzonderheidsCodering!]
+}
+
+"""Een melding aan het Centraal Krediet Informatiesysteem dat een kredietnemer een achterstand heeft opgelopen in de nakoming van zijn verplichtingen onder een specifieke kredietovereenkomst, na het verstrijken van de voor die kredietvorm geldende achterstandstermijn."""
+type AchterstandRegistratie implements KredietFeit {
+  """De startdatum van de achterstand."""
+  datumGebeurtenis: Datum!
+  """Het bedrag van de achterstand op moment van melding."""
+  omvangAchterstand: Bedrag
+  """De overeenkomst waarop de achterstand betrekking heeft."""
+  betreft: KredietOvereenkomst!
+  """Indien de achterstand is ingehaald."""
+  opgelostDoor: HerstelMelding
+  """Aanvullende bijzonderheidscodes op dezelfde achterstand."""
+  begeleidDoor: [BijzonderheidsCodering!]
+}
+
+"""Een melding aan het Centraal Krediet Informatiesysteem dat een eerder gemelde achterstand op een kredietovereenkomst is opgelost doordat de kredietnemer zijn betalingsverplichtingen weer volledig nakomt of de gehele schuld heeft voldaan."""
+type HerstelMelding implements KredietFeit {
+  """Datum waarop het herstel zich heeft voorgedaan."""
+  datumGebeurtenis: Datum!
+  """De achterstand die hiermee is afgesloten."""
+  volgtOp: AchterstandRegistratie!
+}
+
+"""Een melding aan het Centraal Krediet Informatiesysteem dat een specifieke bijzonderheid is opgetreden bij de afhandeling van een kredietovereenkomst, gecodeerd volgens de waardenset van art. 13 Algemeen Reglement CKI."""
+type BijzonderheidsCodering implements KredietFeit {
+  """Datum waarop de bijzonderheid is opgetreden."""
+  datumGebeurtenis: Datum!
+  """Een van 1 t/m 5."""
+  bijzonderheidsCode: BijzonderheidsCode!
+  """De overeenkomst waarop de bijzonderheid betrekking heeft."""
+  betreft: KredietOvereenkomst!
+  """Optioneel; sommige bijzonderheden staan los van een lopende achterstand."""
+  begeleidt: AchterstandRegistratie
+}
+
+"""Een wettelijk schuldhulpverleningstraject dat door een gemeente bij beschikking aan een natuurlijk persoon wordt toegekend op grond van de Wet gemeentelijke schuldhulpverlening, met als doel financiele rust en stapsgewijze oplossing van problematische schulden."""
+type SchuldhulpverleningTraject implements FinancieleVerplichting {
+  """Interne identificatie."""
+  identificatie: Identificatie!
+  """Datum waarop de verplichting is aangegaan."""
+  ingangsdatum: Datum!
+  """Werkelijke einddatum (afgelost, ontbonden of overgenomen)."""
+  einddatumWerkelijk: Datum
+  """ISO 8601 duration; default P5Y, P1Y bij overlijdensmelding."""
+  bewaartermijnPeriode: Duur!
+  """Datum van de gemeentelijke beschikking."""
+  beschikkingsdatum: Datum!
+  """Budgetbeheer, schuldregeling, wettelijke sanering, of combinatie."""
+  trajectvorm: String!
+  """De persoon aan wie het traject is toegekend; zie deelmodel Personen."""
+  toegekendAan: NatuurlijkPersoon!
+  """De gemeente als verlenend bevoegd gezag. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  beschikkingDoor: String!
+  """Eventueel onderdeel; niet verplicht."""
+  omvat: [Saneringskrediet!]
+}
+
+"""De rol van een natuurlijk persoon die zich heeft verbonden tot het voldoen van de verplichtingen van een kredietnemer onder een specifieke kredietovereenkomst indien de kredietnemer zelf in gebreke blijft."""
+type BorgstellingRol {
+  """Datum waarop de borgstelling is aangegaan."""
+  ingangsdatum: Datum!
+  """Maximaal bedrag waarvoor de borg garant staat."""
+  omvangBorg: Bedrag
+  """Datum waarop de borgstelling is geeindigd."""
+  einddatumWerkelijk: Datum
+  """De borg-stellende persoon."""
+  gedragenDoor: NatuurlijkPersoon!
+  """De overeenkomst waarvoor wordt borg gestaan."""
+  voorKredietOvereenkomst: KredietOvereenkomst!
+}
+
+"""Een mens als drager van burgerlijke rechten en plichten."""
+type NatuurlijkPersoon implements Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """De officiële familienaam van de persoon."""
+  geslachtsnaam: String!
+  """Alle officiële voornamen van de persoon."""
+  voornamen: String
+  """Het voorvoegsel bij de geslachtsnaam."""
+  voorvoegsel: String
+  """Adellijke titel of predicaat."""
+  adellijkeTitelPredicaat: CodelijstLT38
+  """De datum waarop de persoon is geboren."""
+  geboortedatum: DatumIncompleet
+  """De gemeente of plaats waar de persoon is geboren."""
+  geboorteplaats: String
+  """Het land waar de persoon is geboren."""
+  geboorteland: CodelijstISO3166
+  """Het geslacht van de persoon."""
+  geslacht: Geslacht
+  """De datum waarop de persoon is overleden."""
+  datumOverlijden: DatumIncompleet
+  """De plaats waar de persoon is overleden."""
+  plaatsOverlijden: String
+  """Het land waar de persoon is overleden."""
+  landOverlijden: CodelijstISO3166
+  """De ouder(s) van deze persoon."""
+  heeftOuder: [NatuurlijkPersoon!]
+  """De kredietovereenkomsten die deze persoon is aangegaan."""
+  heeftKredietOvereenkomst: [KredietOvereenkomst!]
+  """De schuldhulpverleningstrajecten van deze persoon."""
+  heeftSchuldhulpverleningTraject: [SchuldhulpverleningTraject!]
+  """De borgstellingen die deze persoon draagt."""
+  heeftBorgstellingRol: [BorgstellingRol!]
+}
+
+"""Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
+type Bedrag {
+  """De numerieke waarde van het bedrag."""
+  waarde: Float!
+  """Valuta conform ISO 4217; bij afwezigheid geldt EUR."""
+  valuta: CodelijstISO4217
+}
+
+"""Reden waarom de bijhouding van een persoonslijst in de basisregistratie is opgeschort."""
+enum OpschortingBijhouding {
+  """Bijhouding opgeschort omdat de geregistreerde is overleden."""
+  Overlijden
+  """Bijhouding opgeschort omdat de geregistreerde naar het buitenland is vertrokken zonder RNI-overgang."""
+  Emigratie
+  """Bijhouding opgeschort vanwege langdurige vermissing."""
+  Vermissing
+  """Bijhouding opgeschort vanwege foutieve aanleg, dubbele persoonslijst of vastgestelde identiteitsfraude."""
+  FoutAangelegdOfFraude
+}
+
+"""Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de afwezigheid van een waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing) en dus onderscheiden moet blijven van een expliciet Nee. Anders dan Indicatie kent dit type bewust geen waarde Onbekend."""
+enum IndicatieJaNee {
+  """Waar."""
+  Ja
+  """Expliciet onwaar; te onderscheiden van een afwezige waarde (niet vastgesteld of niet van toepassing)."""
+  Nee
+}
+
+"""Status van de meest recente identiteitsverificatie van een persoonslijst."""
+enum Verificatie {
+  """Identiteit is recent met geldig document geverifieerd."""
+  Geverifieerd
+  """Identiteit is niet recent geverifieerd."""
+  NietGeverifieerd
+  """Identiteit staat onder actief onderzoek door de gemeente of RvIG."""
+  InOnderzoek
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
+}
+
+"""De codelijst van kredietvormen die op grond van het Algemeen Reglement CKI in het Centraal Krediet Informatiesysteem worden geregistreerd, met per kredietvorm een unieke tweeletter-code."""
+enum KredietVormCode {
+  """Krediet met vaste looptijd en periodieke aflossing tot nul."""
+  AK
+  """Revolverend krediet tot een afgesproken kredietlimiet."""
+  RK
+  """Schuldhulpverleningstraject onder Wgs, gemeld op grond van art. 18a."""
+  SH
+  """Persoonlijke lening door gemeente of kredietbank ter bundeling van bestaande schulden."""
+  SK
+  """Hypothecair krediet op de eigen woning; alleen negatieve betalingservaringen gemeld."""
+  HY
+  """Hypothecair krediet op overige onroerende zaken (tweede woning, beleggingspand)."""
+  HO
+  """Restschuld na verkoop onroerende zaak, zonder NHG-dekking."""
+  RH
+  """Restschuld na verkoop onroerende zaak, met NHG-dekking."""
+  RN
+  """Leasecontract waarbij leasemaatschappij eigenaar blijft van het voertuig."""
+  OA
+  """Restcategorie private verplichting; alleen negatieve betalingservaringen."""
+  RO
+  """Zakelijk krediet met persoonlijke aansprakelijkheid van een natuurlijk persoon."""
+  ZK
+  """Restcategorie zakelijke verplichting; alleen negatieve betalingservaringen."""
+  ZO
+}
+
+"""De waardenset van bijzonderheidscodes die op grond van art. 13 Algemeen Reglement CKI bij een kredietovereenkomst aan het Centraal Krediet Informatiesysteem kunnen worden gemeld."""
+enum BijzonderheidsCode {
+  """Aflossingsregeling getroffen na ontstane achterstand."""
+  _1
+  """Zakelijke klant heeft betaling van restant of gehele vordering geeist."""
+  _2
+  """Zakelijke klant heeft EUR 250 of meer afgeboekt."""
+  _3
+  """Consument blijkt onbereikbaar."""
+  _4
+  """Schriftelijke preventieve betaalregeling voor hypothecair krediet van minimaal vier maanden."""
+  _5
+}
+
+"""Geregistreerde geslachtsaanduiding van een natuurlijk persoon."""
+enum Geslacht {
+  """Persoon met geslachtsregistratie "Man" in BRP."""
+  Man
+  """Persoon met geslachtsregistratie "Vrouw" in BRP."""
+  Vrouw
+  """Persoon waarvan het geslacht expliciet als onbekend is vastgesteld."""
+  VastgesteldOnbekend
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """KredietOvereenkomst."""
+  kredietOvereenkomstOverJaar(bsn: BSN!, jaar: [Int!]!): [KredietOvereenkomst!]
+  """SchuldhulpverleningTraject."""
+  schuldhulpverleningTrajectOverJaar(bsn: BSN!, jaar: [Int!]!): [SchuldhulpverleningTraject!]
+  """BorgstellingRol."""
+  borgstellingRolOverJaar(bsn: BSN!, jaar: [Int!]!): [BorgstellingRol!]
+}

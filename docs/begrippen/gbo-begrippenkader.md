@@ -7,7 +7,7 @@ verwijst via `class_uri` naar precies een concept in dit begrippenkader.
 
 Het begrippenkader wordt **gegenereerd** uit de `skos:`-annotaties in de
 LinkML-modelbron en gepubliceerd als [SKOS ConceptScheme](https://www.w3.org/2004/02/skos/)
-in Turtle-formaat: `v0.3/begrippen/GBO-Begrippenkader.ttl`. Bewerk dat bestand
+in Turtle-formaat: `v0.4/begrippen/GBO-Begrippenkader.ttl`. Bewerk dat bestand
 niet met de hand; pas de annotaties in het model aan en draai
 `task generate:begrippen`.
 

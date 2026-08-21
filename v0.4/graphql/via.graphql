@@ -1,0 +1,657 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel VIA, gegenereerd uit gbo-bron-via.yaml.
+# Regenereer met: task generate:graphql
+#
+# De gegevens waarmee de Belastingdienst de aangifte inkomstenbelasting
+# voorinvult: fiscaal partnerschap, aangifte-gegevens, inkomsten uit
+# tegenwoordige en vroegere arbeid (loonketen-jaargegevens), eigen
+# woning en overige onroerende zaken, bank- en effectentegoeden,
+# schulden en de betrouwbaar voor te vullen aftrekposten (lijfrente,
+# hypotheekrente). Levert uitsluitend gegevens voor binnenlands
+# belastingplichtigen met een BSN; geen ondernemers (winst), geen
+# M-biljet-situaties (migratie), en uitsluitend over voorgaande,
+# afgesloten belastingjaren. De voorinvulling is een niet-vastgesteld
+# gegeven: de definitieve aanslag kan afwijken. De opvraagdatum is
+# leveringsmetadata en staat in de antwoord-envelop van de levering,
+# niet in het schema.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""Aanduiding van het aangiftetijdvak loonheffingen: jaar plus tijdvak-code, bijvoorbeeld 2026-M01 (maand) of 2026-W04 (vier weken). De kale jaarvorm (2026) duidt een jaaraggregaat aan, zoals de vooringevulde aangifte die per inkomstenbron levert."""
+scalar Aangifteperiode @restrictie(patroon: "^[0-9]{4}(-[MW][0-9]{2})?$")
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Landcode conform ISO 3166-1 alpha-2. Stelselbreed voor land- en nationaliteit-typering; cross-walks naar BRP-LT 32 (nationaliteit) en BRP-LT 34 (landen) staan in de documentatie."""
+scalar CodelijstISO3166 @restrictie(patroon: "^[A-Z]{2}$")
+"""Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
+scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Object- of documentidentificatie zonder vaste structuur."""
+scalar Identificatie
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
+"""Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
+scalar NEN3610ID
+
+"""Een opgave van de gegevens die de grondslag voor een aanslag vormen: door of namens de belastingplichtige bij de Belastingdienst ingediend, dan wel door de Belastingdienst vooringevuld en nog niet ingediend."""
+interface Aangifte implements FiscaleOpgave {
+  """Het belastingjaar waarop de opgave betrekking heeft."""
+  belastingjaar: Int!
+  """Het fiscaal partnerschap dat als rubriek in deze opgave is opgenomen."""
+  omvatFiscaalPartnerschap(belastingjaar: [Int!]): [FiscalePartner!]
+  """De eigen woning die als rubriek in deze opgave is opgenomen."""
+  omvatEigenWoning: [EigenWoning!]
+  """De fiscale feiten die als rubriek in deze opgave zijn opgenomen."""
+  omvatFiscaalFeit(belastingjaar: [Int!]): [FiscaalFeit!]
+  """Identificatie van de aangifte."""
+  aangifteIdentificatie: String!
+  """Het stadium van de aangifte: vooringevuld, ingediend of herzien."""
+  status: AangifteStatus!
+  """Datum van feitelijke indiening; leeg zolang de aangifte alleen is vooringevuld."""
+  indieningsdatum: Datum
+  """Begin van de aangifteperiode."""
+  ingangsdatumAangifte: Datum
+  """Einde van de aangifteperiode."""
+  einddatumAangifte: Datum
+  """De belastingplichtige op wie de aangifte betrekking heeft."""
+  betreft: IngeschrevenPersoon!
+}
+
+"""Een bezitting of schuld die op de peildatum 1 januari onder Box 3 van de inkomstenbelasting valt en als zelfstandige post in de aangifte wordt opgevoerd."""
+interface VermogensBestanddeel implements FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Waarde op peildatum 1 januari."""
+  waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
+  """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
+  houderVan: IngeschrevenPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
+}
+
+"""Een door de belastingplichtige in de IH-aangifte op te voeren betaalde uitgave die op grond van Wet IB 2001 het belastbaar inkomen verlaagt."""
+interface Aftrekpost implements FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Bedrag van de aftrek in het belastingjaar."""
+  bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: IngeschrevenPersoon!
+}
+
+"""Een samenhangende opgave van de fiscale positie van een belastingplichtige over een belastingjaar, waarin fiscale feiten als rubriek zijn opgenomen."""
+interface FiscaleOpgave {
+  """Het belastingjaar waarop de opgave betrekking heeft."""
+  belastingjaar: Int!
+  """Het fiscaal partnerschap dat als rubriek in deze opgave is opgenomen."""
+  omvatFiscaalPartnerschap(belastingjaar: [Int!]): [FiscalePartner!]
+  """De eigen woning die als rubriek in deze opgave is opgenomen."""
+  omvatEigenWoning: [EigenWoning!]
+  """De fiscale feiten die als rubriek in deze opgave zijn opgenomen."""
+  omvatFiscaalFeit(belastingjaar: [Int!]): [FiscaalFeit!]
+}
+
+"""Een fiscaal relevant gegeven over een belastingplichtige dat in een specifiek belastingjaar als component in een belastingaangifte verschijnt, zoals een vermogensbestanddeel, een aftrekpost of een inkomensbestanddeel."""
+interface FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+}
+
+"""Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
+type IngeschrevenPersoon {
+  """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
+  bsn: BSN!
+  """De fiscale partnerschappen waarin deze persoon partij is."""
+  heeftFiscalePartner(belastingjaar: [Int!]): [FiscalePartner!]
+  """De aangiften die op deze persoon betrekking hebben."""
+  heeftAangifte(belastingjaar: [Int!]): [Aangifte!]
+  """De inkomstenverhoudingen waarin deze persoon als werknemer staat."""
+  heeftInkomstenverhouding: [Inkomstenverhouding!]
+  """De eigen woningen van deze persoon onder het eigenwoning-regime."""
+  heeftEigenWoning: [EigenWoning!]
+  """De vermogensbestanddelen die deze persoon houdt."""
+  heeftVermogensBestanddeel(belastingjaar: [Int!]): [VermogensBestanddeel!]
+  """De aftrekposten die deze persoon opvoert."""
+  heeftAftrekpost(belastingjaar: [Int!]): [Aftrekpost!]
+}
+
+"""Een relatie tussen twee natuurlijke personen die op grond van Wet IB 2001 art. 5a fiscaal als partners worden aangemerkt en gezamenlijk gemeenschappelijke inkomensbestanddelen en aftrekposten kunnen toedelen tussen de boxen."""
+type FiscalePartner {
+  """Per belastingjaar vastgesteld."""
+  belastingjaar: Int!
+  """Huwelijk, GP, notarieel contract, gemeenschappelijk kind."""
+  grondslag: String!
+  """Aanvang van het partnerschap."""
+  begindatum: Datum
+  """Einde van het partnerschap."""
+  einddatum: Datum
+  """De twee natuurlijke personen tussen wie het fiscaal partnerschap geldt."""
+  tussenPersonen: [IngeschrevenPersoon!]!
+  """De aangifte of aanslag waarin dit gegeven als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+}
+
+"""De jaaraangifte inkomstenbelasting van een natuurlijk persoon waarin het verzamelinkomen over een belastingjaar wordt opgegeven, opgebouwd uit Box 1 (werk en woning), Box 2 (aanmerkelijk belang) en Box 3 (sparen en beleggen)."""
+type AangifteInkomstenbelasting implements Aangifte & FiscaleOpgave {
+  """Het belastingjaar waarop de opgave betrekking heeft."""
+  belastingjaar: Int!
+  """Het fiscaal partnerschap dat als rubriek in deze opgave is opgenomen."""
+  omvatFiscaalPartnerschap(belastingjaar: [Int!]): [FiscalePartner!]
+  """De eigen woning die als rubriek in deze opgave is opgenomen."""
+  omvatEigenWoning: [EigenWoning!]
+  """De fiscale feiten die als rubriek in deze opgave zijn opgenomen."""
+  omvatFiscaalFeit(belastingjaar: [Int!]): [FiscaalFeit!]
+  """Identificatie van de aangifte."""
+  aangifteIdentificatie: String!
+  """Het stadium van de aangifte: vooringevuld, ingediend of herzien."""
+  status: AangifteStatus!
+  """Datum van feitelijke indiening; leeg zolang de aangifte alleen is vooringevuld."""
+  indieningsdatum: Datum
+  """Begin van de aangifteperiode."""
+  ingangsdatumAangifte: Datum
+  """Einde van de aangifteperiode."""
+  einddatumAangifte: Datum
+  """De belastingplichtige op wie de aangifte betrekking heeft."""
+  betreft: IngeschrevenPersoon!
+  """Som van Box 1, Box 2 en Box 3, na aftrek."""
+  verzamelinkomen: Bedrag
+  """Inkomen uit werk en woning."""
+  box1Inkomen: Bedrag
+  """Inkomen uit aanmerkelijk belang."""
+  box2Inkomen: Bedrag
+  """Inkomen uit sparen en beleggen."""
+  box3Inkomen: Bedrag
+  """Toepasselijke boxen."""
+  boxCategorie: [BoxCategorie!]
+}
+
+"""De administratieve relatie tussen een inhoudingsplichtige en een natuurlijk persoon op grond waarvan over een doorlopende periode loon wordt uitbetaald, sociale-zekerheids-premies worden ingehouden en aangifte loonheffingen wordt gedaan."""
+type Inkomstenverhouding {
+  """Uniek nummer voor de IKV."""
+  nummerInkomstenverhouding: String!
+  """Begindatum van de IKV."""
+  begindatum: Datum!
+  """Einddatum van de IKV."""
+  einddatum: Datum
+  """Aard van de arbeidsverhouding."""
+  aardArbeidsverhouding: CodeAardArbeidsverhouding!
+  """Soort IKV."""
+  soortInkomstenverhouding: CodeSoortInkomstenverhouding!
+  """Reden van einde IKV."""
+  redenEinde: CodeRedenEindeArbeidsverhouding
+  """De natuurlijk persoon (werknemer) in de IKV."""
+  tussenPersoon: IngeschrevenPersoon!
+  """De onderneming (werkgever) in de IKV. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  tussenWerkgever: KVKnummer!
+  """De inkomstenopgaven binnen deze inkomstenverhouding, één per aangifteperiode."""
+  heeftInkomstenopgave: [Inkomstenopgave!]
+}
+
+"""De aggregatie van loongegevens van een werknemer binnen een aangifte loonheffingen over een aangifteperiode, opgebouwd uit een of meer inkomstenperioden en alle daarop horende loonbestanddelen."""
+type Inkomstenopgave {
+  """Bijvoorbeeld 2026-M01, 2026-W04."""
+  aangifteperiode: Aangifteperiode!
+  """Bruto loon in de aangifteperiode."""
+  loonHuidigPeriodeBedrag: Bedrag
+  """Loon voor sociale verzekeringen."""
+  loonSvBedrag: Bedrag
+  """Ingehouden loonheffing."""
+  ingehoudenLoonheffing: Bedrag
+  """De inkomstenverhouding waarbinnen deze inkomstenopgave valt."""
+  binnenInkomstenverhouding: Inkomstenverhouding!
+  """De loonbestanddelen binnen deze inkomstenopgave."""
+  heeftLoonBestanddeel: [LoonBestanddeel!]
+}
+
+"""Een afzonderlijke component van het loon binnen een inkomstenopgave, gecodeerd volgens de soort-inkomen-codelijst en met een eigen bedrag, herkomst en fiscale behandeling."""
+type LoonBestanddeel {
+  """Aanduiding van het loonbestanddeel-type."""
+  soortInkomen: CodeSoortInkomen!
+  """Bedrag van het loonbestanddeel."""
+  bedrag: Bedrag!
+  """Vrije omschrijving."""
+  omschrijving: String
+  """De inkomstenopgave waarvan dit loonbestanddeel onderdeel is."""
+  onderdeelVan: Inkomstenopgave!
+}
+
+"""Een onroerende zaak die op grond van Wet IB 2001 art. 3.111 als hoofdverblijf van de belastingplichtige of zijn fiscale partner wordt aangemerkt en daarmee binnen het eigenwoning-regime van Box 1 valt."""
+type EigenWoning {
+  """Door de gemeente vastgestelde WOZ-waarde."""
+  wozWaarde: Bedrag!
+  """Forfaitaire bijtelling."""
+  eigenwoningForfait: Bedrag
+  """Schuldsaldo binnen het eigenwoning-regime."""
+  eigenwoningSchuldSaldo: Bedrag
+  """Datum waarop de eigenwoning-status is ingegaan."""
+  ingangsdatumRegime: Datum
+  """De kadastraal onroerende zaak waaraan de eigen woning is gekoppeld; precies een per eigen woning. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
+  gekoppeldAan: NEN3610ID!
+  """De belastingplichtige voor wie de woning als hoofdverblijf onder het eigenwoning-regime valt."""
+  bewoonbaarVoor: IngeschrevenPersoon!
+  """De aangifte of aanslag waarin dit gegeven als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+}
+
+"""Een bank- of spaartegoed dat een natuurlijk persoon op de peildatum 1 januari aanhoudt bij een Nederlandse of buitenlandse financiele instelling en dat in Box 3 wordt opgegeven."""
+type BankSpaartegoed implements VermogensBestanddeel & FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Waarde op peildatum 1 januari."""
+  waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
+  """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
+  houderVan: IngeschrevenPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
+  """Internationaal banknummer."""
+  iban: String
+  """Valuta-code."""
+  valuta: String!
+  """Saldo op 1 januari belastingjaar."""
+  saldoPeildatum: Bedrag!
+  """Land van de bankvestiging."""
+  land: CodelijstISO3166!
+}
+
+"""Een in Box 3 op te geven vermogensbestanddeel dat bestaat uit aandelen, obligaties, beleggingsfondsen, derivaten of vergelijkbare effecten, vastgesteld op marktwaarde per peildatum 1 januari."""
+type Belegging implements VermogensBestanddeel & FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Waarde op peildatum 1 januari."""
+  waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
+  """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
+  houderVan: IngeschrevenPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
+  """Aandelen, obligaties, fondsen of derivaten."""
+  categorieEffect: String!
+  """Internationaal rekeningnummer van de effectenrekening."""
+  iban: String
+  """Marktwaarde op 1 januari."""
+  marktwaardePeildatum: Bedrag!
+  """Valuta-code."""
+  valuta: String!
+  """Land van de effecteninstelling."""
+  land: CodelijstISO3166
+}
+
+"""Een in Box 3 op te geven onroerende zaak die niet de eigen woning is, zoals een tweede woning, een verhuurd pand of grond, vastgesteld op WOZ-waarde of marktwaarde per peildatum 1 januari."""
+type OnroerendeZaakOverigBezit implements VermogensBestanddeel & FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Waarde op peildatum 1 januari."""
+  waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
+  """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
+  houderVan: IngeschrevenPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
+  """Gemeentelijke WOZ-vaststelling."""
+  wozWaarde: Bedrag
+  """Marktwaarde voor zover relevant."""
+  marktwaardePeildatum: Bedrag
+  """Aanduiding verhuurd of niet."""
+  isVerhuurd: Indicatie
+  """De kadastraal onroerende zaak waaraan dit bezit is gekoppeld. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
+  gekoppeldAan: NEN3610ID!
+}
+
+"""Een in Box 3 op te geven schuld van een natuurlijk persoon die boven de schulddrempel uitkomt en die op peildatum 1 januari het Box-3-vermogen vermindert."""
+type Schuld implements VermogensBestanddeel & FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Waarde op peildatum 1 januari."""
+  waardePeildatum: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: VermogensBestanddeelCategorie!
+  """De natuurlijk persoon die houder is van het vermogensbestanddeel."""
+  houderVan: IngeschrevenPersoon!
+  """De instelling (bank, verzekeraar, pensioenuitvoerder) die het vermogensbestanddeel administreert en de gegevens aan de Belastingdienst renseigneert. (Sleutel-referentie naar NietNatuurlijkPersoon.)"""
+  bronInstelling: String
+  """De product-identificatie die de bron-instelling aan dit vermogensbestanddeel heeft toegekend."""
+  productId: Identificatie
+  """Familie, schenking op papier, SVn, overig."""
+  schuldsoort: String!
+  """Saldo op 1 januari belastingjaar."""
+  openstaandSaldoPeildatum: Bedrag!
+  """Op de schuld toepasselijke rente."""
+  rentepercentage: Float
+  """Datum waarop rentevasteperiode eindigt."""
+  einddatumRentevasteperiode: Datum
+}
+
+"""De op grond van Wet IB 2001 art. 3.120 in Box 1 aftrekbare rente die de belastingplichtige in een belastingjaar heeft betaald voor een eigenwoningschuld op zijn eigen woning, voor zover het eigenwoning-regime van toepassing is."""
+type Hypotheekrenteaftrek implements Aftrekpost & FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Bedrag van de aftrek in het belastingjaar."""
+  bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: IngeschrevenPersoon!
+  """Betaalde rente in het belastingjaar."""
+  renteJaar: Bedrag!
+  """Schuld bij begin van het jaar."""
+  eigenwoningSchuldSaldoStart: Bedrag
+  """Schuld bij einde van het jaar."""
+  eigenwoningSchuldSaldoEinde: Bedrag
+  """Annuitair, lineair of overgangsrecht."""
+  aflossingsschema: String
+  """De eigen woning waarop de renteaftrek betrekking heeft."""
+  betreft: EigenWoning!
+}
+
+"""De op grond van Wet IB 2001 art. 3.124 aftrekbare lijfrente-premies en stortingen op bancaire lijfrente-rekeningen die de belastingplichtige in een belastingjaar heeft betaald binnen de jaarruimte- of reserveringsruimte."""
+type LijfrenteAftrek implements Aftrekpost & FiscaalFeit {
+  """Voor Box-3-bestanddelen 1 januari."""
+  peildatum: Datum
+  """Het belastingjaar van toepassing."""
+  belastingjaar: Int!
+  """De aangifte of aanslag waarin dit fiscale feit als rubriek is opgenomen."""
+  onderdeelVan: FiscaleOpgave
+  """Betaalde lijfrente-premie."""
+  bedragJaar: Bedrag!
+  """Categorie-aanduiding."""
+  categorie: AftrekpostCategorie!
+  """De belastingplichtige die de aftrekpost in de IH-aangifte opvoert."""
+  opgevoerdDoor: IngeschrevenPersoon!
+  """Maximaal aftrekbaar in dit jaar."""
+  jaarruimte: Bedrag
+  """Maximaal benutbaar uit voorgaande zeven jaar."""
+  reserveringsruimte: Bedrag
+}
+
+"""Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
+type Bedrag {
+  """De numerieke waarde van het bedrag."""
+  waarde: Float!
+  """Valuta conform ISO 4217; bij afwezigheid geldt EUR."""
+  valuta: CodelijstISO4217
+}
+
+"""Het stadium waarin een aangifte verkeert: vooringevuld door de Belastingdienst, ingediend door of namens de belastingplichtige, of na indiening herzien."""
+enum AangifteStatus {
+  """Door de Belastingdienst vooringevuld en nog niet ingediend; niet-vastgesteld gegeven."""
+  Voorinvulling
+  """Door of namens de belastingplichtige ingediend."""
+  Ingediend
+  """Na indiening door de belastingplichtige gewijzigd opnieuw ingediend."""
+  Herzien
+}
+
+"""De drie boxen van de Wet IB 2001 waarin het inkomen van een belastingplichtige wordt onderverdeeld."""
+enum BoxCategorie {
+  """Inkomen uit werk en eigenwoning."""
+  Box1WerkEnWoning
+  """Inkomen uit aanmerkelijk belang in vennootschappen."""
+  Box2AanmerkelijkBelang
+  """Forfaitair inkomen uit vermogen op peildatum 1 januari."""
+  Box3SparenEnBeleggen
+}
+
+"""De codelijst voor de aard van de arbeidsverhouding tussen werkgever en werknemer, voor gebruik in de aangifte loonheffingen."""
+enum CodeAardArbeidsverhouding {
+  """Arbeidsovereenkomst voor onbepaalde tijd."""
+  ArbeidsovereenkomstVast
+  """Arbeidsovereenkomst voor bepaalde tijd."""
+  ArbeidsovereenkomstTijdelijk
+  """Stage-overeenkomst in opleiding."""
+  Stagiair
+  """Driehoeksrelatie via uitzendbureau."""
+  Uitzendovereenkomst
+  """Min-max- of nul-uren-overeenkomst."""
+  Oproepovereenkomst
+  """Beroepsbegeleidende leerweg-overeenkomst."""
+  ArbeidsovereenkomstBBLOnderwijs
+  """Wachtgeld-regeling overheid."""
+  Wachtgeld
+  """Bestuurder met aanmerkelijk belang."""
+  DirecteurGrootaandeelhouder
+  """Onbetaalde of beperkt vergoede inzet binnen fiscale grens."""
+  Vrijwilligersregeling
+  """Ambtelijke aanstelling overheid."""
+  PubliekrechtelijkeAanstelling
+}
+
+"""De officiële codelijst voor de soort inkomstenverhouding (SIV) zoals vastgesteld door de werkgever of uitkerende instantie, voor gebruik in de aangifte loonheffingen en de vooringevulde aangifte."""
+enum CodeSoortInkomstenverhouding {
+  """Loon of salaris ambtenaren in de zin van de Ambtenarenwet."""
+  LoonAmbtenaren
+  """Loon of salaris directeuren van een nv/bv, wel verzekerd voor de werknemersverzekeringen."""
+  LoonDirecteurNvBvVerzekerd
+  """Loon of salaris niet onder te brengen onder code 11, 13 of 17."""
+  LoonOverig
+  """Loon of salaris directeur-grootaandeelhouder van een nv/bv, niet verzekerd voor de werknemersverzekeringen."""
+  LoonDirecteurGrootaandeelhouder
+  """Wachtgeld van een overheidsinstelling."""
+  WachtgeldOverheid
+  """Uitkering in het kader van de Algemene Ouderdomswet (AOW)."""
+  UitkeringAOW
+  """Oorlogs- en verzetspensioenen."""
+  OorlogsEnVerzetspensioen
+  """Uitkering in het kader van de Algemene nabestaandenwet (ANW)."""
+  UitkeringANW
+  """Uitkering in het kader van de Ziektewet (ZW), vrijwillige verzekering Ziektewet en Wet arbeid en zorg (WAZO)."""
+  UitkeringZW
+  """Uitkering in het kader van de Wet op de arbeidsongeschiktheidsverzekering (WAO) en particuliere verzekering ziekte, invaliditeit en ongeval."""
+  UitkeringWAO
+  """Uitkering in het kader van de Nieuwe Werkloosheidswet (nWW)."""
+  UitkeringWW
+  """Uitkering in het kader van de Wet inkomensvoorziening oudere en gedeeltelijk arbeidsongeschikte werkloze werknemers (IOAW)."""
+  UitkeringIOAW
+  """Uitkering in het kader van de Wet arbeidsongeschiktheidsverzekering zelfstandigen (Waz)."""
+  UitkeringWaz
+  """Uitkering in het kader van de Wet arbeidsongeschiktheidsvoorziening jonggehandicapten (Wajong)."""
+  UitkeringWajong
+  """Samenloop (gelijktijdig of volgtijdelijk) van uitkeringen van Wajong met Waz, WAO/IVA of WGA."""
+  SamenloopWajong
+  """Uitkering in het kader van de Regeling inkomensvoorziening volledig arbeidsongeschikten (IVA)."""
+  UitkeringIVA
+  """Uitkering in het kader van de Regeling werkhervatting gedeeltelijk arbeidsgeschikten (WGA)."""
+  UitkeringWGA
+  """Uitkering in het kader van het Bijstandsbesluit zelfstandigen (Bbz)."""
+  UitkeringBbz
+  """Uitkering in het kader van de Participatiewet (voorheen WWB)."""
+  UitkeringParticipatiewet
+  """Uitkering in het kader van de Wet inkomensvoorziening oudere en gedeeltelijk arbeidsongeschikte gewezen zelfstandigen (IOAZ)."""
+  UitkeringIOAZ
+  """Uitkering uit hoofde van de Toeslagenwet."""
+  UitkeringToeslagenwet
+  """Uitkeringen in het kader van overige sociale verzekeringswetten, waaronder de Ongevallenwet 1921, de Land- en tuinbouwongevallenwet 1922 en de Zee-ongevallenwet 1919."""
+  UitkeringOverigeSocialeVerzekeringswetten
+  """Uitkering in het kader van de Wet inkomensvoorziening oudere werklozen (IOW)."""
+  UitkeringIOW
+  """Uitkeringen in het kader van vervroegde uittreding."""
+  UitkeringVervroegdeUittreding
+  """Uitkering in het kader van de Algemene Pensioenwet Politieke Ambtsdragers (APPA)."""
+  UitkeringAPPA
+  """Ouderdomspensioen dat via de werkgever is opgebouwd, of opgebouwd via een verplichte beroeps- of bedrijfstakpensioenregeling."""
+  Ouderdomspensioen
+  """Nabestaandenpensioen dat via de werkgever is opgebouwd, of opgebouwd via een verplichte beroeps- of bedrijfstakpensioenregeling."""
+  Nabestaandenpensioen
+  """Arbeidsongeschiktheidspensioen dat via de werkgever is opgebouwd, of opgebouwd via een verplichte beroeps- of bedrijfstakpensioenregeling."""
+  Arbeidsongeschiktheidspensioen
+  """Lijfrenten afgesloten in het kader van een individuele of collectieve arbeidsovereenkomst."""
+  LijfrenteArbeidsovereenkomst
+  """Lijfrenten die niet zijn afgesloten in het kader van een individuele of collectieve arbeidsovereenkomst."""
+  LijfrenteOverig
+  """Aanvullingen van de werkgever aan een werknemer op een uitkering werknemersverzekeringen, terwijl de dienstbetrekking is beëindigd."""
+  AanvullingWerkgeverNaEindeDienstbetrekking
+  """Ontslagvergoeding of transitievergoeding."""
+  OntslagOfTransitievergoeding
+  """Overige, niet hiervoor aangegeven, pensioenen of samenloop van meerdere pensioenen/lijfrenten of een betaling op grond van een afspraak na einde dienstbetrekking."""
+  OverigPensioenOfSamenloop
+}
+
+"""De codelijst voor de reden van het einde van een arbeidsverhouding voor gebruik in de aangifte loonheffingen."""
+enum CodeRedenEindeArbeidsverhouding {
+  """Opzegging door de werknemer."""
+  EindeOpInitiatiefWerknemer
+  """Opzegging of ontslag door de werkgever."""
+  EindeOpInitiatiefWerkgever
+  """Beeindiging via vaststellingsovereenkomst."""
+  WederzijdsGoedvinden
+  """Aflopen tijdelijke arbeidsovereenkomst zonder verlenging."""
+  EindeTijdelijkContractVanRechtswege
+  """Rechterlijke ontbinding van de arbeidsovereenkomst."""
+  OntbindingDoorKantonrechter
+  """Pensionering volgens contract of cao."""
+  VanRechtswegeBijPensioenGerechtigdeLeeftijd
+  """Einde door overlijden."""
+  OverlijdenVanDeWerknemer
+  """Einde door faillissement van de inhoudingsplichtige."""
+  FaillissementWerkgever
+  """Overgang van onderneming."""
+  OvergangNaarAndereWerkgever
+  """Overige redenen niet expliciet genoemd."""
+  Overig
+}
+
+"""De codelijst voor de soort inkomstenbestanddeel zoals dat in een aangifte loonheffingen of in een SBR-NT VIA-bericht wordt aangeleverd."""
+enum CodeSoortInkomen {
+  """Reguliere periodieke loonbetaling."""
+  BrutoLoon
+  """Vakantietoeslag."""
+  Vakantiegeld
+  """Dertiende-maandsuitkering."""
+  DertiendeMaand
+  """Eindejaarsuitkering buiten dertiende maand."""
+  Eindejaarsuitkering
+  """Incidentele bonusbetaling."""
+  Bonus
+  """Provisie of commissie."""
+  Provisie
+  """Vergoeding voor overuren."""
+  OverwerkVergoeding
+  """Structurele toeslagen zoals ploegen- of onregelmatigheidstoeslag."""
+  StructureleToeslagen
+  """Bijtelling auto van de zaak of vergelijkbaar."""
+  Bijtelling
+  """Eigen pensioenpremie-bijdrage van de werknemer."""
+  PensioenpremieWerknemerEigen
+}
+
+"""De categorieen waarin Box-3-vermogensbestanddelen worden onderverdeeld op grond van Wet IB 2001 hoofdstuk 5 en SBR-NT NT20."""
+enum VermogensBestanddeelCategorie {
+  """Bank- of spaartegoed bij Nederlandse financiele instelling."""
+  BanktegoedBinnenland
+  """Bank- of spaartegoed bij buitenlandse financiele instelling."""
+  BanktegoedBuitenland
+  """Beursgenoteerde of niet-genoteerde aandelen."""
+  Aandelen
+  """Vastrentende effecten."""
+  Obligaties
+  """Deelnemingen in beleggingsinstellingen."""
+  Beleggingsfondsen
+  """Afgeleide financiele instrumenten."""
+  Derivaten
+  """Digitale tokens en cryptotegoeden."""
+  Cryptovaluta
+  """Onroerende zaak die geen eigen woning is."""
+  OnroerendeZaakOverig
+  """Vordering op een derde (bijv. uit schenking op papier)."""
+  Vordering
+  """Schuld die het Box-3-vermogen vermindert."""
+  Schuld
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
+}
+
+"""De categorieen van aftrekposten die op grond van Wet IB 2001 in de IH-aangifte kunnen worden opgevoerd."""
+enum AftrekpostCategorie {
+  """Rente op eigenwoningschuld binnen het eigenwoning-regime."""
+  Hypotheekrenteaftrek
+  """Betaalde alimentatie aan een gewezen partner."""
+  Partneralimentatie
+  """Premies en stortingen binnen jaarruimte of reserveringsruimte."""
+  Lijfrente
+  """Giften aan ANBI's en culturele instellingen."""
+  Giften
+  """Niet-vergoede specifieke zorgkosten."""
+  Zorgkosten
+  """Uitgaven voor weekendopvang van een gehandicapt kind."""
+  WeekenduitgavenGehandicaptKind
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """FiscalePartner. Het argument jaar selecteert op belastingjaar."""
+  fiscalePartnerOverJaar(bsn: BSN!, jaar: [Int!]!): [FiscalePartner!]
+  """Aangifte. Het argument jaar selecteert op belastingjaar."""
+  aangifteOverJaar(bsn: BSN!, jaar: [Int!]!): [Aangifte!]
+  """Inkomstenverhouding."""
+  inkomstenverhoudingOverJaar(bsn: BSN!, jaar: [Int!]!): [Inkomstenverhouding!]
+  """EigenWoning."""
+  eigenWoningOverJaar(bsn: BSN!, jaar: [Int!]!): [EigenWoning!]
+  """VermogensBestanddeel. Het argument jaar selecteert op belastingjaar."""
+  vermogensBestanddeelOverJaar(bsn: BSN!, jaar: [Int!]!): [VermogensBestanddeel!]
+  """Aftrekpost. Het argument jaar selecteert op belastingjaar."""
+  aftrekpostOverJaar(bsn: BSN!, jaar: [Int!]!): [Aftrekpost!]
+}

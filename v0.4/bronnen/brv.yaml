@@ -1,0 +1,59 @@
+# =============================================================================
+# Bron-profiel BRV — welke onderdelen van het GBO-informatiemodel de
+# Basisregistratie Voertuigen (RDW) via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel brv.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.2/bronnen/brv.yaml
+#
+# De tenaamgestelde is een Partij uit het hoofdmodel. Partij staat niet
+# in dit profiel; de relatie Kentekentenaamstelling.tenaamgesteldeOp ->
+# Partij wordt daarom een sleutel-referentie naar partijnummer (UUID).
+# =============================================================================
+bron: BRV
+titel: Basisregistratie Voertuigen
+beschrijving: >-
+  Voertuigen uit de Basisregistratie Voertuigen (RDW): kerngegevens van
+  het voertuig (kenteken, soort, merk, brandstof, massa, APK) en de
+  tenaamstelling op een partij (eigenaar/houder).
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+ingangen:
+  - Voertuig
+lijstQueries: false
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om de
+# kentekentenaamstelling, met de sleutel van de houder als parameter.
+queries:
+  - naamQuery: kentekentenaamstellingOpBsn
+    levert: Kentekentenaamstelling
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: kentekentenaamstellingOpRsin
+    levert: Kentekentenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: kentekentenaamstellingOpKvkNummer
+    levert: Kentekentenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
+objecttypen:
+  - Voertuig
+  - Kentekentenaamstelling
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden.
+relatieAfhandeling:
+  - objecttype: Kentekentenaamstelling
+    relatie: tenaamgesteldeOp
+    afhandeling: weglaten

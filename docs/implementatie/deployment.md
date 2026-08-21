@@ -44,7 +44,7 @@ GBO hanteert **twee afzonderlijke versieringssystematieken**:
 
 De documentatiewebsite wordt gepubliceerd met [mike](https://github.com/jimporter/mike), dat meerdere versies naast elkaar beheert op GitHub Pages:
 
-- `https://ictu.github.io/GBO-Semantiek/v0.3/`
+- `https://ictu.github.io/GBO-Semantiek/v0.4/`
 - `https://ictu.github.io/GBO-Semantiek/latest/`
 
 ### Artefactversies (via repository-mappen)
@@ -52,7 +52,7 @@ De documentatiewebsite wordt gepubliceerd met [mike](https://github.com/jimporte
 Modelartefacten worden opgeslagen in genummerde mappen in de repository-root:
 
 ```
-/v0.3/
+/v0.4/
   informatiemodel/linkml/  ← LinkML-model (gekopieerd uit de wiki-repo)
   bronnen/                 ← bron-profielen
   clients/                 ← client-profielen

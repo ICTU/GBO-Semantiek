@@ -5,7 +5,7 @@ welke juridische grondslag, en wat er teruggeleverd wordt. Het staat naast het
 inhoudelijke kernmodel, dat beschrijft *welke* gegevens er in de registraties
 zitten. De canonieke bron is het LinkML-schema `voorzieningen.yaml`, in de
 modelbron onder `publicatie/linkml/` en gepubliceerd onder
-`v0.3/informatiemodel/linkml/`.
+`v0.4/informatiemodel/linkml/`.
 
 Het model heeft een **eigen ontologie-namespace**,
 `https://lod.gbo-semantiek.nl/voorzieningen/` (prefix `gbovz:`), en wordt als

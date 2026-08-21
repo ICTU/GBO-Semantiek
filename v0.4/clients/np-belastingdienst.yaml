@@ -1,0 +1,44 @@
+# =============================================================================
+# Client-profiel — demo-snede "Natuurlijk Persoon x Belastingdienst".
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/clientprofiel.yaml (klasse Clientprofiel).
+# Het is de opvolger van het oude curated GraphQL-manifest
+# (scripts/graphql/np-belastingdienst.yaml + build-graphql.py), nu in de
+# bronprofiel-stijl: een selectie van objecttypen uit het canonieke
+# LinkML-model, niet langer een standalone model-snede. De GraphQL-mapping-
+# conventies (Indicatie -> enum, Codelijst -> CodeWaarde, interface-platslaan)
+# wonen voortaan in de generator gbo-semantiek/tools/genereer_graphql.py.
+#
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/clientprofiel.yaml \
+#       -C Clientprofiel np-belastingdienst.yaml
+#
+# needs-review: de per-afnemer generator in gbo-semantiek is nog toekomstig
+#   (Fase 2). Dit profiel staat klaar als input; de objecttype-namen zijn
+#   geverifieerd tegen de LinkML-klassen, de uitsluitingen nog niet.
+#
+# Supertypen en mixins (Partij, Adres, VermogensBestanddeel, Toeslag,
+# Voorkomen) worden door de snoei-tool automatisch meegenomen en hoeven
+# hier niet genoemd te worden.
+# =============================================================================
+afnemer: BD
+titel: Belastingdienst — Natuurlijk Persoon (demo-snede)
+beschrijving: >-
+  Demonstratie-databehoefte van de Belastingdienst rond de natuurlijke
+  persoon: persoonskern (BRP), verblijfadres (BAG) en de fiscale gegevens
+  inkomen, vermogen, fiscaal partnerschap en toeslagen.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+ingangen:
+  - NatuurlijkPersoon
+
+# Objecttypen die deze afnemer nodig heeft (expliciete lijst).
+objecttypen:
+  - NatuurlijkPersoon
+  - Binnenlandsadres
+  - FiscalePartner
+  - Verzamelinkomen
+  - BankSpaartegoed
+  - Zorgtoeslag

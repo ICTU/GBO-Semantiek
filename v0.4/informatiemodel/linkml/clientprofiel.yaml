@@ -1,0 +1,137 @@
+# =============================================================================
+# GBO — Clientprofiel-schema (vraag-kant)
+#
+# Schema voor de client-profielen in <versie>/clients/. Een clientprofiel
+# beschrijft welke onderdelen van het GBO-informatiemodel één AFNEMER nodig
+# heeft (de vraag-kant), spiegelbeeldig aan het bronprofiel (de aanbod-kant,
+# zie bronprofiel.yaml). Het is LinkML-DATA (een instantie van de klasse
+# Clientprofiel hieronder), geen LinkML-schema.
+#
+# Opvolger van het oude curated GraphQL-manifest
+# (scripts/graphql/<snede>.yaml): in plaats van een standalone model-snede
+# selecteert een clientprofiel objecttypen uit gbo.yaml.
+#
+# Valideren van een profiel:
+#   linkml-validate -s clientprofiel.yaml -C Clientprofiel ../clients/<afnemer>.yaml
+#
+# De snoei-tool (gbo-semantiek/tools/genereer_bronschema.py, generiek over
+# bron- én clientprofielen) leest een profiel, controleert dat alle genoemde
+# objecttypen in gbo.yaml bestaan, neemt supertypen en mixins automatisch mee
+# en materialiseert een per-afnemer LinkML-schema waarop de standaard-
+# generatoren draaien.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/informatiemodel/clientprofiel
+name: gbo-clientprofiel
+title: GBO clientprofiel-schema
+description: >-
+  Schema voor client-profielen: welke onderdelen van het
+  GBO-informatiemodel één afnemer nodig heeft.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+default_prefix: gbo
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  Clientprofiel:
+    tree_root: true
+    description: >-
+      Beschrijft welke onderdelen van het GBO-informatiemodel één afnemer
+      nodig heeft (databehoefte).
+    attributes:
+      afnemer:
+        identifier: true
+        required: true
+        description: >-
+          Korte code van de afnemer, bijvoorbeeld DVTP, OOTS of EID.
+      titel:
+        required: true
+        description: Volledige naam van de afnemer of het afnemer-kader.
+      beschrijving:
+        description: Toelichting op wat deze afnemer via GBO afneemt.
+      schemabestand:
+        required: true
+        description: >-
+          Relatief pad (vanaf het profielbestand) naar het
+          LinkML-hoofdschema van het informatiemodel.
+      ingangen:
+        multivalued: true
+        required: true
+        description: >-
+          Objecttypen die als query-ingang dienen; hiervoor genereert
+          de pipeline GraphQL Query-velden.
+      objecttypen:
+        multivalued: true
+        required: true
+        description: >-
+          Objecttypen die deze afnemer nodig heeft, als expliciete lijst.
+          Supertypen en mixins van genoemde objecttypen worden door de
+          snoei-tool automatisch meegenomen; subtypen niet.
+      uitsluitingen:
+        multivalued: true
+        range: Uitsluiting
+        inlined_as_list: true
+        description: >-
+          Attributen of relaties per objecttype die deze afnemer niet
+          afneemt.
+      relatieAfhandeling:
+        multivalued: true
+        range: RelatieAfhandeling
+        inlined_as_list: true
+        description: >-
+          Afwijkende afhandeling van relaties die buiten het profiel
+          wijzen. Zonder vermelding geldt de default: vervanging door
+          de identificerende sleutel van het doelobject.
+
+  Uitsluiting:
+    description: >-
+      Attributen of relaties van één objecttype die de afnemer niet
+      afneemt.
+    attributes:
+      objecttype:
+        required: true
+        description: Naam van het objecttype in het informatiemodel.
+      attributen:
+        multivalued: true
+        required: true
+        description: >-
+          Namen van de attributen of relaties die worden uitgesloten.
+          Een uitsluiting geldt op het objecttype waar het attribuut is
+          gedeclareerd; geërfde attributen kunnen niet per subtype
+          worden uitgesloten.
+
+  RelatieAfhandeling:
+    description: >-
+      Afwijkende afhandeling van één relatie die buiten het profiel
+      wijst.
+    attributes:
+      objecttype:
+        required: true
+        description: Naam van het objecttype waarop de relatie staat.
+      relatie:
+        required: true
+        description: Naam van de relatie (attribuut met objecttype-range).
+      afhandeling:
+        required: true
+        range: AfhandelingsWijze
+        description: Hoe de relatie in het afnemer-schema wordt afgehandeld.
+
+enums:
+
+  AfhandelingsWijze:
+    description: >-
+      Manieren waarop een relatie naar een objecttype buiten het
+      profiel kan worden afgehandeld.
+    permissible_values:
+      sleutel:
+        description: >-
+          Vervang de relatie door de identificerende sleutel van het
+          doelobject (default).
+      weglaten:
+        description: Laat de relatie geheel weg uit het profiel.

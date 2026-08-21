@@ -1,0 +1,1085 @@
+# =============================================================================
+# GBO — Toestemmingenmodel: gemeentelijke vergunningen en ontheffingen
+# Bron (leidend): publicatie/toestemmingen/toestemmingenmodel.md
+#
+# Dit schema modelleert de *verleende toestemming*: de vergunning of
+# ontheffing die een bestuursorgaan aan een houder heeft verleend, met de
+# gegevens die per vergunningsoort verschillen. Het staat naast het
+# inhoudelijke kernmodel (gbo.yaml), dat de basisregistraties beschrijft,
+# en naast het voorzieningenmodel (voorzieningen.yaml), dat de
+# uitwisseling beschrijft. Het wordt daarom bewust niet door gbo.yaml
+# geimporteerd: de pilot heeft een eigen levenscyclus en een eigen
+# publicatie.
+#
+# Herkomst: pilotversie van het GGM-wijzigingsvoorstel "Toestemming en
+# Product" (versie 2, concept). Het model volgt dat voorstel 1-op-1 in
+# klassenamen en attributen; de pilot-vereenvoudigingen staan hieronder.
+#
+# Pilot-vereenvoudigingen (afgesproken 2026-08-21):
+#   - Zaak, Besluit, Document en Producttype zijn nog geen objecttypen
+#     maar identificatie-tekstvelden. De relaties uit het voorstel
+#     ("is ontstaan uit", "is gebaseerd op", "is vastgelegd in",
+#     "is van") komen terug zodra RGBZ-Zaak/Besluit/Document en
+#     Producttype in GBO zijn gemodelleerd.
+#   - Rechtspersoon (RSGB) is voor de demo NatuurlijkPersoon uit het
+#     kernmodel. Geldt voor houder, vervanger en organisator.
+#   - soortToestemming hoort in het voorstel op Producttype. Omdat
+#     Producttype hier een tekstveld is, staat de enum in de pilot op
+#     Toestemming zelf, zodat het onderscheid vergunning/ontheffing
+#     vastligt.
+#   - Parkeervergunning (Model Parkeren) is in de pilot ongewijzigd en
+#     erft niet van Toestemming; de klasse staat daarom niet in dit
+#     schema. Zie de modeldocumentatie.
+#   - Ventvergunning staat wel in het wijzigingsvoorstel maar niet in
+#     het pilot-diagram; volgt in een tweede slag.
+#
+# Conventies (MIM 1.2 -> LinkML) zijn gelijk aan gbo.yaml. GGM-notatie
+# voor lengtes (AN80, N6) is conform datatypes.yaml vertaald naar een
+# GBO-datatype plus een mim:lengte-annotatie op het attribuut.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/toestemmingen
+name: gbo-toestemmingen
+title: GBO-Toestemmingenmodel
+description: >-
+  Informatiemodel van de gemeentelijke toestemmingen: de vergunningen en
+  ontheffingen die een bestuursorgaan aan een houder verleent, met per
+  vergunningsoort de gegevens die haar kenmerken. Pilotversie, afgeleid
+  van het GGM-wijzigingsvoorstel "Toestemming en Product".
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+version: 0.4.0
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+  skos: http://www.w3.org/2004/02/skos/core#
+  # Nodig om de datatype-URI's (xsd:string, xsd:date, ...) uit te klappen;
+  # zonder deze prefix schrijft gen-shacl ze weg als letterlijke <xsd:string>.
+  xsd: http://www.w3.org/2001/XMLSchema#
+  gbotm: https://lod.gbo-semantiek.nl/toestemmingen/
+default_prefix: gbotm
+default_range: string
+
+# Importeert het volledige kernschema en niet alleen datatypes, omdat
+# houder naar NatuurlijkPersoon verwijst en die pas op gbo-niveau
+# volledig oplost (zie de importregel in gbo.yaml). Omgekeerd importeert
+# gbo.yaml dit schema niet: het kernmodel blijft bruikbaar zonder de
+# toestemmingen.
+imports:
+  - linkml:types
+  - datatypes
+  - gbo
+
+# Parkeerlijst — openstaande punten bij dit model.
+todos:
+  - >-
+    (Toestemming) Producttype is in de pilot een tekstveld. Zodra
+    Producttype als objecttype bestaat, vervalt het tekstveld, verhuist
+    soortToestemming daarheen en komen uniformeProductnaam (UPL-URI),
+    wettelijkeGrondslag en bevoegdGezag mee. Dan is ook de enum
+    Bestuursorgaan nodig, die nu ontbreekt.
+  - >-
+    (Toestemming) zaak, besluit en document zijn identificatie-
+    tekstvelden zolang RGBZ-Zaak, -Besluit en -Document niet in GBO zijn
+    gemodelleerd. De kardinaliteit besluit 1..* volgt het voorstel: er is
+    altijd minstens een verleningsbesluit.
+  - >-
+    (Toestemming.houder) In het voorstel is de houder een Rechtspersoon
+    (RSGB), dus ook een niet-natuurlijke persoon. Voor de demo is dat
+    NatuurlijkPersoon; verruimen naar Partij zodra vergunningen aan
+    bedrijven in scope komen (exploitatievergunning, Alcoholwet, terras).
+  - >-
+    (Evenementenvergunning.risicoklasse) Het voorstel noteert AN1 met
+    waarden A, B en C uit de regionale risicoscan. Kandidaat voor een
+    eigen enumeratie Risicoklasse zodra de scan-indeling landelijk
+    eenduidig is; nu bewust tekst, conform het voorstel.
+  - >-
+    (Parkeerontheffing.gebied) Tekstveld conform het voorstel; wordt bij
+    verplaatsing naar Model Parkeren een relatie naar Parkeerzone.
+  - >-
+    (Tijd) Het datatype Tijd staat lokaal in dit schema omdat
+    datatypes.yaml geen tijd-primitief kent. Promoveren naar
+    datatypes.yaml zodra een tweede model het nodig heeft.
+  - >-
+    (Voorkomen) De pilot legt geen bitemporele historie vast: de
+    levensloop van een toestemming loopt via status, datumStart en
+    datumEinde. Het Voorkomen-mixin toevoegen zodra de pilot
+    historie-vragen krijgt.
+
+types:
+
+  Tijd:
+    typeof: string
+    uri: xsd:time
+    description: >-
+      Tijdstip op de dag in ISO 8601, zonder datum (uu:mm:ss).
+    aliases: ["Time"]
+    annotations:
+      mim:herkomst: ISO 8601
+    comments:
+      - >-
+        MIM 1.2 kent geen tijd-primitief; GBO-datatypes.yaml daarom ook
+        niet. Lokaal gedeclareerd voor eindtijdMuziek.
+
+classes:
+
+  # ---------------------------------------------------------------------
+  # Kern: de verleende toestemming
+  # ---------------------------------------------------------------------
+
+  Toestemming:
+    abstract: true
+    description: >-
+      Een door een bestuursorgaan aan een houder verleende toestemming om
+      een activiteit te verrichten of een situatie in stand te houden die
+      zonder die toestemming niet is toegestaan.
+    class_uri: gbotm:Toestemming
+    exact_mappings:
+      - gbobegrip:BestuurlijkeToestemming
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Bestuurlijke toestemming
+      skos:altLabel_nl_0_value: Toestemming
+      skos:altLabel_nl_0_source: GGM-wijzigingsvoorstel "Toestemming en Product" (klassenaam)
+      skos:altLabel_nl_1_value: Vergunning
+      skos:altLabel_nl_1_source: VNG Model-APV
+      skos:altLabel_nl_2_value: Ontheffing
+      skos:altLabel_nl_2_source: VNG Model-APV
+      skos:definition_nl: Een door een bestuursorgaan aan een houder verleende toestemming om een activiteit te verrichten of een situatie in stand te houden die zonder die toestemming niet is toegestaan (vergunning, ontheffing, vrijstelling, instemming met een melding, maatwerkvoorschrift, gedoogbeschikking).
+      skos:definitionSource: RIHa 2.0, begrip TOESTEMMING; Awb art. 1:3 (beschikking)
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005537
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:herkomstDefinitie: >-
+        Bron: GGM-wijzigingsvoorstel "Toestemming en Product",
+        pilotversie 2 (concept), hoofdstuk 3.1 en bijlage A. Onderliggend
+        RIHa 2.0 (begrip TOESTEMMING) en Awb art. 1:3.
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie
+      mim:populatie: >-
+        Alle door een gemeentelijk bestuursorgaan verleende toestemmingen
+        die als eigen registratie worden bijgehouden, ongeacht of zij nog
+        geldig zijn.
+      skos:needsReview_0: Begrip-URI BestuurlijkeToestemming gekozen omdat het voorzieningenmodel gbobegrip:Toestemming al gebruikt voor de AVG-toestemming om gegevens te delen. Bij vaststelling van het begrippenkader controleren of deze twee begrippen zo onderscheidend genoeg zijn.
+      skos:needsReview_1: Verhouding tot RIHa 2.0 TOESTEMMING nog niet als exactMatch of closeMatch vastgelegd; RIHa-URI ontbreekt.
+    comments:
+      - >-
+        Vergunning en ontheffing zijn allebei beschikkingen (Awb art. 1:3)
+        en verschillen in normstructuur ("verbod behoudens vergunning"
+        tegenover "algemeen verbod met individuele uitzondering"), niet in
+        gegevens. Daarom een generiek objecttype met de juridische soort
+        als kenmerk, en niet een klasse per juridische vorm.
+      - >-
+        Het besluit blijft de juridische handeling; de toestemming is het
+        resultaat. De toestemming ontstaat door een besluit in een zaak,
+        heeft daarna een eigen levensloop (actief, verlopen, ingetrokken)
+        en kan door latere besluiten worden gewijzigd of ingetrokken.
+      - >-
+        Toestemming is abstract: elke toestemming is er een van een
+        bepaalde soort. Vergunningsoorten zonder eigen klasse
+        (collectevergunning, kampeerontheffing, geluidsontheffing) worden
+        als OverigeToestemming vastgelegd, met de soort in het tekstveld
+        producttype. Zo blijft het supertype in de GraphQL-projectie een
+        interface, waarover de afnemer alle soorten in een keer opvraagt.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: >-
+          Unieke identificatie (kenmerk of vergunningnummer) zoals
+          toegekend door de gemeente.
+        annotations:
+          mim:lengte: 50
+          mim:herkomst: gemeente (vergunningregistratie)
+      producttype:
+        required: true
+        range: Tekst
+        description: >-
+          Het producttype, oftewel de vergunningsoort, als code of naam
+          uit de producten- en dienstencatalogus van de gemeente.
+        annotations:
+          mim:lengte: 80
+        comments:
+          - >-
+            Pilot: tekstveld in plaats van de relatie "is van" naar het
+            objecttype Producttype. Zie de todo bovenaan dit schema.
+      soortToestemming:
+        range: SoortToestemming
+        description: >-
+          De juridische soort van de toestemming.
+        comments:
+          - >-
+            Pilot: in het wijzigingsvoorstel is dit een kenmerk van het
+            producttype. Zolang producttype een tekstveld is, staat de
+            soort hier, zodat vergunning en ontheffing onderscheidbaar
+            blijven.
+      status:
+        required: true
+        range: Productstatus
+        description: Status in de levensloop van de toestemming.
+      datumStart:
+        range: Datum
+        description: Datum waarop de toestemming ingaat.
+      datumEinde:
+        range: Datum
+        description: >-
+          Datum waarop de geldigheid eindigt; afwezig betekent
+          onbepaalde tijd.
+      omschrijving:
+        required: true
+        range: Tekst
+        description: >-
+          Omschrijving van de toegestane activiteit of het toegestane
+          gebruik, zoals in het besluit verwoord.
+      locatieOmschrijving:
+        range: Tekst
+        description: >-
+          Omschrijving van de locatie of het gebied waarvoor de
+          toestemming geldt: adres, wegvak, gebied, standplaats of
+          ligplaats.
+        annotations:
+          mim:lengte: 300
+      voorschriften:
+        range: Tekst
+        description: >-
+          Aan de toestemming verbonden voorschriften en beperkingen, als
+          tekst.
+        comments:
+          - >-
+            In het volledige voorstel een compositie van het objecttype
+            Voorschrift; in de pilot bewust een tekstveld.
+      houder:
+        required: true
+        range: NatuurlijkPersoon
+        description: >-
+          De persoon aan wie de toestemming is verleend.
+        annotations:
+          gbo:inverseNaam: heeftToestemming
+        comments:
+          - >-
+            Demo-vereenvoudiging: in het wijzigingsvoorstel is de houder
+            een Rechtspersoon (RSGB), dus ook een niet-natuurlijke
+            persoon.
+      zaak:
+        range: Identificatie
+        description: >-
+          Identificatie van de zaak waarin de toestemming is aangevraagd
+          en verleend.
+        annotations:
+          mim:herkomst: RGBZ (Zaak.identificatie)
+        comments:
+          - >-
+            Pilot: tekstveld in plaats van de relatie "is ontstaan
+            uit".
+      besluit:
+        required: true
+        multivalued: true
+        range: Identificatie
+        description: >-
+          Identificaties van het verleningsbesluit en van latere
+          wijzigings-, verlengings- of intrekkingsbesluiten.
+        annotations:
+          mim:kardinaliteit: "1..*"
+          mim:herkomst: RGBZ (Besluit.identificatie)
+        comments:
+          - >-
+            Pilot: tekstveld in plaats van de relatie "is gebaseerd
+            op".
+      document:
+        multivalued: true
+        range: Identificatie
+        description: >-
+          Identificaties van de documenten waarin de toestemming is
+          vastgelegd: de vergunning zelf, aanhangsels en tekeningen.
+        annotations:
+          mim:herkomst: RGBZ (InformatieObject.identificatie)
+        comments:
+          - >-
+            Pilot: tekstveld in plaats van de relatie "is vastgelegd
+            in".
+
+  OverigeToestemming:
+    is_a: Toestemming
+    description: >-
+      Een toestemming van een soort waarvoor geen eigen objecttype is
+      uitgewerkt, met uitsluitend de generieke gegevens.
+    class_uri: gbotm:OverigeToestemming
+    exact_mappings:
+      - gbobegrip:OverigeToestemming
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Overige toestemming
+      skos:definition_nl: Een door een bestuursorgaan verleende toestemming van een soort waarvoor geen eigen objecttype is uitgewerkt, vastgelegd met uitsluitend de generieke gegevens.
+      skos:definitionSource: GBO, afgeleid van het GGM-wijzigingsvoorstel "Toestemming en Product" (generiek gebruik van Toestemming)
+      mim:elementtype: Objecttype
+      mim:herkomst: GBO
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: >-
+        Alle verleende toestemmingen waarvan de soort geen eigen
+        objecttype heeft, zoals collectevergunning, kampeerontheffing en
+        geluidsontheffing.
+    comments:
+      - >-
+        Het wijzigingsvoorstel gebruikt hiervoor het generieke objecttype
+        Toestemming zelf. Omdat Toestemming in GBO abstract is, zodat het
+        in de GraphQL-projectie een interface wordt waarover alle soorten
+        in een keer opvraagbaar zijn, is een concrete vangnet-klasse
+        nodig. Semantisch is dat hetzelfde: geen eigen attributen, de
+        soort staat in producttype.
+      - >-
+        Een bewonersparkeervergunning kan in de pilot zo worden
+        vastgelegd, met producttype "parkeervergunning" en kenteken en
+        gebied in omschrijving en locatieOmschrijving.
+
+  # ---------------------------------------------------------------------
+  # Specialisaties — later Model Vergunningen
+  # ---------------------------------------------------------------------
+
+  Evenementenvergunning:
+    is_a: Toestemming
+    description: >-
+      Toestemming van de burgemeester voor het organiseren van een
+      evenement: een voor publiek toegankelijke verrichting van vermaak
+      op of aan de weg of in de openbare ruimte.
+    class_uri: gbotm:Evenementenvergunning
+    exact_mappings:
+      - gbobegrip:Evenementenvergunning
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Evenementenvergunning
+      skos:definition_nl: 'Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte, zoals een muziekevenement, braderie, optocht, sportevenement, buurtfeest, kermis of circus.'
+      skos:definitionSource: VNG Model-APV art. 2:25
+      skos:definitionSourceUri: https://vng.nl/artikelen/model-apv
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: >-
+        Alle door de burgemeester verleende evenementenvergunningen.
+      mim:bevoegdGezag: burgemeester
+      mim:wettelijkeGrondslag: VNG Model-APV art. 2:25
+      mim:uniformeProductnaam: evenementenvergunning
+    comments:
+      - >-
+        De geldigheid (datumStart en datumEinde) omvat de evenementdag of
+        -dagen inclusief op- en afbouw.
+      - >-
+        Het evenement zelf is een eigen ding dat meerdere besluiten kan
+        kennen (evenementenvergunning, ontheffing art. 35 Alcoholwet,
+        verkeersbesluit). Daarom verwijst de vergunning naar
+        OpenbareActiviteit en herhaalt zij naam, data en organisator niet.
+    attributes:
+      soortEvenement:
+        required: true
+        range: Tekst
+        description: >-
+          Soort evenement, bijvoorbeeld muziekevenement, braderie of
+          markt, optocht, sportevenement, buurtfeest, kermis of circus.
+        annotations:
+          mim:lengte: 80
+      tijdvakPerDag:
+        range: Tekst
+        description: >-
+          Tijden waarbinnen het evenement per dag mag plaatsvinden,
+          bijvoorbeeld "12:00-23:00; zondag tot 20:00".
+        annotations:
+          mim:lengte: 80
+      opbouwVanaf:
+        range: DatumTijd
+        description: Tijdstip vanaf wanneer de opbouw is toegestaan.
+      afbouwTot:
+        range: DatumTijd
+        description: >-
+          Tijdstip waarop de afbouw gereed moet zijn en de locatie is
+          opgeleverd.
+      maximaalAantalBezoekers:
+        range: Numeriek
+        description: >-
+          Maximaal toegestaan aantal gelijktijdig aanwezige bezoekers.
+        annotations:
+          mim:lengte: 6
+      risicoklasse:
+        range: Tekst
+        description: >-
+          Risicoklasse volgens de regionale risicoscan: A is regulier, B
+          is aandacht, C is risicovol.
+        annotations:
+          mim:lengte: 1
+      eindtijdMuziek:
+        range: Tijd
+        description: >-
+          Uiterste tijdstip tot wanneer versterkte muziek is toegestaan.
+      alcoholverstrekking:
+        range: Indicatie
+        description: >-
+          Indicatie dat zwak-alcoholhoudende drank wordt verstrekt.
+        comments:
+          - >-
+            De bijbehorende ontheffing op grond van Alcoholwet art. 35
+            wordt vaak gelijktijdig verleend, maar is een eigen
+            toestemming.
+      betreft:
+        required: true
+        range: OpenbareActiviteit
+        description: Het evenement waarvoor de vergunning is verleend.
+        annotations:
+          gbo:inverseNaam: heeftEvenementenvergunning
+
+  Straatartiestenontheffing:
+    is_a: Toestemming
+    description: >-
+      Ontheffing van de burgemeester van het verbod om als straatartiest,
+      straatfotograaf, tekenaar, filmoperateur of gids op te treden op
+      door hem aangewezen wegen of op aangewezen dagen en uren.
+    class_uri: gbotm:Straatartiestenontheffing
+    exact_mappings:
+      - gbobegrip:Straatartiestenontheffing
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Straatartiestenontheffing
+      skos:altLabel_nl_0_value: Straatartiestenvergunning
+      skos:altLabel_nl_0_source: lokale APV's (gemeenten die de vorm vergunning kennen)
+      skos:definition_nl: Ontheffing van de burgemeester van het verbod om als straatartiest, straatfotograaf, tekenaar, filmoperateur of gids op te treden op door hem aangewezen wegen of op aangewezen dagen en uren.
+      skos:definitionSource: VNG Model-APV art. 2:9
+      skos:definitionSourceUri: https://vng.nl/artikelen/model-apv
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: Alle door de burgemeester verleende straatartiestenontheffingen.
+      mim:bevoegdGezag: burgemeester
+      mim:wettelijkeGrondslag: VNG Model-APV art. 2:9
+      mim:uniformeProductnaam: straatartiestoptreden ontheffing
+    comments:
+      - >-
+        De houder is de artiest zelf; bij een groep de contactpersoon.
+        De aangewezen wegen staan in het geerfde locatieOmschrijving.
+    attributes:
+      soortOptreden:
+        required: true
+        range: Tekst
+        description: >-
+          Aard van het optreden, bijvoorbeeld muziek, zang, levend
+          standbeeld, acrobatiek, portrettekenen, rondleiding of
+          straatfotografie.
+        annotations:
+          mim:lengte: 80
+      dagen:
+        range: Tekst
+        description: >-
+          Dag of dagen van de week, of data, waarop mag worden
+          opgetreden.
+        annotations:
+          mim:lengte: 80
+      tijdvak:
+        range: Tekst
+        description: Tijden waarbinnen mag worden opgetreden.
+        annotations:
+          mim:lengte: 40
+      versterktGeluid:
+        required: true
+        range: Indicatie
+        description: >-
+          Indicatie dat gebruik van geluidsversterking is toegestaan.
+      aantalPersonen:
+        range: Numeriek
+        description: Aantal personen dat gezamenlijk optreedt.
+        annotations:
+          mim:lengte: 2
+
+  Standplaatsvergunning:
+    is_a: Toestemming
+    description: >-
+      Toestemming van het college voor het innemen of hebben van een
+      standplaats: een vaste plaats op of aan de weg of op een andere
+      openbare plaats, buiten een markt, voor het te koop aanbieden,
+      verkopen of afleveren van goederen of het aanbieden van diensten.
+    class_uri: gbotm:Standplaatsvergunning
+    exact_mappings:
+      - gbobegrip:Standplaatsvergunning
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Standplaatsvergunning
+      skos:definition_nl: Toestemming van het college voor het innemen of hebben van een standplaats, een vaste plaats op of aan de weg of op een andere openbare plaats buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten.
+      skos:definitionSource: VNG Model-APV art. 5:17-5:18
+      skos:definitionSourceUri: https://vng.nl/artikelen/model-apv
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: Alle door het college verleende standplaatsvergunningen.
+      mim:bevoegdGezag: college van burgemeester en wethouders
+      mim:wettelijkeGrondslag: VNG Model-APV art. 5:18
+      mim:uniformeProductnaam: standplaatsvergunning
+    comments:
+      - >-
+        De houder is de ondernemer als natuurlijk persoon (eenmanszaak);
+        in het volledige voorstel ook een vestiging. De standplaatslocatie
+        staat in het geerfde locatieOmschrijving en wordt later een
+        verwijzing naar een BAG-standplaats of Locatie.
+    attributes:
+      soortStandplaats:
+        required: true
+        range: SoortStandplaats
+        description: Soort standplaats naar tijdsduur.
+      branche:
+        required: true
+        range: Tekst
+        description: >-
+          Branche of productgroep van de standplaats, bijvoorbeeld vis,
+          bloemen, oliebollen, ijs, snacks of kerstbomen.
+        annotations:
+          mim:lengte: 80
+      verkoopwaren:
+        range: Tekst
+        description: >-
+          Nadere omschrijving van de goederen of diensten die mogen
+          worden aangeboden.
+        annotations:
+          mim:lengte: 200
+      dagen:
+        required: true
+        range: Tekst
+        description: >-
+          Dag of dagen van de week waarop de standplaats mag worden
+          ingenomen.
+        annotations:
+          mim:lengte: 80
+      tijdvak:
+        range: Tekst
+        description: >-
+          Tijden waarbinnen de standplaats mag worden ingenomen.
+        annotations:
+          mim:lengte: 40
+      afmetingen:
+        range: Tekst
+        description: >-
+          Toegestane afmetingen van de verkoopinrichting: lengte, breedte
+          en hoogte in meters.
+        annotations:
+          mim:lengte: 40
+
+  Marktvergunning:
+    is_a: Toestemming
+    description: >-
+      Toestemming van het college voor het innemen van een standplaats op
+      een door de gemeente ingestelde warenmarkt, als vaste standplaats,
+      dagplaats of standwerkersplaats.
+    class_uri: gbotm:Marktvergunning
+    exact_mappings:
+      - gbobegrip:Marktvergunning
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Marktvergunning
+      skos:definition_nl: Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats.
+      skos:definitionSource: VNG Model Marktverordening art. 2 e.v.; Gemeentewet art. 160
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0005416
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: Alle door het college verleende marktvergunningen.
+      mim:bevoegdGezag: college van burgemeester en wethouders
+      mim:wettelijkeGrondslag: VNG Model Marktverordening art. 2; Gemeentewet art. 160
+      mim:uniformeProductnaam: marktvergunning
+    comments:
+      - >-
+        Een vaste standplaats geldt doorgaans voor onbepaalde tijd, een
+        dagplaats voor een enkele marktdag.
+    attributes:
+      markt:
+        required: true
+        range: Tekst
+        description: >-
+          Naam of aanduiding van de markt, bijvoorbeeld "Algemene
+          warenmarkt Markt (donderdag)".
+        annotations:
+          mim:lengte: 80
+      soortMarktplaats:
+        required: true
+        range: SoortMarktplaats
+        description: Soort marktplaats waarvoor de vergunning geldt.
+      standplaatsnummer:
+        range: Tekst
+        description: Nummer van de standplaats op de markt.
+        annotations:
+          mim:lengte: 10
+      branche:
+        required: true
+        range: Tekst
+        description: >-
+          Branche of artikelgroep, bijvoorbeeld groente en fruit, kaas of
+          textiel.
+        annotations:
+          mim:lengte: 80
+      marktdagen:
+        required: true
+        range: Tekst
+        description: >-
+          Dag of dagen van de week waarop de vergunning geldt.
+        annotations:
+          mim:lengte: 80
+      frontbreedte:
+        range: Numeriek
+        description: Toegewezen frontbreedte in meters.
+        annotations:
+          mim:lengte: 3
+      vervanger:
+        multivalued: true
+        range: NatuurlijkPersoon
+        description: >-
+          Personen die de vergunninghouder bij afwezigheid mogen
+          vervangen.
+        annotations:
+          mim:herkomst: VNG Model Marktverordening
+        comments:
+          - >-
+            Demo-vereenvoudiging: in het wijzigingsvoorstel een
+            Rechtspersoon (RSGB).
+
+  # ---------------------------------------------------------------------
+  # Specialisaties — later Model Parkeren
+  # ---------------------------------------------------------------------
+
+  Gehandicaptenparkeerkaart:
+    is_a: Toestemming
+    description: >-
+      Kaart volgens Europees model, door het college verstrekt aan een
+      persoon met een beperking of aan een instelling, die recht geeft op
+      het gebruik van gehandicaptenparkeerplaatsen en op de daaraan
+      verbonden uitzonderingen op parkeerverboden.
+    class_uri: gbotm:Gehandicaptenparkeerkaart
+    exact_mappings:
+      - gbobegrip:Gehandicaptenparkeerkaart
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Gehandicaptenparkeerkaart
+      skos:altLabel_nl_0_value: Europese gehandicaptenparkeerkaart
+      skos:altLabel_nl_0_source: Regeling gehandicaptenparkeerkaart (Europees model)
+      skos:definition_nl: Kaart volgens Europees model, door het college verstrekt aan een persoon met een beperking (bestuurder of passagier) of aan een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen en op de daaraan verbonden uitzonderingen op parkeerverboden.
+      skos:definitionSource: BABW art. 49-55; Regeling gehandicaptenparkeerkaart
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0007702
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming); kaartnummer is uniek per kaart
+      mim:populatie: Alle door het college verstrekte gehandicaptenparkeerkaarten.
+      mim:bevoegdGezag: college van burgemeester en wethouders
+      mim:wettelijkeGrondslag: BABW art. 49; Regeling gehandicaptenparkeerkaart
+      mim:uniformeProductnaam: gehandicaptenparkeerkaart bestuurder / passagier / instellingen
+    comments:
+      - >-
+        De kaart is formeel geen vergunning maar een Europees erkend
+        bewijs dat de houder ontheft van parkeerverboden; daarom
+        soortToestemming "ontheffing".
+      - >-
+        De kaart is persoonsgebonden en niet voertuiggebonden, en geldt
+        maximaal vijf jaar (datumEinde). Medische gegevens zoals het
+        keuringsadvies worden niet vastgelegd.
+    attributes:
+      kaartnummer:
+        required: true
+        range: Identificatie
+        description: >-
+          Nummer van de kaart zoals daarop vermeld, uniek per kaart.
+        annotations:
+          mim:lengte: 20
+      soortKaart:
+        required: true
+        range: SoortGehandicaptenparkeerkaart
+        description: Soort kaart naar de hoedanigheid van de houder.
+
+  Parkeerontheffing:
+    is_a: Toestemming
+    description: >-
+      Ontheffing van het college van een parkeerverbod, een
+      parkeerschijfzone of een geslotenverklaring voor een bepaald
+      voertuig.
+    class_uri: gbotm:Parkeerontheffing
+    exact_mappings:
+      - gbobegrip:Parkeerontheffing
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Parkeerontheffing
+      skos:definition_nl: Ontheffing van het college van een parkeerverbod, een parkeerschijfzone (blauwe zone) of een geslotenverklaring voor een bepaald voertuig, bijvoorbeeld voor bewoners van een blauwe zone, voor het voetgangersgebied of voor grote voertuigen.
+      skos:definitionSource: RVV 1990 art. 87; VNG Model-APV art. 5:2-5:8
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0004825
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: Alle door het college verleende parkeerontheffingen.
+      mim:bevoegdGezag: college van burgemeester en wethouders
+      mim:wettelijkeGrondslag: RVV 1990 art. 87; VNG Model-APV art. 5:2-5:8
+      mim:uniformeProductnaam: parkeerontheffing; parkeerontheffing blauwe zone; parkeerontheffing grote voertuigen
+    attributes:
+      soortOntheffing:
+        required: true
+        range: Tekst
+        description: >-
+          Soort ontheffing, bijvoorbeeld blauwe zone, voetgangersgebied,
+          milieuzone, grote voertuigen, autobedrijf of reclamevoertuig.
+        annotations:
+          mim:lengte: 40
+      kenteken:
+        range: Kenteken
+        description: >-
+          Kenteken van het voertuig waarvoor de ontheffing geldt.
+        annotations:
+          mim:lengte: 8
+        comments:
+          - >-
+            Het wijzigingsvoorstel noteert AN12; GBO gebruikt het
+            bestaande datatype Kenteken uit datatypes.yaml.
+      gebied:
+        range: Tekst
+        description: >-
+          Zone of gebied waar de ontheffing geldt, bijvoorbeeld blauwe
+          zone centrum.
+        annotations:
+          mim:lengte: 100
+      tijdvak:
+        range: Tekst
+        description: >-
+          Tijden, in dagen of uren, waarop de ontheffing geldt.
+        annotations:
+          mim:lengte: 40
+
+  # ---------------------------------------------------------------------
+  # Specialisatie — blijft in Model VTH
+  # ---------------------------------------------------------------------
+
+  Ligplaatsontheffing:
+    is_a: Toestemming
+    description: >-
+      Toestemming om met een vaartuig een ligplaats in te nemen op of in
+      openbaar water waar een ligplaatsverbod geldt.
+    class_uri: gbotm:Ligplaatsontheffing
+    exact_mappings:
+      - gbobegrip:Ligplaatsontheffing
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Ligplaatsontheffing
+      skos:altLabel_nl_0_value: Ligplaatsvergunning
+      skos:altLabel_nl_0_source: Uniforme Productnamenlijst (Logius)
+      skos:definition_nl: Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water waar een ligplaatsverbod geldt.
+      skos:definitionSource: VNG Model-APV art. 5:25; gemeentelijke havenverordening
+      skos:definitionSourceUri: https://vng.nl/artikelen/model-apv
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM Model VTH (bestaande klasse, uitgebreid in de pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:uniekeAanduiding: identificatie (geerfd van Toestemming)
+      mim:populatie: Alle door het college verleende ligplaatsontheffingen en -vergunningen.
+      mim:bevoegdGezag: college van burgemeester en wethouders
+      mim:wettelijkeGrondslag: VNG Model-APV art. 5:25
+      mim:uniformeProductnaam: ligplaatsvergunning
+    comments:
+      - >-
+        Bestaande GGM-klasse die in de pilotversie van Toestemming gaat
+        erven: stickernummer wordt optioneel, ligplaatsaanduiding en de
+        relatie naar Vaartuig zijn nieuw.
+    attributes:
+      stickernummer:
+        range: Numeriek
+        description: Nummer van de afgegeven sticker of het vignet.
+        comments:
+          - >-
+            Bestaand GGM-attribuut; in de pilotversie optioneel geworden.
+      ligplaatsaanduiding:
+        range: Tekst
+        description: >-
+          Nummer of aanduiding van de ligplaats: steiger, kade of nummer.
+        annotations:
+          mim:lengte: 40
+      betreft:
+        required: true
+        range: Vaartuig
+        description: Het vaartuig waarvoor de ontheffing is verleend.
+        annotations:
+          gbo:inverseNaam: heeftLigplaatsontheffing
+
+  # ---------------------------------------------------------------------
+  # Ondersteunende objecttypen (bestaand in GGM Model VTH)
+  # ---------------------------------------------------------------------
+
+  OpenbareActiviteit:
+    description: >-
+      Een voor publiek toegankelijke activiteit in de openbare ruimte,
+      met een naam, een tijdvak, een locatie en een organisator.
+    class_uri: gbotm:OpenbareActiviteit
+    exact_mappings:
+      - gbobegrip:OpenbareActiviteit
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Openbare activiteit
+      skos:altLabel_nl_0_value: Evenement
+      skos:altLabel_nl_0_source: VNG Model-APV art. 2:24 (begrip evenement)
+      skos:definition_nl: Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator.
+      skos:definitionSource: GGM Model VTH (bestaande klasse OpenbareActiviteit)
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM Model VTH (bestaande klasse, uitgebreid in de pilotversie)
+      mim:datumOpname: "2026-08-21"
+      mim:populatie: >-
+        Alle openbare activiteiten waarvoor de gemeente een toestemming
+        verleent of een melding registreert.
+      skos:needsReview_0: De GGM-klasse kent geen expliciete unieke aanduiding in het wijzigingsvoorstel; in de pilot is de activiteit uitsluitend via de vergunning bereikbaar. Bij vaststelling een identificatie toevoegen.
+    comments:
+      - >-
+        Het evenement is een eigen ding omdat het meerdere besluiten kan
+        kennen: evenementenvergunning, ontheffing art. 35 Alcoholwet en
+        verkeersbesluit. De vergunning verwijst ernaar en herhaalt de
+        gegevens niet.
+      - >-
+        In de pilotversie is het bestaande GGM-attribuut evenmentnaam
+        hernoemd naar evenementnaam en is de relatie organisator nieuw.
+    attributes:
+      evenementnaam:
+        required: true
+        range: Tekst
+        description: Naam waaronder de activiteit wordt aangekondigd.
+        annotations:
+          mim:lengte: 80
+        comments:
+          - >-
+            Bestaand GGM-attribuut evenmentnaam, in de pilotversie
+            hernoemd.
+      datumStart:
+        range: Datum
+        description: Datum waarop de activiteit begint.
+      datumEinde:
+        range: Datum
+        description: Datum waarop de activiteit eindigt.
+      locatieOmschrijving:
+        range: Tekst
+        description: Omschrijving van de locatie van de activiteit.
+        annotations:
+          mim:lengte: 300
+      status:
+        range: Tekst
+        description: Status van de activiteit.
+        annotations:
+          mim:lengte: 40
+      organisator:
+        required: true
+        range: NatuurlijkPersoon
+        description: >-
+          De persoon die de activiteit organiseert.
+        annotations:
+          gbo:inverseNaam: organiseert
+        comments:
+          - >-
+            Nieuw in de pilotversie. Demo-vereenvoudiging: in het
+            wijzigingsvoorstel een Rechtspersoon (RSGB).
+
+  Vaartuig:
+    description: >-
+      Een vaartuig waarmee een ligplaats wordt ingenomen, met de
+      kenmerken waarmee het op het water herkenbaar is.
+    class_uri: gbotm:Vaartuig
+    exact_mappings:
+      - gbobegrip:Vaartuig
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Vaartuig
+      skos:definition_nl: 'Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is: naam, registratienummer, kleur en afmetingen.'
+      skos:definitionSource: GGM Model VTH (bestaande klasse Vaartuig)
+      mim:elementtype: Objecttype
+      mim:herkomst: GGM Model VTH (bestaande klasse)
+      mim:datumOpname: "2026-08-21"
+      mim:populatie: >-
+        Alle vaartuigen waarvoor de gemeente een ligplaatsontheffing
+        heeft verleend.
+      skos:needsReview_0: Het kernmodel kent alleen Voertuig (BRV/RDW); voor vaartuigen bestaat geen landelijke basisregistratie. Bij vaststelling controleren of aansluiting op een register (bijvoorbeeld het scheepsregister van het Kadaster) mogelijk is.
+    comments:
+      - >-
+        Bestaande GGM-klasse in Model VTH. Anders dan Voertuig in het
+        kernmodel is een vaartuig niet aan een landelijke registratie
+        ontleend; de gegevens komen uit de aanvraag.
+    attributes:
+      naamVaartuig:
+        range: Tekst
+        description: Naam van het vaartuig.
+        annotations:
+          mim:lengte: 80
+      registratienummer:
+        range: Identificatie
+        description: >-
+          Registratie- of senumnummer van het vaartuig, voor zover
+          aanwezig.
+        annotations:
+          mim:lengte: 20
+      kleur:
+        range: Tekst
+        description: Overheersende kleur van het vaartuig.
+        annotations:
+          mim:lengte: 40
+      lengte:
+        range: Decimaal
+        description: Lengte van het vaartuig in meters.
+      breedte:
+        range: Decimaal
+        description: Breedte van het vaartuig in meters.
+      hoogte:
+        range: Decimaal
+        description: Hoogte van het vaartuig in meters.
+
+enums:
+
+  SoortToestemming:
+    description: >-
+      De juridische soort van een toestemming: de vorm waarin het
+      bestuursorgaan haar verleent.
+    exact_mappings:
+      - gbobegrip:SoortToestemming
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Soort toestemming
+      skos:definition_nl: De juridische soort van een toestemming, oftewel de vorm waarin het bestuursorgaan haar verleent.
+      skos:definitionSource: GGM-wijzigingsvoorstel "Toestemming en Product", bijlage A; RIHa 2.0
+      mim:herkomst: GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)
+    comments:
+      - >-
+        In het volledige voorstel is dit een kenmerk van het producttype;
+        in de pilot staat het op Toestemming zelf.
+    permissible_values:
+      Vergunning:
+        description: >-
+          Toestemming binnen een verbod-behoudens-vergunningstelsel: de
+          activiteit is verboden tenzij zij is vergund.
+      Ontheffing:
+        description: >-
+          Individuele uitzondering op een algemeen verbod, voor een
+          bepaald geval.
+      Vrijstelling:
+        description: >-
+          Uitzondering op een verbod voor een categorie gevallen, bij
+          algemeen voorschrift.
+      InstemmingMetMelding:
+        description: >-
+          Instemming met een gedane melding, waar geen vergunning maar
+          een meldingsplicht geldt.
+      Maatwerkvoorschrift:
+        description: >-
+          Op het individuele geval toegesneden voorschrift dat afwijkt
+          van of aanvult op een algemene regel.
+      Gedoogbeschikking:
+        description: >-
+          Schriftelijke beslissing om tegen een op zichzelf verboden
+          situatie niet handhavend op te treden.
+      ErkenningOfRegistratie:
+        description: >-
+          Erkenning of registratie waaraan de bevoegdheid tot een
+          activiteit is verbonden.
+
+  Productstatus:
+    description: >-
+      De status van een toestemming in haar levensloop, van aanvraag tot
+      einde.
+    exact_mappings:
+      - gbobegrip:Productstatus
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Productstatus
+      skos:definition_nl: De status van een toestemming in haar levensloop, van aanvraag tot einde.
+      skos:definitionSource: GGM-wijzigingsvoorstel "Toestemming en Product", bijlage A; waarden afgestemd op Open Product
+      mim:herkomst: Open Product (statuswaarden)
+    comments:
+      - >-
+        De waarden zijn letterlijk afgestemd op Open Product, zodat een
+        registratie in Open Product of de Objecten API dezelfde
+        levensloop kent.
+    permissible_values:
+      Initieel:
+        description: Aangemaakt, nog niet in behandeling.
+      InAanvraag:
+        description: De aanvraag is in behandeling.
+      Gereed:
+        description: >-
+          Besloten en gereed, maar nog niet ingegaan; de geldigheid
+          begint later.
+      Actief:
+        description: Verleend en geldig.
+      Ingetrokken:
+        description: >-
+          Door een later besluit ingetrokken voor het einde van de
+          geldigheid.
+      Geweigerd:
+        description: De aanvraag is afgewezen.
+      Verlopen:
+        description: De geldigheidstermijn is verstreken.
+
+  SoortStandplaats:
+    description: De soort standplaats naar de tijdsduur waarvoor zij geldt.
+    exact_mappings:
+      - gbobegrip:SoortStandplaats
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Soort standplaats
+      skos:definition_nl: De soort standplaats naar de tijdsduur waarvoor zij geldt.
+      skos:definitionSource: GGM-wijzigingsvoorstel "Toestemming en Product", bijlage A; VNG Model-APV art. 5:17-5:18
+      mim:herkomst: VNG Model-APV art. 5:17-5:18
+    permissible_values:
+      Vast:
+        description: >-
+          Standplaats voor onbepaalde tijd of voor een lange
+          aaneengesloten periode.
+      Seizoensgebonden:
+        description: >-
+          Standplaats voor een deel van het jaar, zoals oliebollen of
+          kerstbomen.
+      Incidenteel:
+        description: Standplaats voor een enkele gelegenheid.
+
+  SoortMarktplaats:
+    description: >-
+      De soort plaats op een warenmarkt waarvoor de vergunning geldt.
+    exact_mappings:
+      - gbobegrip:SoortMarktplaats
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Soort marktplaats
+      skos:definition_nl: De soort plaats op een warenmarkt waarvoor de marktvergunning geldt.
+      skos:definitionSource: GGM-wijzigingsvoorstel "Toestemming en Product", bijlage A; VNG Model Marktverordening
+      mim:herkomst: VNG Model Marktverordening
+    permissible_values:
+      VasteStandplaats:
+        description: >-
+          Plaats die voor onbepaalde tijd aan een marktondernemer is
+          toegewezen.
+      Dagplaats:
+        description: >-
+          Plaats die per marktdag wordt toegewezen, doorgaans omdat een
+          vaste standplaats niet wordt ingenomen.
+      Standwerkersplaats:
+        description: >-
+          Plaats voor een standwerker, die zijn waar demonstrerend
+          aanprijst.
+
+  SoortGehandicaptenparkeerkaart:
+    description: >-
+      De soort gehandicaptenparkeerkaart naar de hoedanigheid van de
+      houder.
+    exact_mappings:
+      - gbobegrip:SoortGehandicaptenparkeerkaart
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Soort gehandicaptenparkeerkaart
+      skos:definition_nl: De soort gehandicaptenparkeerkaart naar de hoedanigheid van de houder.
+      skos:definitionSource: GGM-wijzigingsvoorstel "Toestemming en Product", bijlage A; Regeling gehandicaptenparkeerkaart
+      mim:herkomst: BABW art. 49-55; Regeling gehandicaptenparkeerkaart
+    permissible_values:
+      Bestuurder:
+        description: >-
+          Kaart voor een persoon met een beperking die zelf een voertuig
+          bestuurt.
+      Passagier:
+        description: >-
+          Kaart voor een persoon met een beperking die als passagier
+          wordt vervoerd.
+      Instelling:
+        description: >-
+          Kaart voor een instelling die personen met een beperking
+          vervoert.

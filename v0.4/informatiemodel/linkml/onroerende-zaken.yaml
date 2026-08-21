@@ -1,0 +1,1233 @@
+# =============================================================================
+# GBO — Deelmodel Onroerende zaken
+# Bron (leidend): docs/informatiemodel/gbo-kern/deelmodellen/onroerende-zaken.md
+#
+# Kadastrale onroerende zaken en de zakelijke rechten daarop.
+# Inclusief hypotheek/beslag (Zekerheidsrecht), kwalitatieve
+# verplichtingen (Aantekening) en publiekrechtelijke beperkingen.
+#
+# WOZ-waarde valt buiten dit deelmodel (zie deelmodel Waarde
+# onroerende zaken); geometrische projecties van percelen
+# (BRK-geometrie) vallen eveneens buiten dit deelmodel.
+#
+# Verwijzingen naar andere deelmodellen (AdresseerbaarObject uit
+# Adressen en gebouwen) worden opgelost via gbo.yaml; valideer dus
+# altijd via gbo.yaml.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/informatiemodel/onroerende-zaken
+name: gbo-onroerende-zaken
+title: "GBO deelmodel: Onroerende zaken"
+description: >-
+  Kadastrale onroerende zaken (percelen, appartementsrechten),
+  zakelijke rechten, tenaamstelling, zekerheidsrechten
+  (hypotheek/beslag), aantekeningen en publiekrechtelijke
+  beperkingen. WOZ-waarde valt buiten dit deelmodel; zie deelmodel
+  Waarde onroerende zaken.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+default_prefix: gbo
+default_range: string
+
+imports:
+  - linkml:types
+  - datatypes
+  - hoofdmodel
+
+classes:
+
+  # --- Objecttypen ------------------------------------------------------------
+
+  Aantekening:
+    mixins:
+      - Voorkomen
+    description: >-
+      Een privaatrechtelijke vermelding bij een kadastraal onroerende
+      zaak die een kwalitatieve verplichting, bewindstelling of
+      soortgelijke notarieel ontstane last vastlegt en die via de
+      Basisregistratie Kadaster kenbaar wordt gemaakt.
+    exact_mappings:
+      - gbobegrip:Aantekening
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet art. 17; Burgerlijk Wetboek Boek 6
+        (kwalitatieve verplichting); BRK-Catalogus (objecttype
+        Aantekening).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie
+      mim:populatie: >-
+        Alle privaatrechtelijke aantekeningen die op grond van de
+        Kadasterwet bij een kadastraal onroerende zaak in de BRK zijn
+        geregistreerd.
+    comments:
+      - >-
+        Aantekening is de privaatrechtelijke tegenhanger van
+        PubliekrechtelijkeBeperking: beide kunnen tegelijk op dezelfde
+        kadastrale onroerende zaak rusten. Een aantekening ontstaat
+        uit een notariële handeling (bijvoorbeeld de vestiging van een
+        kwalitatieve verplichting of een bewindstelling), niet uit een
+        bestuursbesluit.
+    attributes:
+      aardAantekening:
+        range: CodelijstBRK
+        required: true
+        description: >-
+          Aard van de aantekening, bijvoorbeeld kwalitatieve
+          verplichting of bewindstelling.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Codelijst-waarden afgeleid van BRK.
+      omschrijving:
+        range: Tekst
+        description: >-
+          Korte vrije omschrijving van de inhoud van de aantekening.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumIngang:
+        range: Datum
+        required: true
+        description: >-
+          Datum waarop de aantekening van kracht is geworden.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      opKadastraleOnroerendeZaak:
+        range: KadastraleOnroerendeZaak
+        required: true
+        description: >-
+          Kadastrale onroerende zaak waarop de aantekening rust.
+        annotations:
+          gbo:inverseNaam: heeftAantekening
+          gbo:inverseBeschrijving: >-
+            De aantekeningen op deze onroerende zaak.
+          mim:relatienaam: op
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+  Appartementsrecht:
+    is_a: KadastraleOnroerendeZaak
+    description: >-
+      Een aandeel in een door splitsing ontstane onroerende zaak dat
+      recht geeft op het uitsluitend gebruik van een specifiek
+      aangewezen privégedeelte, samen met een aandeel in de
+      gemeenschap; geregistreerd in de Basisregistratie Kadaster als
+      kadastraal onroerende zaak.
+    exact_mappings:
+      - gbobegrip:Appartementsrecht
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v.);
+        Kadasterwet; BRK-Catalogus (objecttype Appartementsrecht);
+        IMKAD.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: kadastraleAanduiding (incl. indexnummer)
+      mim:populatie: >-
+        Alle appartementsrechten die in Nederland door notariële
+        splitsingsakte zijn ontstaan en als kadastraal onroerende zaak
+        in de BRK zijn geregistreerd.
+    comments:
+      - >-
+        Appartementsrecht is het juridische eigendomsobject voor
+        flatgebouwen, gedeelde-grond-woningcomplexen en
+        bedrijfsverzamelgebouwen. Bewoners zijn eigenaar van het
+        recht, niet van de onderliggende grond, die in mede-eigendom
+        is. Een appartementsrecht ontstaat uit een notariële
+        splitsingsakte (Appartementsrechtsplitsing) die één of meer
+        percelen verdeelt in één of meer appartementsrechten. Het
+        juridische begrip appartementsrecht komt ook voor als waarde
+        van AardZakelijkRecht; GBO neemt het kadastrale object hier op
+        omdat BRK het zo registreert.
+    unique_keys:
+      kadastraleAanduiding:
+        unique_key_slots: [kadastraleAanduiding]
+        description: >-
+          MIM unieke aanduiding (inclusief indexnummer); identificatie
+          (geërfd van KadastraleOnroerendeZaak) blijft de technische
+          identifier.
+    attributes:
+      indexnummer:
+        range: Tekst
+        required: true
+        description: >-
+          Volgnummer binnen een appartementsrechtsplitsing dat het
+          privégedeelte aanduidt.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - >-
+            Onderscheidt appartementen binnen dezelfde
+            grondaanduiding.
+      betreft:
+        range: AdresseerbaarObject
+        description: >-
+          Adresseerbaar object (verblijfsobject of standplaats) dat
+          met het appartementsrecht samenvalt.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "0..1 -> 0..1"
+        comments:
+          - Zie deelmodel Adressen en gebouwen.
+
+  Appartementsrechtsplitsing:
+    description: >-
+      De notariële akte waarbij één of meer percelen worden gesplitst
+      in één of meer appartementsrechten, met vermelding van de
+      verdeling en de aandelen in de gemeenschap.
+    exact_mappings:
+      - gbobegrip:Appartementsrechtsplitsing
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v.,
+        splitsing in appartementsrechten); Kadasterwet; BRK-Catalogus.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: documentnummer
+      mim:populatie: >-
+        Alle in Nederland verleden notariële splitsingsakten waarbij
+        percelen worden gesplitst in appartementsrechten.
+    comments:
+      - >-
+        De splitsingsakte is een eenmalige rechtshandeling die het
+        ontstaan van de appartementsrechten vastlegt. Het akte-object
+        zelf kent geen levensloop met materiële of formele historie;
+        nieuwe of gewijzigde rechtssituaties leiden tot nieuwe akten
+        met eigen identificatie.
+    attributes:
+      akteverwijzing:
+        range: Tekst
+        required: true
+        description: Verwijzing naar de notariële splitsingsakte.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BRK-Catalogus
+      datumSplitsing:
+        range: Datum
+        required: true
+        description: >-
+          Datum waarop de splitsing rechtsgeldig is geworden.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BRK-Catalogus
+      documentdatum:
+        range: Datum
+        required: true
+        description: Datum van het verlijden van de splitsingsakte.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BRK-Catalogus
+      documentnummer:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van de splitsingsakte.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BRK-Catalogus
+      splitstIn:
+        range: Appartementsrecht
+        required: true
+        multivalued: true
+        description: >-
+          Appartementsrechten die door de splitsing ontstaan.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 1..*"
+      opPerceel:
+        range: Perceel
+        required: true
+        multivalued: true
+        description: >-
+          Onderliggende percelen die door de splitsing worden geraakt.
+        annotations:
+          gbo:inverseNaam: heeftAppartementsrechtsplitsing
+          gbo:inverseBeschrijving: >-
+            De appartementsrechtsplitsingen op dit perceel.
+          mim:relatienaam: op
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 1..*"
+
+  KadastraleOnroerendeZaak:
+    abstract: true
+    mixins:
+      - Voorkomen
+    aliases:
+      - KOZ
+    description: >-
+      Het overkoepelende begrip voor een kadastraal afgebakend en als
+      zelfstandige eenheid in de Basisregistratie Kadaster
+      geregistreerd object: een perceel of een appartementsrecht.
+    exact_mappings:
+      - gbobegrip:KadastraleOnroerendeZaak
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet art. 1; BRK-Catalogus (abstract
+        supertype KadastraalOnroerendeZaak); IMKAD.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie
+      mim:populatie: >-
+        Alle kadastraal afgebakende objecten (percelen en
+        appartementsrechten) in Nederland zoals geregistreerd in de
+        BRK door het Kadaster.
+    comments:
+      - >-
+        Abstract supertype dat de gemeenschappelijke kenmerken en
+        relaties van Perceel en Appartementsrecht bundelt. Zakelijke
+        rechten, zekerheidsrechten, aantekeningen en
+        publiekrechtelijke beperkingen worden via dit supertype
+        gekoppeld zodat zij even goed op een perceel als op een
+        appartementsrecht kunnen rusten.
+      - Alias KOZ is de BRK-afkorting.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: NEN3610ID
+        description: Objectidentificatie volgens NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Stabiel identificerend over de levensloop heen.
+      kadastraleAanduiding:
+        range: KadastraleAanduiding
+        required: true
+        description: >-
+          Samengestelde aanduiding (kadastrale gemeente / sectie /
+          perceelnummer / eventueel indexnummer).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Menselijk leesbare aanduiding.
+      soortGrootte:
+        range: SoortGrootte
+        required: true
+        description: Kwaliteit van de geometrische afbakening.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Zie enumeratie SoortGrootte.
+      kadastraalOnroerendeZaakStatus:
+        range: KOZStatus
+        required: true
+        description: >-
+          Levensfase-status van de kadastrale onroerende zaak.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Zie enumeratie KOZStatus.
+
+  Perceel:
+    is_a: KadastraleOnroerendeZaak
+    aliases:
+      - Kadastraal perceel
+    description: >-
+      Een kadastraal afgebakend en als zelfstandige eenheid in de
+      Basisregistratie Kadaster geregistreerd stuk grond,
+      identificeerbaar via de kadastrale aanduiding (kadastrale
+      gemeente, sectie, perceelnummer).
+    exact_mappings:
+      - gbobegrip:Perceel
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet art. 1; BRK-Catalogus (objecttype
+        KadastraalPerceel); IMKAD.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: kadastraleAanduiding
+      mim:populatie: >-
+        Alle kadastraal afgebakende stukken grond in Nederland zoals
+        geregistreerd in de BRK door het Kadaster, inclusief actuele
+        en historische percelen.
+    comments:
+      - >-
+        Perceel beschrijft de kadastraal-juridische werkelijkheid: een
+        afgebakend stuk grond als registratie-eenheid, los van de
+        fysieke bebouwing (Pand in BAG) en los van de fiscale
+        waardering (WOZ-object). Een perceel kan onbebouwd zijn, één
+        pand dragen, of door meerdere panden gedeeltelijk worden
+        bedekt; een pand kan over meerdere percelen liggen.
+      - Alias Kadastraal perceel is de BRK-LO volledige naam.
+    unique_keys:
+      kadastraleAanduiding:
+        unique_key_slots: [kadastraleAanduiding]
+        description: >-
+          MIM unieke aanduiding; identificatie (geërfd van
+          KadastraleOnroerendeZaak) blijft de technische identifier.
+    attributes:
+      kadastraleGemeente:
+        range: CodelijstKadaster
+        required: true
+        description: Kadastrale gemeente waarin het perceel ligt.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Kadasterwet-codering.
+      sectie:
+        range: Tekst
+        required: true
+        description: Sectie-letter binnen de kadastrale gemeente.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      perceelnummer:
+        range: Numeriek
+        required: true
+        description: Volgnummer van het perceel binnen de sectie.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      oppervlakte:
+        range: Numeriek
+        description: Kadastrale oppervlakte in vierkante meters.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        aliases:
+          - grootte
+        comments:
+          - "HC-naam: grootte."
+
+  PubliekrechtelijkeBeperking:
+    mixins:
+      - Voorkomen
+    aliases:
+      - BRK-PB
+    description: >-
+      Een beperking van het gebruiksrecht op een kadastraal onroerende
+      zaak die voortvloeit uit een publiekrechtelijk besluit van een
+      bestuursorgaan en die op grond van de Wet kenbaarheid
+      publiekrechtelijke beperkingen kenbaar wordt gemaakt via de
+      Basisregistratie Kadaster.
+    exact_mappings:
+      - gbobegrip:PubliekrechtelijkeBeperking
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Wet kenbaarheid publiekrechtelijke beperkingen
+        onroerende zaken (Wkpb) art. 1; Kadasterwet; BRK-Catalogus
+        (objecttype PubliekrechtelijkeBeperking).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie
+      mim:populatie: >-
+        Alle door bestuursorganen opgelegde publiekrechtelijke
+        beperkingen die op grond van de Wkpb in de BRK worden
+        geregistreerd (monumentenstatus, voorkeursrecht, onteigening,
+        archeologische bescherming, bodemsanering-plicht en
+        dergelijke).
+    comments:
+      - >-
+        Eigen registratie binnen de Kadasterwet, los van het
+        zakelijk-recht-cluster. Beperkingen worden opgelegd door de
+        overheid (gemeente, provincie, Rijk) zonder instemming van de
+        eigenaar, in tegenstelling tot privaatrechtelijke
+        aantekeningen die uit notariële handelingen voortvloeien. Eén
+        besluit kan meerdere kadastrale onroerende zaken raken: in dat
+        geval ontstaan meerdere registraties die naar hetzelfde
+        brondocument verwijzen.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: NEN3610ID
+        description: >-
+          Unieke beperking-identificatie volgens NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      typeBeperking:
+        range: TypePubliekrechtelijkeBeperking
+        required: true
+        description: Type van de publiekrechtelijke beperking.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Zie enumeratie TypePubliekrechtelijkeBeperking.
+      omschrijving:
+        range: Tekst
+        description: Korte vrije omschrijving van de beperking.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      grondslag:
+        range: Tekst
+        required: true
+        description: Wettelijke grondslag (artikel + wet).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumIngang:
+        range: Datum
+        required: true
+        description: Datum waarop de beperking is ingegaan.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumEinde:
+        range: Datum
+        description: Datum waarop de beperking is beëindigd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Leeg betekent lopend.
+      documentdatum:
+        range: Datum
+        required: true
+        description: Datum van het brondocument (bestuursbesluit).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      documentnummer:
+        range: Identificatie
+        required: true
+        description: Identificatie van het brondocument.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      opKadastraleOnroerendeZaak:
+        range: KadastraleOnroerendeZaak
+        required: true
+        description: >-
+          Kadastrale onroerende zaak waarop de beperking rust.
+        annotations:
+          gbo:inverseNaam: heeftPubliekrechtelijkeBeperking
+          gbo:inverseBeschrijving: >-
+            De publiekrechtelijke beperkingen op deze onroerende zaak.
+          mim:relatienaam: op
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+  Tenaamstelling:
+    mixins:
+      - Voorkomen
+    description: >-
+      De geregistreerde rechtsbetrekking tussen een rechthebbende
+      partij en een zakelijk recht op een kadastraal onroerende zaak,
+      met vermelding van het aandeel waarmee de partij in het recht
+      deelneemt.
+    exact_mappings:
+      - gbobegrip:Tenaamstelling
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Kadasterwet; Burgerlijk Wetboek Boek 3
+        (registergoederen, mede-eigendom art. 166 e.v.); BRK-Catalogus
+        (associatieklasse Tenaamstelling).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: >-
+        Samengesteld uit (Partij, ZakelijkRecht, datumIngang)
+      mim:populatie: >-
+        Alle in de BRK geregistreerde tenaamstellingen, historisch en
+        actueel, die een rechthebbende koppelen aan een zakelijk recht
+        op een kadastraal onroerende zaak.
+    comments:
+      - >-
+        Tenaamstelling is een verbinding met eigen kenmerken tussen
+        Partij en ZakelijkRecht. Meervoudige eigendomsverhoudingen
+        worden expliciet gemodelleerd: een echtpaar in gemeenschap van
+        goederen krijgt twee tenaamstellingen met gezamenlijkAandeel =
+        ja, mede-eigendom van een vakantiehuis krijgt meerdere
+        tenaamstellingen met elk een breuk-aandeel, en erfopvolging
+        leidt tot een nieuwe tenaamstelling met latere datumIngang
+        terwijl de oude een datumEinde krijgt. De Haal-Centraal-API
+        consolideert Tenaamstelling × ZakelijkRecht × Partij tot één
+        ZakelijkGerechtigde-resource; GBO houdt de drie zaken
+        gescheiden omdat dat rijker is voor historie en meervoudige
+        tenaamstelling.
+      - "MIM-element: Relatieklasse (verdinglijkte relatie)."
+    unique_keys:
+      tenaamstelling:
+        unique_key_slots: [tenaamgesteldOp, voorZakelijkRecht, datumIngang]
+        description: >-
+          MIM unieke aanduiding, samengesteld uit (Partij,
+          ZakelijkRecht, datumIngang).
+    attributes:
+      aandeel:
+        range: Breuk
+        required: true
+        description: >-
+          Aandeel van de partij in het zakelijk recht, uitgedrukt als
+          breuk.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Bijvoorbeeld 1/2, 1/3, 1/1.
+      gezamenlijkAandeel:
+        range: Indicatie
+        description: >-
+          Markeert mede-eigendom met gemeenschappelijk aandeel (zoals
+          een echtpaar in gemeenschap van goederen).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumIngang:
+        range: Datum
+        required: true
+        description: Datum waarop de tenaamstelling is ingegaan.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumEinde:
+        range: Datum
+        description: Datum waarop de tenaamstelling is geëindigd.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Leeg betekent lopend.
+      tenaamgesteldOp:
+        range: Partij
+        required: true
+        description: Rechthebbende partij.
+        annotations:
+          gbo:inverseNaam: heeftKadastraleTenaamstelling
+          gbo:inverseBeschrijving: >-
+            De kadastrale tenaamstellingen waarmee deze partij als
+            rechthebbende is geregistreerd.
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+        comments:
+          - Zie hoofdmodel (Partij-supertype).
+          - >-
+            De inverse maakt de BRK bevraagbaar vanaf een partij, dus
+            vanaf bsn, kvkNummer of rsin; zonder die navigatie is
+            eigendom alleen per onroerende zaak op te vragen.
+      voorZakelijkRecht:
+        range: ZakelijkRecht
+        required: true
+        description: Zakelijk recht waarvoor de tenaamstelling geldt.
+        annotations:
+          gbo:inverseNaam: heeftTenaamstelling
+          gbo:inverseBeschrijving: >-
+            De tenaamstellingen van dit zakelijk recht.
+          mim:relatienaam: voor
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+  ZakelijkRecht:
+    mixins:
+      - Voorkomen
+    description: >-
+      Een vermogensrecht op een zaak dat tegen iedereen kan worden
+      uitgeoefend en dat in de Basisregistratie Kadaster wordt
+      geregistreerd; voorbeelden zijn eigendom, erfpacht, opstal en
+      vruchtgebruik.
+    exact_mappings:
+      - gbobegrip:ZakelijkRecht
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 (zakelijke rechten,
+        art. 1 e.v., art. 85 t/m 105); Burgerlijk Wetboek Boek 3
+        (registergoederen, art. 10 e.v.); Kadasterwet; BRK-Catalogus
+        (objecttype ZakelijkRecht).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie
+      mim:populatie: >-
+        Alle zakelijke rechten op kadastrale onroerende zaken in
+        Nederland zoals geregistreerd in de BRK; vormen worden
+        onderscheiden via AardZakelijkRecht.
+    comments:
+      - >-
+        ZakelijkRecht is de koppeling tussen rechthebbende (via
+        Tenaamstelling) en kadastrale onroerende zaak. Het
+        onderscheidt zich van een persoonlijk recht doordat het tegen
+        iedereen kan worden uitgeoefend (zaaksgebondenheid). Vormen
+        worden onderscheiden via de aard-aanduiding (Eigendom,
+        Erfpacht, Opstal, Vruchtgebruik, GebruikEnBewoning,
+        Beklemrecht, Erfdienstbaarheid heersend/lijdend). Hypotheek en
+        beslag staan los in Zekerheidsrecht: die dienen ter zekerheid
+        van een vordering, niet als eigendomstitel.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: NEN3610ID
+        description: Objectidentificatie van het zakelijk recht.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      aardZakelijkRecht:
+        range: AardZakelijkRecht
+        required: true
+        description: Vorm van het zakelijk recht.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Zie enumeratie AardZakelijkRecht.
+      akteverwijzing:
+        range: Tekst
+        required: true
+        description: >-
+          Verwijzing naar de notariële akte van vestiging.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumIngang:
+        range: Datum
+        required: true
+        description: Datum waarop het recht is ingegaan.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      datumEinde:
+        range: Datum
+        description: Datum waarop het recht is geëindigd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Leeg betekent lopend.
+      documentdatum:
+        range: Datum
+        required: true
+        description: Datum van de vestigings- of wijzigingsakte.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      documentnummer:
+        range: Identificatie
+        required: true
+        description: Akte-identificatie.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      opKadastraleOnroerendeZaak:
+        range: KadastraleOnroerendeZaak
+        required: true
+        multivalued: true
+        description: >-
+          Kadastrale onroerende zaken waarop het recht rust.
+        annotations:
+          gbo:inverseNaam: heeftZakelijkRecht
+          gbo:inverseBeschrijving: >-
+            De zakelijke rechten die op deze onroerende zaak zijn gevestigd.
+          mim:relatienaam: op
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1..*"
+
+  Zekerheidsrecht:
+    mixins:
+      - Voorkomen
+    description: >-
+      Een op een kadastraal onroerende zaak rustend recht dat strekt
+      tot zekerheid van een schuldvordering, te weten een hypotheek of
+      een beslag.
+    exact_mappings:
+      - gbobegrip:Zekerheidsrecht
+    annotations:
+      mim:herkomst: BRK (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 3 titel 9 (recht van pand en
+        hypotheek); Wetboek van Burgerlijke Rechtsvordering
+        (beslagregels); Kadasterwet; BRK-Catalogus.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie
+      mim:populatie: >-
+        Alle hypotheken en beslagen die in Nederland op kadastrale
+        onroerende zaken zijn gevestigd en in de BRK zijn
+        geregistreerd.
+    comments:
+      - >-
+        Zekerheidsrecht staat los van ZakelijkRecht omdat het geen
+        eigendomstitel is maar een zekerstelling: bij hypotheek strekt
+        het recht tot zekerheid van een geldlening, bij beslag tot
+        zekerstelling van een vordering. Beide rusten op een
+        kadastraal onroerende zaak en bestaan zelfstandig naast de
+        zakelijke rechten op diezelfde zaak.
+    attributes:
+      typeZekerheidsrecht:
+        range: TypeZekerheidsrecht
+        required: true
+        description: Type van het zekerheidsrecht.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - Zie enumeratie TypeZekerheidsrecht.
+      bedrag:
+        range: Bedrag
+        description: >-
+          Bedrag waarvoor het zekerheidsrecht is gevestigd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - >-
+            Bij hypotheek de hoofdsom; bij beslag de gevorderde som
+            indien geregistreerd.
+      datumVestiging:
+        range: Datum
+        required: true
+        description: >-
+          Datum waarop het zekerheidsrecht is gevestigd.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+      aardBeslag:
+        range: AardBeslag
+        description: Aard van het beslag.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - >-
+            Alleen relevant bij typeZekerheidsrecht = Beslag. Zie
+            enumeratie AardBeslag.
+      opKadastraleOnroerendeZaak:
+        range: KadastraleOnroerendeZaak
+        required: true
+        multivalued: true
+        description: >-
+          Kadastrale onroerende zaken waarop het zekerheidsrecht rust.
+        annotations:
+          gbo:inverseNaam: heeftZekerheidsrecht
+          gbo:inverseBeschrijving: >-
+            De zekerheidsrechten die op deze onroerende zaak zijn gevestigd.
+          mim:relatienaam: op
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1..*"
+
+enums:
+
+  AardBeslag:
+    description: >-
+      Aard van een op een kadastraal onroerende zaak gelegd beslag,
+      gerelateerd aan de juridische grondslag en het doel ervan.
+    exact_mappings:
+      - gbobegrip:AardBeslag
+    annotations:
+      mim:herkomst: BRK
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Wetboek van Burgerlijke Rechtsvordering
+        (beslagregels); Invorderingswet 1990 (fiscaal beslag);
+        BRK-Catalogus.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Alleen van toepassing bij Zekerheidsrecht.typeZekerheidsrecht
+        = Beslag. Conservatoir beslag dient ter zekerstelling
+        vooruitlopend op een gerechtelijke uitspraak; executoriaal
+        beslag volgt op een titel en strekt tot verhaal; fiscaal
+        beslag wordt door de Belastingdienst gelegd op grond van de
+        Invorderingswet.
+    permissible_values:
+      Conservatoir:
+        description: >-
+          Beslag ter zekerstelling vooruitlopend op een gerechtelijke
+          uitspraak.
+        comments:
+          - >-
+            Bewaart de zaak voor verhaal tijdens een lopende
+            procedure.
+      Executoriaal:
+        description: >-
+          Beslag op grond van een executoriale titel ter
+          daadwerkelijke verhaal van een vordering.
+        comments:
+          - Leidt typisch tot openbare verkoop.
+      Fiscaal:
+        description: >-
+          Beslag gelegd door de Belastingdienst ter invordering van
+          een belastingschuld.
+        comments:
+          - Grondslag in de Invorderingswet 1990.
+      OverigBeslag:
+        description: >-
+          Beslag dat niet onder een van de andere categorieën valt.
+        comments:
+          - Restcategorie.
+
+  AardZakelijkRecht:
+    description: >-
+      Vorm van een zakelijk recht op een kadastraal onroerende zaak,
+      bepalend voor de inhoud en de bevoegdheden van de rechthebbende.
+    exact_mappings:
+      - gbobegrip:AardZakelijkRecht
+    annotations:
+      mim:herkomst: BRK
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 5 (zakelijke rechten,
+        art. 1 e.v., art. 85 t/m 105); Burgerlijk Wetboek Boek 3
+        (registergoederen); BRK-Catalogus.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Onderscheidt eigendomsrechten van beperkt zakelijke rechten.
+        Erfdienstbaarheid komt voor in twee varianten: heersend (ten
+        gunste van het eigen perceel) en lijdend (ten laste van het
+        eigen perceel). Beklemrecht is een eeuwigdurend gebruiksrecht
+        op grond met een vaste vergoeding, voornamelijk historisch in
+        Groningen en Friesland.
+    permissible_values:
+      Beklemrecht:
+        description: >-
+          Eeuwigdurend, overerfbaar gebruiksrecht op grond tegen een
+          vaste jaarlijkse vergoeding.
+        comments:
+          - Historisch voornamelijk in Groningen en Friesland.
+      Eigendom:
+        description: >-
+          Het meest omvattende recht dat een persoon op een zaak kan
+          hebben.
+        comments:
+          - BW Boek 5 art. 1.
+      ErfdienstbaarheidHeersend:
+        description: >-
+          Erfdienstbaarheid ten gunste van het kadastraal onroerende
+          zaak (het heersende erf).
+        comments:
+          - >-
+            Bijvoorbeeld een recht van overpad over een buurperceel.
+      ErfdienstbaarheidLijdend:
+        description: >-
+          Erfdienstbaarheid ten laste van het kadastraal onroerende
+          zaak (het dienende erf).
+        comments:
+          - De tegenkant van de heersende erfdienstbaarheid.
+      Erfpacht:
+        description: >-
+          Recht om het kadastraal onroerende zaak van een ander te
+          houden en te gebruiken, doorgaans tegen canon.
+        comments:
+          - BW Boek 5 art. 85 e.v.
+      GebruikEnBewoning:
+        description: >-
+          Persoonlijk recht om een zaak te gebruiken en te bewonen
+          voor zover nodig voor de gerechtigde en zijn gezin.
+        comments:
+          - BW Boek 3 art. 226.
+      Opstal:
+        description: >-
+          Recht om in, op of boven een kadastraal onroerende zaak van
+          een ander gebouwen, werken of beplantingen in eigendom te
+          hebben.
+        comments:
+          - BW Boek 5 art. 101 e.v.
+      Vruchtgebruik:
+        description: >-
+          Recht om de zaken van een ander te gebruiken en daarvan de
+          vruchten te genieten.
+        comments:
+          - BW Boek 3 art. 201 e.v.
+
+  KOZStatus:
+    aliases:
+      - kadastraalOnroerendeZaakStatus
+    description: >-
+      Levenscyclus-status van een kadastrale onroerende zaak in de
+      Basisregistratie Kadaster.
+    exact_mappings:
+      - gbobegrip:KOZStatus
+    annotations:
+      mim:herkomst: BRK
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: BRK-Catalogus (Kadaster); Kadasterwet.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Een kadastrale onroerende zaak (perceel of appartementsrecht)
+        heeft op elk moment één status. Bij overgang naar Historisch
+        is de zaak niet langer geldig, typisch het gevolg van
+        splitsing, samenvoeging of grenscorrectie. De identificatie
+        blijft beschikbaar via BRK-Levering.
+    permissible_values:
+      Actueel:
+        description: >-
+          De kadastrale onroerende zaak is op dit moment geldig en
+          kent een lopende registratie.
+        comments:
+          - Default-toestand.
+      Historisch:
+        description: >-
+          De kadastrale onroerende zaak is opgevolgd of opgeheven en
+          niet meer geldig als actuele registratie.
+        comments:
+          - Blijft beschikbaar via BRK-Levering.
+
+  SoortGrootte:
+    description: >-
+      Vaststellingsstatus van de oppervlakte van een kadastrale
+      onroerende zaak.
+    exact_mappings:
+      - gbobegrip:SoortGrootte
+    annotations:
+      mim:herkomst: BRK
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: BRK-Catalogus (Kadaster); Kadasterwet.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Geeft aan met welk niveau van zekerheid de oppervlakte is
+        bepaald. Een vastgestelde grootte volgt uit een kadastrale
+        meting en is definitief; een vermoedelijke grootte is een
+        eerste indicatie zonder meting (typisch direct na splitsing);
+        een voorlopige kadastrale grens betreft een nog niet
+        definitief vastgestelde perceelgrens, waardoor ook de
+        oppervlakte voorlopig is.
+    permissible_values:
+      Vastgesteld:
+        description: >-
+          De oppervlakte is door kadastrale meting definitief
+          vastgesteld.
+        comments:
+          - Default na meting.
+      Vermoedelijk:
+        description: >-
+          De oppervlakte is een indicatieve waarde zonder meting.
+        comments:
+          - Typisch direct na splitsing.
+      VoorlopigeKadastraleGrens:
+        description: >-
+          De perceelgrens is nog niet definitief vastgesteld; de
+          oppervlakte is daarmee voorlopig.
+        comments:
+          - Tussen-status; eindigt na inmeten.
+
+  TypePubliekrechtelijkeBeperking:
+    description: >-
+      Type van een publiekrechtelijke beperking op een kadastraal
+      onroerende zaak, bepalend voor de wettelijke grondslag en de
+      aard van de beperking.
+    exact_mappings:
+      - gbobegrip:TypePubliekrechtelijkeBeperking
+    annotations:
+      mim:herkomst: BRK
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Wet kenbaarheid publiekrechtelijke beperkingen
+        onroerende zaken (Wkpb); Monumentenwet 1988 / Erfgoedwet; Wet
+        ruimtelijke ordening (voorkeursrecht); Onteigeningswet; Wet
+        bodembescherming; BRK-Catalogus.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Indicatief overzicht van de meest voorkomende grondslagen
+        waarop bestuursorganen een publiekrechtelijke beperking kunnen
+        vestigen. De rubriek Overig dekt beperkingen op andere
+        wettelijke grondslagen waarvoor geen aparte categorie is
+        opgenomen.
+    permissible_values:
+      BodemBescherming:
+        description: >-
+          Beperking op grond van de Wet bodembescherming, bijvoorbeeld
+          een saneringsplicht of een gebruiksbeperking na
+          verontreiniging.
+        comments:
+          - >-
+            Vaak gekoppeld aan een beschikking ernst en
+            spoedeisendheid.
+      Erfgoedwet:
+        description: >-
+          Beperking op grond van de Erfgoedwet (sinds 2016 opvolger
+          van delen van de Monumentenwet 1988), zoals archeologische
+          bescherming.
+        comments:
+          - >-
+            Voor zaken die na 1 juli 2016 onder de Erfgoedwet zijn
+            aangewezen.
+      Monumentenwet:
+        description: >-
+          Beperking op grond van de Monumentenwet 1988, doorgaans
+          aanwijzing als rijksmonument.
+        comments:
+          - >-
+            Historisch label; aanwijzingen na 2016 vallen onder
+            Erfgoedwet.
+      Onteigening:
+        description: >-
+          Beperking op grond van de Onteigeningswet, voorafgaand of
+          leidend tot eigendomsovergang aan de overheid.
+        comments:
+          - >-
+            Kenbaar gemaakt via de BRK voorafgaand aan de
+            daadwerkelijke onteigening.
+      Overig:
+        description: >-
+          Publiekrechtelijke beperking op een andere wettelijke
+          grondslag dan de overige genoemde categorieën.
+        comments:
+          - Restcategorie.
+      Wro_Voorkeursrecht:
+        description: >-
+          Gemeentelijk voorkeursrecht op grond van de Wet
+          voorkeursrecht gemeenten (Wro-kader).
+        comments:
+          - >-
+            Verplicht eerste aanbieding aan de gemeente bij
+            vervreemding.
+
+  TypeZekerheidsrecht:
+    description: >-
+      Type van een op een kadastraal onroerende zaak rustend
+      zekerheidsrecht, onderscheidend tussen hypotheek en beslag.
+    exact_mappings:
+      - gbobegrip:TypeZekerheidsrecht
+    annotations:
+      mim:herkomst: BRK
+      mim:herkomstDefinitie: >-
+        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
+        grondslag: Burgerlijk Wetboek Boek 3 titel 9 (recht van pand en
+        hypotheek); Wetboek van Burgerlijke Rechtsvordering (beslag);
+        BRK-Catalogus.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Bepaalt of het zekerheidsrecht voortvloeit uit een
+        hypotheekvestiging dan wel uit een gerechtelijk of fiscaal
+        beslag. Bij waarde Beslag wordt het aanvullende attribuut
+        aardBeslag ingevuld (zie enumeratie AardBeslag).
+    permissible_values:
+      Beslag:
+        description: >-
+          Zekerheidsrecht voortvloeiend uit een gerechtelijk of
+          fiscaal beslag op een kadastraal onroerende zaak.
+        comments:
+          - Verdere typering via aardBeslag.
+      Hypotheek:
+        description: >-
+          Zekerheidsrecht gevestigd door een hypotheekakte ter
+          zekerstelling van een geldvordering.
+        comments:
+          - Hoofdsom in bedrag.
+
+types:
+
+  # --- «Codelijst»-typen: deelmodel-specifiek ---------------------------------
+
+  CodelijstBRK:
+    typeof: string
+    description: >-
+      Waarde uit een BRK-codelijst die in de documentatie niet nader
+      is gespecificeerd; gebruikt voor Aantekening.aardAantekening.
+    see_also:
+      - https://www.kadaster.nl/zakelijk/registraties/basisregistraties/brk
+    annotations:
+      mim:stereotype: Codelijst

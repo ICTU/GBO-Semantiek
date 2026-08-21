@@ -1,0 +1,2095 @@
+@prefix gbobegrip: <https://begrippen.gbo-semantiek.nl/id/begrip/> .
+@prefix gbotm: <https://lod.gbo-semantiek.nl/toestemmingen/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gbotm:Evenementenvergunning a sh:NodeShape ;
+    rdfs:comment "Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Tijden waarbinnen het evenement per dag mag plaatsvinden, bijvoorbeeld \"12:00-23:00; zondag tot 20:00\"." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/tijdvakperdag> ],
+        [ sh:class gbotm:OpenbareActiviteit ;
+            sh:description "Het evenement waarvoor de vergunning is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 30 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/betreft> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 33 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Tijdstip vanaf wanneer de opbouw is toegestaan." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/opbouwvanaf> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Soort evenement, bijvoorbeeld muziekevenement, braderie of markt, optocht, sportevenement, buurtfeest, kermis of circus." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/soortevenement> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Soort evenement, bijvoorbeeld muziekevenement, braderie of markt, optocht, sportevenement, buurtfeest, kermis of circus." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/soortevenement> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 39 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Tijdstip waarop de afbouw gereed moet zijn en de locatie is opgeleverd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/afbouwtot> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 32 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:description "Indicatie dat zwak-alcoholhoudende drank wordt verstrekt." ;
+            sh:in ( "Ja" "Nee" "Onbekend" ) ;
+            sh:maxCount 1 ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/alcoholverstrekking> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 37 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 34 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 36 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden waarbinnen het evenement per dag mag plaatsvinden, bijvoorbeeld \"12:00-23:00; zondag tot 20:00\"." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/tijdvakperdag> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Maximaal toegestaan aantal gelijktijdig aanwezige bezoekers." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/maximaalaantalbezoekers> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 40 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 41 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Risicoklasse volgens de regionale risicoscan: A is regulier, B is aandacht, C is risicovol." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/risicoklasse> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Tijdstip vanaf wanneer de opbouw is toegestaan." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/opbouwvanaf> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 38 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:class gbotm:OpenbareActiviteit ;
+            sh:description "Het evenement waarvoor de vergunning is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/betreft> ],
+        [ sh:description "Indicatie dat zwak-alcoholhoudende drank wordt verstrekt." ;
+            sh:in ( "Ja" "Nee" "Onbekend" ) ;
+            sh:maxCount 1 ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/alcoholverstrekking> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Maximaal toegestaan aantal gelijktijdig aanwezige bezoekers." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/maximaalaantalbezoekers> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 35 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:time ;
+            sh:description "Uiterste tijdstip tot wanneer versterkte muziek is toegestaan." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/eindtijdmuziek> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Risicoklasse volgens de regionale risicoscan: A is regulier, B is aandacht, C is risicovol." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/risicoklasse> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 43 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 42 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Tijdstip waarop de afbouw gereed moet zijn en de locatie is opgeleverd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/afbouwtot> ],
+        [ sh:datatype xsd:time ;
+            sh:description "Uiterste tijdstip tot wanneer versterkte muziek is toegestaan." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/eindtijdmuziek> ] ;
+    sh:targetClass gbotm:Evenementenvergunning .
+
+gbotm:Gehandicaptenparkeerkaart a sh:NodeShape ;
+    rdfs:comment "Kaart volgens Europees model, door het college verstrekt aan een persoon met een beperking of aan een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen en op de daaraan verbonden uitzonderingen op parkeerverboden." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:description "Soort kaart naar de hoedanigheid van de houder." ;
+            sh:in ( "Bestuurder" "Passagier" "Instelling" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/gehandicaptenparkeerkaart/soortkaart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nummer van de kaart zoals daarop vermeld, uniek per kaart." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/gehandicaptenparkeerkaart/kaartnummer> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Soort kaart naar de hoedanigheid van de houder." ;
+            sh:in ( "Bestuurder" "Passagier" "Instelling" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/gehandicaptenparkeerkaart/soortkaart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nummer van de kaart zoals daarop vermeld, uniek per kaart." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/gehandicaptenparkeerkaart/kaartnummer> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ] ;
+    sh:targetClass gbotm:Gehandicaptenparkeerkaart .
+
+gbotm:Ligplaatsontheffing a sh:NodeShape ;
+    rdfs:comment "Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water waar een ligplaatsverbod geldt." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:class gbotm:Vaartuig ;
+            sh:description "Het vaartuig waarvoor de ontheffing is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/betreft> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nummer of aanduiding van de ligplaats: steiger, kade of nummer." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/ligplaatsaanduiding> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 30 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nummer of aanduiding van de ligplaats: steiger, kade of nummer." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/ligplaatsaanduiding> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:class gbotm:Vaartuig ;
+            sh:description "Het vaartuig waarvoor de ontheffing is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/betreft> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Nummer van de afgegeven sticker of het vignet." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/stickernummer> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Nummer van de afgegeven sticker of het vignet." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/stickernummer> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ] ;
+    sh:targetClass gbotm:Ligplaatsontheffing .
+
+gbotm:Marktvergunning a sh:NodeShape ;
+    rdfs:comment "Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nummer van de standplaats op de markt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/standplaatsnummer> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Dag of dagen van de week waarop de vergunning geldt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/marktdagen> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Dag of dagen van de week waarop de vergunning geldt." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/marktdagen> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Toegewezen frontbreedte in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/frontbreedte> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 35 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 30 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:description "Soort marktplaats waarvoor de vergunning geldt." ;
+            sh:in ( "VasteStandplaats" "Dagplaats" "Standwerkersplaats" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/soortmarktplaats> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 34 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "Personen die de vergunninghouder bij afwezigheid mogen vervangen." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/vervanger> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 39 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "Personen die de vergunninghouder bij afwezigheid mogen vervangen." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/vervanger> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 37 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nummer van de standplaats op de markt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/standplaatsnummer> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Branche of artikelgroep, bijvoorbeeld groente en fruit, kaas of textiel." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/branche> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 38 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam of aanduiding van de markt, bijvoorbeeld \"Algemene warenmarkt Markt (donderdag)\"." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/markt> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 33 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Toegewezen frontbreedte in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/frontbreedte> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam of aanduiding van de markt, bijvoorbeeld \"Algemene warenmarkt Markt (donderdag)\"." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/markt> ],
+        [ sh:description "Soort marktplaats waarvoor de vergunning geldt." ;
+            sh:in ( "VasteStandplaats" "Dagplaats" "Standwerkersplaats" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/soortmarktplaats> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 32 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 36 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Branche of artikelgroep, bijvoorbeeld groente en fruit, kaas of textiel." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/branche> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ] ;
+    sh:targetClass gbotm:Marktvergunning .
+
+gbotm:OverigeToestemming a sh:NodeShape ;
+    rdfs:comment "Een toestemming van een soort waarvoor geen eigen objecttype is uitgewerkt, met uitsluitend de generieke gegevens." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ] ;
+    sh:targetClass gbotm:OverigeToestemming .
+
+gbotm:Parkeerontheffing a sh:NodeShape ;
+    rdfs:comment "Ontheffing van het college van een parkeerverbod, een parkeerschijfzone of een geslotenverklaring voor een bepaald voertuig." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Zone of gebied waar de ontheffing geldt, bijvoorbeeld blauwe zone centrum." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/gebied> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden, in dagen of uren, waarop de ontheffing geldt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/tijdvak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Kenteken van het voertuig waarvoor de ontheffing geldt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/kenteken> ;
+            sh:pattern "^[A-Z0-9-]{6,8}$" ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 33 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Soort ontheffing, bijvoorbeeld blauwe zone, voetgangersgebied, milieuzone, grote voertuigen, autobedrijf of reclamevoertuig." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/soortontheffing> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Zone of gebied waar de ontheffing geldt, bijvoorbeeld blauwe zone centrum." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/gebied> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Soort ontheffing, bijvoorbeeld blauwe zone, voetgangersgebied, milieuzone, grote voertuigen, autobedrijf of reclamevoertuig." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/soortontheffing> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 30 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Kenteken van het voertuig waarvoor de ontheffing geldt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/kenteken> ;
+            sh:pattern "^[A-Z0-9-]{6,8}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden, in dagen of uren, waarop de ontheffing geldt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/tijdvak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 32 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ] ;
+    sh:targetClass gbotm:Parkeerontheffing .
+
+gbotm:Standplaatsvergunning a sh:NodeShape ;
+    rdfs:comment "Toestemming van het college voor het innemen of hebben van een standplaats: een vaste plaats op of aan de weg of op een andere openbare plaats, buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Branche of productgroep van de standplaats, bijvoorbeeld vis, bloemen, oliebollen, ijs, snacks of kerstbomen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/branche> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Branche of productgroep van de standplaats, bijvoorbeeld vis, bloemen, oliebollen, ijs, snacks of kerstbomen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/branche> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 32 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 30 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 37 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 35 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 34 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Soort standplaats naar tijdsduur." ;
+            sh:in ( "Vast" "Seizoensgebonden" "Incidenteel" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/soortstandplaats> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 33 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 36 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toegestane afmetingen van de verkoopinrichting: lengte, breedte en hoogte in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/afmetingen> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nadere omschrijving van de goederen of diensten die mogen worden aangeboden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/verkoopwaren> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden waarbinnen de standplaats mag worden ingenomen." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/tijdvak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Nadere omschrijving van de goederen of diensten die mogen worden aangeboden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/verkoopwaren> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Dag of dagen van de week waarop de standplaats mag worden ingenomen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/dagen> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden waarbinnen de standplaats mag worden ingenomen." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/tijdvak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Toegestane afmetingen van de verkoopinrichting: lengte, breedte en hoogte in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/afmetingen> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Dag of dagen van de week waarop de standplaats mag worden ingenomen." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/dagen> ],
+        [ sh:description "Soort standplaats naar tijdsduur." ;
+            sh:in ( "Vast" "Seizoensgebonden" "Incidenteel" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/soortstandplaats> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ] ;
+    sh:targetClass gbotm:Standplaatsvergunning .
+
+gbotm:Straatartiestenontheffing a sh:NodeShape ;
+    rdfs:comment "Ontheffing van de burgemeester van het verbod om als straatartiest, straatfotograaf, tekenaar, filmoperateur of gids op te treden op door hem aangewezen wegen of op aangewezen dagen en uren." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Indicatie dat gebruik van geluidsversterking is toegestaan." ;
+            sh:in ( "Ja" "Nee" "Onbekend" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/versterktgeluid> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 34 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 30 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Dag of dagen van de week, of data, waarop mag worden opgetreden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/dagen> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aard van het optreden, bijvoorbeeld muziek, zang, levend standbeeld, acrobatiek, portrettekenen, rondleiding of straatfotografie." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/soortoptreden> ],
+        [ sh:description "Indicatie dat gebruik van geluidsversterking is toegestaan." ;
+            sh:in ( "Ja" "Nee" "Onbekend" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/versterktgeluid> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden waarbinnen mag worden opgetreden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/tijdvak> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 27 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Tijden waarbinnen mag worden opgetreden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/tijdvak> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 28 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aard van het optreden, bijvoorbeeld muziek, zang, levend standbeeld, acrobatiek, portrettekenen, rondleiding of straatfotografie." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/soortoptreden> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 35 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 33 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 31 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Aantal personen dat gezamenlijk optreedt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/aantalpersonen> ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Aantal personen dat gezamenlijk optreedt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/aantalpersonen> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 32 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Dag of dagen van de week, of data, waarop mag worden opgetreden." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/dagen> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 26 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ] ;
+    sh:targetClass gbotm:Straatartiestenontheffing .
+
+gbotm:Toestemming a sh:NodeShape ;
+    rdfs:comment "Een door een bestuursorgaan aan een houder verleende toestemming om een activiteit te verrichten of een situatie in stand te houden die zonder die toestemming niet is toegestaan." ;
+    sh:closed false ;
+    sh:ignoredProperties ( <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/opbouwvanaf> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/vervanger> <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/gebied> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/tijdvakperdag> gbotm:tijdvak gbotm:kenteken <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/soortevenement> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/soortmarktplaats> <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/dagen> <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/ligplaatsaanduiding> <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/tijdvak> <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/aantalpersonen> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/marktdagen> <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/betreft> <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/verkoopwaren> <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/kenteken> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/eindtijdmuziek> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/branche> <https://lod.gbo-semantiek.nl/toestemmingen/ligplaatsontheffing/stickernummer> <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/dagen> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/betreft> <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/soortontheffing> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/markt> gbotm:branche <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/soortstandplaats> <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/afmetingen> <https://lod.gbo-semantiek.nl/toestemmingen/parkeerontheffing/tijdvak> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/frontbreedte> <https://lod.gbo-semantiek.nl/toestemmingen/gehandicaptenparkeerkaart/soortkaart> <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/soortoptreden> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/maximaalaantalbezoekers> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/risicoklasse> gbotm:betreft <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/versterktgeluid> <https://lod.gbo-semantiek.nl/toestemmingen/marktvergunning/standplaatsnummer> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/alcoholverstrekking> <https://lod.gbo-semantiek.nl/toestemmingen/evenementenvergunning/afbouwtot> <https://lod.gbo-semantiek.nl/toestemmingen/straatartiestenontheffing/tijdvak> <https://lod.gbo-semantiek.nl/toestemmingen/gehandicaptenparkeerkaart/kaartnummer> gbotm:dagen <https://lod.gbo-semantiek.nl/toestemmingen/standplaatsvergunning/branche> rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/besluit> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/document> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/identificatie> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 15 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 22 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumeinde> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/producttype> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon aan wie de toestemming is verleend." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/houder> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/voorschriften> ],
+        [ sh:description "Status in de levensloop van de toestemming." ;
+            sh:in ( "Initieel" "InAanvraag" "Gereed" "Actief" "Ingetrokken" "Geweigerd" "Verlopen" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 16 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/status> ],
+        [ sh:description "De juridische soort van de toestemming." ;
+            sh:in ( "Vergunning" "Ontheffing" "Vrijstelling" "InstemmingMetMelding" "Maatwerkvoorschrift" "Gedoogbeschikking" "ErkenningOfRegistratie" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/soorttoestemming> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de toestemming ingaat." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/omschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/zaak> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/toestemming/locatieomschrijving> ] ;
+    sh:targetClass gbotm:Toestemming .
+
+gbotm:OpenbareActiviteit a sh:NodeShape ;
+    rdfs:comment "Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Status van de activiteit." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/status> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam waaronder de activiteit wordt aangekondigd." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/evenementnaam> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de activiteit eindigt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/datumeinde> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de activiteit begint." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/datumstart> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de activiteit eindigt." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/datumeinde> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon die de activiteit organiseert." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/organisator> ],
+        [ sh:datatype xsd:date ;
+            sh:description "Datum waarop de activiteit begint." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/datumstart> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie van de activiteit." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam waaronder de activiteit wordt aangekondigd." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/evenementnaam> ],
+        [ sh:class gbobegrip:NatuurlijkPersoon ;
+            sh:description "De persoon die de activiteit organiseert." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/organisator> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Omschrijving van de locatie van de activiteit." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/locatieomschrijving> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Status van de activiteit." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/openbareactiviteit/status> ] ;
+    sh:targetClass gbotm:OpenbareActiviteit .
+
+gbotm:Vaartuig a sh:NodeShape ;
+    rdfs:comment "Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Overheersende kleur van het vaartuig." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/kleur> ],
+        [ sh:datatype xsd:float ;
+            sh:description "Lengte van het vaartuig in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/lengte> ],
+        [ sh:datatype xsd:float ;
+            sh:description "Hoogte van het vaartuig in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/hoogte> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Overheersende kleur van het vaartuig." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/kleur> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van het vaartuig." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/naamvaartuig> ],
+        [ sh:datatype xsd:float ;
+            sh:description "Breedte van het vaartuig in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/breedte> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Naam van het vaartuig." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/naamvaartuig> ],
+        [ sh:datatype xsd:float ;
+            sh:description "Hoogte van het vaartuig in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/hoogte> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Registratie- of senumnummer van het vaartuig, voor zover aanwezig." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/registratienummer> ],
+        [ sh:datatype xsd:float ;
+            sh:description "Breedte van het vaartuig in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/breedte> ],
+        [ sh:datatype xsd:string ;
+            sh:description "Registratie- of senumnummer van het vaartuig, voor zover aanwezig." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/registratienummer> ],
+        [ sh:datatype xsd:float ;
+            sh:description "Lengte van het vaartuig in meters." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path <https://lod.gbo-semantiek.nl/toestemmingen/vaartuig/lengte> ] ;
+    sh:targetClass gbotm:Vaartuig .
+

@@ -72,7 +72,7 @@ De configuratie staat in `.env` in de repository-root:
 
 | Variabele | Beschrijving |
 |-----------|-------------|
-| `VERSION` | Huidige versie (bijv. `v0.3`) |
+| `VERSION` | Huidige versie (bijv. `v0.4`) |
 | `PREVIOUS_VERSION` | Vorige versie (voor diff) |
 | `GBO_FILE` | Naam van het QEA-bestand |
 | `LOD_FILE` | Naam van het Linked Data-bestand |

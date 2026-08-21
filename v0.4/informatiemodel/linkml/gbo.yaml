@@ -1,0 +1,137 @@
+# =============================================================================
+# GBO-Informatiemodel — LinkML-hoofdschema
+#
+# Dit is de LinkML-weergave van het informatiemodel zoals beschreven in
+# docs/informatiemodel/gbo-kern/. De documentatie (wiki) is leidend:
+# wijzig eerst de wiki, en werk daarna dit schema bij in dezelfde PR.
+#
+# Indeling:
+#   - gbo.yaml            dit bestand: hoofdschema, importeert alle delen
+#   - datatypes.yaml      simpele en aanvullende datatypes, stelselbrede
+#                         codelijsten (uit datatypes-en-codelijsten.md)
+#   - hoofdmodel.yaml     Partij-supertype en gedeelde patronen zoals het
+#                         Voorkomen-mixin (uit hoofdmodel.md)
+#   - <deelmodel>.yaml    één bestand per deelmodel, 1-op-1 met de wiki
+#
+# Importregel: deelmodel-bestanden importeren alleen linkml:types,
+# datatypes en hoofdmodel. Verwijzingen tussen deelmodellen (zoals
+# Ingezetene -> Binnenlandsadres) worden pas op dit niveau opgelost.
+# Valideer daarom altijd via dit bestand, niet per deelmodel.
+#
+# Conventies (MIM 1.2 -> LinkML):
+#   Definitie                  -> description
+#   Toelichting                -> comments
+#   Indicatie abstract object  -> abstract: true
+#   Begrip (URI)               -> exact_mappings: [gbobegrip:<Naam>]
+#   Unieke aanduiding          -> identifier: true (of unique_keys bij een
+#                                 geërfde identifier)
+#   Herkomst, Datum opname,    -> annotations met mim:-prefix
+#   Populatie, Kwaliteit,
+#   Authentiek, Mat./Form.
+#   historie, Herkomst definitie
+#   Kardinaliteit              -> required / multivalued; waar LinkML de
+#                                 exacte kardinaliteit niet kan uitdrukken
+#                                 (bv. 0..2) ook annotations mim:kardinaliteit
+#   «Codelijst» (extern)       -> type (typeof string) met see_also naar de
+#                                 beheerder; tilde-naam als alias
+#                                 (Codelijst~LT33 -> CodelijstLT33)
+#   «Enumeratie» (gesloten)    -> enum met permissible_values
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/informatiemodel/gbo
+name: gbo
+title: GBO-Informatiemodel
+description: >-
+  Semantisch informatiemodel van de Gemeenschappelijke Bronontsluiting
+  (GBO): een landelijke, sectoroverstijgende beschrijving van
+  basisgegevens uit overheidsregistraties. Dit LinkML-schema is afgeleid
+  van de documentatie in docs/informatiemodel/gbo-kern/; de documentatie
+  is leidend.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+version: 0.4.0
+
+# Parkeerlijst — openstaande punten, geconsolideerd uit de
+# deelmodel-bestanden. Op te pakken bij de harmonisatie van de wiki
+# of een volgende modelversie.
+todos:
+  - >-
+    (hoofdmodel: Partij) De brug-klasse Verbintenis uit hoofdmodel.md
+    ontbreekt; het deelmodel Personen modelleert alleen Huwelijk —
+    wiki harmoniseren. De sleutelrelatie Partij <-> Tenaamstelling is
+    gemodelleerd vanaf de Tenaamstelling-zijde (tenaamgesteldOp).
+  - >-
+    (personen: NatuurlijkPersoon.heeftOuder) ouderAanduiding
+    (Ouder1/Ouder2) is in de wiki een attribuut op de relatie;
+    modellering als associatieklasse nog te bepalen.
+  - >-
+    (personen: Ingezetene.woontOp) Het verband Adres-Ingezetene draagt
+    in de wiki zelf het Voorkomen-mixin (verblijfshistorie);
+    modellering als associatieklasse nog te bepalen.
+  - >-
+    (datatypes: Geometrie) Rijkere geo-modellering
+    (coördinatenstelsel als attribuut, GeoSPARQL-binding) is een
+    openstaand punt; voorlopig WKT-notatie als string.
+  - >-
+    (datatypes: CodelijstBRP) Per gebruik bepalen welke Landelijke
+    Tabel bedoeld is (zoals Huwelijk.redenOntbinding) en een specifiek
+    type introduceren.
+  - >-
+    (adressen-en-gebouwen: Pand) Stelselkoppeling "Pand staat op
+    Perceel(en)" toevoegen zodra de wiki er een relatiesoort voor
+    definieert; het deelmodel Onroerende zaken is inmiddels
+    geconverteerd.
+  - >-
+    (adressen-en-gebouwen: TypeAdresseerbaarObject) Deze enumeratie
+    wordt in de wiki gebruikt maar ontbreekt als eigen sectie onder
+    Enumeraties; wiki aanvullen met een eigen sectie inclusief
+    Begrip-URI.
+  - >-
+    (bedrijven-en-instellingen: Rechtstoestand.insolventieCode) De
+    wiki noemt als type alleen "Codelijst" zonder specificatie;
+    voorlopig als string gemodelleerd totdat de codelijst is benoemd.
+  - >-
+    (onroerende-zaken: Aantekening en Zekerheidsrecht) De MIM-tabel
+    noemt identificatie als unieke aanduiding, maar de
+    attribuutsoorten-tabel bevat geen attribuut identificatie;
+    afstemming met de wiki nodig.
+  - >-
+    (onroerende-zaken: CodelijstBRK) Bepalen welke BRK-waardelijst
+    bedoeld is voor Aantekening.aardAantekening en een specifiek type
+    introduceren.
+  - >-
+    (algemeen) De mim:-annotaties afstemmen op het officiële
+    MIM-RDF-vocabulaire van Geonovum.
+  - >-
+    (bronnen) Sleutel-referenties gebruiken de model-identifier
+    (zoals id); een optioneel veld sleutelSlot per
+    relatieAfhandeling (bijvoorbeeld bsn) is een mogelijke
+    uitbreiding van het bronprofiel-schema.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  # MIM-metagegevens; afstemming op het officiële MIM-RDF-vocabulaire
+  # van Geonovum is een openstaand punt.
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+  dcterms: http://purl.org/dc/terms/
+  skos: http://www.w3.org/2004/02/skos/core#
+  # Nodig om de datatype-URI's (xsd:string, xsd:date, ...) uit te klappen;
+  # zonder deze prefix schrijft gen-shacl ze weg als letterlijke <xsd:string>.
+  xsd: http://www.w3.org/2001/XMLSchema#
+default_prefix: gbo
+default_range: string
+
+imports:
+  - linkml:types
+  - datatypes
+  - hoofdmodel
+  - personen
+  - adressen-en-gebouwen
+  - bedrijven-en-instellingen
+  - onroerende-zaken
+  - waarde-onroerende-zaken
+  - belastingen
+  - krediet
+  - onderwijs
+  - werk-en-inkomen
+  - voertuigen

@@ -28,7 +28,7 @@ docs_dir: docs
 site_dir: site
 
 # Mike-versioning: stel in zodat mike de versie-informatie correct injecteert.
-# alias: true toont de alias achter de versie in het versiemenu (v0.3 latest),
+# alias: true toont de alias achter de versie in het versiemenu (v0.4 latest),
 # net als bij GBO, GBO-GO en GBO-PSA. 'main' is de stand van de hoofdbranch.
 extra:
   version:
@@ -163,6 +163,8 @@ nav:
       - Datatypes en codelijsten: informatiemodel/gbo-kern/datatypes-en-codelijsten.md
     - "Informatiemodel: GBO-Voorzieningenmodel":
       - Hoofdmodel: informatiemodel/gbo-voorzieningen.md
+    - "Informatiemodellen Pilots":
+      - Vergunningen en Ontheffingen: informatiemodel/pilots/vergunningen-en-ontheffingen.md
     - "Ontologie":
       - Inleiding: ontologie/inleiding.md
     - Implementatie:

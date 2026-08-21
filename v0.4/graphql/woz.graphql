@@ -1,0 +1,185 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel WOZ, gegenereerd uit gbo-bron-woz.yaml.
+# Regenereer met: task generate:graphql
+#
+# WOZ-objecten en -deelobjecten, de jaarlijks vastgestelde WOZ-waarden
+# en de bij een object betrokken belanghebbenden.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10). Identificeert pand, verblijfsobject, standplaats, ligplaats, nummeraanduiding, openbare ruimte en woonplaats in de BAG."""
+scalar BAGID @restrictie(patroon: "^[0-9]{16}$")
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Rationaal getal als teller/noemer (1/2, 1/3), zodat mede-eigendom exact zonder afrondingsverlies wordt vastgelegd; gebruikt voor Tenaamstelling.aandeel."""
+scalar Breuk @restrictie(patroon: "^[0-9]+/[0-9]+$")
+"""Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
+scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+"""Gemeentecode conform BRP-Landelijke Tabel 33 Gemeenten. Formeel een BRP-codelijst, feitelijk de stelselbrede gemeente-codering inclusief historische gemeenten met einddatum."""
+scalar CodelijstLT33 @restrictie(patroon: "^[0-9]{4}$")
+"""WOZ Gebruikscode conform de LV-WOZ-catalogus: functioneel gebruik van het WOZ-object, bijvoorbeeld woning, kantoor, agrarisch object. Vastgesteld door de Waarderingskamer."""
+scalar CodelijstWOZ
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Object- of documentidentificatie zonder vaste structuur."""
+scalar Identificatie
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
+"""Kadastrale aanduiding van een onroerende zaak: kadastrale gemeente, sectie en perceelnummer (bij een appartementsrecht aangevuld met een index), samen uniek binnen de BRK."""
+scalar KadastraleAanduiding
+"""Gestandaardiseerde samenstelling van gemeentecode en objectnummer als één string; maakt een WOZ-object uniek identificeerbaar buiten de eigen gemeentecontext."""
+scalar ObjectAanduiding
+
+"""De fiscale eenheid van onroerende zaak waarop de Wet waardering onroerende zaken van toepassing is: het kleinste samengestelde geheel dat als één eenheid wordt gewaardeerd voor de onroerendezaakbelasting en andere op de WOZ-waarde gebaseerde heffingen."""
+type WOZObject {
+  """WOZ-eigen objectnummer binnen een gemeente."""
+  wozObjectnummer: Int!
+  """Gestandaardiseerde aanduiding bestaande uit gemeentecode en objectnummer."""
+  aanduiding: ObjectAanduiding!
+  """Gemeente die verantwoordelijk is voor de waardering."""
+  verantwoordelijkeGemeente: CodelijstLT33!
+  """Oppervlakte van de bij het object behorende grond in m²."""
+  grondoppervlakte: Int
+  """Type gebruik van het object."""
+  gebruikscode: CodelijstWOZ
+  """Levenscyclus-status van het WOZ-object."""
+  statusWOZObject: StatusWOZObject!
+  """Vastgestelde waarden door de tijd; één per peildatum-instantie."""
+  kentWOZWaarde: [WOZWaarde!]!
+  """Afzonderlijk gewaardeerde onderdelen binnen het hoofdobject."""
+  bevat: [WOZDeelobject!]
+  """Eén of meer BAG-adresseerbare objecten die samen het WOZ-object vormen. (Sleutel-referentie naar AdresseerbaarObject.)"""
+  refereert: [BAGID!]!
+  """Eén of meer BRK-percelen waarop de fiscale eenheid ligt. (Sleutel-referentie naar Perceel.)"""
+  ligtOp: [KadastraleAanduiding!]!
+  """De belanghebbenden bij dit WOZ-object."""
+  heeftBelanghebbende: [Belanghebbende!]
+}
+
+"""Een afzonderlijk gewaardeerd onderdeel binnen een WOZ-object, dat een eigen gebruik of eigen waardering kent ten opzichte van het samengestelde hoofdobject."""
+type WOZDeelobject {
+  """Volgnummer van het deelobject binnen het WOZ-object."""
+  deelobjectnummer: Int!
+  """Korte beschrijving van het deelobject."""
+  omschrijving: String
+  """Waarden die specifiek aan het deelobject worden toegekend."""
+  kentWOZWaarde: [WOZWaarde!]
+}
+
+"""De op grond van de Wet waardering onroerende zaken vastgestelde waarde van een WOZ-object op een waardepeildatum, voor een aaneengesloten periode van geldigheid, vastgelegd in een WOZ-beschikking."""
+type WOZWaarde {
+  """De vastgestelde waarde van het WOZ-object op de peildatum."""
+  vastgesteldeWaarde: Bedrag!
+  """Datum waarnaar de waarde is bepaald."""
+  waardepeildatum: Datum!
+  """Datum vanaf wanneer de waarde geldigheid heeft."""
+  ingangsdatum: Datum!
+  """Datum waarop de waarde vervalt."""
+  einddatum: Datum
+  """Identificatie van de WOZ-beschikking."""
+  beschikkingsnummer: Identificatie
+  """Vaststellingsstatus van de waarde."""
+  statusWOZWaarde: StatusWOZWaarde!
+  """Chronologische statussen die de beschikking heeft doorlopen."""
+  beschikkingsStatussen: [BeschikkingStatus!]!
+  """Geeft aan of een bezwaar of beroep loopt tegen de beschikking."""
+  indicatieBezwaarBeroep: Indicatie!
+}
+
+"""De geregistreerde rechtsbetrekking tussen een partij en een WOZ-object, waarbij de partij voor de Wet WOZ als eigenaar, gebruiker of beide rollen heeft en daarom de WOZ-beschikking ontvangt voor het object."""
+type Belanghebbende {
+  """Hoedanigheid van de belanghebbende ten aanzien van het WOZ-object."""
+  rolBelanghebbende: RolBelanghebbende!
+  """Het breukdeel waarmee de partij in de rol deelneemt."""
+  aandeel: Breuk
+  """Datum waarop de rol is ingegaan."""
+  datumIngang: Datum!
+  """Datum waarop de rol is geëindigd."""
+  datumEinde: Datum
+  """WOZ-object waarop de rol betrekking heeft."""
+  vanWOZObject: WOZObject!
+}
+
+"""Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
+type Bedrag {
+  """De numerieke waarde van het bedrag."""
+  waarde: Float!
+  """Valuta conform ISO 4217; bij afwezigheid geldt EUR."""
+  valuta: CodelijstISO4217
+}
+
+"""Levenscyclus-status van een WOZ-object binnen de Landelijke Voorziening WOZ."""
+enum StatusWOZObject {
+  """Het WOZ-object is actueel in gebruik voor de waardering."""
+  Actief
+  """Het WOZ-object is voor de WOZ niet langer in gebruik."""
+  VervallenVoorWOZ
+}
+
+"""Vaststellingsstatus van een WOZ-waarde voor een waardepeildatum."""
+enum StatusWOZWaarde {
+  """De waarde is definitief vastgesteld en is rechtsgeldig."""
+  DefinitiefVastgesteld
+  """De waarde is komen te vervallen."""
+  Vervallen
+  """De waarde is voorlopig vastgesteld in afwachting van definitieve vaststelling."""
+  VoorlopigVastgesteld
+}
+
+"""Chronologische statussen die een WOZ-beschikking doorloopt vanaf concept tot onherroepelijk worden."""
+enum BeschikkingStatus {
+  """Tegen de beschikking is beroep ingesteld bij de rechter."""
+  Beroep
+  """Tegen de beschikking is bezwaar gemaakt bij de gemeente."""
+  Bezwaar
+  """De beschikking is in voorbereiding en nog niet aan de belanghebbende bekendgemaakt."""
+  ConceptBeschikking
+  """De beschikking is vastgesteld en aan de belanghebbende bekendgemaakt."""
+  DefinitieveBeschikking
+  """Tegen de uitspraak in beroep is hoger beroep ingesteld."""
+  HogerBeroep
+  """De beschikking staat juridisch vast en is niet meer voor rechtsmiddelen vatbaar."""
+  Onherroepelijk
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
+}
+
+"""Hoedanigheid waarin een partij voor de Wet WOZ bij een WOZ-object betrokken is."""
+enum RolBelanghebbende {
+  """De partij is voor de Wet WOZ eigenaar van het WOZ-object."""
+  Eigenaar
+  """De partij is voor de Wet WOZ zowel eigenaar als gebruiker van het WOZ-object."""
+  EigenaarEnGebruiker
+  """De partij is voor de Wet WOZ gebruiker van het WOZ-object."""
+  Gebruiker
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """WOZObject."""
+  wozObjectOpWOZObjectNummer(wozObjectnummer: Int!): [WOZObject!]
+  """Belanghebbende."""
+  belanghebbendeOpBsn(bsn: BSN!): [Belanghebbende!]
+  """Belanghebbende."""
+  belanghebbendeOpRsin(rsin: String!): [Belanghebbende!]
+  """Belanghebbende."""
+  belanghebbendeOpKvkNummer(kvkNummer: KVKnummer!): [Belanghebbende!]
+  """Eén WOZObject op aanduiding."""
+  wOZObject(aanduiding: ObjectAanduiding!): WOZObject
+}

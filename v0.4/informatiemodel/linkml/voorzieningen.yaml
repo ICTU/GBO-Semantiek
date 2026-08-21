@@ -1,0 +1,934 @@
+# =============================================================================
+# GBO — Voorzieningenmodel: uitwisseling, grondslag en levering
+# Bron (leidend): publicatie/voorzieningen/voorzieningenmodel.md
+#
+# Dit schema modelleert de *uitwisseling* van gegevens: wie vraagt, op
+# welke grondslag, en wat er geleverd wordt. Het staat naast het
+# inhoudelijke kernmodel (gbo.yaml), dat beschrijft *welke* gegevens er
+# in de registraties zitten. Het wordt daarom bewust niet door gbo.yaml
+# geimporteerd: de twee modellen hebben een eigen levenscyclus en een
+# eigen publicatie.
+#
+# Ontwerpuitgangspunt is kanaal-neutraliteit. De PSA onderscheidt drie
+# interactiepatronen (wallet-attestatie, OOTS-evidence, toestemming met
+# een private partij). Het model moet alle drie kunnen dragen zonder dat
+# een van de drie in de structuur is ingebakken; zie de klasse
+# Interactiepatroon.
+#
+# Conventies (MIM 1.2 -> LinkML) zijn gelijk aan gbo.yaml.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/voorzieningen
+name: gbo-voorzieningen
+title: GBO-Voorzieningenmodel
+description: >-
+  Informatiemodel van de GBO-voorzieningen: de objecttypen waarmee een
+  gegevensverzoek, de grondslag daarvoor en de daaruit volgende levering
+  worden beschreven. Kanaal-neutraal opgezet: het dekt de drie
+  interactiepatronen uit de GBO PSA (EUDI-wallet, OOTS en delen via
+  toestemming met private partijen).
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+version: 0.4.0
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+  skos: http://www.w3.org/2004/02/skos/core#
+  # Nodig om de datatype-URI's (xsd:string, xsd:date, ...) uit te klappen;
+  # zonder deze prefix schrijft gen-shacl ze weg als letterlijke <xsd:string>.
+  xsd: http://www.w3.org/2001/XMLSchema#
+  gbovz: https://lod.gbo-semantiek.nl/voorzieningen/
+default_prefix: gbovz
+default_range: string
+
+# Importeert het volledige kernschema en niet alleen hoofdmodel, omdat
+# Rol naar Partij verwijst en Partij pas op gbo-niveau volledig oplost
+# (zie de importregel in gbo.yaml). Omgekeerd importeert gbo.yaml dit
+# schema niet: het kernmodel blijft bruikbaar zonder de voorzieningen.
+imports:
+  - linkml:types
+  - datatypes
+  - gbo
+
+# Parkeerlijst — openstaande punten bij dit deelmodel.
+todos:
+  - >-
+    (Rol) Rol staat hier omdat het voorzieningenmodel de eerste
+    toepassing is; het concept is generieker. Zodra het kernmodel Rol
+    nodig heeft (KREDIET-OQ-002, BorgstellingRol) hoort de klasse naar
+    hoofdmodel.yaml te verhuizen en importeert dit schema hem van daar.
+  - >-
+    (Betrokkene) De identificatie van een betrokkene zonder BSN loopt bij
+    OOTS via identity matching op basis van de EU-eIDAS-attributen. Het
+    matching-proces zelf is een voorziening, geen gegeven; hier is alleen
+    het resultaat gemodelleerd. Uitwerken zodra de OOTS-client verder is.
+  - >-
+    (Mapping) De mapping naar SDG-evidence-types en EUDI-attestatie-
+    schema's is nu een verwijzing per URI. Of de mapping-regels zelf in
+    het model horen of in een aparte transformatiespecificatie, is nog
+    open.
+
+classes:
+
+  # ---------------------------------------------------------------------
+  # Actoren en rollen
+  # ---------------------------------------------------------------------
+
+  Rol:
+    description: >-
+      De functie die een partij in een specifieke context vervult, zoals
+      bronhouder van een register, dienstverlener in een transactie of
+      afnemer van een levering.
+    class_uri: gbovz:Rol
+    exact_mappings:
+      - gbobegrip:Rol
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Rol
+      skos:definition_nl: De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering.
+      skos:definitionSource: GBO (voorstel), afgeleid uit de DvTP-functionele requirements en de rolverdeling in de GBO PSA
+      mim:elementtype: Relatieklasse
+      mim:uniekeAanduiding: "samengesteld uit (partij, rolsoort, context, datumIngang)"
+      mim:herkomst: GBO
+      mim:populatie: >-
+        Alle voorkomens waarin een partij in de bronontsluiting een
+        gedefinieerde functie vervult.
+    comments:
+      - >-
+        Rol staat los van Partij: een partij is een rechtsdragend
+        subject, een rol is wat die partij in een bepaalde context doet.
+        Dezelfde niet-natuurlijke persoon kan tegelijk dienstverlener in
+        het ene verzoek en afnemer in het andere zijn. Door rol en partij
+        gescheiden te houden vermijdt het model een wildgroei aan
+        subtypes van Partij voor elke nieuwe actor die een kanaal
+        introduceert.
+    attributes:
+      id:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen identifier voor een rolvervulling.
+      partij:
+        required: true
+        range: Partij
+        description: De partij die deze rol vervult.
+      rolsoort:
+        required: true
+        range: Rolsoort
+        description: De functie die de partij in deze context vervult.
+      context:
+        range: Tekst
+        description: >-
+          De dienst, het interactiepatroon of het stelsel waarbinnen de
+          rol geldt. Een partij kan dezelfde rolsoort in meerdere
+          contexten vervullen.
+      datumIngang:
+        required: true
+        range: Datum
+        description: Datum waarop de rolvervulling ingaat.
+      datumEinde:
+        range: Datum
+        description: >-
+          Datum waarop de rolvervulling eindigt; leeg betekent lopend.
+
+  # ---------------------------------------------------------------------
+  # Betrokkene — de persoon om wiens gegevens het gaat
+  # ---------------------------------------------------------------------
+
+  Betrokkene:
+    abstract: true
+    description: >-
+      De natuurlijke persoon om wiens gegevens het in een
+      gegevensverzoek gaat.
+    class_uri: gbovz:Betrokkene
+    exact_mappings:
+      - gbobegrip:Betrokkene
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Betrokkene
+      skos:definition_nl: De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat.
+      skos:definitionSource: GBO (voorstel); term ontleend aan de AVG, waar de betrokkene degene is op wie persoonsgegevens betrekking hebben
+      mim:elementtype: Objecttype
+      mim:indicatieAbstractObject: Ja
+    comments:
+      - >-
+        Betrokkene is bewust abstract. In het Nederlandse patroon is de
+        betrokkene een burger met een BSN; bij OOTS gaat het om een
+        persoon die door een buitenlandse overheid is geidentificeerd en
+        die geen BSN hoeft te hebben. Beide moeten in hetzelfde
+        gegevensverzoek passen.
+    attributes:
+      id:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen identifier voor een betrokkene.
+
+  Burger:
+    is_a: Betrokkene
+    description: >-
+      De persoon om wiens gegevens het gaat en die deze wil gebruiken om
+      een dienst af te nemen; in de Nederlandse context altijd
+      identificeerbaar met een BSN.
+    class_uri: gbovz:Burger
+    exact_mappings:
+      - gbobegrip:Burger
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Burger
+      skos:definition_nl: De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een burgerservicenummer.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+      mim:herkomst: GBO PSA
+    attributes:
+      bsn:
+        range: BSN
+        description: >-
+          Het burgerservicenummer van de betrokkene. Wordt nooit aan een
+          private dienstverlener verstrekt; die ontvangt een pseudoniem.
+        annotations:
+          mim:authentiek: Authentiek
+      pseudoniem:
+        range: Identificatie
+        description: >-
+          Betekenisloze identificator die in plaats van het BSN wordt
+          gebruikt richting private partijen, verstrekt door de
+          pseudonimiseringsdienst.
+
+  BuitenlandseBetrokkene:
+    is_a: Betrokkene
+    description: >-
+      De persoon om wiens gegevens het gaat en die door een
+      EU-overheidsdienst is geidentificeerd, zonder dat een BSN
+      beschikbaar hoeft te zijn.
+    class_uri: gbovz:BuitenlandseBetrokkene
+    exact_mappings:
+      - gbobegrip:BuitenlandseBetrokkene
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Buitenlandse betrokkene
+      skos:definition_nl: De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een burgerservicenummer beschikbaar hoeft te zijn.
+      skos:definitionSource: GBO (voorstel), afgeleid uit de SDG-verordening en het OOTS-identity-matching-patroon
+      mim:elementtype: Objecttype
+      mim:herkomst: OOTS (SDG-verordening)
+    comments:
+      - >-
+        Het koppelen van de buitenlandse identiteit aan een persoon in
+        een Nederlandse registratie gebeurt via identity matching. Dat
+        proces is een voorziening; hier wordt alleen het resultaat
+        vastgelegd.
+    attributes:
+      eidasIdentificatie:
+        range: Identificatie
+        description: >-
+          De eIDAS-identificator waarmee de betrokkene door de
+          notificerende lidstaat is geidentificeerd.
+      lidstaat:
+        range: CodelijstISO3166
+        description: De lidstaat die de identiteit heeft vastgesteld.
+      matchStatus:
+        range: Tekst
+        description: >-
+          Uitkomst van de identity matching tegen de Nederlandse
+          registratie.
+
+  # ---------------------------------------------------------------------
+  # Grondslag
+  # ---------------------------------------------------------------------
+
+  Grondslag:
+    abstract: true
+    description: >-
+      De juridische basis voor gegevensuitwisseling: toestemming van de
+      betrokkene of een wettelijke verplichting.
+    class_uri: gbovz:Grondslag
+    exact_mappings:
+      - gbobegrip:Grondslag
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Grondslag
+      skos:definition_nl: "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting."
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+      mim:indicatieAbstractObject: Ja
+    comments:
+      - >-
+        Grondslag is het supertype; Toestemming is een van de twee
+        vormen, niet de enige. Een gegevensverzoek verwijst naar precies
+        een grondslag. Dat maakt het OOTS-patroon modelleerbaar, waar de
+        grondslag de SDG-verordening is en er geen toestemming aan te
+        pas komt.
+    attributes:
+      id:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen identifier voor een grondslag.
+      toelichting:
+        range: Tekst
+        description: Toelichting op de toepasselijkheid van deze grondslag.
+
+  Toestemming:
+    is_a: Grondslag
+    description: >-
+      Het expliciete akkoord van de betrokkene dat een specifieke partij
+      een specifieke set gegevens mag opvragen, gebonden aan een scope en
+      een geldigheidsduur.
+    class_uri: gbovz:Toestemming
+    exact_mappings:
+      - gbobegrip:Toestemming
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Toestemming
+      skos:definition_nl: Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur.
+      skos:definitionSource: GBO PSA; AVG art. 4 lid 11 voor het toestemmingsbegrip
+      mim:elementtype: Objecttype
+      mim:herkomst: GBO PSA
+    comments:
+      - >-
+        De aanvrager is een Rol en geen Dienstverlener: in het
+        wallet-patroon vraagt een QTSP of PubEAA-provider de toestemming,
+        niet een private dienstverlener.
+      - >-
+        Een toestemming is niet overdraagbaar. Wanneer een andere partij
+        de gegevens uiteindelijk gebruikt, is daarvoor een eigen
+        toestemming nodig.
+    attributes:
+      betrokkene:
+        required: true
+        range: Betrokkene
+        description: Degene die de toestemming verleent.
+      aanvrager:
+        required: true
+        range: Rol
+        description: >-
+          De rol waarin een partij de toestemming heeft aangevraagd.
+      scope:
+        required: true
+        range: Scope
+        description: De verzameling gegevenselementen waartoe de toestemming beperkt is.
+      geldigTot:
+        required: true
+        range: DatumTijd
+        description: Moment waarop de toestemming vervalt.
+      status:
+        required: true
+        range: Toestemmingsstatus
+        description: De actuele status van de toestemming.
+
+  WettelijkeVerplichting:
+    is_a: Grondslag
+    description: >-
+      De wettelijke bepaling op grond waarvan gegevens zonder
+      toestemming van de betrokkene mogen of moeten worden verstrekt.
+    class_uri: gbovz:WettelijkeVerplichting
+    exact_mappings:
+      - gbobegrip:WettelijkeVerplichting
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Wettelijke verplichting
+      skos:definition_nl: De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt.
+      skos:definitionSource: GBO (voorstel); voor OOTS de SDG-verordening (EU) 2018/1724
+      mim:elementtype: Objecttype
+    comments:
+      - >-
+        Dit is de grondslag in het OOTS-patroon: de SDG-verordening
+        verplicht tot verstrekking op verzoek van een bevoegde
+        EU-overheidsdienst.
+    attributes:
+      wettelijkeBasis:
+        required: true
+        range: Tekst
+        description: >-
+          Aanduiding van de wet, verordening of regeling met artikel.
+      regelingURI:
+        range: URI
+        description: Verwijzing naar de gepubliceerde regeling.
+
+  # ---------------------------------------------------------------------
+  # Aanbod: bron, dienst, scope
+  # ---------------------------------------------------------------------
+
+  Gegevenselement:
+    description: >-
+      De kleinste adresseerbare eenheid van data. Verwijst naar precies
+      een begrip in het begrippenkader en voegt structuurinformatie toe.
+    class_uri: gbovz:Gegevenselement
+    exact_mappings:
+      - gbobegrip:Gegevenselement
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Gegevenselement
+      skos:definition_nl: De kleinste adresseerbare eenheid van data, die naar precies een begrip verwijst en daar structuurinformatie aan toevoegt.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van het gegevenselement.
+      naam:
+        required: true
+        range: Tekst
+        description: Naam van het gegevenselement.
+      datatype:
+        required: true
+        range: Tekst
+        description: Het datatype van het gegevenselement.
+      kardinaliteit:
+        range: Tekst
+        description: De kardinaliteit binnen de objectstructuur.
+      begrip:
+        required: true
+        range: URI
+        description: >-
+          Verwijzing naar precies een begrip in het begrippenkader, dat
+          de betekenis van dit gegevenselement vastlegt.
+
+  Bron:
+    description: >-
+      Een registratie of gegevensverzameling bij een bronhouder, met een
+      wettelijke grondslag.
+    class_uri: gbovz:Bron
+    exact_mappings:
+      - gbobegrip:Bron
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Bron
+      skos:definition_nl: Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van de bron.
+      naam:
+        required: true
+        range: Tekst
+        description: Naam van de bron, bijvoorbeeld BRP of BAG.
+      bronhouder:
+        required: true
+        range: Rol
+        description: >-
+          De rol waarin een partij deze bron beheert; de rolsoort is
+          Bronhouder.
+      wettelijkeGrondslag:
+        range: Tekst
+        description: De wettelijke basis waarop de bron wordt gehouden.
+      bevat:
+        range: Gegevenselement
+        multivalued: true
+        description: De gegevenselementen die in deze bron voorkomen.
+
+  Dienst:
+    description: >-
+      Een afgebakend doel waarvoor gegevens mogen worden opgevraagd,
+      wettelijk verankerd en met een maximale scope.
+    class_uri: gbovz:Dienst
+    exact_mappings:
+      - gbobegrip:Dienst
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Dienst
+      skos:definition_nl: Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van de dienst.
+      naam:
+        required: true
+        range: Tekst
+        description: Naam van de dienst.
+      wettelijkeVerankering:
+        range: Tekst
+        description: >-
+          De AMvB of ministeriele regeling waarin de dienst is
+          vastgelegd.
+      maximaleScope:
+        required: true
+        range: Scope
+        description: >-
+          De ruimst toegestane verzameling gegevenselementen voor deze
+          dienst.
+      ontsluit:
+        range: Bron
+        multivalued: true
+        description: De bronnen die voor deze dienst worden ontsloten.
+
+  Scope:
+    description: >-
+      Een benoemde verzameling gegevenselementen. De maximale scope
+      wordt bepaald door wetgeving; een afnemer kan een kleinere scope
+      vragen.
+    class_uri: gbovz:Scope
+    exact_mappings:
+      - gbobegrip:Scope
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Scope
+      skos:definition_nl: Een benoemde verzameling gegevenselementen; de maximale scope wordt bepaald door wetgeving, een afnemer kan een kleinere scope vragen.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van de scope.
+      naam:
+        required: true
+        range: Tekst
+        description: Naam van de scope.
+      doelbeschrijving:
+        range: Tekst
+        description: Het doel waarvoor deze scope is samengesteld.
+      omvat:
+        required: true
+        multivalued: true
+        range: Gegevenselement
+        description: De gegevenselementen die de scope omvat.
+
+  Dienstencatalogus:
+    description: >-
+      Het register van alle beschikbare diensten met hun scopes.
+    class_uri: gbovz:Dienstencatalogus
+    exact_mappings:
+      - gbobegrip:Dienstencatalogus
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Dienstencatalogus
+      skos:definition_nl: Het register van alle beschikbare diensten met hun scopes.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+    comments:
+      - >-
+        Nadrukkelijk een register van diensten, niet van losse gegevens.
+    attributes:
+      versie:
+        identifier: true
+        required: true
+        range: Tekst
+        description: Versieaanduiding van de catalogus.
+      geldigVanaf:
+        required: true
+        range: Datum
+        description: Datum vanaf wanneer deze versie geldt.
+      vastgesteldDoor:
+        range: Tekst
+        description: De instantie die de catalogus heeft vastgesteld.
+      registreert:
+        multivalued: true
+        range: Dienst
+        description: De diensten die in deze catalogusversie staan.
+
+  # ---------------------------------------------------------------------
+  # Verzoek en levering
+  # ---------------------------------------------------------------------
+
+  Interactiepatroon:
+    description: >-
+      Een van de manieren waarop een gegevensverzoek tot stand komt en
+      wordt beantwoord, met vaste afspraken over wie initieert, wie
+      ontvangt en welke grondslag geldt.
+    class_uri: gbovz:Interactiepatroon
+    exact_mappings:
+      - gbobegrip:Interactiepatroon
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Interactiepatroon
+      skos:definition_nl: Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt.
+      skos:definitionSource: GBO PSA, hoofdstuk Interactiepatronen
+      mim:elementtype: Objecttype
+      mim:herkomst: GBO PSA, hoofdstuk Interactiepatronen
+    comments:
+      - >-
+        Het patroon is geexpliciteerd als objecttype zodat de verschillen
+        tussen de drie kanalen in gegevens vastliggen in plaats van in de
+        structuur van het model. Een nieuw kanaal is dan een nieuw
+        voorkomen, geen modelwijziging.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Patroonsoort
+        description: Aanduiding van het interactiepatroon.
+      naam:
+        required: true
+        range: Tekst
+        description: Naam van het patroon.
+      initiatorRolsoort:
+        required: true
+        range: Rolsoort
+        description: De rolsoort die in dit patroon het verzoek initieert.
+      ontvangerRolsoort:
+        required: true
+        range: Rolsoort
+        description: De rolsoort die de levering ontvangt.
+      toegestaneGrondslag:
+        required: true
+        range: Tekst
+        description: >-
+          De grondslagvorm die in dit patroon van toepassing is:
+          toestemming of wettelijke verplichting.
+      leveringsvorm:
+        required: true
+        range: Tekst
+        description: >-
+          De vorm waarin geleverd wordt: gegevensset, attestatie of
+          evidence.
+
+  Gegevensverzoek:
+    description: >-
+      De transactie waarmee brondata wordt opgevraagd, op basis van
+      precies een grondslag.
+    class_uri: gbovz:Gegevensverzoek
+    exact_mappings:
+      - gbobegrip:Gegevensverzoek
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Gegevensverzoek
+      skos:definition_nl: De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag.
+      skos:definitionSource: GBO PSA
+      mim:elementtype: Objecttype
+    comments:
+      - >-
+        De initiatiefnemer is een Rol en geen vast objecttype. Daarmee
+        kan het verzoek worden gestart door een dienstverlener, door de
+        betrokkene zelf (wallet) of door een EU-overheidsdienst (OOTS).
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van het verzoek.
+      initiatiefnemer:
+        required: true
+        range: Rol
+        description: De rol waarin het verzoek is gestart.
+      betrokkene:
+        required: true
+        range: Betrokkene
+        description: Degene om wiens gegevens het verzoek gaat.
+      gevraagdeScope:
+        required: true
+        range: Scope
+        description: >-
+          De gevraagde verzameling gegevenselementen; nooit ruimer dan de
+          maximale scope van de dienst.
+      grondslag:
+        required: true
+        range: Grondslag
+        description: >-
+          De juridische basis voor dit verzoek: een toestemming of een
+          wettelijke verplichting.
+        annotations:
+          mim:kardinaliteit: "1..1"
+      volgtPatroon:
+        required: true
+        range: Interactiepatroon
+        description: Het interactiepatroon waarbinnen dit verzoek valt.
+      beantwoordDoor:
+        range: Rol
+        description: >-
+          De rol waarin een partij het verzoek beantwoordt; de rolsoort
+          is Bronhouder.
+      tijdstip:
+        required: true
+        range: DatumTijd
+        description: Moment waarop het verzoek is gedaan.
+      status:
+        required: true
+        range: Tekst
+        description: De actuele status van het verzoek.
+
+  Levering:
+    abstract: true
+    description: >-
+      Het resultaat dat op een gegevensverzoek wordt teruggegeven.
+    class_uri: gbovz:Levering
+    exact_mappings:
+      - gbobegrip:Levering
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Levering
+      skos:definition_nl: Het resultaat dat op een gegevensverzoek wordt teruggegeven.
+      skos:definitionSource: GBO (voorstel), afgeleid uit de drie leveringsvormen in de GBO PSA
+      mim:elementtype: Objecttype
+      mim:indicatieAbstractObject: Ja
+    comments:
+      - >-
+        Het model stopte eerder bij het verzoek. Zonder Levering is niet
+        uit te drukken dat hetzelfde brongegeven de ene keer als platte
+        gegevensset en de andere keer als gekwalificeerde attestatie of
+        als SDG-evidence het stelsel verlaat.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van de levering.
+      beantwoordt:
+        required: true
+        range: Gegevensverzoek
+        description: Het verzoek waarop deze levering het antwoord is.
+      ontvanger:
+        required: true
+        range: Rol
+        description: De rol waarin de levering wordt ontvangen.
+      tijdstip:
+        required: true
+        range: DatumTijd
+        description: Moment van levering.
+      gebaseerdOp:
+        range: Mapping
+        description: >-
+          De mapping waarmee de brongegevens naar de leveringsvorm zijn
+          omgezet; leeg wanneer een-op-een geleverd wordt.
+
+  Gegevensset:
+    is_a: Levering
+    description: >-
+      Levering als verzameling gegevenselementen in het GBO-formaat,
+      zonder juridische waarmerking.
+    class_uri: gbovz:Gegevensset
+    exact_mappings:
+      - gbobegrip:Gegevensset
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Gegevensset
+      skos:definition_nl: Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking.
+      skos:definitionSource: GBO (voorstel)
+      mim:elementtype: Objecttype
+    comments:
+      - >-
+        Dit is de leveringsvorm in het patroon waarin een private
+        dienstverlener met toestemming gegevens ophaalt.
+
+  Attestatie:
+    is_a: Levering
+    description: >-
+      Levering als gekwalificeerde verklaring die in een EUDI-wallet kan
+      worden opgeslagen en later zelfstandig verifieerbaar is.
+    class_uri: gbovz:Attestatie
+    exact_mappings:
+      - gbobegrip:Attestatie
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Attestatie
+      skos:definition_nl: Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is.
+      skos:definitionSource: eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework
+      mim:elementtype: Objecttype
+      mim:herkomst: eIDAS2 / ARF
+    attributes:
+      attestatiesoort:
+        required: true
+        range: Attestatiesoort
+        description: >-
+          Of het een PubEAA is, uitgegeven onder verantwoordelijkheid van
+          een overheidsorgaan, of een QEAA van een gekwalificeerde
+          vertrouwensdienstverlener.
+      uitgever:
+        required: true
+        range: Rol
+        description: >-
+          De rol waarin de attestatie is uitgegeven; de rolsoort is
+          PubEAAProvider of QTSP.
+      geldigTot:
+        range: DatumTijd
+        description: Moment waarop de attestatie vervalt.
+
+  Evidence:
+    is_a: Levering
+    description: >-
+      Levering als bewijsstuk in de vorm die het Once-Only Technical
+      System voorschrijft, bestemd voor een bevoegde autoriteit in een
+      andere lidstaat.
+    class_uri: gbovz:Evidence
+    exact_mappings:
+      - gbobegrip:Evidence
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Evidence
+      skos:altLabel_nl_0_value: Bewijsstuk
+      skos:altLabel_nl_0_source: Nederlandse aanduiding in de SDG-context
+      skos:definition_nl: Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat.
+      skos:definitionSource: SDG-verordening (EU) 2018/1724 en het OOTS Evidence Broker
+      mim:elementtype: Objecttype
+      mim:herkomst: OOTS (SDG-verordening)
+    attributes:
+      evidenceType:
+        required: true
+        range: URI
+        description: >-
+          Het SDG-evidence-type waaraan de levering voldoet, als
+          verwijzing naar het Evidence Broker.
+      aanvragendeLidstaat:
+        range: CodelijstISO3166
+        description: De lidstaat van de bevoegde autoriteit die het bewijs vroeg.
+
+  Mapping:
+    description: >-
+      De vastgelegde omzetting tussen gegevenselementen uit een bron en
+      de structuur die een leveringsvorm voorschrijft.
+    class_uri: gbovz:Mapping
+    exact_mappings:
+      - gbobegrip:Mapping
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Mapping
+      skos:definition_nl: De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft.
+      skos:definitionSource: GBO (voorstel); de PSA benoemt de semantische mapping expliciet bij OOTS
+      mim:elementtype: Objecttype
+    comments:
+      - >-
+        De PSA benoemt bij OOTS expliciet een semantische mapping tussen
+        het SDG-formaat en het bronformaat. Dezelfde behoefte speelt bij
+        EUDI-attestatieschema's. Door de mapping te benoemen is
+        traceerbaar welk brongegeven achter een geleverd veld zit.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: Identificatie
+        description: Identificatie van de mapping.
+      naam:
+        required: true
+        range: Tekst
+        description: Naam van de mapping.
+      bronElement:
+        range: Gegevenselement
+        multivalued: true
+        description: De gegevenselementen aan de bronzijde.
+      doelschema:
+        required: true
+        range: URI
+        description: >-
+          Het schema aan de leveringszijde: een SDG-evidence-type of een
+          EUDI-attestatieschema.
+      transformatie:
+        range: Tekst
+        description: >-
+          Beschrijving van de omzetting, inclusief eventuele
+          codelijstconversies.
+
+enums:
+
+  Rolsoort:
+    description: >-
+      De functies die een partij binnen de bronontsluiting kan
+      vervullen.
+    exact_mappings:
+      - gbobegrip:Rolsoort
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Rolsoort
+      skos:definition_nl: De functies die een partij binnen de bronontsluiting kan vervullen.
+      skos:definitionSource: GBO PSA, hoofdstuk Interactiepatronen
+      mim:herkomst: GBO PSA, hoofdstuk Interactiepatronen
+    permissible_values:
+      Betrokkene:
+        description: >-
+          Degene om wiens gegevens het gaat; initieert in het
+          wallet-patroon zelf het verzoek.
+      Bronhouder:
+        description: >-
+          Eigenaar en beheerder van een bronregistratie, verantwoordelijk
+          voor het Policy Enforcement Point dat elk verzoek toetst.
+      Dienstverlener:
+        description: >-
+          De partij die een dienst aan de betrokkene levert en daarvoor
+          gegevens opvraagt.
+      Afnemer:
+        description: De partij die de geleverde gegevens uiteindelijk gebruikt.
+      QTSP:
+        description: >-
+          Gekwalificeerde vertrouwensdienstverlener die een QEAA uitgeeft.
+      PubEAAProvider:
+        description: >-
+          Uitgever van een attestatie onder verantwoordelijkheid van een
+          overheidsorgaan.
+      EUOverheidsdienst:
+        description: >-
+          Bevoegde autoriteit in een andere lidstaat die via OOTS een
+          bewijsstuk opvraagt.
+      Toestemmingsvoorziening:
+        description: >-
+          Voorziening waarin toestemmingen worden vastgelegd en
+          gevalideerd.
+      Pseudonimiseringsdienst:
+        description: >-
+          Voorziening die een BSN omzet naar een pseudoniem voor gebruik
+          door private partijen.
+
+  Patroonsoort:
+    description: De drie interactiepatronen die de GBO PSA onderscheidt.
+    exact_mappings:
+      - gbobegrip:Patroonsoort
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Patroonsoort
+      skos:definition_nl: De drie interactiepatronen die de GBO PSA onderscheidt.
+      skos:definitionSource: GBO PSA, hoofdstuk Interactiepatronen
+      mim:herkomst: GBO PSA, hoofdstuk Interactiepatronen
+    permissible_values:
+      WalletAttestatie:
+        description: >-
+          De betrokkene vraagt een attestatie aan voor opslag in de
+          EUDI-wallet; grondslag is toestemming.
+      OOTSEvidence:
+        description: >-
+          Een EU-overheidsdienst vraagt een bewijsstuk op bij een
+          Nederlandse bron; grondslag is de SDG-verordening.
+      ToestemmingPrivatePartij:
+        description: >-
+          Een private dienstverlener haalt gegevens op met toestemming
+          van de betrokkene.
+
+  Toestemmingsstatus:
+    description: De statussen die een toestemming kan doorlopen.
+    exact_mappings:
+      - gbobegrip:Toestemmingsstatus
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Toestemmingsstatus
+      skos:definition_nl: De statussen die een toestemming kan doorlopen.
+      skos:definitionSource: GBO (voorstel)
+    permissible_values:
+      Aangevraagd:
+        description: De toestemming is gevraagd maar nog niet verleend.
+      Verleend:
+        description: De betrokkene heeft de toestemming verleend.
+      Ingetrokken:
+        description: De betrokkene heeft de toestemming ingetrokken.
+      Vervallen:
+        description: De geldigheidsduur van de toestemming is verstreken.
+
+  Attestatiesoort:
+    description: >-
+      De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd
+      kan worden.
+    exact_mappings:
+      - gbobegrip:Attestatiesoort
+    annotations:
+      skos:status: proposed
+      skos:prefLabel_nl: Attestatiesoort
+      skos:definition_nl: De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden.
+      skos:definitionSource: eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework
+      mim:herkomst: eIDAS2 / ARF
+    permissible_values:
+      PubEAA:
+        description: >-
+          Attestatie uitgegeven onder verantwoordelijkheid van een
+          overheidsorgaan.
+      QEAA:
+        description: >-
+          Attestatie uitgegeven door een gekwalificeerde
+          vertrouwensdienstverlener.

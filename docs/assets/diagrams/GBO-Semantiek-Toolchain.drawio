@@ -85,7 +85,7 @@
         <mxCell id="leg4t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Mens-leesbare output" vertex="1">
           <mxGeometry height="20" width="160" x="110" y="643" as="geometry" />
         </mxCell>
-        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.3 · 2026-04-07" vertex="1">
+        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.4 · 2026-04-07" vertex="1">
           <mxGeometry height="20" width="160" x="1020" y="660" as="geometry" />
         </mxCell>
         <mxCell id="Qrr8wJZB_Ku0b79N1wXa-1" connectable="0" parent="1" style="group" value="" vertex="1">

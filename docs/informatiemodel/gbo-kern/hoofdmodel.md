@@ -315,7 +315,8 @@ together {
 
 ' ---- Belastingen (Belastingdienst / BRI / loonketen) ----
 together {
-  abstract class BelastingjaarAangifte <<belastingen>>
+  abstract class Aangifte <<belastingen>>
+  class Aanslag <<belastingen>>
   class Verzamelinkomen <<belastingen>>
   class EigenWoning <<belastingen>>
   abstract class Aftrekpost <<belastingen>>
@@ -366,7 +367,7 @@ AdresseerbaarObject -[hidden]down- Pand
 KadastraleOnroerendeZaak -[hidden]down- ZakelijkRecht
 ZakelijkRecht -[hidden]down- Tenaamstelling
 WOZObject -[hidden]down- WOZWaarde
-BelastingjaarAangifte -[hidden]down- Verzamelinkomen
+Aangifte -[hidden]down- Verzamelinkomen
 Verzamelinkomen -[hidden]down- Aftrekpost
 Aftrekpost -[hidden]down- Inkomstenverhouding
 Inkomstenverhouding -[hidden]down- LoonBestanddeel
@@ -403,7 +404,8 @@ WOZObject "1" --> "1..*" AdresseerbaarObject : refereert
 WOZObject "0..*" --> "1..*" Perceel : ligt op
 
 ' ---- Belastingen-bruggen ----
-NatuurlijkPersoon "1" <-- "0..*" BelastingjaarAangifte : ingediendDoor
+NatuurlijkPersoon "1" <-- "0..*" Aangifte : betreft
+NatuurlijkPersoon "1" <-- "0..*" Aanslag : opgelegdAan
 NatuurlijkPersoon "1" <-- "0..*" Verzamelinkomen : gegrondvestOp
 NatuurlijkPersoon "1" <-- "0..*" Aftrekpost : opgevoerdDoor
 NatuurlijkPersoon "1" <-- "0..*" Toeslag : toegekendAan
@@ -444,7 +446,7 @@ NatuurlijkPersoon "1" <-- "0..*" StudieLening : aangegaanDoor
 | Adressen en gebouwen | `Adres`, `Binnenlandsadres`, `Postadres`, `AdresseerbaarObject`, `Verblijfsobject`, `Pand` | [Adressen en gebouwen](deelmodellen/adressen-en-gebouwen.md) |
 | Onroerende zaken | `KadastraleOnroerendeZaak`, `Perceel`, `Appartementsrecht`, `ZakelijkRecht`, `Tenaamstelling`, `PubliekrechtelijkeBeperking` | [Onroerende zaken](deelmodellen/onroerende-zaken.md) |
 | Waarde onroerende zaken | `WOZObject`, `WOZWaarde` | [Waarde onroerende zaken](deelmodellen/waarde-onroerende-zaken.md) |
-| Belastingen | `BelastingjaarAangifte`, `Verzamelinkomen`, `EigenWoning`, `Aftrekpost`, `Toeslag`, `Inkomstenverhouding`, `LoonAangifte`, `LoonBestanddeel`, `Renseignering` | [Belastingen](deelmodellen/belastingen.md) |
+| Belastingen | `Aangifte`, `Aanslag`, `Verzamelinkomen`, `EigenWoning`, `Aftrekpost`, `Toeslag`, `Inkomstenverhouding`, `LoonAangifte`, `LoonBestanddeel`, `Renseignering` | [Belastingen](deelmodellen/belastingen.md) |
 | Krediet | `KredietOvereenkomst`, `HypothecairKredietEigenWoning`, `AchterstandRegistratie` | [Krediet](deelmodellen/krediet.md) |
 | Onderwijs | `OnderwijsInstelling`, `OpleidingDeelname`, `StudieLening` | [Onderwijs](deelmodellen/onderwijs.md) |
 | Werk en Inkomen | `Uitkering`, `Arbeidsverhouding` | [Werk en Inkomen](deelmodellen/werk-en-inkomen.md) |

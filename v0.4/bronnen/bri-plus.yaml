@@ -1,0 +1,227 @@
+# =============================================================================
+# Bron-profiel BRI-plus — de uitgebreide levering van de Belastingdienst,
+# bovenop het authentieke gegeven uit de Basisregistratie Inkomen
+# (profiel bri.yaml).
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel bri-plus.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.4/bronnen/bri-plus.yaml
+#
+# Dit profiel is de opvolger van het vervallen profiel bd.yaml. De
+# Belastingdienst levert via GBO nog twee ingangen: de VIA
+# (voorinvulling, profiel via.yaml) en deze uitgebreide levering. Alles
+# wat bd.yaml dekte en niet voorinvulling is, staat nu hier.
+#
+# Vorm van de levering: de aanslag draagt de aangifterubrieken
+# (vermogen, aftrek, eigen woning, fiscaal partnerschap); die zijn
+# uitsluitend daaronder bereikbaar, via de inverse van onderdeelVan.
+# De navigatie persoon -> rubriek is met "inverse: false" onderdrukt,
+# zodat er geen tweede, afwijkend pad naar dezelfde gegevens ontstaat.
+# Alleen toeslagen en renseigneringen houden een heeft-veld op de
+# persoon: die staan bewust los van de aanslag.
+#
+# Schenk- en erfbelasting krijgen een eigen query en hangen niet onder
+# de aanslag: zij volgen een andere sleutel (per schenking
+# respectievelijk per nalatenschap), zodat er per belastingjaar
+# meerdere kunnen zijn en de een-per-jaar-afspraak van aanslagOverJaar
+# er niet op past.
+#
+# needs-review: de naam "BRI-plus" dekt de lading niet meer nu dit
+#   profiel naast de inkomensketen ook aanslagen, aangifterubrieken,
+#   toeslagen en renseigneringen levert. Toeslagen vallen onder de Awir,
+#   niet onder de Basisregistratie Inkomen. Naamkeuze staat open; de
+#   bron-sleutel is voorlopig ongewijzigd gelaten omdat die doorwerkt in
+#   de gegenereerde bestandsnamen in gbo-semantiek.
+# =============================================================================
+bron: BRI-plus
+titel: Belastingdienst — uitgebreide levering (BRI-plus)
+beschrijving: >-
+  De uitgebreide levering van de Belastingdienst: het authentiek
+  inkomensgegeven (volledig, met vaststellingsdatum en
+  vaststellingsbron), de onderliggende inkomensbestanddelen uit de
+  loonketen, de vastgestelde aanslag inkomstenbelasting met de daarin
+  vastgestelde rubrieken (Box 3-vermogen, aftrekposten, eigen woning,
+  fiscaal partnerschap), de toegekende toeslagen en de door derden
+  gedane renseigneringen. Levert uitsluitend gegevens voor ingeschreven
+  personen (personen met een BSN) en uitsluitend over voorgaande,
+  afgesloten belastingjaren; gegevens over het lopende jaar worden niet
+  geleverd. De opvraagdatum is leveringsmetadata en staat in de
+  antwoord-envelop van de levering, niet in het schema.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Geen query-ingang op de persoon en geen lijst-query: deze bron levert
+# fiscale gegevens, geen persoon. Elke benoemde query neemt de bsn als
+# argument; een eigen ingeschrevenPersoon-veld zou een tweede, lege
+# ingang naast die queries zetten.
+lijstQueries: false
+
+# Benoemde queries. De aanslag draagt de aangifterubrieken; vermogen,
+# aftrek, eigen woning en fiscaal partnerschap zijn daaronder
+# navigeerbaar via onderdeelVan en hoeven geen eigen ingang.
+#
+# aanslagOverJaar levert per belastingjaar de laatst vastgestelde
+# aanslag; soortAanslag maakt kenbaar of dat een voorlopige,
+# definitieve, navorderings- of herziene aanslag is. Eerdere standen
+# zijn langs deze weg niet opvraagbaar.
+queries:
+  - naamQuery: aanslagOverJaar
+    levert: Aanslag
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: aangifteSchenkbelastingOverJaar
+    levert: AangifteSchenkbelasting
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: aangifteErfbelastingOverJaar
+    levert: AangifteErfbelasting
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: verzamelinkomenOverJaar
+    levert: Verzamelinkomen
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: belastingjaar
+  - naamQuery: inkomstenverhoudingOverJaar
+    levert: Inkomstenverhouding
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: toeslagenOverJaar
+    levert: Toeslag
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: berekeningsjaar
+  - naamQuery: renseigneringenOverJaar
+    levert: Renseignering
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        op: renseigneringsjaar
+
+# Toeslagen en renseigneringen staan bewust los van de aanslag: een
+# toeslag valt onder de Awir met een eigen toekenningsproces, en een
+# renseignering is een melding van een derde (AWR art. 53) die binnenkomt
+# ver voordat er een aanslag bestaat. Beide hangen rechtstreeks aan de
+# persoon.
+objecttypen:
+  - IngeschrevenPersoon
+  - Aanslag
+  - Aangifte
+  - AangifteSchenkbelasting
+  - AangifteErfbelasting
+  - Verzamelinkomen
+  - Inkomstenverhouding
+  - Inkomstenopgave
+  - Inkomstenperiode
+  - LoonBestanddeel
+  - LoonAangifte
+  - VermogensBestanddeel
+  - BankSpaartegoed
+  - Belegging
+  - Cryptovaluta
+  - OnroerendeZaakOverigBezit
+  - Schuld
+  - Aftrekpost
+  - Hypotheekrenteaftrek
+  - AlimentatieAftrek
+  - LijfrenteAftrek
+  - GiftenAftrek
+  - EigenWoning
+  - FiscalePartner
+  - Toeslag
+  - Huurtoeslag
+  - Zorgtoeslag
+  - KinderopvangToeslag
+  - KindgebondenBudget
+  - Renseignering
+
+# Persoonsgegevens zijn BRP-terrein; dit profiel levert van de persoon
+# alleen de BSN, plus de gematerialiseerde inverse relaties naar de
+# fiscale gegevens.
+insluitingen:
+  - objecttype: IngeschrevenPersoon
+    attributen:
+      - bsn
+
+# Binnen de Belastingdienst-levering is elke persoon een ingeschreven
+# persoon (BSN-plicht). Relaties naar de onderneming (werkgever,
+# inhoudingsplichtige, renseigneringsplichtige) blijven default
+# sleutel-referenties (MaatschappelijkeActiviteit.kvkNummer); de relatie
+# van EigenWoning naar de kadastrale onroerende zaak wordt een
+# sleutel-referentie.
+relatieAfhandeling:
+  - objecttype: Aanslag
+    relatie: opgelegdAan
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: Verzamelinkomen
+    relatie: gegrondvestOp
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: Inkomstenverhouding
+    relatie: tussenPersoon
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: VermogensBestanddeel
+    relatie: houderVan
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: Aftrekpost
+    relatie: opgevoerdDoor
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: EigenWoning
+    relatie: bewoonbaarVoor
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: FiscalePartner
+    relatie: tussenPersonen
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: Aangifte
+    relatie: betreft
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+    inverse: false
+  - objecttype: Toeslag
+    relatie: toegekendAan
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: Renseignering
+    relatie: betreft
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon

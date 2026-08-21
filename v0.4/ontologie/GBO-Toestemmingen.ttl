@@ -1,0 +1,1139 @@
+@prefix gbo: <https://lod.gbo-semantiek.nl/> .
+@prefix gbobegrip: <https://begrippen.gbo-semantiek.nl/id/begrip/> .
+@prefix gbotm: <https://lod.gbo-semantiek.nl/toestemmingen/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix mim: <https://lod.gbo-semantiek.nl/def/mim#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gbotm:document a owl:DatatypeProperty ;
+    rdfs:label "document" ;
+    skos:definition "Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Pilot: tekstveld in plaats van de relatie \"is vastgelegd in\"." ;
+    mim:herkomst "RGBZ (InformatieObject.identificatie)" .
+
+gbotm:vervanger a owl:ObjectProperty ;
+    rdfs:label "vervanger" ;
+    skos:definition "Personen die de vergunninghouder bij afwezigheid mogen vervangen." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Demo-vereenvoudiging: in het wijzigingsvoorstel een Rechtspersoon (RSGB)." ;
+    mim:herkomst "VNG Model Marktverordening" .
+
+gbotm:Evenementenvergunning a owl:Class ;
+    rdfs:label "Evenementenvergunning" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:soortEvenement ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:time ;
+            owl:onProperty gbotm:eindtijdMuziek ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:opbouwVanaf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:OpenbareActiviteit ;
+            owl:onProperty gbotm:betreft ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortEvenement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:maximaalAantalBezoekers ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:risicoklasse ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvakPerDag ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:risicoklasse ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://lod.gbo-semantiek.nl/datatypes/indicatie> ;
+            owl:onProperty gbotm:alcoholverstrekking ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:alcoholverstrekking ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Numeriek ;
+            owl:onProperty gbotm:maximaalAantalBezoekers ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:afbouwTot ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbotm:opbouwVanaf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:tijdvakPerDag ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:eindtijdMuziek ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbotm:afbouwTot ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:betreft ],
+        gbotm:Toestemming ;
+    skos:definition "Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte." ;
+    skos:definitionSource "VNG Model-APV art. 2:25" ;
+    skos:definitionSourceUri "https://vng.nl/artikelen/model-apv" ;
+    skos:definition_nl "Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte, zoals een muziekevenement, braderie, optocht, sportevenement, buurtfeest, kermis of circus." ;
+    skos:exactMatch gbobegrip:Evenementenvergunning,
+        gbotm:Evenementenvergunning ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "De geldigheid (datumStart en datumEinde) omvat de evenementdag of -dagen inclusief op- en afbouw.",
+        "Het evenement zelf is een eigen ding dat meerdere besluiten kan kennen (evenementenvergunning, ontheffing art. 35 Alcoholwet, verkeersbesluit). Daarom verwijst de vergunning naar OpenbareActiviteit en herhaalt zij naam, data en organisator niet." ;
+    skos:prefLabel_nl "Evenementenvergunning" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "burgemeester" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:populatie "Alle door de burgemeester verleende evenementenvergunningen." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" ;
+    mim:uniformeProductnaam "evenementenvergunning" ;
+    mim:wettelijkeGrondslag "VNG Model-APV art. 2:25" .
+
+gbotm:Gehandicaptenparkeerkaart a owl:Class ;
+    rdfs:label "Gehandicaptenparkeerkaart" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:kaartnummer ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:kaartnummer ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortKaart ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:soortgehandicaptenparkeerkaart ;
+            owl:onProperty gbotm:soortKaart ],
+        gbotm:Toestemming ;
+    skos:altLabel_nl_0_source "Regeling gehandicaptenparkeerkaart (Europees model)" ;
+    skos:altLabel_nl_0_value "Europese gehandicaptenparkeerkaart" ;
+    skos:definition "Kaart volgens Europees model, door het college verstrekt aan een persoon met een beperking of aan een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen en op de daaraan verbonden uitzonderingen op parkeerverboden." ;
+    skos:definitionSource "BABW art. 49-55; Regeling gehandicaptenparkeerkaart" ;
+    skos:definitionSourceUri "https://wetten.overheid.nl/BWBR0007702" ;
+    skos:definition_nl "Kaart volgens Europees model, door het college verstrekt aan een persoon met een beperking (bestuurder of passagier) of aan een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen en op de daaraan verbonden uitzonderingen op parkeerverboden." ;
+    skos:exactMatch gbobegrip:Gehandicaptenparkeerkaart,
+        gbotm:Gehandicaptenparkeerkaart ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "De kaart is formeel geen vergunning maar een Europees erkend bewijs dat de houder ontheft van parkeerverboden; daarom soortToestemming \"ontheffing\".",
+        "De kaart is persoonsgebonden en niet voertuiggebonden, en geldt maximaal vijf jaar (datumEinde). Medische gegevens zoals het keuringsadvies worden niet vastgelegd." ;
+    skos:prefLabel_nl "Gehandicaptenparkeerkaart" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "college van burgemeester en wethouders" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:populatie "Alle door het college verstrekte gehandicaptenparkeerkaarten." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming); kaartnummer is uniek per kaart" ;
+    mim:uniformeProductnaam "gehandicaptenparkeerkaart bestuurder / passagier / instellingen" ;
+    mim:wettelijkeGrondslag "BABW art. 49; Regeling gehandicaptenparkeerkaart" .
+
+gbotm:Ligplaatsontheffing a owl:Class ;
+    rdfs:label "Ligplaatsontheffing" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Numeriek ;
+            owl:onProperty gbotm:stickernummer ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:Vaartuig ;
+            owl:onProperty gbotm:betreft ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:stickernummer ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:ligplaatsaanduiding ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:ligplaatsaanduiding ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:betreft ],
+        gbotm:Toestemming ;
+    skos:altLabel_nl_0_source "Uniforme Productnamenlijst (Logius)" ;
+    skos:altLabel_nl_0_value "Ligplaatsvergunning" ;
+    skos:definition "Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water waar een ligplaatsverbod geldt." ;
+    skos:definitionSource "VNG Model-APV art. 5:25; gemeentelijke havenverordening" ;
+    skos:definitionSourceUri "https://vng.nl/artikelen/model-apv" ;
+    skos:definition_nl "Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water waar een ligplaatsverbod geldt." ;
+    skos:exactMatch gbobegrip:Ligplaatsontheffing,
+        gbotm:Ligplaatsontheffing ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Bestaande GGM-klasse die in de pilotversie van Toestemming gaat erven: stickernummer wordt optioneel, ligplaatsaanduiding en de relatie naar Vaartuig zijn nieuw." ;
+    skos:prefLabel_nl "Ligplaatsontheffing" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "college van burgemeester en wethouders" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM Model VTH (bestaande klasse, uitgebreid in de pilotversie)" ;
+    mim:populatie "Alle door het college verleende ligplaatsontheffingen en -vergunningen." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" ;
+    mim:uniformeProductnaam "ligplaatsvergunning" ;
+    mim:wettelijkeGrondslag "VNG Model-APV art. 5:25" .
+
+gbotm:Marktvergunning a owl:Class ;
+    rdfs:label "Marktvergunning" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortMarktplaats ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:marktdagen ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:marktdagen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:markt ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:frontbreedte ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:markt ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:standplaatsnummer ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:soortmarktplaats ;
+            owl:onProperty gbotm:soortMarktplaats ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:standplaatsnummer ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:NatuurlijkPersoon ;
+            owl:onProperty gbotm:vervanger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Numeriek ;
+            owl:onProperty gbotm:frontbreedte ],
+        gbotm:Toestemming ;
+    skos:definition "Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats." ;
+    skos:definitionSource "VNG Model Marktverordening art. 2 e.v.; Gemeentewet art. 160" ;
+    skos:definitionSourceUri "https://wetten.overheid.nl/BWBR0005416" ;
+    skos:definition_nl "Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats." ;
+    skos:exactMatch gbobegrip:Marktvergunning,
+        gbotm:Marktvergunning ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Een vaste standplaats geldt doorgaans voor onbepaalde tijd, een dagplaats voor een enkele marktdag." ;
+    skos:prefLabel_nl "Marktvergunning" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "college van burgemeester en wethouders" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:populatie "Alle door het college verleende marktvergunningen." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" ;
+    mim:uniformeProductnaam "marktvergunning" ;
+    mim:wettelijkeGrondslag "VNG Model Marktverordening art. 2; Gemeentewet art. 160" .
+
+gbotm:OpenbareActiviteit a owl:Class ;
+    rdfs:label "OpenbareActiviteit" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbotm:datumStart ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumStart ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:evenementnaam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbotm:datumEinde ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:evenementnaam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumEinde ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:NatuurlijkPersoon ;
+            owl:onProperty gbotm:organisator ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:organisator ] ;
+    skos:altLabel_nl_0_source "VNG Model-APV art. 2:24 (begrip evenement)" ;
+    skos:altLabel_nl_0_value "Evenement" ;
+    skos:definition "Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator." ;
+    skos:definitionSource "GGM Model VTH (bestaande klasse OpenbareActiviteit)" ;
+    skos:definition_nl "Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator." ;
+    skos:exactMatch gbobegrip:OpenbareActiviteit,
+        gbotm:OpenbareActiviteit ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:needsReview_0 "De GGM-klasse kent geen expliciete unieke aanduiding in het wijzigingsvoorstel; in de pilot is de activiteit uitsluitend via de vergunning bereikbaar. Bij vaststelling een identificatie toevoegen." ;
+    skos:note "Het evenement is een eigen ding omdat het meerdere besluiten kan kennen: evenementenvergunning, ontheffing art. 35 Alcoholwet en verkeersbesluit. De vergunning verwijst ernaar en herhaalt de gegevens niet.",
+        "In de pilotversie is het bestaande GGM-attribuut evenmentnaam hernoemd naar evenementnaam en is de relatie organisator nieuw." ;
+    skos:prefLabel_nl "Openbare activiteit" ;
+    skos:status "proposed" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM Model VTH (bestaande klasse, uitgebreid in de pilotversie)" ;
+    mim:populatie "Alle openbare activiteiten waarvoor de gemeente een toestemming verleent of een melding registreert." .
+
+gbotm:OverigeToestemming a owl:Class ;
+    rdfs:label "OverigeToestemming" ;
+    rdfs:subClassOf gbotm:Toestemming ;
+    skos:definition "Een toestemming van een soort waarvoor geen eigen objecttype is uitgewerkt, met uitsluitend de generieke gegevens." ;
+    skos:definitionSource "GBO, afgeleid van het GGM-wijzigingsvoorstel \"Toestemming en Product\" (generiek gebruik van Toestemming)" ;
+    skos:definition_nl "Een door een bestuursorgaan verleende toestemming van een soort waarvoor geen eigen objecttype is uitgewerkt, vastgelegd met uitsluitend de generieke gegevens." ;
+    skos:exactMatch gbobegrip:OverigeToestemming,
+        gbotm:OverigeToestemming ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Een bewonersparkeervergunning kan in de pilot zo worden vastgelegd, met producttype \"parkeervergunning\" en kenteken en gebied in omschrijving en locatieOmschrijving.",
+        "Het wijzigingsvoorstel gebruikt hiervoor het generieke objecttype Toestemming zelf. Omdat Toestemming in GBO abstract is, zodat het in de GraphQL-projectie een interface wordt waarover alle soorten in een keer opvraagbaar zijn, is een concrete vangnet-klasse nodig. Semantisch is dat hetzelfde: geen eigen attributen, de soort staat in producttype." ;
+    skos:prefLabel_nl "Overige toestemming" ;
+    skos:status "proposed" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GBO" ;
+    mim:populatie "Alle verleende toestemmingen waarvan de soort geen eigen objecttype heeft, zoals collectevergunning, kampeerontheffing en geluidsontheffing." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" .
+
+gbotm:Parkeerontheffing a owl:Class ;
+    rdfs:label "Parkeerontheffing" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:gebied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:gebied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:soortOntheffing ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortOntheffing ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:kenteken ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Kenteken ;
+            owl:onProperty gbotm:kenteken ],
+        gbotm:Toestemming ;
+    skos:definition "Ontheffing van het college van een parkeerverbod, een parkeerschijfzone of een geslotenverklaring voor een bepaald voertuig." ;
+    skos:definitionSource "RVV 1990 art. 87; VNG Model-APV art. 5:2-5:8" ;
+    skos:definitionSourceUri "https://wetten.overheid.nl/BWBR0004825" ;
+    skos:definition_nl "Ontheffing van het college van een parkeerverbod, een parkeerschijfzone (blauwe zone) of een geslotenverklaring voor een bepaald voertuig, bijvoorbeeld voor bewoners van een blauwe zone, voor het voetgangersgebied of voor grote voertuigen." ;
+    skos:exactMatch gbobegrip:Parkeerontheffing,
+        gbotm:Parkeerontheffing ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:prefLabel_nl "Parkeerontheffing" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "college van burgemeester en wethouders" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:populatie "Alle door het college verleende parkeerontheffingen." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" ;
+    mim:uniformeProductnaam "parkeerontheffing; parkeerontheffing blauwe zone; parkeerontheffing grote voertuigen" ;
+    mim:wettelijkeGrondslag "RVV 1990 art. 87; VNG Model-APV art. 5:2-5:8" .
+
+gbotm:Standplaatsvergunning a owl:Class ;
+    rdfs:label "Standplaatsvergunning" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:afmetingen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:verkoopwaren ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:dagen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:dagen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:soortstandplaats ;
+            owl:onProperty gbotm:soortStandplaats ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:afmetingen ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortStandplaats ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:verkoopwaren ],
+        gbotm:Toestemming ;
+    skos:definition "Toestemming van het college voor het innemen of hebben van een standplaats: een vaste plaats op of aan de weg of op een andere openbare plaats, buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten." ;
+    skos:definitionSource "VNG Model-APV art. 5:17-5:18" ;
+    skos:definitionSourceUri "https://vng.nl/artikelen/model-apv" ;
+    skos:definition_nl "Toestemming van het college voor het innemen of hebben van een standplaats, een vaste plaats op of aan de weg of op een andere openbare plaats buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten." ;
+    skos:exactMatch gbobegrip:Standplaatsvergunning,
+        gbotm:Standplaatsvergunning ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "De houder is de ondernemer als natuurlijk persoon (eenmanszaak); in het volledige voorstel ook een vestiging. De standplaatslocatie staat in het geerfde locatieOmschrijving en wordt later een verwijzing naar een BAG-standplaats of Locatie." ;
+    skos:prefLabel_nl "Standplaatsvergunning" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "college van burgemeester en wethouders" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:populatie "Alle door het college verleende standplaatsvergunningen." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" ;
+    mim:uniformeProductnaam "standplaatsvergunning" ;
+    mim:wettelijkeGrondslag "VNG Model-APV art. 5:18" .
+
+gbotm:Straatartiestenontheffing a owl:Class ;
+    rdfs:label "Straatartiestenontheffing" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <https://lod.gbo-semantiek.nl/datatypes/indicatie> ;
+            owl:onProperty gbotm:versterktGeluid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:aantalPersonen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:soortOptreden ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortOptreden ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Numeriek ;
+            owl:onProperty gbotm:aantalPersonen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:dagen ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:versterktGeluid ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:dagen ],
+        gbotm:Toestemming ;
+    skos:altLabel_nl_0_source "lokale APV's (gemeenten die de vorm vergunning kennen)" ;
+    skos:altLabel_nl_0_value "Straatartiestenvergunning" ;
+    skos:definition "Ontheffing van de burgemeester van het verbod om als straatartiest, straatfotograaf, tekenaar, filmoperateur of gids op te treden op door hem aangewezen wegen of op aangewezen dagen en uren." ;
+    skos:definitionSource "VNG Model-APV art. 2:9" ;
+    skos:definitionSourceUri "https://vng.nl/artikelen/model-apv" ;
+    skos:definition_nl "Ontheffing van de burgemeester van het verbod om als straatartiest, straatfotograaf, tekenaar, filmoperateur of gids op te treden op door hem aangewezen wegen of op aangewezen dagen en uren." ;
+    skos:exactMatch gbobegrip:Straatartiestenontheffing,
+        gbotm:Straatartiestenontheffing ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "De houder is de artiest zelf; bij een groep de contactpersoon. De aangewezen wegen staan in het geerfde locatieOmschrijving." ;
+    skos:prefLabel_nl "Straatartiestenontheffing" ;
+    skos:status "proposed" ;
+    mim:bevoegdGezag "burgemeester" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:populatie "Alle door de burgemeester verleende straatartiestenontheffingen." ;
+    mim:uniekeAanduiding "identificatie (geerfd van Toestemming)" ;
+    mim:uniformeProductnaam "straatartiestoptreden ontheffing" ;
+    mim:wettelijkeGrondslag "VNG Model-APV art. 2:9" .
+
+gbotm:Vaartuig a owl:Class ;
+    rdfs:label "Vaartuig" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:naamVaartuig ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:hoogte ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:breedte ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:kleur ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:registratienummer ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:kleur ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:naamVaartuig ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Decimaal ;
+            owl:onProperty gbotm:breedte ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:registratienummer ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:lengte ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Decimaal ;
+            owl:onProperty gbotm:lengte ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Decimaal ;
+            owl:onProperty gbotm:hoogte ] ;
+    skos:definition "Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is." ;
+    skos:definitionSource "GGM Model VTH (bestaande klasse Vaartuig)" ;
+    skos:definition_nl "Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is: naam, registratienummer, kleur en afmetingen." ;
+    skos:exactMatch gbobegrip:Vaartuig,
+        gbotm:Vaartuig ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:needsReview_0 "Het kernmodel kent alleen Voertuig (BRV/RDW); voor vaartuigen bestaat geen landelijke basisregistratie. Bij vaststelling controleren of aansluiting op een register (bijvoorbeeld het scheepsregister van het Kadaster) mogelijk is." ;
+    skos:note "Bestaande GGM-klasse in Model VTH. Anders dan Voertuig in het kernmodel is een vaartuig niet aan een landelijke registratie ontleend; de gegevens komen uit de aanvraag." ;
+    skos:prefLabel_nl "Vaartuig" ;
+    skos:status "proposed" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM Model VTH (bestaande klasse)" ;
+    mim:populatie "Alle vaartuigen waarvoor de gemeente een ligplaatsontheffing heeft verleend." .
+
+gbotm:aantalPersonen a owl:DatatypeProperty ;
+    rdfs:label "aantalPersonen" ;
+    skos:definition "Aantal personen dat gezamenlijk optreedt." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 2 .
+
+gbotm:afbouwTot a owl:DatatypeProperty ;
+    rdfs:label "afbouwTot" ;
+    skos:definition "Tijdstip waarop de afbouw gereed moet zijn en de locatie is opgeleverd." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:afmetingen a owl:DatatypeProperty ;
+    rdfs:label "afmetingen" ;
+    skos:definition "Toegestane afmetingen van de verkoopinrichting: lengte, breedte en hoogte in meters." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 40 .
+
+gbotm:alcoholverstrekking a owl:ObjectProperty ;
+    rdfs:label "alcoholverstrekking" ;
+    skos:definition "Indicatie dat zwak-alcoholhoudende drank wordt verstrekt." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "De bijbehorende ontheffing op grond van Alcoholwet art. 35 wordt vaak gelijktijdig verleend, maar is een eigen toestemming." .
+
+gbotm:besluit a owl:DatatypeProperty ;
+    rdfs:label "besluit" ;
+    skos:definition "Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Pilot: tekstveld in plaats van de relatie \"is gebaseerd op\"." ;
+    mim:herkomst "RGBZ (Besluit.identificatie)" ;
+    mim:kardinaliteit "1..*" .
+
+gbotm:breedte a owl:DatatypeProperty ;
+    rdfs:label "breedte" ;
+    skos:definition "Breedte van het vaartuig in meters." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:eindtijdMuziek a owl:DatatypeProperty ;
+    rdfs:label "eindtijdMuziek" ;
+    skos:definition "Uiterste tijdstip tot wanneer versterkte muziek is toegestaan." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:evenementnaam a owl:DatatypeProperty ;
+    rdfs:label "evenementnaam" ;
+    skos:definition "Naam waaronder de activiteit wordt aangekondigd." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Bestaand GGM-attribuut evenmentnaam, in de pilotversie hernoemd." ;
+    mim:lengte 80 .
+
+gbotm:frontbreedte a owl:DatatypeProperty ;
+    rdfs:label "frontbreedte" ;
+    skos:definition "Toegewezen frontbreedte in meters." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 3 .
+
+gbotm:gebied a owl:DatatypeProperty ;
+    rdfs:label "gebied" ;
+    skos:definition "Zone of gebied waar de ontheffing geldt, bijvoorbeeld blauwe zone centrum." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 100 .
+
+gbotm:hoogte a owl:DatatypeProperty ;
+    rdfs:label "hoogte" ;
+    skos:definition "Hoogte van het vaartuig in meters." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:houder a owl:ObjectProperty ;
+    rdfs:label "houder" ;
+    skos:definition "De persoon aan wie de toestemming is verleend." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Demo-vereenvoudiging: in het wijzigingsvoorstel is de houder een Rechtspersoon (RSGB), dus ook een niet-natuurlijke persoon." ;
+    gbo:inverseNaam "heeftToestemming" .
+
+gbotm:identificatie a owl:DatatypeProperty ;
+    rdfs:label "identificatie" ;
+    skos:definition "Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:herkomst "gemeente (vergunningregistratie)" ;
+    mim:lengte 50 .
+
+gbotm:kaartnummer a owl:DatatypeProperty ;
+    rdfs:label "kaartnummer" ;
+    skos:definition "Nummer van de kaart zoals daarop vermeld, uniek per kaart." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 20 .
+
+gbotm:kenteken a owl:DatatypeProperty ;
+    rdfs:label "kenteken" ;
+    skos:definition "Kenteken van het voertuig waarvoor de ontheffing geldt." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Het wijzigingsvoorstel noteert AN12; GBO gebruikt het bestaande datatype Kenteken uit datatypes.yaml." ;
+    mim:lengte 8 .
+
+gbotm:kleur a owl:DatatypeProperty ;
+    rdfs:label "kleur" ;
+    skos:definition "Overheersende kleur van het vaartuig." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 40 .
+
+gbotm:lengte a owl:DatatypeProperty ;
+    rdfs:label "lengte" ;
+    skos:definition "Lengte van het vaartuig in meters." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:ligplaatsaanduiding a owl:DatatypeProperty ;
+    rdfs:label "ligplaatsaanduiding" ;
+    skos:definition "Nummer of aanduiding van de ligplaats: steiger, kade of nummer." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 40 .
+
+gbotm:markt a owl:DatatypeProperty ;
+    rdfs:label "markt" ;
+    skos:definition "Naam of aanduiding van de markt, bijvoorbeeld \"Algemene warenmarkt Markt (donderdag)\"." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:marktdagen a owl:DatatypeProperty ;
+    rdfs:label "marktdagen" ;
+    skos:definition "Dag of dagen van de week waarop de vergunning geldt." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:maximaalAantalBezoekers a owl:DatatypeProperty ;
+    rdfs:label "maximaalAantalBezoekers" ;
+    skos:definition "Maximaal toegestaan aantal gelijktijdig aanwezige bezoekers." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 6 .
+
+gbotm:naamVaartuig a owl:DatatypeProperty ;
+    rdfs:label "naamVaartuig" ;
+    skos:definition "Naam van het vaartuig." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:omschrijving a owl:DatatypeProperty ;
+    rdfs:label "omschrijving" ;
+    skos:definition "Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:opbouwVanaf a owl:DatatypeProperty ;
+    rdfs:label "opbouwVanaf" ;
+    skos:definition "Tijdstip vanaf wanneer de opbouw is toegestaan." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:organisator a owl:ObjectProperty ;
+    rdfs:label "organisator" ;
+    skos:definition "De persoon die de activiteit organiseert." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Nieuw in de pilotversie. Demo-vereenvoudiging: in het wijzigingsvoorstel een Rechtspersoon (RSGB)." ;
+    gbo:inverseNaam "organiseert" .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Actief> a owl:Class ;
+    rdfs:label "Actief" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "Verleend en geldig." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Gereed> a owl:Class ;
+    rdfs:label "Gereed" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "Besloten en gereed, maar nog niet ingegaan; de geldigheid begint later." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Geweigerd> a owl:Class ;
+    rdfs:label "Geweigerd" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "De aanvraag is afgewezen." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#InAanvraag> a owl:Class ;
+    rdfs:label "InAanvraag" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "De aanvraag is in behandeling." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Ingetrokken> a owl:Class ;
+    rdfs:label "Ingetrokken" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "Door een later besluit ingetrokken voor het einde van de geldigheid." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Initieel> a owl:Class ;
+    rdfs:label "Initieel" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "Aangemaakt, nog niet in behandeling." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Verlopen> a owl:Class ;
+    rdfs:label "Verlopen" ;
+    rdfs:subClassOf gbotm:productstatus ;
+    skos:definition "De geldigheidstermijn is verstreken." .
+
+gbotm:producttype a owl:DatatypeProperty ;
+    rdfs:label "producttype" ;
+    skos:definition "Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Pilot: tekstveld in plaats van de relatie \"is van\" naar het objecttype Producttype. Zie de todo bovenaan dit schema." ;
+    mim:lengte 80 .
+
+gbotm:registratienummer a owl:DatatypeProperty ;
+    rdfs:label "registratienummer" ;
+    skos:definition "Registratie- of senumnummer van het vaartuig, voor zover aanwezig." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 20 .
+
+gbotm:risicoklasse a owl:DatatypeProperty ;
+    rdfs:label "risicoklasse" ;
+    skos:definition "Risicoklasse volgens de regionale risicoscan: A is regulier, B is aandacht, C is risicovol." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 1 .
+
+gbotm:soortEvenement a owl:DatatypeProperty ;
+    rdfs:label "soortEvenement" ;
+    skos:definition "Soort evenement, bijvoorbeeld muziekevenement, braderie of markt, optocht, sportevenement, buurtfeest, kermis of circus." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:soortKaart a owl:ObjectProperty ;
+    rdfs:label "soortKaart" ;
+    skos:definition "Soort kaart naar de hoedanigheid van de houder." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:soortMarktplaats a owl:ObjectProperty ;
+    rdfs:label "soortMarktplaats" ;
+    skos:definition "Soort marktplaats waarvoor de vergunning geldt." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:soortOntheffing a owl:DatatypeProperty ;
+    rdfs:label "soortOntheffing" ;
+    skos:definition "Soort ontheffing, bijvoorbeeld blauwe zone, voetgangersgebied, milieuzone, grote voertuigen, autobedrijf of reclamevoertuig." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 40 .
+
+gbotm:soortOptreden a owl:DatatypeProperty ;
+    rdfs:label "soortOptreden" ;
+    skos:definition "Aard van het optreden, bijvoorbeeld muziek, zang, levend standbeeld, acrobatiek, portrettekenen, rondleiding of straatfotografie." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:soortStandplaats a owl:ObjectProperty ;
+    rdfs:label "soortStandplaats" ;
+    skos:definition "Soort standplaats naar tijdsduur." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:soortToestemming a owl:ObjectProperty ;
+    rdfs:label "soortToestemming" ;
+    skos:definition "De juridische soort van de toestemming." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Pilot: in het wijzigingsvoorstel is dit een kenmerk van het producttype. Zolang producttype een tekstveld is, staat de soort hier, zodat vergunning en ontheffing onderscheidbaar blijven." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Bestuurder> a owl:Class ;
+    rdfs:label "Bestuurder" ;
+    rdfs:subClassOf gbotm:soortgehandicaptenparkeerkaart ;
+    skos:definition "Kaart voor een persoon met een beperking die zelf een voertuig bestuurt." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Instelling> a owl:Class ;
+    rdfs:label "Instelling" ;
+    rdfs:subClassOf gbotm:soortgehandicaptenparkeerkaart ;
+    skos:definition "Kaart voor een instelling die personen met een beperking vervoert." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Passagier> a owl:Class ;
+    rdfs:label "Passagier" ;
+    rdfs:subClassOf gbotm:soortgehandicaptenparkeerkaart ;
+    skos:definition "Kaart voor een persoon met een beperking die als passagier wordt vervoerd." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#Dagplaats> a owl:Class ;
+    rdfs:label "Dagplaats" ;
+    rdfs:subClassOf gbotm:soortmarktplaats ;
+    skos:definition "Plaats die per marktdag wordt toegewezen, doorgaans omdat een vaste standplaats niet wordt ingenomen." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#Standwerkersplaats> a owl:Class ;
+    rdfs:label "Standwerkersplaats" ;
+    rdfs:subClassOf gbotm:soortmarktplaats ;
+    skos:definition "Plaats voor een standwerker, die zijn waar demonstrerend aanprijst." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#VasteStandplaats> a owl:Class ;
+    rdfs:label "VasteStandplaats" ;
+    rdfs:subClassOf gbotm:soortmarktplaats ;
+    skos:definition "Plaats die voor onbepaalde tijd aan een marktondernemer is toegewezen." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Incidenteel> a owl:Class ;
+    rdfs:label "Incidenteel" ;
+    rdfs:subClassOf gbotm:soortstandplaats ;
+    skos:definition "Standplaats voor een enkele gelegenheid." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Seizoensgebonden> a owl:Class ;
+    rdfs:label "Seizoensgebonden" ;
+    rdfs:subClassOf gbotm:soortstandplaats ;
+    skos:definition "Standplaats voor een deel van het jaar, zoals oliebollen of kerstbomen." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Vast> a owl:Class ;
+    rdfs:label "Vast" ;
+    rdfs:subClassOf gbotm:soortstandplaats ;
+    skos:definition "Standplaats voor onbepaalde tijd of voor een lange aaneengesloten periode." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#ErkenningOfRegistratie> a owl:Class ;
+    rdfs:label "ErkenningOfRegistratie" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Erkenning of registratie waaraan de bevoegdheid tot een activiteit is verbonden." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Gedoogbeschikking> a owl:Class ;
+    rdfs:label "Gedoogbeschikking" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Schriftelijke beslissing om tegen een op zichzelf verboden situatie niet handhavend op te treden." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#InstemmingMetMelding> a owl:Class ;
+    rdfs:label "InstemmingMetMelding" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Instemming met een gedane melding, waar geen vergunning maar een meldingsplicht geldt." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Maatwerkvoorschrift> a owl:Class ;
+    rdfs:label "Maatwerkvoorschrift" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Op het individuele geval toegesneden voorschrift dat afwijkt van of aanvult op een algemene regel." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Ontheffing> a owl:Class ;
+    rdfs:label "Ontheffing" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Individuele uitzondering op een algemeen verbod, voor een bepaald geval." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Vergunning> a owl:Class ;
+    rdfs:label "Vergunning" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Toestemming binnen een verbod-behoudens-vergunningstelsel: de activiteit is verboden tenzij zij is vergund." .
+
+<https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Vrijstelling> a owl:Class ;
+    rdfs:label "Vrijstelling" ;
+    rdfs:subClassOf gbotm:soorttoestemming ;
+    skos:definition "Uitzondering op een verbod voor een categorie gevallen, bij algemeen voorschrift." .
+
+gbotm:standplaatsnummer a owl:DatatypeProperty ;
+    rdfs:label "standplaatsnummer" ;
+    skos:definition "Nummer van de standplaats op de markt." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 10 .
+
+gbotm:stickernummer a owl:DatatypeProperty ;
+    rdfs:label "stickernummer" ;
+    skos:definition "Nummer van de afgegeven sticker of het vignet." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Bestaand GGM-attribuut; in de pilotversie optioneel geworden." .
+
+gbotm:tijdvakPerDag a owl:DatatypeProperty ;
+    rdfs:label "tijdvakPerDag" ;
+    skos:definition "Tijden waarbinnen het evenement per dag mag plaatsvinden, bijvoorbeeld \"12:00-23:00; zondag tot 20:00\"." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:verkoopwaren a owl:DatatypeProperty ;
+    rdfs:label "verkoopwaren" ;
+    skos:definition "Nadere omschrijving van de goederen of diensten die mogen worden aangeboden." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 200 .
+
+gbotm:versterktGeluid a owl:ObjectProperty ;
+    rdfs:label "versterktGeluid" ;
+    skos:definition "Indicatie dat gebruik van geluidsversterking is toegestaan." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:voorschriften a owl:DatatypeProperty ;
+    rdfs:label "voorschriften" ;
+    skos:definition "Aan de toestemming verbonden voorschriften en beperkingen, als tekst." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "In het volledige voorstel een compositie van het objecttype Voorschrift; in de pilot bewust een tekstveld." .
+
+gbotm:zaak a owl:DatatypeProperty ;
+    rdfs:label "zaak" ;
+    skos:definition "Identificatie van de zaak waarin de toestemming is aangevraagd en verleend." ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "Pilot: tekstveld in plaats van de relatie \"is ontstaan uit\"." ;
+    mim:herkomst "RGBZ (Zaak.identificatie)" .
+
+gbotm:betreft a owl:ObjectProperty ;
+    rdfs:label "betreft" ;
+    skos:definition "Het evenement waarvoor de vergunning is verleend.",
+        "Het vaartuig waarvoor de ontheffing is verleend." ;
+    skos:inScheme gbo:toestemmingen ;
+    gbo:inverseNaam "heeftEvenementenvergunning",
+        "heeftLigplaatsontheffing" .
+
+gbotm:branche a owl:DatatypeProperty ;
+    rdfs:label "branche" ;
+    skos:definition "Branche of artikelgroep, bijvoorbeeld groente en fruit, kaas of textiel.",
+        "Branche of productgroep van de standplaats, bijvoorbeeld vis, bloemen, oliebollen, ijs, snacks of kerstbomen." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:dagen a owl:DatatypeProperty ;
+    rdfs:label "dagen" ;
+    skos:definition "Dag of dagen van de week waarop de standplaats mag worden ingenomen.",
+        "Dag of dagen van de week, of data, waarop mag worden opgetreden." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 80 .
+
+gbotm:datumEinde a owl:DatatypeProperty ;
+    rdfs:label "datumEinde" ;
+    skos:definition "Datum waarop de activiteit eindigt.",
+        "Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:datumStart a owl:DatatypeProperty ;
+    rdfs:label "datumStart" ;
+    skos:definition "Datum waarop de activiteit begint.",
+        "Datum waarop de toestemming ingaat." ;
+    skos:inScheme gbo:toestemmingen .
+
+gbotm:locatieOmschrijving a owl:DatatypeProperty ;
+    rdfs:label "locatieOmschrijving" ;
+    skos:definition "Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats.",
+        "Omschrijving van de locatie van de activiteit." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 300 .
+
+gbotm:soortgehandicaptenparkeerkaart a owl:Class ;
+    rdfs:label "SoortGehandicaptenparkeerkaart" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Bestuurder> <https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Passagier> <https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Instelling> ) ;
+    skos:definition "De soort gehandicaptenparkeerkaart naar de hoedanigheid van de houder." ;
+    skos:definitionSource "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; Regeling gehandicaptenparkeerkaart" ;
+    skos:definition_nl "De soort gehandicaptenparkeerkaart naar de hoedanigheid van de houder." ;
+    skos:exactMatch gbobegrip:SoortGehandicaptenparkeerkaart ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:prefLabel_nl "Soort gehandicaptenparkeerkaart" ;
+    skos:status "proposed" ;
+    mim:herkomst "BABW art. 49-55; Regeling gehandicaptenparkeerkaart" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Bestuurder>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Instelling>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soortgehandicaptenparkeerkaart#Passagier> .
+
+gbotm:soortmarktplaats a owl:Class ;
+    rdfs:label "SoortMarktplaats" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#VasteStandplaats> <https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#Dagplaats> <https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#Standwerkersplaats> ) ;
+    skos:definition "De soort plaats op een warenmarkt waarvoor de vergunning geldt." ;
+    skos:definitionSource "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; VNG Model Marktverordening" ;
+    skos:definition_nl "De soort plaats op een warenmarkt waarvoor de marktvergunning geldt." ;
+    skos:exactMatch gbobegrip:SoortMarktplaats ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:prefLabel_nl "Soort marktplaats" ;
+    skos:status "proposed" ;
+    mim:herkomst "VNG Model Marktverordening" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#Dagplaats>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#Standwerkersplaats>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soortmarktplaats#VasteStandplaats> .
+
+gbotm:soortstandplaats a owl:Class ;
+    rdfs:label "SoortStandplaats" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Vast> <https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Seizoensgebonden> <https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Incidenteel> ) ;
+    skos:definition "De soort standplaats naar de tijdsduur waarvoor zij geldt." ;
+    skos:definitionSource "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; VNG Model-APV art. 5:17-5:18" ;
+    skos:definition_nl "De soort standplaats naar de tijdsduur waarvoor zij geldt." ;
+    skos:exactMatch gbobegrip:SoortStandplaats ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:prefLabel_nl "Soort standplaats" ;
+    skos:status "proposed" ;
+    mim:herkomst "VNG Model-APV art. 5:17-5:18" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Incidenteel>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Seizoensgebonden>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soortstandplaats#Vast> .
+
+gbotm:status a owl:DatatypeProperty,
+        owl:ObjectProperty ;
+    rdfs:label "status" ;
+    skos:definition "Status in de levensloop van de toestemming.",
+        "Status van de activiteit." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 40 .
+
+gbotm:tijdvak a owl:DatatypeProperty ;
+    rdfs:label "tijdvak" ;
+    skos:definition "Tijden waarbinnen de standplaats mag worden ingenomen.",
+        "Tijden waarbinnen mag worden opgetreden.",
+        "Tijden, in dagen of uren, waarop de ontheffing geldt." ;
+    skos:inScheme gbo:toestemmingen ;
+    mim:lengte 40 .
+
+gbotm:productstatus a owl:Class ;
+    rdfs:label "Productstatus" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Initieel> <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#InAanvraag> <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Gereed> <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Actief> <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Ingetrokken> <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Geweigerd> <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Verlopen> ) ;
+    skos:definition "De status van een toestemming in haar levensloop, van aanvraag tot einde." ;
+    skos:definitionSource "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; waarden afgestemd op Open Product" ;
+    skos:definition_nl "De status van een toestemming in haar levensloop, van aanvraag tot einde." ;
+    skos:exactMatch gbobegrip:Productstatus ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "De waarden zijn letterlijk afgestemd op Open Product, zodat een registratie in Open Product of de Objecten API dezelfde levensloop kent." ;
+    skos:prefLabel_nl "Productstatus" ;
+    skos:status "proposed" ;
+    mim:herkomst "Open Product (statuswaarden)" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Actief>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Gereed>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Geweigerd>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#InAanvraag>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Ingetrokken>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Initieel>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/productstatus#Verlopen> .
+
+gbotm:soorttoestemming a owl:Class ;
+    rdfs:label "SoortToestemming" ;
+    owl:unionOf ( <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Vergunning> <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Ontheffing> <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Vrijstelling> <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#InstemmingMetMelding> <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Maatwerkvoorschrift> <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Gedoogbeschikking> <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#ErkenningOfRegistratie> ) ;
+    skos:definition "De juridische soort van een toestemming: de vorm waarin het bestuursorgaan haar verleent." ;
+    skos:definitionSource "GGM-wijzigingsvoorstel \"Toestemming en Product\", bijlage A; RIHa 2.0" ;
+    skos:definition_nl "De juridische soort van een toestemming, oftewel de vorm waarin het bestuursorgaan haar verleent." ;
+    skos:exactMatch gbobegrip:SoortToestemming ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:note "In het volledige voorstel is dit een kenmerk van het producttype; in de pilot staat het op Toestemming zelf." ;
+    skos:prefLabel_nl "Soort toestemming" ;
+    skos:status "proposed" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    linkml:permissible_values <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#ErkenningOfRegistratie>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Gedoogbeschikking>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#InstemmingMetMelding>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Maatwerkvoorschrift>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Ontheffing>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Vergunning>,
+        <https://lod.gbo-semantiek.nl/toestemmingen/soorttoestemming#Vrijstelling> .
+
+gbotm:Toestemming a owl:Class ;
+    rdfs:label "Toestemming" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbotm:datumEinde ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:productstatus ;
+            owl:onProperty gbotm:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:NatuurlijkPersoon ;
+            owl:onProperty gbotm:houder ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:omschrijving ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:producttype ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:besluit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:soortToestemming ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:producttype ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:zaak ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:zaak ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:voorschriften ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:identificatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:voorschriften ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty gbotm:besluit ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:document ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbotm:datumStart ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:omschrijving ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:houder ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumEinde ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:soorttoestemming ;
+            owl:onProperty gbotm:soortToestemming ],
+        [ owl:unionOf ( gbotm:Evenementenvergunning gbotm:Gehandicaptenparkeerkaart gbotm:Ligplaatsontheffing gbotm:Marktvergunning gbotm:OverigeToestemming gbotm:Parkeerontheffing gbotm:Standplaatsvergunning gbotm:Straatartiestenontheffing ) ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumStart ] ;
+    skos:altLabel_nl_0_source "GGM-wijzigingsvoorstel \"Toestemming en Product\" (klassenaam)" ;
+    skos:altLabel_nl_0_value "Toestemming" ;
+    skos:altLabel_nl_1_source "VNG Model-APV" ;
+    skos:altLabel_nl_1_value "Vergunning" ;
+    skos:altLabel_nl_2_source "VNG Model-APV" ;
+    skos:altLabel_nl_2_value "Ontheffing" ;
+    skos:definition "Een door een bestuursorgaan aan een houder verleende toestemming om een activiteit te verrichten of een situatie in stand te houden die zonder die toestemming niet is toegestaan." ;
+    skos:definitionSource "RIHa 2.0, begrip TOESTEMMING; Awb art. 1:3 (beschikking)" ;
+    skos:definitionSourceUri "https://wetten.overheid.nl/BWBR0005537" ;
+    skos:definition_nl "Een door een bestuursorgaan aan een houder verleende toestemming om een activiteit te verrichten of een situatie in stand te houden die zonder die toestemming niet is toegestaan (vergunning, ontheffing, vrijstelling, instemming met een melding, maatwerkvoorschrift, gedoogbeschikking)." ;
+    skos:exactMatch gbobegrip:BestuurlijkeToestemming,
+        gbotm:Toestemming ;
+    skos:inScheme gbo:toestemmingen ;
+    skos:needsReview_0 "Begrip-URI BestuurlijkeToestemming gekozen omdat het voorzieningenmodel gbobegrip:Toestemming al gebruikt voor de AVG-toestemming om gegevens te delen. Bij vaststelling van het begrippenkader controleren of deze twee begrippen zo onderscheidend genoeg zijn." ;
+    skos:needsReview_1 "Verhouding tot RIHa 2.0 TOESTEMMING nog niet als exactMatch of closeMatch vastgelegd; RIHa-URI ontbreekt." ;
+    skos:note "Het besluit blijft de juridische handeling; de toestemming is het resultaat. De toestemming ontstaat door een besluit in een zaak, heeft daarna een eigen levensloop (actief, verlopen, ingetrokken) en kan door latere besluiten worden gewijzigd of ingetrokken.",
+        "Toestemming is abstract: elke toestemming is er een van een bepaalde soort. Vergunningsoorten zonder eigen klasse (collectevergunning, kampeerontheffing, geluidsontheffing) worden als OverigeToestemming vastgelegd, met de soort in het tekstveld producttype. Zo blijft het supertype in de GraphQL-projectie een interface, waarover de afnemer alle soorten in een keer opvraagt.",
+        "Vergunning en ontheffing zijn allebei beschikkingen (Awb art. 1:3) en verschillen in normstructuur (\"verbod behoudens vergunning\" tegenover \"algemeen verbod met individuele uitzondering\"), niet in gegevens. Daarom een generiek objecttype met de juridische soort als kenmerk, en niet een klasse per juridische vorm." ;
+    skos:prefLabel_nl "Bestuurlijke toestemming" ;
+    skos:status "proposed" ;
+    mim:datumOpname "2026-08-21" ;
+    mim:elementtype "Objecttype" ;
+    mim:herkomst "GGM (wijzigingsvoorstel Toestemming en Product, pilotversie)" ;
+    mim:herkomstDefinitie "Bron: GGM-wijzigingsvoorstel \"Toestemming en Product\", pilotversie 2 (concept), hoofdstuk 3.1 en bijlage A. Onderliggend RIHa 2.0 (begrip TOESTEMMING) en Awb art. 1:3." ;
+    mim:populatie "Alle door een gemeentelijk bestuursorgaan verleende toestemmingen die als eigen registratie worden bijgehouden, ongeacht of zij nog geldig zijn." ;
+    mim:uniekeAanduiding "identificatie" .
+

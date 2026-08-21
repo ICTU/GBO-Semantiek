@@ -1,0 +1,58 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel BRI, gegenereerd uit gbo-bron-bri.yaml.
+# Regenereer met: task generate:graphql
+#
+# Het authentiek inkomensgegeven (verzamelinkomen of belastbaar jaarloon
+# per persoon per belastingjaar), geleverd per BSN. Levert uitsluitend
+# gegevens voor ingeschreven personen (personen met een BSN) en
+# uitsluitend over voorgaande, afgesloten belastingjaren; gegevens over
+# het lopende jaar worden niet geleverd. De opvraagdatum is
+# leveringsmetadata en staat in de antwoord-envelop van de levering,
+# niet in het schema.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
+scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+
+"""Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen."""
+type Verzamelinkomen {
+  """Verzamelinkomen of belastbaar loon."""
+  inkomenBedrag: Bedrag!
+  """Het jaar waarop het inkomen betrekking heeft."""
+  belastingjaar: Int!
+  """De natuurlijk persoon op wie het authentieke inkomen is gegrondvest."""
+  gegrondvestOp: IngeschrevenPersoon!
+}
+
+"""Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
+type IngeschrevenPersoon {
+  """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
+  bsn: BSN!
+  """De authentieke inkomens die voor deze persoon zijn vastgesteld, één per belastingjaar."""
+  heeftVerzamelinkomen(belastingjaar: [Int!]): [Verzamelinkomen!]
+}
+
+"""Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
+type Bedrag {
+  """De numerieke waarde van het bedrag."""
+  waarde: Float!
+  """Valuta conform ISO 4217; bij afwezigheid geldt EUR."""
+  valuta: CodelijstISO4217
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """Verzamelinkomen. Het argument jaar selecteert op belastingjaar."""
+  verzamelinkomenOverJaar(bsn: BSN!, jaar: [Int!]!): [Verzamelinkomen!]
+}
