@@ -567,6 +567,7 @@ tasks:
   full-deploy:
     desc: "Execute the entire deployment process: import, generate, build and publish."
     cmds:
+      - task: build:validate
       - task: publish:local
       - echo "Full deployment completed."
 
