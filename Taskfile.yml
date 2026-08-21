@@ -456,10 +456,78 @@ tasks:
   # ==========================================================================
   # Publish — Documentatie publiceren
   # ==========================================================================
+  publish:check:
+    desc: "Bewaak de publicatie: schone working tree, VERSION klopt met de versiemappen, en HEAD is nog niet als deze versie gepubliceerd."
+    silent: true
+    cmds:
+      - |
+        fout=0
+        force="${FORCE_PUBLISH:-}"
+
+        # 1. Schone working tree. Mike legt de commit-sha vast in de
+        #    deploy-boodschap op gh-pages; publiceren met ongecommitte
+        #    wijzigingen maakt die sha een onwaarheid: de gepubliceerde site
+        #    is dan niet te reproduceren uit die commit.
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "STOP: de working tree is niet schoon."
+          echo "      Mike schrijft de commit-sha in de gh-pages-boodschap; met"
+          echo "      ongecommitte wijzigingen klopt die sha niet meer."
+          git status --short | sed 's/^/        /'
+          fout=1
+        fi
+
+        # 2. VERSION komt overeen met de hoogste versiemap. Vangt de fout waarbij
+        #    wel een nieuwe v-map is aangelegd maar .env nog op de vorige staat
+        #    (of andersom), zodat mike de verkeerde versie zou overschrijven.
+        hoogste=$(ls -d v[0-9]*.[0-9]* 2>/dev/null | sort -V | tail -1)
+        if [ -z "$hoogste" ]; then
+          echo "STOP: geen enkele versiemap (v0.x) gevonden."
+          fout=1
+        elif [ "$hoogste" != "{{.VERSION}}" ]; then
+          echo "STOP: VERSION in .env is \"{{.VERSION}}\" maar de hoogste versiemap is \"$hoogste\"."
+          echo "      Breng .env en de versiemappen met elkaar in overeenstemming."
+          fout=1
+        fi
+
+        # 3. HEAD is nog niet als deze versie gepubliceerd. Zonder nieuwe commit
+        #    levert een deploy dezelfde inhoud onder dezelfde sha op.
+        huidig=$(git rev-parse --short HEAD)
+        laatste=$(git log gh-pages -1 --format=%s 2>/dev/null || true)
+        if [ -n "$laatste" ] && printf "%s" "$laatste" | grep -q "Deployed $huidig to {{.VERSION}}"; then
+          echo "STOP: HEAD ($huidig) staat al als {{.VERSION}} op gh-pages."
+          echo "      Laatste deploy: $laatste"
+          fout=1
+        fi
+
+        if [ "$fout" -ne 0 ]; then
+          if [ "$force" = "1" ]; then
+            echo ""
+            echo "FORCE_PUBLISH=1 gezet: bovenstaande bezwaren worden genegeerd."
+          else
+            echo ""
+            echo "Publicatie afgebroken. Zet FORCE_PUBLISH=1 om toch te publiceren."
+            exit 1
+          fi
+        else
+          echo "Publicatiecontrole akkoord: working tree schoon, VERSION={{.VERSION}}, HEAD=$huidig nog niet gepubliceerd."
+        fi
+
+
   publish:local:
     desc: "Deploy versioned documentation locally using Mike."
-    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:toestemmingen-lod, generate:begrippen, generate:diff]
+    # publish:check draait als enige dep, dus vóór alles: deps lopen parallel,
+    # en de generate-stappen schrijven zelf in v{VERSION}/ en docs/. Zou de
+    # controle daarnaast staan, dan zou zij haar eigen output als een vuile
+    # working tree zien. De generatie staat daarom in cmds (sequentieel).
+    deps: [publish:check]
     cmds:
+      - task: generate:docs
+      - task: generate:graphql
+      - task: generate:lod
+      - task: generate:voorzieningen-lod
+      - task: generate:toestemmingen-lod
+      - task: generate:begrippen
+      - task: generate:diff
       - echo "Deploying documentation with Mike..."
       - '{{.VENV}}/mkdocs build --clean'
       - '{{.VENV}}/mike deploy "{{.VERSION}}" latest --update-aliases'
