@@ -1,0 +1,3060 @@
+<!DOCTYPE html><html lang="nl" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Het semantisch raamwerk van de Gemeenschappelijke Bronontsluiting — open specificatie met begrippenkader en informatiemodel voor het landelijk, sectoroverstijgend ontsluiten en delen van basisgegevens.">
+      
+      
+        <meta name="author" content="GBO-Semantiek Werkgroep">
+      
+      
+        <link rel="canonical" href="https://ictu.github.io/GBO-Semantiek/latest/uitgangspunten/ontwerpprincipes/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../kaders_standaarden/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ontwerprincipes - GBO-Semantiek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ontwerpprincipes" class="md-skip">
+          Ga naar inhoud
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="GBO-Semantiek" class="md-header__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GBO-Semantiek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ontwerprincipes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar licht thema" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar donker thema" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Zoeken">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Zoeken initialiseren
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Gemeenschappelijke Bronontsluiting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Context
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Globaal Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Projectstartarchitectuur
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technisch Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technische Requirements
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Semantiek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Demo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigatie" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="GBO-Semantiek" class="md-nav__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../assets/icon.svg" alt="logo">
+
+    </a>
+    GBO-Semantiek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemeenschappelijke Bronontsluiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Globaal Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectstartarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technisch Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technische Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantiek
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Semantiek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uitgangspunten
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Uitgangspunten
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontwerprincipes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontwerprincipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#s-01-data-bij-de-bron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-01 — Data bij de bron
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s-02-fair-als-basisraamwerk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-02 — FAIR als basisraamwerk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s-03-modulariteit-generiek-vs-use-case-specifiek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-03 — Modulariteit: generiek vs. use-case-specifiek
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="S-03 — Modulariteit: generiek vs. use-case-specifiek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#informatiemodel-en-applicatieprofiel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Informatiemodel en applicatieprofiel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principes-voor-het-begrippenkader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principes voor het begrippenkader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principes voor het begrippenkader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s-04-begrippen-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-04 — Begrippen-first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-05-een-gezaghebbende-definitie-per-begrip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-05 — Eén gezaghebbende definitie per begrip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-06-hierarchische-coherentie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-06 — Hiërarchische coherentie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-07-expliciete-scopenotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-07 — Expliciete scopeNotes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-08-scheiding-begrip-en-waardelijst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-08 — Scheiding begrip en waardelijst
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-09-koppeling-aan-bronwetgeving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-09 — Koppeling aan bronwetgeving
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-10-publiceer-als-linked-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-10 — Publiceer als Linked Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principes-voor-het-informatiemodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principes voor het informatiemodel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principes voor het informatiemodel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s-11-minimale-ontologische-committering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-11 — Minimale ontologische committering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-12-hergebruik-boven-herontwikkeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-12 — Hergebruik boven herontwikkeling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-13-versioning-en-evolutie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-13 — Versioning en evolutie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herkomst-koppeling-met-de-psa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herkomst: koppeling met de PSA
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kaders_standaarden/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaders en standaarden
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/bronnenprioritering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bronnenprioritering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3">
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectuur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architectuur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architectuur/gegevensarchitectuur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevensarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architectuur/gegevenscomponenten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevenscomponenten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4">
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Begrippenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Begrippenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../begrippen/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5">
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/hoofdmodel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/hoofdmodel-compact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel (compact)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/personen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Personen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/bedrijven-en-instellingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Bedrijven en Instellingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/adressen-en-gebouwen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Adressen en Gebouwen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Waarde Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/belastingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Belastingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/krediet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Krediet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/onderwijs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onderwijs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/werk-en-inkomen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Werk en Inkomen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/deelmodellen/voertuigen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Voertuigen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-kern/datatypes-en-codelijsten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datatypes en codelijsten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6">
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/gbo-voorzieningen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodellen Pilots
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodellen Pilots
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../informatiemodel/pilots/vergunningen-en-ontheffingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vergunningen en Ontheffingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8">
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontologie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ontologie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ontologie/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9">
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementatie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementatie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementatie/uri-strategie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-strategie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementatie/naamgeving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naamgeving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementatie/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementatie/publicatie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publicatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10">
+        
+          
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bijlagen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bijlagen/woordenlijst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Woordenlijst
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bijlagen/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bijlagen/uri-namespace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-namespace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#s-01-data-bij-de-bron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-01 — Data bij de bron
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s-02-fair-als-basisraamwerk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-02 — FAIR als basisraamwerk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s-03-modulariteit-generiek-vs-use-case-specifiek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-03 — Modulariteit: generiek vs. use-case-specifiek
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="S-03 — Modulariteit: generiek vs. use-case-specifiek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#informatiemodel-en-applicatieprofiel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Informatiemodel en applicatieprofiel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principes-voor-het-begrippenkader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principes voor het begrippenkader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principes voor het begrippenkader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s-04-begrippen-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-04 — Begrippen-first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-05-een-gezaghebbende-definitie-per-begrip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-05 — Eén gezaghebbende definitie per begrip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-06-hierarchische-coherentie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-06 — Hiërarchische coherentie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-07-expliciete-scopenotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-07 — Expliciete scopeNotes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-08-scheiding-begrip-en-waardelijst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-08 — Scheiding begrip en waardelijst
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-09-koppeling-aan-bronwetgeving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-09 — Koppeling aan bronwetgeving
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-10-publiceer-als-linked-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-10 — Publiceer als Linked Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principes-voor-het-informatiemodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principes voor het informatiemodel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principes voor het informatiemodel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s-11-minimale-ontologische-committering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-11 — Minimale ontologische committering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-12-hergebruik-boven-herontwikkeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-12 — Hergebruik boven herontwikkeling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-13-versioning-en-evolutie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-13 — Versioning en evolutie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herkomst-koppeling-met-de-psa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herkomst: koppeling met de PSA
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICTU/GBO-Semantiek/edit/main/docs/uitgangspunten/ontwerpprincipes.md" title="Wijzig deze pagina" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="ontwerpprincipes">Ontwerpprincipes<a class="headerlink" href="#ontwerpprincipes" title="Permanent link">¶</a></h1>
+<p>Ontwerpprincipes zijn de richtinggevende uitgangspunten voor alle keuzes bij het ontwerp van het semantisch raamwerk van GBO. Ze beschrijven <em>waarom</em> we iets op een bepaalde manier doen en vormen de toetssteen bij het maken van het begrippenkader en het informatiemodel.</p>
+<p>Waar deze principes vandaan komen — welk PSA-ontwerpprincipe aan welk
+semantiek-principe ten grondslag ligt — staat in de
+<a href="#herkomst-koppeling-met-de-psa">overzichtstabel achteraan dit hoofdstuk</a>.</p>
+<h2 id="s-01-data-bij-de-bron">S-01 — Data bij de bron<a class="headerlink" href="#s-01-data-bij-de-bron" title="Permanent link">¶</a></h2>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-05-gegevens-bij-de-bron-geen-onnodige-kopieen">D-05 — Gegevens bij de bron</a> — direct. Hier ook toegepast op de semantiek zelf: ook begrippen en definities kennen één bron.</p>
+<p>Gegevens worden uitsluitend beheerd en gemuteerd bij de (authentieke) bron. GBO-Semantiek sluit aan bij het NORA-principe <em>"eenmalige registratie, meervoudig gebruik"</em> en bij het stelsel van basisregistraties: voor elk type gegeven is één bronhouder verantwoordelijk voor de kwaliteit, actualiteit en betekenis. Kopieën in data-lakes, caches, zoekindexen of read-models zijn toegestaan maar nooit gezaghebbend; zij ontlenen hun betekenis aan de bron en worden van daaruit geactualiseerd.</p>
+<div class="admonition info">
+<p class="admonition-title">Wat betekent dit voor GBO-Semantiek?</p>
+<ul>
+<li>Per objecttype is er één aangewezen authentieke bron (bronhouder)</li>
+<li>Mutaties vinden uitsluitend plaats bij de bron; andere systemen nemen over, synchroniseren of cachen</li>
+<li>Kopieën, caches en afgeleide representaties zijn toegestaan, maar nooit gezaghebbend</li>
+<li>Ook de semantiek zelf (begrippen, definities, ontologie) wordt bij één bron beheerd en van daaruit hergebruikt</li>
+</ul>
+</div>
+<h2 id="s-02-fair-als-basisraamwerk">S-02 — FAIR als basisraamwerk<a class="headerlink" href="#s-02-fair-als-basisraamwerk" title="Permanent link">¶</a></h2>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming">D-14 — Interoperabiliteit</a> en <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden">D-08 — Pas toe of leg uit</a> — direct. D-14 dekt <em>Interoperable</em> en <em>Reusable</em>, D-08 maakt <em>Accessible</em> concreet via verplichte open standaarden.</p>
+<p>De <a href="https://www.go-fair.org/fair-principles/">FAIR-principes</a> (Findable, Accessible, Interoperable, Reusable) vormen de overkoepelende basis voor alle ontwerpkeuzes rond data en semantische artefacten. NORA vertaalt deze principes expliciet naar de Nederlandse overheidscontext als architectuurprincipe 1.1: <em>"Gegevens die kunnen worden gedeeld zijn vindbaar, toegankelijk, interoperabel en herbruikbaar"</em>.</p>
+<p>Voor ontologieën geldt dat FAIR niet alleen op data maar ook op de semantische artefacten zelf van toepassing is: de ontologie, het begrippenkader en de context-bestanden moeten zelf ook FAIR zijn.</p>
+<p>De vier FAIR-dimensies vertalen zich concreet naar semantiek en informatiemodellen:</p>
+<table>
+<thead>
+<tr>
+<th>FAIR-principe</th>
+<th>Implicatie voor semantiek en informatiemodel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Findable</strong></td>
+<td>Globaal unieke, persistente URI's voor alle modelelementen; publicatie in doorzoekbare catalogus</td>
+</tr>
+<tr>
+<td><strong>Accessible</strong></td>
+<td>De-referenceable URI's via HTTP; content-negotiation (HTML voor mensen, Turtle voor machines)</td>
+</tr>
+<tr>
+<td><strong>Interoperable</strong></td>
+<td>Formele taal (OWL, SHACL, SKOS); gebruik van gedeelde informatiemodellen; gekwalificeerde links</td>
+</tr>
+<tr>
+<td><strong>Reusable</strong></td>
+<td>Rijke metadata bij artefacten; expliciete licenties; herkomst traceerbaar; conform domeinstandaarden</td>
+</tr>
+</tbody>
+</table>
+<p>NORA stelt als implicatie van principe 1.1 dat <em>"gegevens en hun metagegevens zijn voorzien van wereldwijd unieke en stabiele identificaties"</em>. GBO geeft hier invulling aan via een expliciete URI- en naamgevingsstrategie, die zorgt dat elk modelelement vindbaar, opvraagbaar en herbruikbaar is.</p>
+<div class="admonition info">
+<p class="admonition-title">Wat betekent dit voor GBO-Semantiek?</p>
+<p>GBO geeft vorm aan FAIR via een consistente URI- en naamgevingsstrategie:</p>
+<ul>
+<li><strong>Persistent</strong>: URI's veranderen niet na publicatie en gebruiken een stabiel domein, los van technische implementatie</li>
+<li><strong>Uniek</strong>: elke URI identificeert precies één ding; geen hergebruik voor meerdere concepten</li>
+<li><strong>Dereferenceerbaar</strong>: elke URI is opvraagbaar via HTTP met content-negotiation (HTML, Turtle, JSON-LD)</li>
+<li><strong>Onderscheid document vs. ding</strong>: aparte URI's voor een real-world concept en het document dat het beschrijft (via <code>303 redirect</code> of <code>#hash URI</code>)</li>
+<li><strong>Leesbaar</strong>: URI-paden en elementnamen zijn betekenisvol; naamswijzigingen worden afgevangen met <code>owl:sameAs</code></li>
+<li><strong>Naamruimte-consistent</strong>: één consistente naamruimte per artefacttype (ontologie, begrippenkader, context, instanties)</li>
+<li><strong>Rijke metadata</strong>: elk artefact heeft expliciete licentie, versie, herkomst en publicatiedatum</li>
+<li><strong>Formele talen</strong>: OWL, SHACL en SKOS voor machine-verwerkbaarheid</li>
+</ul>
+<p>De concrete uitwerking staat in <a href="../../implementatie/uri-strategie/">URI-strategie</a> en <a href="../../implementatie/naamgeving/">Naamgeving</a>.</p>
+</div>
+<h2 id="s-03-modulariteit-generiek-vs-use-case-specifiek">S-03 — Modulariteit: generiek vs. use-case-specifiek<a class="headerlink" href="#s-03-modulariteit-generiek-vs-use-case-specifiek" title="Permanent link">¶</a></h2>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp">D-04 — Robuust, modulair en flexibel ontwerp</a> en <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-06-componentgebaseerd-werken-herbruikbare-bouwstenen">D-06 — Componentgebaseerd werken</a> — direct. Dezelfde separation of concerns, maar toegepast op modelniveau in plaats van op componenten.</p>
+<h3 id="informatiemodel-en-applicatieprofiel">Informatiemodel en applicatieprofiel<a class="headerlink" href="#informatiemodel-en-applicatieprofiel" title="Permanent link">¶</a></h3>
+<p>Het <a href="https://data.vlaanderen.be/">OSLO</a>-initiatief introduceert het patroon van <em>vocabularia</em> (generiek, herbruikbaar) versus <em>applicatieprofielen</em> (use-case-specifiek, beperkingen opleggen). Dit is een directe toepassing van het separation of concerns-principe: generieke kennis wordt een keer gedefinieerd en door meerdere applicatieprofielen hergebruikt.</p>
+<p>Een applicatieprofiel kan nieuwe klassen en eigenschappen introduceren, maar uitsluitend binnen het eigen use-case-domein. Het profiel legt daarnaast beperkingen op (cardinaliteiten, waardelijsten) en combineert klassen uit meerdere informatiemodellen. De koppeling met de onderliggende generieke modellen loopt via expliciete relaties — overerving (<code>rdfs:subClassOf</code>), equivalentie of andere semantische verbanden — zodat de herkomst en samenhang traceerbaar blijven.</p>
+<p>GBO past dit patroon toe:</p>
+<ul>
+<li>Het <strong>generieke informatiemodel</strong> (GBO-kern) bevat klassen en attributen die over alle use cases heen geldig zijn</li>
+<li><strong>Applicatieprofielen</strong> per use case verfijnen het generieke model met specifieke beperkingen</li>
+</ul>
+<h2 id="principes-voor-het-begrippenkader">Principes voor het begrippenkader<a class="headerlink" href="#principes-voor-het-begrippenkader" title="Permanent link">¶</a></h2>
+<p>Het begrippenkader als SKOS-thesaurus volgt zeven principes. Drie daarvan zijn een verbijzondering van een PSA-principe; de overige vier zijn eigen aanvullingen zonder PSA-pendant.</p>
+<h3 id="s-04-begrippen-first">S-04 — Begrippen-first<a class="headerlink" href="#s-04-begrippen-first" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming">D-14 — Interoperabiliteit</a> — direct. Semantische afstemming begint bij gedeelde begripsvorming.</p>
+<p>NORA-principe 3.1 stelt dat <em>"gemeenschappelijke begripsvorming het startpunt is"</em>: begrippen worden geëxpliciteerd voordat informatiemodellen worden gemaakt.</p>
+<h3 id="s-05-een-gezaghebbende-definitie-per-begrip">S-05 — Eén gezaghebbende definitie per begrip<a class="headerlink" href="#s-05-een-gezaghebbende-definitie-per-begrip" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming">D-14 — Interoperabiliteit</a> — direct. Invulling van de eis van semantische eenduidigheid.</p>
+<p>Elk <code>skos:Concept</code> heeft precies één <code>skos:prefLabel</code> per taal en één <code>skos:definition</code>; meerdere namen zijn synoniemen (<code>skos:altLabel</code>).</p>
+<h3 id="s-06-hierarchische-coherentie">S-06 — Hiërarchische coherentie<a class="headerlink" href="#s-06-hierarchische-coherentie" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> geen. Eigen SKOS-regel; de PSA doet geen uitspraak over modelhygiëne.</p>
+<p><code>skos:broader</code>- en <code>skos:narrower</code>-relaties zijn transitief en mogen geen cycli bevatten.</p>
+<h3 id="s-07-expliciete-scopenotes">S-07 — Expliciete scopeNotes<a class="headerlink" href="#s-07-expliciete-scopenotes" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> geen. Eigen SKOS-regel voor GBO-specifieke afbakening.</p>
+<p>Gebruik <code>skos:scopeNote</code> voor het afbakenen van het gebruik van een begrip in de specifieke GBO-context, naast een algemene definitie.</p>
+<h3 id="s-08-scheiding-begrip-en-waardelijst">S-08 — Scheiding begrip en waardelijst<a class="headerlink" href="#s-08-scheiding-begrip-en-waardelijst" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> geen. Eigen modelleerregel.</p>
+<p>Gebruik <code>skos:ConceptScheme</code> voor begrippenkaders en aparte schemes voor codelijsten en enumeraties; vermeng ze niet.</p>
+<h3 id="s-09-koppeling-aan-bronwetgeving">S-09 — Koppeling aan bronwetgeving<a class="headerlink" href="#s-09-koppeling-aan-bronwetgeving" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> geen. Eigen herkomsteis; volgt uit <em>Reusable</em>, niet uit een PSA-principe.</p>
+<p>Leg via <code>skos:exactMatch</code> of <code>dct:source</code> vast welke wet of regeling aan de grondslag ligt van een definitie.</p>
+<h3 id="s-10-publiceer-als-linked-data">S-10 — Publiceer als Linked Data<a class="headerlink" href="#s-10-publiceer-als-linked-data" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden">D-08 — Pas toe of leg uit</a> — direct. SKOS en RDF staan op de pas-toe-of-leg-uit-lijst.</p>
+<p>Het begrippenkader is de-referenceable, conform NORA-principe 3.5: <em>"Metagegevens zijn beschikbaar als Linked Data"</em>.</p>
+<div class="admonition info">
+<p class="admonition-title">Wat betekent dit voor GBO-Semantiek?</p>
+<ul>
+<li>Het informatiemodel verwijst naar het begrippenmodel</li>
+<li>Eén gezaghebbende definitie per begrip; synoniemen via <code>skos:altLabel</code></li>
+<li>Hiërarchie is acyclisch; GBO-specifieke afbakening via <code>skos:scopeNote</code></li>
+<li>Begrippen en waardelijsten staan in aparte <code>skos:ConceptScheme</code>s</li>
+<li>Herkomst uit wet- of regelgeving wordt expliciet vastgelegd via <code>dct:source</code></li>
+<li>Het begrippenkader wordt als Linked Data gepubliceerd</li>
+</ul>
+</div>
+<h2 id="principes-voor-het-informatiemodel">Principes voor het informatiemodel<a class="headerlink" href="#principes-voor-het-informatiemodel" title="Permanent link">¶</a></h2>
+<h3 id="s-11-minimale-ontologische-committering">S-11 — Minimale ontologische committering<a class="headerlink" href="#s-11-minimale-ontologische-committering" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-01-decentraal-wat-kan-centraal-wat-moet">D-01 — Decentraal wat kan, centraal wat moet</a> — naar analogie. D-01 gaat over taken en voorzieningen; dezelfde subsidiariteitsgedachte is hier toegepast op modelinhoud.</p>
+<p>Definieer in het generieke informatiemodel alleen wat door alle use cases gedeeld wordt. Het principe van <em>minimal ontological commitment</em> stelt: modeleer alleen wat noodzakelijk is en laat de rest open voor applicatieprofielen. Te veel beperkingen in het generieke model maakt hergebruik moeilijk.</p>
+<div class="admonition info">
+<p class="admonition-title">Wat betekent dit voor GBO-Semantiek?</p>
+<ul>
+<li>Alleen wat alle use cases delen, zit in het generieke model</li>
+<li>Specifieke beperkingen horen thuis in een applicatieprofiel, niet in de kern</li>
+<li>Bij twijfel: laat open in het generieke model en leg pas vast in het profiel</li>
+</ul>
+</div>
+<h3 id="s-12-hergebruik-boven-herontwikkeling">S-12 — Hergebruik boven herontwikkeling<a class="headerlink" href="#s-12-hergebruik-boven-herontwikkeling" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-13-standaardiseer-waar-mogelijk-maak-uitzonderingen-expliciet-en-zorg-dat-deze-in-bestaande-gremia-landen">D-13 — Standaardiseer waar mogelijk</a> — direct. Vertaald naar hergebruik van MIM-conforme modellen en bestaande ontologieën.</p>
+<p>Bestaande informatiemodellen en ontologieën worden hergebruikt boven het opnieuw ontwikkelen van dezelfde kennis. De LOT-methodologie (Linked Open Terms) formaliseert dit als kernprincipe.</p>
+<p><strong>Hergebruik van informatiemodellen</strong></p>
+<p>GBO bouwt voort op bestaande, MIM-conforme informatiemodellen in plaats van modellen from scratch te ontwikkelen:</p>
+<div class="admonition info">
+<p class="admonition-title">Wat betekent dit voor GBO-Semantiek?</p>
+<ul>
+<li>Hergebruik van bestaande MIM-conforme modellen gaat vóór herontwikkeling</li>
+<li>Nieuwe termen worden alleen gedefinieerd waar geen passend bestaand alternatief is</li>
+</ul>
+</div>
+<h3 id="s-13-versioning-en-evolutie">S-13 — Versioning en evolutie<a class="headerlink" href="#s-13-versioning-en-evolutie" title="Permanent link">¶</a></h3>
+<p><strong>PSA:</strong> <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp">D-04 — Robuust, modulair en flexibel ontwerp</a> — naar analogie. De PSA kent versiebeheer niet als eigen principe; de koppeling loopt via de eis dat een component onafhankelijk doorontwikkeld kan worden.</p>
+<p>Modellen evolueren. GBO hanteert versiebeheer op twee niveaus:</p>
+<p><strong>Informatiemodel (MIM/UML)</strong></p>
+<p>Het informatiemodel volgt <a href="https://semver.org/lang/nl/">Semantic Versioning</a> (<code>MAJOR.MINOR.PATCH</code>):</p>
+<ul>
+<li><strong>MAJOR</strong>, achterwaarts incompatibele wijzigingen (bijv. verwijderen of hernoemen van objecttypen)</li>
+<li><strong>MINOR</strong>, achterwaarts compatibele uitbreidingen (bijv. nieuwe objecttypen of optionele attributen)</li>
+<li><strong>PATCH</strong>, correcties zonder structuurwijziging (bijv. aangepaste definities of typfouten)</li>
+</ul>
+<p>Elke versie wordt opgeslagen in een eigen map in de repository (<code>/v0.1/</code>, <code>/v0.2/</code>, etc.) en is daarmee onveranderlijk na publicatie.</p>
+<p><strong>Ontologie (OWL/RDF)</strong></p>
+<p>De gepubliceerde ontologie legt versie-informatie vast via standaard metadata-properties:</p>
+<ul>
+<li><code>owl:versionInfo</code>, het versienummer van de ontologie</li>
+<li><code>dct:issued</code>, de publicatiedatum</li>
+<li><code>dct:modified</code>, de datum van de laatste wijziging</li>
+</ul>
+<p>Verouderde klassen en properties worden gemarkeerd met <code>owl:deprecated</code> in plaats van verwijderd, zodat bestaande data geldig blijft en verwijzingen niet breken. Dit garandeert dat historische JSON-LD payloads ook na een modelwijziging interpreteerbaar blijven.</p>
+<div class="admonition info">
+<p class="admonition-title">Wat betekent dit voor GBO-Semantiek?</p>
+<ul>
+<li>Het informatiemodel volgt Semantic Versioning (<code>MAJOR.MINOR.PATCH</code>)</li>
+<li>Elke versie wordt onveranderlijk opgeslagen in een eigen map (<code>/v0.1/</code>, <code>/v0.2/</code>, ...)</li>
+<li>De ontologie legt versie-informatie vast via <code>owl:versionInfo</code>, <code>dct:issued</code> en <code>dct:modified</code></li>
+<li>Verouderde elementen worden gemarkeerd met <code>owl:deprecated</code> en nooit verwijderd</li>
+<li>Definities zijn in het Nederlands en gekoppeld aan het begrippenkader; conventies staan in <a href="../../implementatie/naamgeving/">Naamgeving</a></li>
+</ul>
+</div>
+<h2 id="herkomst-koppeling-met-de-psa">Herkomst: koppeling met de PSA<a class="headerlink" href="#herkomst-koppeling-met-de-psa" title="Permanent link">¶</a></h2>
+<p>De <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/">GBO PSA</a> stelt veertien ontwerpprincipes vast voor de architectuur als geheel. De semantiek-principes hieronder zijn daarvan de verbijzondering naar begrippenkader en informatiemodel; bij elk principe staat vermeld waar het vandaan komt.</p>
+<p>Een koppeling is <strong>direct</strong> wanneer het semantiek-principe hetzelfde stelt als het PSA-principe, toegepast op semantiek, en <strong>naar analogie</strong> wanneer de PSA het onderwerp niet als eigen principe benoemt en alleen de redenering wordt overgenomen. Een deel van de principes is een eigen aanvulling zonder PSA-herkomst; die staan er ook in, zodat de tabel alle semantiek-principes toont.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Semantiek-principe</th>
+<th>PSA-herkomst</th>
+<th>Koppeling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S-01</strong></td>
+<td><a href="#s-01-data-bij-de-bron">Data bij de bron</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-05-gegevens-bij-de-bron-geen-onnodige-kopieen">D-05</a></td>
+<td>Direct; hier ook toegepast op de semantiek zelf</td>
+</tr>
+<tr>
+<td><strong>S-02</strong></td>
+<td><a href="#s-02-fair-als-basisraamwerk">FAIR als basisraamwerk</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming">D-14</a>, <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden">D-08</a></td>
+<td>Direct; D-14 dekt <em>Interoperable</em> en <em>Reusable</em>, D-08 maakt <em>Accessible</em> concreet</td>
+</tr>
+<tr>
+<td><strong>S-03</strong></td>
+<td><a href="#s-03-modulariteit-generiek-vs-use-case-specifiek">Modulariteit: generiek vs. use-case-specifiek</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp">D-04</a>, <a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-06-componentgebaseerd-werken-herbruikbare-bouwstenen">D-06</a></td>
+<td>Direct; separation of concerns op modelniveau in plaats van op componenten</td>
+</tr>
+<tr>
+<td><strong>S-04</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Begrippen-first</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming">D-14</a></td>
+<td>Direct; semantische afstemming begint bij gedeelde begripsvorming</td>
+</tr>
+<tr>
+<td><strong>S-05</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Eén gezaghebbende definitie per begrip</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-14-interoperabiliteit-semantische-en-technische-afstemming">D-14</a></td>
+<td>Direct; invulling van de eis van semantische eenduidigheid</td>
+</tr>
+<tr>
+<td><strong>S-06</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Hiërarchische coherentie</a></td>
+<td>Geen</td>
+<td>Eigen SKOS-regel; de PSA doet geen uitspraak over modelhygiëne</td>
+</tr>
+<tr>
+<td><strong>S-07</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Expliciete scopeNotes</a></td>
+<td>Geen</td>
+<td>Eigen SKOS-regel voor GBO-specifieke afbakening</td>
+</tr>
+<tr>
+<td><strong>S-08</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Scheiding begrip en waardelijst</a></td>
+<td>Geen</td>
+<td>Eigen modelleerregel</td>
+</tr>
+<tr>
+<td><strong>S-09</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Koppeling aan bronwetgeving</a></td>
+<td>Geen</td>
+<td>Eigen herkomsteis; volgt uit <em>Reusable</em>, niet uit een PSA-principe</td>
+</tr>
+<tr>
+<td><strong>S-10</strong></td>
+<td><a href="#principes-voor-het-begrippenkader">Publiceer als Linked Data</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-08-pas-toe-of-leg-uit-verplichte-open-standaarden">D-08</a></td>
+<td>Direct; SKOS en RDF staan op de pas-toe-of-leg-uit-lijst</td>
+</tr>
+<tr>
+<td><strong>S-11</strong></td>
+<td><a href="#s-11-minimale-ontologische-committering">Minimale ontologische committering</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-01-decentraal-wat-kan-centraal-wat-moet">D-01</a></td>
+<td>Naar analogie; subsidiariteit toegepast op modelinhoud</td>
+</tr>
+<tr>
+<td><strong>S-12</strong></td>
+<td><a href="#s-12-hergebruik-boven-herontwikkeling">Hergebruik boven herontwikkeling</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-13-standaardiseer-waar-mogelijk-maak-uitzonderingen-expliciet-en-zorg-dat-deze-in-bestaande-gremia-landen">D-13</a></td>
+<td>Direct; vertaald naar MIM-conforme modellen en bestaande ontologieën</td>
+</tr>
+<tr>
+<td><strong>S-13</strong></td>
+<td><a href="#s-13-versioning-en-evolutie">Versioning en evolutie</a></td>
+<td><a href="https://ictu.github.io/GBO-PSA/main/ontwerpprincipes/#d-04-robuust-modulair-en-flexibel-ontwerp">D-04</a></td>
+<td>Naar analogie; de PSA kent versiebeheer niet als eigen principe</td>
+</tr>
+</tbody>
+</table>
+<p>Omgekeerd hebben zeven PSA-principes geen semantiek-pendant, omdat ze de architectuur en de uitvoering betreffen en niet de betekenis van gegevens: D-02 (ordening van het stelsel), D-03 (GDI-bouwstenen), D-07 (open source), D-09 (API-first) en D-10 tot en met D-12 (beveiliging, least privilege, aantoonbare veiligheid).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Terug naar boven
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Vorige: Inleiding">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Vorige
+              </span>
+              <div class="md-ellipsis">
+                Inleiding
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../kaders_standaarden/" class="md-footer__link md-footer__link--next" aria-label="Volgende: Kaders en standaarden">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Volgende
+              </span>
+              <div class="md-ellipsis">
+                Kaders en standaarden
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Let op: er wordt alleen gezocht binnen dit documentatie-onderdeel. Om in andere onderdelen te zoeken: ga via het hoofdmenu eerst naar het onderdeel en voer dan de zoekterm in.", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../assets/javascripts/mermaid-init.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

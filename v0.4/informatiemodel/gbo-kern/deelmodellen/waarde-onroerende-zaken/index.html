@@ -1,0 +1,3694 @@
+<!DOCTYPE html><html lang="nl" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WOZ-objecten (fiscale eenheid Wet WOZ), WOZ-waarden per peildatum, deelobjecten en belanghebbenden (eigenaar/gebruiker).">
+      
+      
+        <meta name="author" content="GBO-Semantiek Werkgroep">
+      
+      
+        <link rel="canonical" href="https://ictu.github.io/GBO-Semantiek/latest/informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken/">
+      
+      
+        <link rel="prev" href="../onroerende-zaken/">
+      
+      
+        <link rel="next" href="../belastingen/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Deelmodel: Waarde onroerende zaken - GBO-Semantiek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deelmodel-waarde-onroerende-zaken" class="md-skip">
+          Ga naar inhoud
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="GBO-Semantiek" class="md-header__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GBO-Semantiek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deelmodel: Waarde onroerende zaken
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar licht thema" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar donker thema" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Zoeken">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Zoeken initialiseren
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Gemeenschappelijke Bronontsluiting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Context
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Globaal Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Projectstartarchitectuur
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technisch Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technische Requirements
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Semantiek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Demo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigatie" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="GBO-Semantiek" class="md-nav__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../../assets/icon.svg" alt="logo">
+
+    </a>
+    GBO-Semantiek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemeenschappelijke Bronontsluiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Globaal Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectstartarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technisch Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technische Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantiek
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Semantiek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2">
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uitgangspunten
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Uitgangspunten
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../uitgangspunten/ontwerpprincipes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontwerprincipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../uitgangspunten/kaders_standaarden/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaders en standaarden
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bronnenprioritering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bronnenprioritering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3">
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectuur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architectuur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../architectuur/gegevensarchitectuur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevensarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../architectuur/gegevenscomponenten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevenscomponenten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4">
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Begrippenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Begrippenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../begrippen/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hoofdmodel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hoofdmodel-compact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel (compact)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../personen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Personen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bedrijven-en-instellingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Bedrijven en Instellingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adressen-en-gebouwen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Adressen en Gebouwen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Waarde Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Waarde Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objecttypen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objecttypen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objecttypen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#belanghebbende" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Belanghebbende
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wozdeelobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZDeelobject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wozobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wozwaarde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZWaarde
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumeraties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeraties
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enumeraties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beschikkingstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BeschikkingStatus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rolbelanghebbende" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RolBelanghebbende
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statuswozobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatusWOZObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statuswozwaarde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatusWOZWaarde
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codelijsten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codelijsten
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Codelijsten">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onderhoudsritme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onderhoudsritme
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stelselkoppelingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stelselkoppelingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bron
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../belastingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Belastingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../krediet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Krediet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onderwijs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onderwijs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../werk-en-inkomen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Werk en Inkomen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../voertuigen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Voertuigen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datatypes-en-codelijsten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datatypes en codelijsten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6">
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gbo-voorzieningen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodellen Pilots
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodellen Pilots
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilots/vergunningen-en-ontheffingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vergunningen en Ontheffingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8">
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontologie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ontologie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ontologie/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9">
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementatie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementatie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../implementatie/uri-strategie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-strategie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../implementatie/naamgeving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naamgeving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../implementatie/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../implementatie/publicatie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publicatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10">
+        
+          
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bijlagen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../bijlagen/woordenlijst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Woordenlijst
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../bijlagen/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../bijlagen/uri-namespace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-namespace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objecttypen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objecttypen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objecttypen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#belanghebbende" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Belanghebbende
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wozdeelobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZDeelobject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wozobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wozwaarde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WOZWaarde
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumeraties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeraties
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enumeraties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beschikkingstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BeschikkingStatus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rolbelanghebbende" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RolBelanghebbende
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statuswozobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatusWOZObject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statuswozwaarde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StatusWOZWaarde
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codelijsten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codelijsten
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Codelijsten">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onderhoudsritme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onderhoudsritme
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stelselkoppelingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stelselkoppelingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bron
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICTU/GBO-Semantiek/edit/main/docs/informatiemodel/gbo-kern/deelmodellen/waarde-onroerende-zaken.md" title="Wijzig deze pagina" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="deelmodel-waarde-onroerende-zaken">Deelmodel: Waarde onroerende zaken<a class="headerlink" href="#deelmodel-waarde-onroerende-zaken" title="Permanent link">¶</a></h1>
+<p>WOZ-objecten als fiscale eenheid voor de Wet WOZ en hun waarden per
+peildatum. Een WOZ-object is een samenstelling, niet identiek aan één
+pand of één perceel.</p>
+<p>Kadastrale eigendom valt buiten dit deelmodel; zie
+<a href="../onroerende-zaken/">Onroerende zaken</a>. Het fysieke gebouw zelf hoort
+bij <a href="../adressen-en-gebouwen/">Adressen en gebouwen</a>.</p>
+<h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkNMQVNTIiBoZWlnaHQ9IjcxNC41ODMzcHgiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHN0eWxlPSJ3aWR0aDoxMzMwcHg7aGVpZ2h0OjcxNHB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDEzMzAgNzE0IiB3aWR0aD0iMTMzMHB4IiB6b29tQW5kUGFuPSJtYWduaWZ5Ij48P3BsYW50dW1sIDEuMjAyNi42Pz48ZGVmcy8+PGc+PCEtLWNsYXNzIFBhcnRpai0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IlBhcnRpaiIgZGF0YS1zb3VyY2UtbGluZT0iMzUiIGlkPSJlbnQwMDAxIj48cmVjdCBmaWxsPSIjRjNFNUY1IiBoZWlnaHQ9IjU5LjIzOTEiIHJ4PSI0LjM3NSIgcnk9IjQuMzc1IiBzdHlsZT0ic3Ryb2tlOiM2QTFCOUE7c3Ryb2tlLXdpZHRoOjAuNzI5MjsiIHdpZHRoPSIxMDMuMzM2NiIgeD0iMTIxLjUxNzMiIHk9IjIxMy43MjI3Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjEwMC40MTk5IiB4PSIxMjIuOTc1NyIgeT0iMjM3LjkzMzMiPiYjMTcxO2FsZ2VtZWVuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGZvbnQtc3R5bGU9Iml0YWxpYyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1MC42NjI4IiB4PSIxNDcuODU0MiIgeT0iMjYxLjM2MzUiPlBhcnRpajwvdGV4dD48L2c+PCEtLWNsYXNzIEFkcmVzc2VlcmJhYXJPYmplY3QtLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJBZHJlc3NlZXJiYWFyT2JqZWN0IiBkYXRhLXNvdXJjZS1saW5lPSIzNiIgaWQ9ImVudDAwMDIiPjxyZWN0IGZpbGw9IiNFOEY1RTkiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6IzJFN0QzMjtzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjIyNS41Mzc1IiB4PSIxMDA2LjEwNzYiIHk9IjQzOS4xMTIxIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIyMi42MjA4IiB4PSIxMDA3LjU2NTkiIHk9IjQ2My4zMjI4Ij4mIzE3MTthZHJlc3Nlbi1lbi1nZWJvdXdlbiYjMTg3OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMC40MTY3IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjA2LjcyODciIHg9IjEwMTUuNTEyIiB5PSI0ODYuNzUyOSI+QWRyZXNzZWVyYmFhck9iamVjdDwvdGV4dD48L2c+PCEtLWNsYXNzIFBlcmNlZWwtLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJQZXJjZWVsIiBkYXRhLXNvdXJjZS1saW5lPSIzNyIgaWQ9ImVudDAwMDMiPjxyZWN0IGZpbGw9IiNGREU4RDYiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0EwNDAwMDtzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjE3OS43MTk2IiB4PSIzNTguMDM3OSIgeT0iNDM5LjExMjEiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTc2LjgwMyIgeD0iMzU5LjQ5NjMiIHk9IjQ2My4zMjI4Ij4mIzE3MTtvbnJvZXJlbmRlLXpha2VuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNzAuMTIyNSIgeD0iNDEyLjgzNjUiIHk9IjQ4Ni43NTI5Ij5QZXJjZWVsPC90ZXh0PjwvZz48IS0tY2xhc3MgV09aT2JqZWN0LS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iV09aT2JqZWN0IiBkYXRhLXNvdXJjZS1saW5lPSI0MCIgaWQ9ImVudDAwMDQiPjxyZWN0IGZpbGw9IiNGQ0U0RUMiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0FEMTQ1NztzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjI1MC41ODI3IiB4PSIzOTcuNzgxMiIgeT0iMjEzLjcyMjciLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjQ3LjY2NiIgeD0iMzk5LjIzOTUiIHk9IjIzNy45MzMzIj4mIzE3MTt3YWFyZGUtb25yb2VyZW5kZS16YWtlbiYjMTg3OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMC40MTY3IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExMC4wNTg2IiB4PSI0NjguMDQzMyIgeT0iMjYxLjM2MzUiPldPWk9iamVjdDwvdGV4dD48L2c+PCEtLWNsYXNzIFdPWkRlZWxvYmplY3QtLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJXT1pEZWVsb2JqZWN0IiBkYXRhLXNvdXJjZS1saW5lPSI0MSIgaWQ9ImVudDAwMDUiPjxyZWN0IGZpbGw9IiNGQ0U0RUMiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0FEMTQ1NztzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjI1MC41ODI3IiB4PSI2MDUuMjgzNyIgeT0iNDM5LjExMjEiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjQ3LjY2NiIgeD0iNjA2Ljc0MiIgeT0iNDYzLjMyMjgiPiYjMTcxO3dhYXJkZS1vbnJvZXJlbmRlLXpha2VuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTUwLjY4MjYiIHg9IjY1NS4yMzM3IiB5PSI0ODYuNzUyOSI+V09aRGVlbG9iamVjdDwvdGV4dD48L2c+PCEtLWNsYXNzIFdPWldhYXJkZS0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IldPWldhYXJkZSIgZGF0YS1zb3VyY2UtbGluZT0iNDIiIGlkPSJlbnQwMDA2Ij48cmVjdCBmaWxsPSIjRkNFNEVDIiBoZWlnaHQ9IjU5LjIzOTEiIHJ4PSI0LjM3NSIgcnk9IjQuMzc1IiBzdHlsZT0ic3Ryb2tlOiNBRDE0NTc7c3Ryb2tlLXdpZHRoOjAuNzI5MjsiIHdpZHRoPSIyNTAuNTgyNyIgeD0iNjQ3LjA0NzUiIHk9IjYzNS4zMzQ5Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI0Ny42NjYiIHg9IjY0OC41MDU4IiB5PSI2NTkuNTQ1NSI+JiMxNzE7d2FhcmRlLW9ucm9lcmVuZGUtemFrZW4mIzE4Nzs8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAuNDE2NyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMTguMjYzMSIgeD0iNzEzLjIwNzIiIHk9IjY4Mi45NzU3Ij5XT1pXYWFyZGU8L3RleHQ+PC9nPjwhLS1jbGFzcyBCZWxhbmdoZWJiZW5kZS0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkJlbGFuZ2hlYmJlbmRlIiBkYXRhLXNvdXJjZS1saW5lPSI0MyIgaWQ9ImVudDAwMDciPjxyZWN0IGZpbGw9IiNGQ0U0RUMiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0FEMTQ1NztzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjI1MC41ODI3IiB4PSI4OS42NTgxIiB5PSIxNy41Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI0Ny42NjYiIHg9IjkxLjExNjQiIHk9IjQxLjcxMDYiPiYjMTcxO3dhYXJkZS1vbnJvZXJlbmRlLXpha2VuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTYzLjcxMjIiIHg9IjEzMy4wOTMzIiB5PSI2NS4xNDA4Ij5CZWxhbmdoZWJiZW5kZTwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iR01OMTUiIGRhdGEtc291cmNlLWxpbmU9IjU1IiBpZD0iZW50MDAxNiI+PHBhdGggZD0iTTkyNi43OTY4LDYzOS43MDk5IEw5MjYuNzk2OCw2NjcuODcxMSBBNC4zNzUsNC4zNzUgMCAwIDAgOTMxLjE3MTgsNjcyLjI0NjEgTDEzMDYuNTgwOSw2NzIuMjQ2MSBBNC4zNzUsNC4zNzUgMCAwIDAgMTMxMC45NTU5LDY2Ny44NzExIEwxMzEwLjk1NTksNjQ5LjkxODIgTDEyOTYuMzcyNSw2MzUuMzM0OSBMOTMxLjE3MTgsNjM1LjMzNDkgQTQuMzc1LDQuMzc1IDAgMCAwIDkyNi43OTY4LDYzOS43MDk5IiBmaWxsPSIjRkZGQ0Q4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNzI5MjsiLz48cGF0aCBkPSJNMTI5Ni4zNzI1LDYzNS4zMzQ5IEwxMjk2LjM3MjUsNjQ3LjczMDcgQTIuMTg3NSwyLjE4NzUgMCAwIDAgMTI5OC41Niw2NDkuOTE4MiBMMTMxMC45NTU5LDY0OS45MTgyIEwxMjk2LjM3MjUsNjM1LjMzNDkiIGZpbGw9IiNGRkZDRDgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MS40NTgzOyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzUzLjUzNCIgeD0iOTM1LjU0NjgiIHk9IjY2MC45NTU0Ij5VaXQgZGVlbG1vZGVsIEFkcmVzc2VuIGVuIGdlYm91d2VuLjwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iR01OMTgiIGRhdGEtc291cmNlLWxpbmU9IjU5IiBpZD0iZW50MDAxOSI+PHBhdGggZD0iTTI3Ny45MTQ3LDYzOS43MDk5IEwyNzcuOTE0Nyw2NjcuODcxMSBBNC4zNzUsNC4zNzUgMCAwIDAgMjgyLjI4OTcsNjcyLjI0NjEgTDYxMy41MDU4LDY3Mi4yNDYxIEE0LjM3NSw0LjM3NSAwIDAgMCA2MTcuODgwOCw2NjcuODcxMSBMNjE3Ljg4MDgsNjQ5LjkxODIgTDYwMy4yOTc1LDYzNS4zMzQ5IEwyODIuMjg5Nyw2MzUuMzM0OSBBNC4zNzUsNC4zNzUgMCAwIDAgMjc3LjkxNDcsNjM5LjcwOTkiIGZpbGw9IiNGRkZDRDgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC43MjkyOyIvPjxwYXRoIGQ9Ik02MDMuMjk3NSw2MzUuMzM0OSBMNjAzLjI5NzUsNjQ3LjczMDcgQTIuMTg3NSwyLjE4NzUgMCAwIDAgNjA1LjQ4NSw2NDkuOTE4MiBMNjE3Ljg4MDgsNjQ5LjkxODIgTDYwMy4yOTc1LDYzNS4zMzQ5IiBmaWxsPSIjRkZGQ0Q4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMwOS4zNDExIiB4PSIyODYuNjY0NyIgeT0iNjYwLjk1NTQiPlVpdCBkZWVsbW9kZWwgT25yb2VyZW5kZSB6YWtlbi48L3RleHQ+PC9nPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkdNTjIxIiBkYXRhLXNvdXJjZS1saW5lPSI2MyIgaWQ9ImVudDAwMjIiPjxwYXRoIGQ9Ik0xNy41LDQ0My40ODcxIEwxNy41LDQ3MS42NDg0IEE0LjM3NSw0LjM3NSAwIDAgMCAyMS44NzUsNDc2LjAyMzQgTDMyNC40OTYzLDQ3Ni4wMjM0IEE0LjM3NSw0LjM3NSAwIDAgMCAzMjguODcxMyw0NzEuNjQ4NCBMMzI4Ljg3MTMsNDUzLjY5NTUgTDMxNC4yODc5LDQzOS4xMTIxIEwyMS44NzUsNDM5LjExMjEgQTQuMzc1LDQuMzc1IDAgMCAwIDE3LjUsNDQzLjQ4NzEiIGZpbGw9IiNGRkZDRDgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC43MjkyOyIvPjxwYXRoIGQ9Ik0zMTQuMjg3OSw0MzkuMTEyMSBMMzE0LjI4NzksNDUxLjUwOCBBMi4xODc1LDIuMTg3NSAwIDAgMCAzMTYuNDc1NCw0NTMuNjk1NSBMMzI4Ljg3MTMsNDUzLjY5NTUgTDMxNC4yODc5LDQzOS4xMTIxIiBmaWxsPSIjRkZGQ0Q4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI4MC43NDYzIiB4PSIyNi4yNSIgeT0iNDY0LjczMjciPlN1cGVydHlwZSB1aXQgaGV0IGhvb2ZkbW9kZWwuPC90ZXh0PjwvZz48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI0OTguMDE0MyIgeDI9IjQ5OC4wMTQzIiB5MT0iMjcyLjk2MTgiIHkyPSIzNDEuOTU2NCIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjQ5OC4wMTQzIiB4Mj0iNzMwLjU3NSIgeTE9IjM0MS45NTY0IiB5Mj0iMzQxLjk1NjQiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI3MzAuNTc1IiB4Mj0iNzMwLjU3NSIgeTE9IjM0MS45NTY0IiB5Mj0iNDM5LjExMjEiLz48cG9seWdvbiBmaWxsPSIjNDQ0NDQ0IiBwb2ludHM9IjczMC41NzUsNDM5LjExMjEsNzM2LjQwODQsNDI1Ljk4NzEsNzMwLjU3NSw0MzEuODIwNSw3MjQuNzQxNyw0MjUuOTg3MSw3MzAuNTc1LDQzOS4xMTIxIiBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MztzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0OS44Njc1IiB4PSI2NzQuODc0MyIgeT0iMzc3Ljc4NTIiPmJldmF0PC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTEuOTg3OCIgeD0iNTAyLjM4OTMiIHk9IjI5NC4yMDc0Ij4xPC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzMuMTIxNSIgeD0iNzM0Ljk1IiB5PSI0MzIuMTk2NSI+MC4uKjwvdGV4dD48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI1NDguMTMwOCIgeDI9IjU0OC4xMzA4IiB5MT0iMjcyLjk2MTgiIHkyPSIzMjcuMzczIi8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iNTQ4LjEzMDgiIHgyPSI5MzQuMjgyNCIgeTE9IjMyNy4zNzMiIHkyPSIzMjcuMzczIi8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iOTM0LjI4MjQiIHgyPSI5MzQuMjgyNCIgeTE9IjMyNy4zNzMiIHkyPSI1OTUuNTA3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iOTM0LjI4MjQiIHgyPSI4MTQuMTAyNiIgeTE9IjU5NS41MDciIHkyPSI1OTUuNTA3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iODE0LjEwMjYiIHgyPSI4MTQuMTAyNiIgeTE9IjU5NS41MDciIHkyPSI2MzUuMzM0OSIvPjxwb2x5Z29uIGZpbGw9IiM0NDQ0NDQiIHBvaW50cz0iODE0LjEwMjYsNjM1LjMzNDksODE5LjkzNTksNjIyLjIwOTksODE0LjEwMjYsNjI4LjA0MzIsODA4LjI2OTMsNjIyLjIwOTksODE0LjEwMjYsNjM1LjMzNDkiIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjQwLjQ5OTQiIHg9Ijg4Ny45NDk3IiB5PSI0NzUuODk2NiI+a2VudDwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExLjk4NzgiIHg9IjU1Mi41MDU4IiB5PSIyOTQuMjA3NCI+MTwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMzLjEyMTUiIHg9IjgxOC40Nzc2IiB5PSI2MjguNDE5MiI+MS4uKjwvdGV4dD48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI3MzAuNTc1IiB4Mj0iNzMwLjU3NSIgeTE9IjQ5OC4zNTEyIiB5Mj0iNjM1LjMzNDkiLz48cG9seWdvbiBmaWxsPSIjNDQ0NDQ0IiBwb2ludHM9IjczMC41NzUsNjM1LjMzNDksNzM2LjQwODQsNjIyLjIwOTksNzMwLjU3NSw2MjguMDQzMiw3MjQuNzQxNyw2MjIuMjA5OSw3MzAuNTc1LDYzNS4zMzQ5IiBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MztzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0MC40OTk0IiB4PSI2ODQuMjQyMyIgeT0iNTc0LjAwOCI+a2VudDwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExLjk4NzgiIHg9IjczNC45NSIgeT0iNTE5LjU5NjgiPjE8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSI3MzQuOTUiIHk9IjYyOC40MTkyIj4wLi4qPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjU5OC4yNDc0IiB4Mj0iNTk4LjI0NzQiIHkxPSIyNzIuOTYxOCIgeTI9IjMxMi43ODk3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iNTk4LjI0NzQiIHgyPSIxMTE4Ljg3NjMiIHkxPSIzMTIuNzg5NyIgeTI9IjMxMi43ODk3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iMTExOC44NzYzIiB4Mj0iMTExOC44NzYzIiB5MT0iMzEyLjc4OTciIHkyPSI0MzkuMTEyMSIvPjxwb2x5Z29uIGZpbGw9IiM0NDQ0NDQiIHBvaW50cz0iMTExOC44NzYzLDQzOS4xMTIxLDExMjQuNzA5Nyw0MjUuOTg3MSwxMTE4Ljg3NjMsNDMxLjgyMDUsMTExMy4wNDMsNDI1Ljk4NzEsMTExOC44NzYzLDQzOS4xMTIxIiBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MztzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3OS41ODI0IiB4PSIxMDMzLjQ2MDYiIHk9IjM3Ny43ODUyIj5yZWZlcmVlcnQ8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMS45ODc4IiB4PSI2MDIuNjIyNCIgeT0iMjk0LjIwNzQiPjE8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSIxMTIzLjI1MTMiIHk9IjQzMi4xOTY1Ij4xLi4qPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjQ0Ny44OTc3IiB4Mj0iNDQ3Ljg5NzciIHkxPSIyNzIuOTYxOCIgeTI9IjQzOS4xMTIxIi8+PHBvbHlnb24gZmlsbD0iIzQ0NDQ0NCIgcG9pbnRzPSI0NDcuODk3Nyw0MzkuMTEyMSw0NTMuNzMxMSw0MjUuOTg3MSw0NDcuODk3Nyw0MzEuODIwNSw0NDIuMDY0NCw0MjUuOTg3MSw0NDcuODk3Nyw0MzkuMTEyMSIgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNTkuNDQ4NCIgeD0iMzgyLjYxNiIgeT0iMzc3Ljc4NTIiPmxpZ3Qgb3A8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSI0NTIuMjcyNyIgeT0iMjk0LjIwNzQiPjAuLio8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSI0NTIuMjcyNyIgeT0iNDMyLjE5NjUiPjEuLio8L3RleHQ+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iMjU2LjcxMzIiIHgyPSIyNTYuNzEzMiIgeTE9Ijc2LjczOTEiIHkyPSIxMTYuNTY3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iMjU2LjcxMzIiIHgyPSI1MjMuMDcyNiIgeTE9IjExNi41NjciIHkyPSIxMTYuNTY3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iNTIzLjA3MjYiIHgyPSI1MjMuMDcyNiIgeTE9IjExNi41NjciIHkyPSIyMTMuNzIyNyIvPjxwb2x5Z29uIGZpbGw9IiM0NDQ0NDQiIHBvaW50cz0iNTIzLjA3MjYsMjEzLjcyMjcsNTI4LjkwNTksMjAwLjU5NzcsNTIzLjA3MjYsMjA2LjQzMTEsNTE3LjIzOTIsMjAwLjU5NzcsNTIzLjA3MjYsMjEzLjcyMjciIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMyLjA0NzciIHg9IjUzMC4zNjQyIiB5PSIxNTIuMzk1OCI+dmFuPC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iOS4xMzY3IiB4PSIyNjEuMDg4MiIgeT0iOTcuOTg0NiI+KjwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExLjk4NzgiIHg9IjUyNy40NDc2IiB5PSIyMDYuODA3Ij4xPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjE3My4xODU2IiB4Mj0iMTczLjE4NTYiIHkxPSI3Ni43MzkxIiB5Mj0iMjEzLjcyMjciLz48cG9seWdvbiBmaWxsPSIjNDQ0NDQ0IiBwb2ludHM9IjE3My4xODU2LDIxMy43MjI3LDE3OS4wMTksMjAwLjU5NzcsMTczLjE4NTYsMjA2LjQzMTEsMTY3LjM1MjMsMjAwLjU5NzcsMTczLjE4NTYsMjEzLjcyMjciIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjE1LjE0NDQiIHg9IjE1Mi4yMDc4IiB5PSIxNTIuMzk1OCI+aXM8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5LjEzNjciIHg9IjE3Ny41NjA2IiB5PSI5Ny45ODQ2Ij4qPC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTEuOTg3OCIgeD0iMTc3LjU2MDYiIHk9IjIwNi44MDciPjE8L3RleHQ+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7c3Ryb2tlLWRhc2hhcnJheToxMC4yMDgzLDEwLjIwODM7IiB4MT0iMTExOC44NzYzIiB4Mj0iMTExOC44NzYzIiB5MT0iNDk4LjM1MTIiIHkyPSI2MzUuMzM0OSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1kYXNoYXJyYXk6MTAuMjA4MywxMC4yMDgzOyIgeDE9IjQ0Ny44OTc3IiB4Mj0iNDQ3Ljg5NzciIHkxPSI0OTguMzUxMiIgeTI9IjYzNS4zMzQ5Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7c3Ryb2tlLWRhc2hhcnJheToxMC4yMDgzLDEwLjIwODM7IiB4MT0iMTczLjE4NTYiIHgyPSIxNzMuMTg1NiIgeTE9IjI3Mi45NjE4IiB5Mj0iNDM5LjExMjEiLz48P3BsYW50dW1sLXNyYyBiTEhCUnZqMDRCeGxodlpJTW9MUkVCT0oxcU1NNzRUTVV3YWhITE1hdFdQc21DSW1Zdk9iYmJGdmx0VHZzRHEySGthMmJ2ZGxDR19XS3dPbUlYNElGQ2YyMG9MeG5sOXpCMzlLYzBCRk9mWkNOMmlJOTlaZEF3ckx4MVVRbFdMSUZDVmwxM09hdG82TlhyWDQ0NkFJYXZMSGlYMXlCUEtXMVJUTVY1c0FGY0FtWm5mNDhYTHl0Z3BBZ21FSllmRGc4RkZnTTkyTEtsQkc5NlZMUUlTdEtrVzZDQXNFMVZXa0ROTkJzNnBNSm1rc1lwYTFmUGEtR2FnZkpvZ2xHcTZpV2VIT1VxR0Yzdlg0YjFBOXZIOS1DdTJFUlpZYlVKV2xDdFA3anBabnh6NTRsbkFRdzNOTWdTVUZBeWZwNFlEcEgtSkJ1ZDNUY25SWGRFeFJ0WlRxbndTdHJ4cVJMZS10NTRnSThpNWZ6OHh4V1B1dkJWWGpzblZUY1VrdzBwdE5oMXhWMHdCSDZOdE9GZzBQMUhyeEZmZER4bVJpUXpROWVQemhYTzZrdFU0N0FYc19XaHRmRGNITHh1SUtSbWhULWd6YUNqU3NuSGZMS1c1SDBkcjNQS3BCWUZKRVYzdmJWcE5YUFZsaGVkbnI3WlJ3b1NaQl9zQXlMQTBGZUh5ZkdIN2pvRlZCejIzYm5EWlZzZnM5MHdGSDRYbnRGRnhZakNocW1BU3RyN3Rtb0hkVXJFWTE0US1HNWh5aHRhN3R3X1JqcG1ENWVNYzVyM180TWpoWWRYVmZHSDk3NmNKNk1oRG5CZFo3TWc4N1JvWTZlQ3JodnE2U0NvUkM3bWp5Z1JMQ0dPUHp6UGhEXzhtclM1REFBaGNmZnk0OENGVnZ4SGlwT21FYk00VW9RUUNaaXhxaTVBZzUzYWJLNUhrNXZvOHBLcGpjMThOSHNmNXZmMG52OU1abl9tMDA/PjwvZz48L3N2Zz4=" data-desc-position="bottom"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkNMQVNTIiBoZWlnaHQ9IjcxNC41ODMzcHgiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHN0eWxlPSJ3aWR0aDoxMzMwcHg7aGVpZ2h0OjcxNHB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDEzMzAgNzE0IiB3aWR0aD0iMTMzMHB4IiB6b29tQW5kUGFuPSJtYWduaWZ5Ij48P3BsYW50dW1sIDEuMjAyNi42Pz48ZGVmcy8+PGc+PCEtLWNsYXNzIFBhcnRpai0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IlBhcnRpaiIgZGF0YS1zb3VyY2UtbGluZT0iMzUiIGlkPSJlbnQwMDAxIj48cmVjdCBmaWxsPSIjRjNFNUY1IiBoZWlnaHQ9IjU5LjIzOTEiIHJ4PSI0LjM3NSIgcnk9IjQuMzc1IiBzdHlsZT0ic3Ryb2tlOiM2QTFCOUE7c3Ryb2tlLXdpZHRoOjAuNzI5MjsiIHdpZHRoPSIxMDMuMzM2NiIgeD0iMTIxLjUxNzMiIHk9IjIxMy43MjI3Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjEwMC40MTk5IiB4PSIxMjIuOTc1NyIgeT0iMjM3LjkzMzMiPiYjMTcxO2FsZ2VtZWVuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGZvbnQtc3R5bGU9Iml0YWxpYyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1MC42NjI4IiB4PSIxNDcuODU0MiIgeT0iMjYxLjM2MzUiPlBhcnRpajwvdGV4dD48L2c+PCEtLWNsYXNzIEFkcmVzc2VlcmJhYXJPYmplY3QtLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJBZHJlc3NlZXJiYWFyT2JqZWN0IiBkYXRhLXNvdXJjZS1saW5lPSIzNiIgaWQ9ImVudDAwMDIiPjxyZWN0IGZpbGw9IiNFOEY1RTkiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6IzJFN0QzMjtzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjIyNS41Mzc1IiB4PSIxMDA2LjEwNzYiIHk9IjQzOS4xMTIxIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIyMi42MjA4IiB4PSIxMDA3LjU2NTkiIHk9IjQ2My4zMjI4Ij4mIzE3MTthZHJlc3Nlbi1lbi1nZWJvdXdlbiYjMTg3OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMC40MTY3IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjA2LjcyODciIHg9IjEwMTUuNTEyIiB5PSI0ODYuNzUyOSI+QWRyZXNzZWVyYmFhck9iamVjdDwvdGV4dD48L2c+PCEtLWNsYXNzIFBlcmNlZWwtLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJQZXJjZWVsIiBkYXRhLXNvdXJjZS1saW5lPSIzNyIgaWQ9ImVudDAwMDMiPjxyZWN0IGZpbGw9IiNGREU4RDYiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0EwNDAwMDtzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjE3OS43MTk2IiB4PSIzNTguMDM3OSIgeT0iNDM5LjExMjEiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTc2LjgwMyIgeD0iMzU5LjQ5NjMiIHk9IjQ2My4zMjI4Ij4mIzE3MTtvbnJvZXJlbmRlLXpha2VuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNzAuMTIyNSIgeD0iNDEyLjgzNjUiIHk9IjQ4Ni43NTI5Ij5QZXJjZWVsPC90ZXh0PjwvZz48IS0tY2xhc3MgV09aT2JqZWN0LS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iV09aT2JqZWN0IiBkYXRhLXNvdXJjZS1saW5lPSI0MCIgaWQ9ImVudDAwMDQiPjxyZWN0IGZpbGw9IiNGQ0U0RUMiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0FEMTQ1NztzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjI1MC41ODI3IiB4PSIzOTcuNzgxMiIgeT0iMjEzLjcyMjciLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjQ3LjY2NiIgeD0iMzk5LjIzOTUiIHk9IjIzNy45MzMzIj4mIzE3MTt3YWFyZGUtb25yb2VyZW5kZS16YWtlbiYjMTg3OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMC40MTY3IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExMC4wNTg2IiB4PSI0NjguMDQzMyIgeT0iMjYxLjM2MzUiPldPWk9iamVjdDwvdGV4dD48L2c+PCEtLWNsYXNzIFdPWkRlZWxvYmplY3QtLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJXT1pEZWVsb2JqZWN0IiBkYXRhLXNvdXJjZS1saW5lPSI0MSIgaWQ9ImVudDAwMDUiPjxyZWN0IGZpbGw9IiNGQ0U0RUMiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0FEMTQ1NztzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjI1MC41ODI3IiB4PSI2MDUuMjgzNyIgeT0iNDM5LjExMjEiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjQ3LjY2NiIgeD0iNjA2Ljc0MiIgeT0iNDYzLjMyMjgiPiYjMTcxO3dhYXJkZS1vbnJvZXJlbmRlLXpha2VuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTUwLjY4MjYiIHg9IjY1NS4yMzM3IiB5PSI0ODYuNzUyOSI+V09aRGVlbG9iamVjdDwvdGV4dD48L2c+PCEtLWNsYXNzIFdPWldhYXJkZS0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IldPWldhYXJkZSIgZGF0YS1zb3VyY2UtbGluZT0iNDIiIGlkPSJlbnQwMDA2Ij48cmVjdCBmaWxsPSIjRkNFNEVDIiBoZWlnaHQ9IjU5LjIzOTEiIHJ4PSI0LjM3NSIgcnk9IjQuMzc1IiBzdHlsZT0ic3Ryb2tlOiNBRDE0NTc7c3Ryb2tlLXdpZHRoOjAuNzI5MjsiIHdpZHRoPSIyNTAuNTgyNyIgeD0iNjQ3LjA0NzUiIHk9IjYzNS4zMzQ5Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI0Ny42NjYiIHg9IjY0OC41MDU4IiB5PSI2NTkuNTQ1NSI+JiMxNzE7d2FhcmRlLW9ucm9lcmVuZGUtemFrZW4mIzE4Nzs8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAuNDE2NyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMTguMjYzMSIgeD0iNzEzLjIwNzIiIHk9IjY4Mi45NzU3Ij5XT1pXYWFyZGU8L3RleHQ+PC9nPjwhLS1jbGFzcyBCZWxhbmdoZWJiZW5kZS0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkJlbGFuZ2hlYmJlbmRlIiBkYXRhLXNvdXJjZS1saW5lPSI0MyIgaWQ9ImVudDAwMDciPjxyZWN0IGZpbGw9IiNGQ0U0RUMiIGhlaWdodD0iNTkuMjM5MSIgcng9IjQuMzc1IiByeT0iNC4zNzUiIHN0eWxlPSJzdHJva2U6I0FEMTQ1NztzdHJva2Utd2lkdGg6MC43MjkyOyIgd2lkdGg9IjI1MC41ODI3IiB4PSI4OS42NTgxIiB5PSIxNy41Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTcuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI0Ny42NjYiIHg9IjkxLjExNjQiIHk9IjQxLjcxMDYiPiYjMTcxO3dhYXJkZS1vbnJvZXJlbmRlLXpha2VuJiMxODc7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwLjQxNjciIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTYzLjcxMjIiIHg9IjEzMy4wOTMzIiB5PSI2NS4xNDA4Ij5CZWxhbmdoZWJiZW5kZTwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iR01OMTUiIGRhdGEtc291cmNlLWxpbmU9IjU1IiBpZD0iZW50MDAxNiI+PHBhdGggZD0iTTkyNi43OTY4LDYzOS43MDk5IEw5MjYuNzk2OCw2NjcuODcxMSBBNC4zNzUsNC4zNzUgMCAwIDAgOTMxLjE3MTgsNjcyLjI0NjEgTDEzMDYuNTgwOSw2NzIuMjQ2MSBBNC4zNzUsNC4zNzUgMCAwIDAgMTMxMC45NTU5LDY2Ny44NzExIEwxMzEwLjk1NTksNjQ5LjkxODIgTDEyOTYuMzcyNSw2MzUuMzM0OSBMOTMxLjE3MTgsNjM1LjMzNDkgQTQuMzc1LDQuMzc1IDAgMCAwIDkyNi43OTY4LDYzOS43MDk5IiBmaWxsPSIjRkZGQ0Q4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNzI5MjsiLz48cGF0aCBkPSJNMTI5Ni4zNzI1LDYzNS4zMzQ5IEwxMjk2LjM3MjUsNjQ3LjczMDcgQTIuMTg3NSwyLjE4NzUgMCAwIDAgMTI5OC41Niw2NDkuOTE4MiBMMTMxMC45NTU5LDY0OS45MTgyIEwxMjk2LjM3MjUsNjM1LjMzNDkiIGZpbGw9IiNGRkZDRDgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MS40NTgzOyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzUzLjUzNCIgeD0iOTM1LjU0NjgiIHk9IjY2MC45NTU0Ij5VaXQgZGVlbG1vZGVsIEFkcmVzc2VuIGVuIGdlYm91d2VuLjwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iR01OMTgiIGRhdGEtc291cmNlLWxpbmU9IjU5IiBpZD0iZW50MDAxOSI+PHBhdGggZD0iTTI3Ny45MTQ3LDYzOS43MDk5IEwyNzcuOTE0Nyw2NjcuODcxMSBBNC4zNzUsNC4zNzUgMCAwIDAgMjgyLjI4OTcsNjcyLjI0NjEgTDYxMy41MDU4LDY3Mi4yNDYxIEE0LjM3NSw0LjM3NSAwIDAgMCA2MTcuODgwOCw2NjcuODcxMSBMNjE3Ljg4MDgsNjQ5LjkxODIgTDYwMy4yOTc1LDYzNS4zMzQ5IEwyODIuMjg5Nyw2MzUuMzM0OSBBNC4zNzUsNC4zNzUgMCAwIDAgMjc3LjkxNDcsNjM5LjcwOTkiIGZpbGw9IiNGRkZDRDgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC43MjkyOyIvPjxwYXRoIGQ9Ik02MDMuMjk3NSw2MzUuMzM0OSBMNjAzLjI5NzUsNjQ3LjczMDcgQTIuMTg3NSwyLjE4NzUgMCAwIDAgNjA1LjQ4NSw2NDkuOTE4MiBMNjE3Ljg4MDgsNjQ5LjkxODIgTDYwMy4yOTc1LDYzNS4zMzQ5IiBmaWxsPSIjRkZGQ0Q4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMwOS4zNDExIiB4PSIyODYuNjY0NyIgeT0iNjYwLjk1NTQiPlVpdCBkZWVsbW9kZWwgT25yb2VyZW5kZSB6YWtlbi48L3RleHQ+PC9nPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkdNTjIxIiBkYXRhLXNvdXJjZS1saW5lPSI2MyIgaWQ9ImVudDAwMjIiPjxwYXRoIGQ9Ik0xNy41LDQ0My40ODcxIEwxNy41LDQ3MS42NDg0IEE0LjM3NSw0LjM3NSAwIDAgMCAyMS44NzUsNDc2LjAyMzQgTDMyNC40OTYzLDQ3Ni4wMjM0IEE0LjM3NSw0LjM3NSAwIDAgMCAzMjguODcxMyw0NzEuNjQ4NCBMMzI4Ljg3MTMsNDUzLjY5NTUgTDMxNC4yODc5LDQzOS4xMTIxIEwyMS44NzUsNDM5LjExMjEgQTQuMzc1LDQuMzc1IDAgMCAwIDE3LjUsNDQzLjQ4NzEiIGZpbGw9IiNGRkZDRDgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC43MjkyOyIvPjxwYXRoIGQ9Ik0zMTQuMjg3OSw0MzkuMTEyMSBMMzE0LjI4NzksNDUxLjUwOCBBMi4xODc1LDIuMTg3NSAwIDAgMCAzMTYuNDc1NCw0NTMuNjk1NSBMMzI4Ljg3MTMsNDUzLjY5NTUgTDMxNC4yODc5LDQzOS4xMTIxIiBmaWxsPSIjRkZGQ0Q4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI4MC43NDYzIiB4PSIyNi4yNSIgeT0iNDY0LjczMjciPlN1cGVydHlwZSB1aXQgaGV0IGhvb2ZkbW9kZWwuPC90ZXh0PjwvZz48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI0OTguMDE0MyIgeDI9IjQ5OC4wMTQzIiB5MT0iMjcyLjk2MTgiIHkyPSIzNDEuOTU2NCIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjQ5OC4wMTQzIiB4Mj0iNzMwLjU3NSIgeTE9IjM0MS45NTY0IiB5Mj0iMzQxLjk1NjQiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI3MzAuNTc1IiB4Mj0iNzMwLjU3NSIgeTE9IjM0MS45NTY0IiB5Mj0iNDM5LjExMjEiLz48cG9seWdvbiBmaWxsPSIjNDQ0NDQ0IiBwb2ludHM9IjczMC41NzUsNDM5LjExMjEsNzM2LjQwODQsNDI1Ljk4NzEsNzMwLjU3NSw0MzEuODIwNSw3MjQuNzQxNyw0MjUuOTg3MSw3MzAuNTc1LDQzOS4xMTIxIiBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MztzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0OS44Njc1IiB4PSI2NzQuODc0MyIgeT0iMzc3Ljc4NTIiPmJldmF0PC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTEuOTg3OCIgeD0iNTAyLjM4OTMiIHk9IjI5NC4yMDc0Ij4xPC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzMuMTIxNSIgeD0iNzM0Ljk1IiB5PSI0MzIuMTk2NSI+MC4uKjwvdGV4dD48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI1NDguMTMwOCIgeDI9IjU0OC4xMzA4IiB5MT0iMjcyLjk2MTgiIHkyPSIzMjcuMzczIi8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iNTQ4LjEzMDgiIHgyPSI5MzQuMjgyNCIgeTE9IjMyNy4zNzMiIHkyPSIzMjcuMzczIi8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iOTM0LjI4MjQiIHgyPSI5MzQuMjgyNCIgeTE9IjMyNy4zNzMiIHkyPSI1OTUuNTA3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iOTM0LjI4MjQiIHgyPSI4MTQuMTAyNiIgeTE9IjU5NS41MDciIHkyPSI1OTUuNTA3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iODE0LjEwMjYiIHgyPSI4MTQuMTAyNiIgeTE9IjU5NS41MDciIHkyPSI2MzUuMzM0OSIvPjxwb2x5Z29uIGZpbGw9IiM0NDQ0NDQiIHBvaW50cz0iODE0LjEwMjYsNjM1LjMzNDksODE5LjkzNTksNjIyLjIwOTksODE0LjEwMjYsNjI4LjA0MzIsODA4LjI2OTMsNjIyLjIwOTksODE0LjEwMjYsNjM1LjMzNDkiIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjQwLjQ5OTQiIHg9Ijg4Ny45NDk3IiB5PSI0NzUuODk2NiI+a2VudDwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExLjk4NzgiIHg9IjU1Mi41MDU4IiB5PSIyOTQuMjA3NCI+MTwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMzLjEyMTUiIHg9IjgxOC40Nzc2IiB5PSI2MjguNDE5MiI+MS4uKjwvdGV4dD48bGluZSBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MzsiIHgxPSI3MzAuNTc1IiB4Mj0iNzMwLjU3NSIgeTE9IjQ5OC4zNTEyIiB5Mj0iNjM1LjMzNDkiLz48cG9seWdvbiBmaWxsPSIjNDQ0NDQ0IiBwb2ludHM9IjczMC41NzUsNjM1LjMzNDksNzM2LjQwODQsNjIyLjIwOTksNzMwLjU3NSw2MjguMDQzMiw3MjQuNzQxNyw2MjIuMjA5OSw3MzAuNTc1LDYzNS4zMzQ5IiBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MztzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0MC40OTk0IiB4PSI2ODQuMjQyMyIgeT0iNTc0LjAwOCI+a2VudDwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExLjk4NzgiIHg9IjczNC45NSIgeT0iNTE5LjU5NjgiPjE8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSI3MzQuOTUiIHk9IjYyOC40MTkyIj4wLi4qPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjU5OC4yNDc0IiB4Mj0iNTk4LjI0NzQiIHkxPSIyNzIuOTYxOCIgeTI9IjMxMi43ODk3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iNTk4LjI0NzQiIHgyPSIxMTE4Ljg3NjMiIHkxPSIzMTIuNzg5NyIgeTI9IjMxMi43ODk3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iMTExOC44NzYzIiB4Mj0iMTExOC44NzYzIiB5MT0iMzEyLjc4OTciIHkyPSI0MzkuMTEyMSIvPjxwb2x5Z29uIGZpbGw9IiM0NDQ0NDQiIHBvaW50cz0iMTExOC44NzYzLDQzOS4xMTIxLDExMjQuNzA5Nyw0MjUuOTg3MSwxMTE4Ljg3NjMsNDMxLjgyMDUsMTExMy4wNDMsNDI1Ljk4NzEsMTExOC44NzYzLDQzOS4xMTIxIiBzdHlsZT0ic3Ryb2tlOiM0NDQ0NDQ7c3Ryb2tlLXdpZHRoOjEuNDU4MztzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3OS41ODI0IiB4PSIxMDMzLjQ2MDYiIHk9IjM3Ny43ODUyIj5yZWZlcmVlcnQ8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMS45ODc4IiB4PSI2MDIuNjIyNCIgeT0iMjk0LjIwNzQiPjE8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSIxMTIzLjI1MTMiIHk9IjQzMi4xOTY1Ij4xLi4qPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjQ0Ny44OTc3IiB4Mj0iNDQ3Ljg5NzciIHkxPSIyNzIuOTYxOCIgeTI9IjQzOS4xMTIxIi8+PHBvbHlnb24gZmlsbD0iIzQ0NDQ0NCIgcG9pbnRzPSI0NDcuODk3Nyw0MzkuMTEyMSw0NTMuNzMxMSw0MjUuOTg3MSw0NDcuODk3Nyw0MzEuODIwNSw0NDIuMDY0NCw0MjUuOTg3MSw0NDcuODk3Nyw0MzkuMTEyMSIgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNTkuNDQ4NCIgeD0iMzgyLjYxNiIgeT0iMzc3Ljc4NTIiPmxpZ3Qgb3A8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSI0NTIuMjcyNyIgeT0iMjk0LjIwNzQiPjAuLio8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMy4xMjE1IiB4PSI0NTIuMjcyNyIgeT0iNDMyLjE5NjUiPjEuLio8L3RleHQ+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iMjU2LjcxMzIiIHgyPSIyNTYuNzEzMiIgeTE9Ijc2LjczOTEiIHkyPSIxMTYuNTY3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iMjU2LjcxMzIiIHgyPSI1MjMuMDcyNiIgeTE9IjExNi41NjciIHkyPSIxMTYuNTY3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7IiB4MT0iNTIzLjA3MjYiIHgyPSI1MjMuMDcyNiIgeTE9IjExNi41NjciIHkyPSIyMTMuNzIyNyIvPjxwb2x5Z29uIGZpbGw9IiM0NDQ0NDQiIHBvaW50cz0iNTIzLjA3MjYsMjEzLjcyMjcsNTI4LjkwNTksMjAwLjU5NzcsNTIzLjA3MjYsMjA2LjQzMTEsNTE3LjIzOTIsMjAwLjU5NzcsNTIzLjA3MjYsMjEzLjcyMjciIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMyLjA0NzciIHg9IjUzMC4zNjQyIiB5PSIxNTIuMzk1OCI+dmFuPC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iOS4xMzY3IiB4PSIyNjEuMDg4MiIgeT0iOTcuOTg0NiI+KjwvdGV4dD48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjExLjk4NzgiIHg9IjUyNy40NDc2IiB5PSIyMDYuODA3Ij4xPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzOyIgeDE9IjE3My4xODU2IiB4Mj0iMTczLjE4NTYiIHkxPSI3Ni43MzkxIiB5Mj0iMjEzLjcyMjciLz48cG9seWdvbiBmaWxsPSIjNDQ0NDQ0IiBwb2ludHM9IjE3My4xODU2LDIxMy43MjI3LDE3OS4wMTksMjAwLjU5NzcsMTczLjE4NTYsMjA2LjQzMTEsMTY3LjM1MjMsMjAwLjU5NzcsMTczLjE4NTYsMjEzLjcyMjciIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOC45NTgzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjE1LjE0NDQiIHg9IjE1Mi4yMDc4IiB5PSIxNTIuMzk1OCI+aXM8L3RleHQ+PHRleHQgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTguOTU4MyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5LjEzNjciIHg9IjE3Ny41NjA2IiB5PSI5Ny45ODQ2Ij4qPC90ZXh0Pjx0ZXh0IGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4Ljk1ODMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTEuOTg3OCIgeD0iMTc3LjU2MDYiIHk9IjIwNi44MDciPjE8L3RleHQ+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7c3Ryb2tlLWRhc2hhcnJheToxMC4yMDgzLDEwLjIwODM7IiB4MT0iMTExOC44NzYzIiB4Mj0iMTExOC44NzYzIiB5MT0iNDk4LjM1MTIiIHkyPSI2MzUuMzM0OSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzQ0NDQ0NDtzdHJva2Utd2lkdGg6MS40NTgzO3N0cm9rZS1kYXNoYXJyYXk6MTAuMjA4MywxMC4yMDgzOyIgeDE9IjQ0Ny44OTc3IiB4Mj0iNDQ3Ljg5NzciIHkxPSI0OTguMzUxMiIgeTI9IjYzNS4zMzQ5Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojNDQ0NDQ0O3N0cm9rZS13aWR0aDoxLjQ1ODM7c3Ryb2tlLWRhc2hhcnJheToxMC4yMDgzLDEwLjIwODM7IiB4MT0iMTczLjE4NTYiIHgyPSIxNzMuMTg1NiIgeTE9IjI3Mi45NjE4IiB5Mj0iNDM5LjExMjEiLz48P3BsYW50dW1sLXNyYyBiTEhCUnZqMDRCeGxodlpJTW9MUkVCT0oxcU1NNzRUTVV3YWhITE1hdFdQc21DSW1Zdk9iYmJGdmx0VHZzRHEySGthMmJ2ZGxDR19XS3dPbUlYNElGQ2YyMG9MeG5sOXpCMzlLYzBCRk9mWkNOMmlJOTlaZEF3ckx4MVVRbFdMSUZDVmwxM09hdG82TlhyWDQ0NkFJYXZMSGlYMXlCUEtXMVJUTVY1c0FGY0FtWm5mNDhYTHl0Z3BBZ21FSllmRGc4RkZnTTkyTEtsQkc5NlZMUUlTdEtrVzZDQXNFMVZXa0ROTkJzNnBNSm1rc1lwYTFmUGEtR2FnZkpvZ2xHcTZpV2VIT1VxR0Yzdlg0YjFBOXZIOS1DdTJFUlpZYlVKV2xDdFA3anBabnh6NTRsbkFRdzNOTWdTVUZBeWZwNFlEcEgtSkJ1ZDNUY25SWGRFeFJ0WlRxbndTdHJ4cVJMZS10NTRnSThpNWZ6OHh4V1B1dkJWWGpzblZUY1VrdzBwdE5oMXhWMHdCSDZOdE9GZzBQMUhyeEZmZER4bVJpUXpROWVQemhYTzZrdFU0N0FYc19XaHRmRGNITHh1SUtSbWhULWd6YUNqU3NuSGZMS1c1SDBkcjNQS3BCWUZKRVYzdmJWcE5YUFZsaGVkbnI3WlJ3b1NaQl9zQXlMQTBGZUh5ZkdIN2pvRlZCejIzYm5EWlZzZnM5MHdGSDRYbnRGRnhZakNocW1BU3RyN3Rtb0hkVXJFWTE0US1HNWh5aHRhN3R3X1JqcG1ENWVNYzVyM180TWpoWWRYVmZHSDk3NmNKNk1oRG5CZFo3TWc4N1JvWTZlQ3JodnE2U0NvUkM3bWp5Z1JMQ0dPUHp6UGhEXzhtclM1REFBaGNmZnk0OENGVnZ4SGlwT21FYk00VW9RUUNaaXhxaTVBZzUzYWJLNUhrNXZvOHBLcGpjMThOSHNmNXZmMG52OU1abl9tMDA/PjwvZz48L3N2Zz4=" class="uml" alt="GBO PlantUML class-diagram" title="GBO"></a></p>
+<h2 id="objecttypen">Objecttypen<a class="headerlink" href="#objecttypen" title="Permanent link">¶</a></h2>
+<h3 id="belanghebbende">Belanghebbende<a class="headerlink" href="#belanghebbende" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: De geregistreerde rechtsbetrekking tussen een partij en
+een WOZ-object, waarbij de partij voor de Wet WOZ als eigenaar,
+gebruiker of beide rollen heeft en daarom de WOZ-beschikking ontvangt
+voor het object.</p>
+<p><strong>Herkomst definitie</strong>: Wet WOZ art. 24 e.v. (bekendmaking beschikking),
+Algemene wet bestuursrecht art. 1:2 (algemeen belanghebbende-begrip) en
+de LV-WOZ-catalogus.</p>
+<p><strong>Toelichting</strong>: Belanghebbende is de fiscale tegenpartij die de
+WOZ-beschikking ontvangt en aanslagontvanger is voor afgeleide
+heffingen. De relatie kan afwijken van de BRK-tenaamstelling (juridisch
+eigenaar uit het Kadaster) bij erfpacht of opstal, en van de
+BAG-bewoner (feitelijk gebruiker uit BRP) die niet altijd
+fiscaal-gebruiker is. GBO gebruikt één relatie met een rol-aanduiding
+(<code>Eigenaar</code>, <code>Gebruiker</code>, <code>EigenaarEnGebruiker</code>), in plaats van twee
+afzonderlijke velden op het WOZ-object zoals in HC-WOZ.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>Belanghebbende</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/Belanghebbende</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+<tr>
+<td>Unieke aanduiding</td>
+<td>Samengesteld uit (Partij, WOZObject, rolBelanghebbende, datumIngang)</td>
+</tr>
+<tr>
+<td>Populatie</td>
+<td>Alle in de LV-WOZ geregistreerde belanghebbende-relaties: eigenaars en gebruikers van WOZ-objecten, inclusief historische rollen.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attribuutsoorten</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Definitie</th>
+<th>Herkomst</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rolBelanghebbende</code></td>
+<td><a href="#rolbelanghebbende"><code>RolBelanghebbende</code></a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Hoedanigheid van de belanghebbende ten aanzien van het WOZ-object.</td>
+<td>LV-WOZ-catalogus</td>
+<td><code>Eigenaar</code>, <code>Gebruiker</code>, <code>EigenaarEnGebruiker</code>.</td>
+</tr>
+<tr>
+<td><code>aandeel</code></td>
+<td>Breuk</td>
+<td>0..1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Het breukdeel waarmee de partij in de rol deelneemt.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Analoog aan <code>Tenaamstelling.aandeel</code>.</td>
+</tr>
+<tr>
+<td><code>datumIngang</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Datum</a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Datum waarop de rol is ingegaan.</td>
+<td>LV-WOZ-catalogus</td>
+<td></td>
+</tr>
+<tr>
+<td><code>datumEinde</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Datum</a></td>
+<td>0..1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Datum waarop de rol is geëindigd.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Leeg betekent lopend.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relatiesoorten</strong> (uitgaand):</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Doel</th>
+<th>Kard. (bron→doel)</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>van</td>
+<td>WOZObject</td>
+<td>* → 1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>WOZ-object waarop de rol betrekking heeft.</td>
+</tr>
+<tr>
+<td>is</td>
+<td>Partij</td>
+<td>* → 1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Partij die de rol vervult; direct op <code>Partij</code>, niet via <code>Tenaamstelling</code>. Geldt ook voor de gebruiker zonder kadastraal recht.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wozdeelobject">WOZDeelobject<a class="headerlink" href="#wozdeelobject" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: Een afzonderlijk gewaardeerd onderdeel binnen een
+WOZ-object, dat een eigen gebruik of eigen waardering kent ten opzichte
+van het samengestelde hoofdobject.</p>
+<p><strong>Herkomst definitie</strong>: Uitvoeringsregeling instructie waardebepaling
+Wet WOZ en de Waarderingsinstructie van de Waarderingskamer.</p>
+<p><strong>Toelichting</strong>: Deelobjecten komen voor bij gemengd gebruik of
+gedifferentieerde waardering binnen één fiscale eenheid, bijvoorbeeld
+wonen en bedrijf in één pand. Deelobjecten zijn niet in scope van
+HC-WOZ v1.0; alleen via StUF-WOZ beschikbaar. In dit deelmodel staat de
+klasse opgenomen voor bron-compatibiliteit; verdere attribuut-uitwerking
+volgt bij een concrete use-case.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>WOZDeelobject</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/WOZDeelobject</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+<tr>
+<td>Unieke aanduiding</td>
+<td><code>deelobjectnummer</code> binnen WOZObject</td>
+</tr>
+<tr>
+<td>Populatie</td>
+<td>Alle in de LV-WOZ via StUF-WOZ geregistreerde deelobjecten binnen WOZ-objecten met gedifferentieerde waardering.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attribuutsoorten</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Definitie</th>
+<th>Herkomst</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>deelobjectnummer</code></strong></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Numeriek</a></td>
+<td>1</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Volgnummer van het deelobject binnen het WOZ-object.</td>
+<td>LV-WOZ (StUF-WOZ)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>omschrijving</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Tekst</a></td>
+<td>0..1</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Korte beschrijving van het deelobject.</td>
+<td>LV-WOZ (StUF-WOZ)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relatiesoorten</strong> (uitgaand):</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Doel</th>
+<th>Kard. (bron→doel)</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kent</td>
+<td>WOZWaarde</td>
+<td>1 → 0..*</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Waarden die specifiek aan het deelobject worden toegekend.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wozobject">WOZObject<a class="headerlink" href="#wozobject" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: De fiscale eenheid van onroerende zaak waarop de Wet
+waardering onroerende zaken van toepassing is: het kleinste
+samengestelde geheel dat als één eenheid wordt gewaardeerd voor de
+onroerendezaakbelasting en andere op de WOZ-waarde gebaseerde heffingen.</p>
+<p><strong>Herkomst definitie</strong>: Wet WOZ art. 16 (object-afbakening),
+Uitvoeringsbesluit Wet WOZ en de LV-WOZ-catalogus.</p>
+<p><strong>Toelichting</strong>: WOZ-object is een derde werkelijkheid naast de
+juridische (BRK-perceel of appartementsrecht) en de fysieke
+(BAG-pand of verblijfsobject) werkelijkheid. Een WOZ-object kan uit
+meerdere percelen en/of meerdere adresseerbare objecten zijn
+samengesteld, bijvoorbeeld kantoor met parkeerplaats, of juist uit een
+deel daarvan. Het <code>wozObjectnummer</code> is niet uniek tussen gemeenten;
+<code>aanduiding</code> (gestandaardiseerde gemeentecode plus objectnummer) of de
+combinatie met <code>verantwoordelijkeGemeente</code> levert de stabiele globale
+aanduiding.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>WOZObject</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/WOZObject</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+<tr>
+<td>Unieke aanduiding</td>
+<td><code>aanduiding</code> (gestandaardiseerde gemeentecode + wozObjectnummer)</td>
+</tr>
+<tr>
+<td>Populatie</td>
+<td>Alle in Nederland door gemeenten of belastingsamenwerkingen in de Landelijke Voorziening WOZ geregistreerde WOZ-objecten, inclusief actuele en historische objecten.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attribuutsoorten</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Definitie</th>
+<th>Herkomst</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wozObjectnummer</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Numeriek</a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>WOZ-eigen objectnummer binnen een gemeente.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Niet uniek tussen gemeenten.</td>
+</tr>
+<tr>
+<td><strong><code>aanduiding</code></strong></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes"><code>ObjectAanduiding</code></a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Gestandaardiseerde aanduiding bestaande uit gemeentecode en objectnummer.</td>
+<td>LV-WOZ-catalogus</td>
+<td>HC-conform; stabiele globale aanduiding.</td>
+</tr>
+<tr>
+<td><code>verantwoordelijkeGemeente</code></td>
+<td><a href="../adressen-en-gebouwen/#codelijsten"><code>Codelijst~LT33</code></a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Gemeente die verantwoordelijk is voor de waardering.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Essentieel wegens niet-uniciteit <code>wozObjectnummer</code> over gemeenten.</td>
+</tr>
+<tr>
+<td><code>grondoppervlakte</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Numeriek</a></td>
+<td>0..1</td>
+<td>Basisgegeven</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Oppervlakte van de bij het object behorende grond in m².</td>
+<td>LV-WOZ-catalogus</td>
+<td></td>
+</tr>
+<tr>
+<td><code>gebruikscode</code></td>
+<td><a href="#codelijsten"><code>Codelijst~WOZ</code></a></td>
+<td>0..1</td>
+<td>Basisgegeven</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Type gebruik van het object.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Woning, winkel, kantoor en dergelijke.</td>
+</tr>
+<tr>
+<td><code>statusWOZObject</code></td>
+<td><a href="#statuswozobject"><code>StatusWOZObject</code></a></td>
+<td>1</td>
+<td>Basisgegeven</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Levenscyclus-status van het WOZ-object.</td>
+<td>LV-WOZ-catalogus</td>
+<td><code>Actief</code>, <code>VervallenVoorWOZ</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Draagt het <code>Voorkomen</code>-mixin (bitemporeel patroon; zie sectie <a href="../../hoofdmodel/#patronen">Patronen</a>).</p>
+<p><strong>Relatiesoorten</strong> (uitgaand):</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Doel</th>
+<th>Kard. (bron→doel)</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kent</td>
+<td>WOZWaarde</td>
+<td>1 → 1..*</td>
+<td>Authentiek</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Vastgestelde waarden door de tijd; één per peildatum-instantie.</td>
+</tr>
+<tr>
+<td>bevat</td>
+<td>WOZDeelobject</td>
+<td>1 → 0..*</td>
+<td>Basisgegeven</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Afzonderlijk gewaardeerde onderdelen binnen het hoofdobject.</td>
+</tr>
+<tr>
+<td>refereert</td>
+<td>AdresseerbaarObject</td>
+<td>1 → 1..*</td>
+<td>Basisgegeven</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Eén of meer BAG-adresseerbare objecten die samen het WOZ-object vormen.</td>
+</tr>
+<tr>
+<td>ligtOp</td>
+<td>Perceel</td>
+<td>0..<em> → 1..</em></td>
+<td>Basisgegeven</td>
+<td>Ja</td>
+<td>Ja</td>
+<td>Eén of meer BRK-percelen waarop de fiscale eenheid ligt.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wozwaarde">WOZWaarde<a class="headerlink" href="#wozwaarde" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: De op grond van de Wet waardering onroerende zaken
+vastgestelde waarde van een WOZ-object op een waardepeildatum, voor een
+aaneengesloten periode van geldigheid, vastgelegd in een WOZ-beschikking.</p>
+<p><strong>Herkomst definitie</strong>: Wet WOZ art. 17 en 18 (waardebepaling),
+art. 22 (beschikking), de Uitvoeringsregeling instructie waardebepaling
+Wet WOZ en de LV-WOZ-catalogus.</p>
+<p><strong>Toelichting</strong>: WOZ-waarde is een onveranderlijke feitstelling per
+peildatum: gegeven een waardepeildatum en een geldigheidsperiode geldt
+één vastgestelde waarde. Wijziging van die waarde, bijvoorbeeld na
+bezwaar of beroep, leidt tot een nieuwe WOZ-waarde, niet tot aanpassing
+van de bestaande. Eén WOZ-object kent door de tijd meerdere WOZ-waarden;
+historie staat centraal. De keten <code>beschikkingsStatussen[]</code> (<code>ConceptBeschikking</code>,
+<code>DefinitieveBeschikking</code>, <code>Bezwaar</code>, <code>Beroep</code>, <code>HogerBeroep</code>,
+<code>Onherroepelijk</code>) legt het procesverloop per WOZ-waarde vast.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>WOZWaarde</td>
+</tr>
+<tr>
+<td>Alias</td>
+<td>Waarde (HC-WOZ-naam zonder WOZ-prefix)</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/WOZWaarde</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+<tr>
+<td>Unieke aanduiding</td>
+<td>Samengesteld uit (WOZObject, waardepeildatum)</td>
+</tr>
+<tr>
+<td>Populatie</td>
+<td>Alle voor WOZ-objecten in Nederland vastgestelde waarden: concept, voorlopig en definitief, inclusief bezwaar- en beroep-correcties.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attribuutsoorten</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Authentiek</th>
+<th>Mat. hist.</th>
+<th>Form. hist.</th>
+<th>Definitie</th>
+<th>Herkomst</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vastgesteldeWaarde</code></td>
+<td><a href="../../datatypes-en-codelijsten/#aanvullende-datatypes">Bedrag</a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>De vastgestelde waarde van het WOZ-object op de peildatum.</td>
+<td>LV-WOZ-catalogus</td>
+<td></td>
+</tr>
+<tr>
+<td><code>waardepeildatum</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Datum</a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Datum waarnaar de waarde is bepaald.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Typisch 1 januari van het voorgaande jaar.</td>
+</tr>
+<tr>
+<td><code>ingangsdatum</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Datum</a></td>
+<td>1</td>
+<td>Authentiek</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Datum vanaf wanneer de waarde geldigheid heeft.</td>
+<td>LV-WOZ-catalogus</td>
+<td>Materiële geldigheid.</td>
+</tr>
+<tr>
+<td><code>einddatum</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Datum</a></td>
+<td>0..1</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Datum waarop de waarde vervalt.</td>
+<td>LV-WOZ-catalogus</td>
+<td></td>
+</tr>
+<tr>
+<td><code>beschikkingsnummer</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Identificatie</a></td>
+<td>0..1</td>
+<td>Authentiek</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Identificatie van de WOZ-beschikking.</td>
+<td>LV-WOZ-catalogus</td>
+<td></td>
+</tr>
+<tr>
+<td><code>statusWOZWaarde</code></td>
+<td><a href="#statuswozwaarde"><code>StatusWOZWaarde</code></a></td>
+<td>1</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Vaststellingsstatus van de waarde.</td>
+<td>LV-WOZ-catalogus</td>
+<td><code>DefinitiefVastgesteld</code>, <code>VoorlopigVastgesteld</code>, <code>Vervallen</code>.</td>
+</tr>
+<tr>
+<td><code>beschikkingsStatussen</code></td>
+<td><a href="#beschikkingstatus"><code>BeschikkingStatus</code></a></td>
+<td>1..*</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Chronologische statussen die de beschikking heeft doorlopen.</td>
+<td>LV-WOZ-catalogus</td>
+<td>HC-conforme rijke modellering.</td>
+</tr>
+<tr>
+<td><code>indicatieBezwaarBeroep</code></td>
+<td><a href="../../datatypes-en-codelijsten/#simpele-datatypes">Indicatie</a></td>
+<td>1</td>
+<td>Basisgegeven</td>
+<td>Nee</td>
+<td>Nee</td>
+<td>Geeft aan of een bezwaar of beroep loopt tegen de beschikking.</td>
+<td>LV-WOZ-catalogus</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Op WOZ-waarde wordt geen historie binnen één registratie bijgehouden:
+het tijdsverloop ontstaat door opvolgende beschikkingen (nieuwe
+WOZ-waarden) en via de <code>beschikkingsStatussen[]</code>-keten.</p>
+<p><strong>Relatiesoorten</strong> (uitgaand):</p>
+<p>WOZWaarde kent geen eigen uitgaande relaties; de relaties zijn inkomend
+vanuit <code>WOZObject.kent</code> en <code>WOZDeelobject.kent</code>.</p>
+<h2 id="enumeraties">Enumeraties<a class="headerlink" href="#enumeraties" title="Permanent link">¶</a></h2>
+<h3 id="beschikkingstatus">BeschikkingStatus<a class="headerlink" href="#beschikkingstatus" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: Chronologische statussen die een WOZ-beschikking doorloopt vanaf concept tot onherroepelijk worden.</p>
+<p><strong>Herkomst definitie</strong>: Wet WOZ art. 22 en art. 24 e.v. (beschikking en bekendmaking), Algemene wet bestuursrecht hoofdstuk 6 en 7 (bezwaar en beroep) en de LV-WOZ-catalogus.</p>
+<p><strong>Toelichting</strong>: De keten legt het procesverloop per WOZ-waarde vast, zodat naast de actuele status ook eerdere stadia traceerbaar blijven. Een nieuwe beschikkingsstatus voegt een rij toe aan de keten en vervangt geen eerdere waarde.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>BeschikkingStatus</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/BeschikkingStatus</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gebruikt door</strong>: <code>WOZWaarde.beschikkingsStatussen</code>.</p>
+<p><strong>Waarden</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Definitie</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Beroep</td>
+<td>Tegen de beschikking is beroep ingesteld bij de rechter.</td>
+<td>Volgt op een afgewezen of gedeeltelijk afgewezen bezwaar.</td>
+</tr>
+<tr>
+<td>Bezwaar</td>
+<td>Tegen de beschikking is bezwaar gemaakt bij de gemeente.</td>
+<td>Eerste stap van het rechtsmiddelentraject.</td>
+</tr>
+<tr>
+<td>ConceptBeschikking</td>
+<td>De beschikking is in voorbereiding en nog niet aan de belanghebbende bekendgemaakt.</td>
+<td>Interne werkstatus voor de gemeente.</td>
+</tr>
+<tr>
+<td>DefinitieveBeschikking</td>
+<td>De beschikking is vastgesteld en aan de belanghebbende bekendgemaakt.</td>
+<td>Reguliere eindstatus zolang geen rechtsmiddel wordt ingezet.</td>
+</tr>
+<tr>
+<td>HogerBeroep</td>
+<td>Tegen de uitspraak in beroep is hoger beroep ingesteld.</td>
+<td>Behandeling door het gerechtshof.</td>
+</tr>
+<tr>
+<td>Onherroepelijk</td>
+<td>De beschikking staat juridisch vast en is niet meer voor rechtsmiddelen vatbaar.</td>
+<td>Bezwaar- en beroepstermijn is verstreken of alle rechtsmiddelen zijn uitgeput.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rolbelanghebbende">RolBelanghebbende<a class="headerlink" href="#rolbelanghebbende" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: Hoedanigheid waarin een partij voor de Wet WOZ bij een WOZ-object betrokken is.</p>
+<p><strong>Herkomst definitie</strong>: Wet WOZ art. 24 (bekendmaking beschikking aan belanghebbenden) en de LV-WOZ-catalogus.</p>
+<p><strong>Toelichting</strong>: GBO gebruikt één rol-aanduiding op de Belanghebbende-relatie, in plaats van afzonderlijke eigenaars- en gebruikersrelaties op het WOZ-object. Eén partij kan tegelijk eigenaar en gebruiker zijn; dat wordt met de gecombineerde waarde uitgedrukt.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>RolBelanghebbende</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/RolBelanghebbende</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gebruikt door</strong>: <code>Belanghebbende.rolBelanghebbende</code>.</p>
+<p><strong>Waarden</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Definitie</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eigenaar</td>
+<td>De partij is voor de Wet WOZ eigenaar van het WOZ-object.</td>
+<td>Ontvangt de eigenaarsbeschikking; basis voor onroerendezaakbelasting eigenaarsdeel.</td>
+</tr>
+<tr>
+<td>EigenaarEnGebruiker</td>
+<td>De partij is voor de Wet WOZ zowel eigenaar als gebruiker van het WOZ-object.</td>
+<td>Typisch bij eigenaar-bewoner van een woning.</td>
+</tr>
+<tr>
+<td>Gebruiker</td>
+<td>De partij is voor de Wet WOZ gebruiker van het WOZ-object.</td>
+<td>Ontvangt de gebruikersbeschikking; relevant voor niet-woningen.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="statuswozobject">StatusWOZObject<a class="headerlink" href="#statuswozobject" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: Levenscyclus-status van een WOZ-object binnen de Landelijke Voorziening WOZ.</p>
+<p><strong>Herkomst definitie</strong>: LV-WOZ-catalogus en de Waarderingsinstructie van de Waarderingskamer.</p>
+<p><strong>Toelichting</strong>: De status geeft aan of het object nog meedoet in de WOZ-administratie of buiten gebruik is gesteld voor de WOZ. Een vervallen WOZ-object blijft in de historie aanwezig voor terugkijk-bevragingen.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>StatusWOZObject</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/StatusWOZObject</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gebruikt door</strong>: <code>WOZObject.statusWOZObject</code>.</p>
+<p><strong>Waarden</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Definitie</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Actief</td>
+<td>Het WOZ-object is actueel in gebruik voor de waardering.</td>
+<td>Reguliere status voor een lopend object.</td>
+</tr>
+<tr>
+<td>VervallenVoorWOZ</td>
+<td>Het WOZ-object is voor de WOZ niet langer in gebruik.</td>
+<td>Bijvoorbeeld na samenvoeging, splitsing of sloop; historie blijft beschikbaar.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="statuswozwaarde">StatusWOZWaarde<a class="headerlink" href="#statuswozwaarde" title="Permanent link">¶</a></h3>
+<p><strong>Definitie</strong>: Vaststellingsstatus van een WOZ-waarde voor een waardepeildatum.</p>
+<p><strong>Herkomst definitie</strong>: Wet WOZ art. 22 (beschikking), de Uitvoeringsregeling instructie waardebepaling Wet WOZ en de LV-WOZ-catalogus.</p>
+<p><strong>Toelichting</strong>: De status onderscheidt voorlopige van definitief vastgestelde waarden en markeert vervallen waarden, zodat afnemers weten welke waarde rechtsgeldig is. Een gewijzigde waarde na bezwaar of beroep leidt tot een nieuwe WOZ-waarde met een eigen status.</p>
+<table>
+<thead>
+<tr>
+<th>MIM-veld</th>
+<th>Waarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naam</td>
+<td>StatusWOZWaarde</td>
+</tr>
+<tr>
+<td>Begrip (URI)</td>
+<td><code>https://begrippen.gbo-semantiek.nl/id/begrip/StatusWOZWaarde</code></td>
+</tr>
+<tr>
+<td>Herkomst</td>
+<td>WOZ</td>
+</tr>
+<tr>
+<td>Datum opname</td>
+<td>2026-04-28</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gebruikt door</strong>: <code>WOZWaarde.statusWOZWaarde</code>.</p>
+<p><strong>Waarden</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Definitie</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DefinitiefVastgesteld</td>
+<td>De waarde is definitief vastgesteld en is rechtsgeldig.</td>
+<td>Reguliere status na bekendmaking van de definitieve beschikking.</td>
+</tr>
+<tr>
+<td>Vervallen</td>
+<td>De waarde is komen te vervallen.</td>
+<td>Bijvoorbeeld door correctie via een nieuwe beschikking of na herziening na bezwaar of beroep.</td>
+</tr>
+<tr>
+<td>VoorlopigVastgesteld</td>
+<td>De waarde is voorlopig vastgesteld in afwachting van definitieve vaststelling.</td>
+<td>Wordt gebruikt voorafgaand aan de definitieve beschikking.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="codelijsten">Codelijsten<a class="headerlink" href="#codelijsten" title="Permanent link">¶</a></h2>
+<p>Deelmodel-specifieke codelijsten. LT 33 Gemeenten
+(<code>WOZObject.verantwoordelijkeGemeente</code>) wordt gedeeld met de
+gemeente-typering in <a href="../adressen-en-gebouwen/">Adressen en gebouwen</a>;
+stelselbrede codelijsten staan op de
+<a href="../../datatypes-en-codelijsten/">Datatypes en codelijsten</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Codelijst</th>
+<th>Bron / beheerder</th>
+<th>GBO-typering</th>
+<th>Gebruikt door</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.waarderingskamer.nl/voor-gemeenten/gegevensbeheer">WOZ Gebruikscode</a></td>
+<td><a href="https://www.waarderingskamer.nl/">Waarderingskamer</a></td>
+<td><code>Codelijst~WOZ</code></td>
+<td><code>WOZObject.gebruikscode</code> (functioneel gebruik van het WOZ-object, bijvoorbeeld woning, kantoor, agrarisch object).</td>
+</tr>
+</tbody>
+</table>
+<p>De WOZ-gebruikscodes worden vastgesteld door de
+<a href="https://www.waarderingskamer.nl/">Waarderingskamer</a> en zijn onderdeel
+van de <a href="https://www.waarderingskamer.nl/voor-gemeenten/gegevensbeheer">LV-WOZ-catalogus</a> (gegevensbeschrijving
+en stuf-/REST-koppelvlak).</p>
+<h3 id="onderhoudsritme">Onderhoudsritme<a class="headerlink" href="#onderhoudsritme" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Codelijst</th>
+<th>Mutatieritme</th>
+<th>Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.waarderingskamer.nl/voor-gemeenten/gegevensbeheer">WOZ Gebruikscode</a></td>
+<td>Sporadisch</td>
+<td><a href="https://www.waarderingskamer.nl/">Waarderingskamer</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="stelselkoppelingen">Stelselkoppelingen<a class="headerlink" href="#stelselkoppelingen" title="Permanent link">¶</a></h2>
+<ul>
+<li>→ <a href="../adressen-en-gebouwen/">Adressen en gebouwen</a>:
+  <code>WOZ-object refereert AdresseerbaarObject(en)</code>: één WOZ-object kan
+  meerdere AO's omvatten (kantoor + parkeerplaats).</li>
+<li>→ <a href="../onroerende-zaken/">Onroerende zaken</a>:
+  <code>WOZ-object ligt op Perceel(en)</code>: één of meer percelen vormen de
+  fiscale eenheid.</li>
+<li>→ <a href="../personen/">Personen</a> en
+  <a href="../bedrijven-en-instellingen/">Bedrijven en instellingen</a>: de
+  <code>Belanghebbende</code> is een <code>NatuurlijkPersoon</code> of <code>NietNatuurlijkPersoon</code>
+  via het <code>Partij</code>-supertype.</li>
+</ul>
+<h2 id="bron">Bron<a class="headerlink" href="#bron" title="Permanent link">¶</a></h2>
+<p>Autoritatieve bron: <strong>WOZ</strong> (Basisregistratie Waarde Onroerende Zaken).
+Bronhouders zijn gemeenten (uitvoering vaak via belastingsamenwerking);
+landelijke voorziening LV-WOZ ontsluit gegevens, toezicht door de
+Waarderingskamer. Wet WOZ, Uitvoeringsbesluit Wet WOZ en
+Uitvoeringsregeling instructie waardebepaling Wet WOZ zijn normatief.
+Onder Haal Centraal: WOZ Bevragen API.</p>
+<p>Het Core-model is rijker dan HC-WOZ op een aantal punten:
+<code>WOZDeelobject</code>, volledige peildatum-historie en gebruikscode/status;
+voor die data blijft StUF-WOZ naast HC bestaan.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Terug naar boven
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../onroerende-zaken/" class="md-footer__link md-footer__link--prev" aria-label="Vorige: Deelmodel Onroerende Zaken">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Vorige
+              </span>
+              <div class="md-ellipsis">
+                Deelmodel Onroerende Zaken
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../belastingen/" class="md-footer__link md-footer__link--next" aria-label="Volgende: Deelmodel Belastingen">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Volgende
+              </span>
+              <div class="md-ellipsis">
+                Deelmodel Belastingen
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Let op: er wordt alleen gezocht binnen dit documentatie-onderdeel. Om in andere onderdelen te zoeken: ga via het hoofdmenu eerst naar het onderdeel en voer dan de zoekterm in.", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../../../assets/javascripts/mermaid-init.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,3611 @@
+<!DOCTYPE html><html lang="nl" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Het semantisch raamwerk van de Gemeenschappelijke Bronontsluiting — open specificatie met begrippenkader en informatiemodel voor het landelijk, sectoroverstijgend ontsluiten en delen van basisgegevens.">
+      
+      
+        <meta name="author" content="GBO-Semantiek Werkgroep">
+      
+      
+        <link rel="canonical" href="https://ictu.github.io/GBO-Semantiek/latest/informatiemodel/pilots/vergunningen-en-ontheffingen/">
+      
+      
+        <link rel="prev" href="../../gbo-voorzieningen/">
+      
+      
+        <link rel="next" href="../../../ontologie/inleiding/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Vergunningen en Ontheffingen - GBO-Semantiek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gbo-toestemmingenmodel" class="md-skip">
+          Ga naar inhoud
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="GBO-Semantiek" class="md-header__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GBO-Semantiek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vergunningen en Ontheffingen
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar licht thema" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar donker thema" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Zoeken">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Zoeken initialiseren
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Gemeenschappelijke Bronontsluiting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Context
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Globaal Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Projectstartarchitectuur
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technisch Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technische Requirements
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Semantiek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Demo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigatie" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="GBO-Semantiek" class="md-nav__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    GBO-Semantiek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemeenschappelijke Bronontsluiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Globaal Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectstartarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technisch Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technische Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantiek
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Semantiek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2">
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uitgangspunten
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Uitgangspunten
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../uitgangspunten/ontwerpprincipes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontwerprincipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../uitgangspunten/kaders_standaarden/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaders en standaarden
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/bronnenprioritering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bronnenprioritering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3">
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectuur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architectuur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architectuur/gegevensarchitectuur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevensarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architectuur/gegevenscomponenten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevenscomponenten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4">
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Begrippenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Begrippenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../begrippen/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5">
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/hoofdmodel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/hoofdmodel-compact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel (compact)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/personen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Personen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/bedrijven-en-instellingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Bedrijven en Instellingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/adressen-en-gebouwen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Adressen en Gebouwen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/waarde-onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Waarde Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/belastingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Belastingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/krediet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Krediet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/onderwijs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onderwijs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/werk-en-inkomen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Werk en Inkomen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/deelmodellen/voertuigen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Voertuigen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-kern/datatypes-en-codelijsten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datatypes en codelijsten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6">
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-voorzieningen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodellen Pilots
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodellen Pilots
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vergunningen en Ontheffingen
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vergunningen en Ontheffingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#waarom-een-eigen-objecttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waarom een eigen objecttype
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#een-generiek-objecttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eén generiek objecttype
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pilot-vereenvoudigingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pilot-vereenvoudigingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objecttypen-en-relaties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objecttypen en relaties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toelichting-objecttypen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toelichting objecttypen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Toelichting objecttypen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toestemming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toestemming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evenementenvergunning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evenementenvergunning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#straatartiestenontheffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Straatartiestenontheffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standplaatsvergunning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standplaatsvergunning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#marktvergunning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marktvergunning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gehandicaptenparkeerkaart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gehandicaptenparkeerkaart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parkeerontheffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parkeerontheffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ligplaatsontheffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ligplaatsontheffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondersteunende-objecttypen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ondersteunende objecttypen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumeraties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeraties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bevraging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bevraging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aansluiting-op-landelijke-ontwikkelingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aansluiting op landelijke ontwikkelingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8">
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontologie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ontologie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ontologie/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9">
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementatie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementatie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/uri-strategie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-strategie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/naamgeving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naamgeving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/publicatie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publicatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10">
+        
+          
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bijlagen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/woordenlijst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Woordenlijst
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/uri-namespace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-namespace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#waarom-een-eigen-objecttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waarom een eigen objecttype
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#een-generiek-objecttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eén generiek objecttype
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pilot-vereenvoudigingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pilot-vereenvoudigingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objecttypen-en-relaties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objecttypen en relaties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toelichting-objecttypen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toelichting objecttypen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Toelichting objecttypen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toestemming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toestemming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evenementenvergunning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evenementenvergunning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#straatartiestenontheffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Straatartiestenontheffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standplaatsvergunning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standplaatsvergunning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#marktvergunning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marktvergunning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gehandicaptenparkeerkaart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gehandicaptenparkeerkaart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parkeerontheffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parkeerontheffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ligplaatsontheffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ligplaatsontheffing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondersteunende-objecttypen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ondersteunende objecttypen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumeraties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeraties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bevraging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bevraging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aansluiting-op-landelijke-ontwikkelingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aansluiting op landelijke ontwikkelingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICTU/GBO-Semantiek/edit/main/docs/informatiemodel/pilots/vergunningen-en-ontheffingen.md" title="Wijzig deze pagina" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="gbo-toestemmingenmodel">GBO-Toestemmingenmodel<a class="headerlink" href="#gbo-toestemmingenmodel" title="Permanent link">¶</a></h1>
+<p>Het toestemmingenmodel beschrijft de <strong>verleende toestemming</strong>: de vergunning of
+ontheffing die een gemeentelijk bestuursorgaan aan een houder heeft verleend,
+met de gegevens die per vergunningsoort verschillen. Het staat naast het
+kernmodel, dat de landelijke basisregistraties beschrijft, en naast het
+voorzieningenmodel, dat de uitwisseling beschrijft. De canonieke bron is het
+LinkML-schema <code>toestemmingen.yaml</code>, in de modelbron onder <code>publicatie/linkml/</code>.</p>
+<p>Het model heeft een <strong>eigen ontologie-namespace</strong>,
+<code>https://lod.gbo-semantiek.nl/toestemmingen/</code> (prefix <code>gbotm:</code>), en wordt als
+eigen artefact gepubliceerd: <code>GBO-Toestemmingen.ttl</code> en
+<code>GBO-Toestemmingen-Shapes.ttl</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Herkomst</p>
+<p>Dit model is de GBO-vertaling van de pilotversie van het
+GGM-wijzigingsvoorstel <em>Toestemming en Product</em>. Klassenamen, attributen en
+definities volgen dat voorstel; de afwijkingen staan hieronder onder
+Pilot-vereenvoudigingen. Het voorstel zelf laat na de pilot alle klassen
+doorgroeien naar Model Dienstverlening, Model Vergunningen en Model
+Parkeren; GBO neemt die indeling niet over, maar houdt de klassen wel
+herkenbaar.</p>
+</div>
+<hr>
+<h2 id="waarom-een-eigen-objecttype">Waarom een eigen objecttype<a class="headerlink" href="#waarom-een-eigen-objecttype" title="Permanent link">¶</a></h2>
+<p>In het huidige gemeentelijke gegevenslandschap bestaat een verleende vergunning
+alleen als <em>besluit</em> in een zaak. Voor drie vragen is dat te weinig:</p>
+<ul>
+<li><strong>"Mijn vergunningen" tonen</strong> aan de houder, met geldigheid en status.</li>
+<li><strong>Toezicht op straat</strong>: een BOA, markt- of havenmeester controleert een
+  vergunning op kenteken, standplaats of ligplaats.</li>
+<li><strong>De vergunning in de wallet</strong>: een digitale toestemming die de houder kan
+  tonen, vraagt niets bijzonders van het gegevensmodel, alleen dat de vergunning
+  een eigen, goed gedefinieerd objecttype is met houder, geldigheid, status en
+  typespecifieke attributen.</li>
+</ul>
+<p>Het besluit blijft de juridische handeling; de toestemming is het resultaat. Zij
+ontstaat door een besluit in een zaak, heeft daarna een eigen levensloop en kan
+door latere besluiten worden gewijzigd of ingetrokken.</p>
+<h2 id="een-generiek-objecttype">Eén generiek objecttype<a class="headerlink" href="#een-generiek-objecttype" title="Permanent link">¶</a></h2>
+<p>Vergunning en ontheffing zijn allebei beschikkingen (Awb art. 1:3). Zij
+verschillen in normstructuur — "verbod behoudens vergunning" tegenover "algemeen
+verbod met individuele uitzondering" — maar niet in de gegevens die zij dragen.
+Daarom kent het model één generiek objecttype <code>Toestemming</code>, met de juridische
+soort als kenmerk in plaats van een klasse per juridische vorm.</p>
+<p><code>Toestemming</code> is niet abstract: vergunningsoorten zonder eigen klasse
+(collectevergunning, kampeerontheffing, geluidsontheffing) worden als generieke
+toestemming vastgelegd, met de soort in het veld <code>producttype</code>. Alleen soorten
+met eigen gegevens die een aparte klasse rechtvaardigen, krijgen een
+specialisatie.</p>
+<h2 id="pilot-vereenvoudigingen">Pilot-vereenvoudigingen<a class="headerlink" href="#pilot-vereenvoudigingen" title="Permanent link">¶</a></h2>
+<p>Vier bewuste afwijkingen ten opzichte van het wijzigingsvoorstel, alle terug te
+draaien zonder gegevensverlies:</p>
+<table>
+<thead>
+<tr>
+<th>Onderwerp</th>
+<th>In het voorstel</th>
+<th>In dit model</th>
+<th>Waarom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zaak, Besluit, Document</td>
+<td>relaties naar RGBZ-objecttypen</td>
+<td>identificatie-tekstvelden <code>zaak</code>, <code>besluit</code>, <code>document</code></td>
+<td>RGBZ-Zaak, -Besluit en -Document zijn nog niet in GBO gemodelleerd</td>
+</tr>
+<tr>
+<td>Producttype</td>
+<td>relatie "is van" naar objecttype <code>Producttype</code></td>
+<td>tekstveld <code>producttype</code> met code of naam</td>
+<td>de catalogus valt buiten de pilot</td>
+</tr>
+<tr>
+<td><code>soortToestemming</code></td>
+<td>kenmerk van <code>Producttype</code></td>
+<td>attribuut op <code>Toestemming</code></td>
+<td>zolang producttype tekst is, zou het onderscheid vergunning/ontheffing anders nergens vastliggen</td>
+</tr>
+<tr>
+<td>Houder</td>
+<td><code>Rechtspersoon</code> (RSGB)</td>
+<td><code>NatuurlijkPersoon</code> (kernmodel)</td>
+<td>de pilot gaat over vergunningen aan personen; geldt ook voor vervanger en organisator</td>
+</tr>
+</tbody>
+</table>
+<p>Twee klassen uit het wijzigingsvoorstel staan <strong>niet</strong> in dit model:</p>
+<ul>
+<li><strong>Parkeervergunning</strong> blijft in de pilot ongewijzigd en erft niet van
+  <code>Toestemming</code>; zij hoort bij Model Parkeren en is geen GBO-objecttype. Een
+  bewonersparkeervergunning kan wel als generieke <code>Toestemming</code> met producttype
+  "parkeervergunning" worden vastgelegd, met kenteken en gebied in
+  <code>omschrijving</code> en <code>locatieOmschrijving</code>.</li>
+<li><strong>Ventvergunning</strong> staat wel in het voorstel maar niet in het pilot-diagram en
+  volgt in een tweede slag.</li>
+</ul>
+<p>De pilot legt geen bitemporele historie vast: de levensloop van een toestemming
+loopt via <code>status</code>, <code>datumStart</code> en <code>datumEinde</code>. Het <code>Voorkomen</code>-mixin uit het
+hoofdmodel wordt daarom niet toegepast.</p>
+<hr>
+<h2 id="objecttypen-en-relaties">Objecttypen en relaties<a class="headerlink" href="#objecttypen-en-relaties" title="Permanent link">¶</a></h2>
+<div class="mermaid">classDiagram
+    class Toestemming {
+        +Identificatie identificatie
+        +Tekst producttype
+        +SoortToestemming soortToestemming
+        +Productstatus status
+        +Datum datumStart
+        +Datum datumEinde
+        +Tekst omschrijving
+        +Tekst locatieOmschrijving
+        +Tekst voorschriften
+        +Identificatie zaak
+        +Identificatie besluit
+        +Identificatie document
+    }
+
+    class Evenementenvergunning {
+        +Tekst soortEvenement
+        +Tekst tijdvakPerDag
+        +DatumTijd opbouwVanaf
+        +DatumTijd afbouwTot
+        +Numeriek maximaalAantalBezoekers
+        +Tekst risicoklasse
+        +Tijd eindtijdMuziek
+        +Indicatie alcoholverstrekking
+    }
+
+    class Straatartiestenontheffing {
+        +Tekst soortOptreden
+        +Tekst dagen
+        +Tekst tijdvak
+        +Indicatie versterktGeluid
+        +Numeriek aantalPersonen
+    }
+
+    class Standplaatsvergunning {
+        +SoortStandplaats soortStandplaats
+        +Tekst branche
+        +Tekst verkoopwaren
+        +Tekst dagen
+        +Tekst tijdvak
+        +Tekst afmetingen
+    }
+
+    class Marktvergunning {
+        +Tekst markt
+        +SoortMarktplaats soortMarktplaats
+        +Tekst standplaatsnummer
+        +Tekst branche
+        +Tekst marktdagen
+        +Numeriek frontbreedte
+    }
+
+    class Gehandicaptenparkeerkaart {
+        +Identificatie kaartnummer
+        +SoortGehandicaptenparkeerkaart soortKaart
+    }
+
+    class Parkeerontheffing {
+        +Tekst soortOntheffing
+        +Kenteken kenteken
+        +Tekst gebied
+        +Tekst tijdvak
+    }
+
+    class Ligplaatsontheffing {
+        +Numeriek stickernummer
+        +Tekst ligplaatsaanduiding
+    }
+
+    class OpenbareActiviteit {
+        +Tekst evenementnaam
+        +Datum datumStart
+        +Datum datumEinde
+        +Tekst locatieOmschrijving
+        +Tekst status
+    }
+
+    class Vaartuig {
+        +Tekst naamVaartuig
+        +Identificatie registratienummer
+        +Tekst kleur
+        +Decimaal lengte
+        +Decimaal breedte
+        +Decimaal hoogte
+    }
+
+    class NatuurlijkPersoon {
+        +Tekst geslachtsnaam
+    }
+
+    Toestemming &lt;|-- Evenementenvergunning
+    Toestemming &lt;|-- Straatartiestenontheffing
+    Toestemming &lt;|-- Standplaatsvergunning
+    Toestemming &lt;|-- Marktvergunning
+    Toestemming &lt;|-- Gehandicaptenparkeerkaart
+    Toestemming &lt;|-- Parkeerontheffing
+    Toestemming &lt;|-- Ligplaatsontheffing
+
+    Toestemming "*" --&gt; "1" NatuurlijkPersoon : houder
+    Evenementenvergunning "*" --&gt; "1" OpenbareActiviteit : betreft
+    Ligplaatsontheffing "*" --&gt; "1" Vaartuig : betreft
+    Marktvergunning "*" --&gt; "*" NatuurlijkPersoon : vervanger
+    OpenbareActiviteit "*" --&gt; "1" NatuurlijkPersoon : organisator</div>
+<hr>
+<h2 id="toelichting-objecttypen">Toelichting objecttypen<a class="headerlink" href="#toelichting-objecttypen" title="Permanent link">¶</a></h2>
+<h3 id="toestemming">Toestemming<a class="headerlink" href="#toestemming" title="Permanent link">¶</a></h3>
+<p>Een door een bestuursorgaan aan een houder verleende toestemming om een
+activiteit te verrichten of een situatie in stand te houden die zonder die
+toestemming niet is toegestaan. Elke specialisatie erft deze kern en voegt
+alleen toe wat voor die soort specifiek is.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>identificatie</code></td>
+<td>Identificatie</td>
+<td>1</td>
+<td>Unieke identificatie (kenmerk of vergunningnummer) van de gemeente. Unieke aanduiding.</td>
+</tr>
+<tr>
+<td><code>producttype</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>De vergunningsoort als code of naam uit de producten- en dienstencatalogus.</td>
+</tr>
+<tr>
+<td><code>soortToestemming</code></td>
+<td>SoortToestemming</td>
+<td>0..1</td>
+<td>De juridische soort: vergunning, ontheffing, vrijstelling en verder.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Productstatus</td>
+<td>1</td>
+<td>Status in de levensloop.</td>
+</tr>
+<tr>
+<td><code>datumStart</code></td>
+<td>Datum</td>
+<td>0..1</td>
+<td>Datum waarop de toestemming ingaat.</td>
+</tr>
+<tr>
+<td><code>datumEinde</code></td>
+<td>Datum</td>
+<td>0..1</td>
+<td>Einde van de geldigheid; afwezig betekent onbepaalde tijd.</td>
+</tr>
+<tr>
+<td><code>omschrijving</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>De toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord.</td>
+</tr>
+<tr>
+<td><code>locatieOmschrijving</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Locatie of gebied waarvoor de toestemming geldt.</td>
+</tr>
+<tr>
+<td><code>voorschriften</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Verbonden voorschriften en beperkingen.</td>
+</tr>
+<tr>
+<td><code>zaak</code></td>
+<td>Identificatie</td>
+<td>0..1</td>
+<td>De zaak waarin de toestemming is aangevraagd en verleend.</td>
+</tr>
+<tr>
+<td><code>besluit</code></td>
+<td>Identificatie</td>
+<td>1..*</td>
+<td>Het verleningsbesluit en latere wijzigings-, verlengings- of intrekkingsbesluiten.</td>
+</tr>
+<tr>
+<td><code>document</code></td>
+<td>Identificatie</td>
+<td>0..*</td>
+<td>De vergunning als document, aanhangsels, tekeningen.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Relatie</th>
+<th>Naar</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>houder</code></td>
+<td>NatuurlijkPersoon</td>
+<td>1</td>
+<td>De persoon aan wie de toestemming is verleend.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evenementenvergunning">Evenementenvergunning<a class="headerlink" href="#evenementenvergunning" title="Permanent link">¶</a></h3>
+<p>Toestemming van de burgemeester voor het organiseren van een evenement: een voor
+publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare
+ruimte (Model-APV art. 2:25). De geldigheid omvat de evenementdag of -dagen
+inclusief op- en afbouw.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soortEvenement</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Muziekevenement, braderie, optocht, sportevenement, buurtfeest, kermis, circus.</td>
+</tr>
+<tr>
+<td><code>tijdvakPerDag</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Tijden waarbinnen het evenement per dag mag plaatsvinden.</td>
+</tr>
+<tr>
+<td><code>opbouwVanaf</code></td>
+<td>DatumTijd</td>
+<td>0..1</td>
+<td>Tijdstip vanaf wanneer de opbouw is toegestaan.</td>
+</tr>
+<tr>
+<td><code>afbouwTot</code></td>
+<td>DatumTijd</td>
+<td>0..1</td>
+<td>Tijdstip waarop de afbouw gereed moet zijn.</td>
+</tr>
+<tr>
+<td><code>maximaalAantalBezoekers</code></td>
+<td>Numeriek</td>
+<td>0..1</td>
+<td>Maximaal aantal gelijktijdig aanwezige bezoekers.</td>
+</tr>
+<tr>
+<td><code>risicoklasse</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>A is regulier, B is aandacht, C is risicovol.</td>
+</tr>
+<tr>
+<td><code>eindtijdMuziek</code></td>
+<td>Tijd</td>
+<td>0..1</td>
+<td>Uiterste tijdstip voor versterkte muziek.</td>
+</tr>
+<tr>
+<td><code>alcoholverstrekking</code></td>
+<td>Indicatie</td>
+<td>0..1</td>
+<td>Indicatie dat zwak-alcoholhoudende drank wordt verstrekt.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Relatie</th>
+<th>Naar</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>betreft</code></td>
+<td>OpenbareActiviteit</td>
+<td>1</td>
+<td>Het evenement zelf.</td>
+</tr>
+</tbody>
+</table>
+<p>Het evenement is een eigen ding omdat het meerdere besluiten kan kennen: de
+evenementenvergunning, een ontheffing op grond van Alcoholwet art. 35 en een
+verkeersbesluit. De vergunning verwijst ernaar en herhaalt naam, data en
+organisator niet.</p>
+<h3 id="straatartiestenontheffing">Straatartiestenontheffing<a class="headerlink" href="#straatartiestenontheffing" title="Permanent link">¶</a></h3>
+<p>Ontheffing van de burgemeester van het verbod om als straatartiest,
+straatfotograaf, tekenaar, filmoperateur of gids op te treden op aangewezen
+wegen, dagen en uren (Model-APV art. 2:9). De houder is de artiest; bij een groep
+de contactpersoon. De aangewezen wegen staan in het geërfde
+<code>locatieOmschrijving</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soortOptreden</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Muziek, zang, levend standbeeld, acrobatiek, portrettekenen, rondleiding, straatfotografie.</td>
+</tr>
+<tr>
+<td><code>dagen</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Dagen of data waarop mag worden opgetreden.</td>
+</tr>
+<tr>
+<td><code>tijdvak</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Tijden waarbinnen mag worden opgetreden.</td>
+</tr>
+<tr>
+<td><code>versterktGeluid</code></td>
+<td>Indicatie</td>
+<td>1</td>
+<td>Indicatie dat geluidsversterking is toegestaan.</td>
+</tr>
+<tr>
+<td><code>aantalPersonen</code></td>
+<td>Numeriek</td>
+<td>0..1</td>
+<td>Aantal personen dat gezamenlijk optreedt.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="standplaatsvergunning">Standplaatsvergunning<a class="headerlink" href="#standplaatsvergunning" title="Permanent link">¶</a></h3>
+<p>Toestemming van het college voor het innemen of hebben van een standplaats: een
+vaste plaats op of aan de weg of op een andere openbare plaats, buiten een markt
+(Model-APV art. 5:17–5:18). De standplaatslocatie staat in het geërfde
+<code>locatieOmschrijving</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soortStandplaats</code></td>
+<td>SoortStandplaats</td>
+<td>1</td>
+<td>Vast, seizoensgebonden of incidenteel.</td>
+</tr>
+<tr>
+<td><code>branche</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Vis, bloemen, oliebollen, ijs, snacks, kerstbomen.</td>
+</tr>
+<tr>
+<td><code>verkoopwaren</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Nadere omschrijving van goederen of diensten.</td>
+</tr>
+<tr>
+<td><code>dagen</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Dagen waarop de standplaats mag worden ingenomen.</td>
+</tr>
+<tr>
+<td><code>tijdvak</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Tijden waarbinnen de standplaats mag worden ingenomen.</td>
+</tr>
+<tr>
+<td><code>afmetingen</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Toegestane afmetingen van de verkoopinrichting in meters.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="marktvergunning">Marktvergunning<a class="headerlink" href="#marktvergunning" title="Permanent link">¶</a></h3>
+<p>Toestemming van het college voor het innemen van een standplaats op een door de
+gemeente ingestelde warenmarkt (Model Marktverordening art. 2 e.v.; Gemeentewet
+art. 160). Een vaste standplaats geldt doorgaans voor onbepaalde tijd, een
+dagplaats voor één marktdag.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>markt</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Naam of aanduiding van de markt.</td>
+</tr>
+<tr>
+<td><code>soortMarktplaats</code></td>
+<td>SoortMarktplaats</td>
+<td>1</td>
+<td>Vaste standplaats, dagplaats of standwerkersplaats.</td>
+</tr>
+<tr>
+<td><code>standplaatsnummer</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Nummer van de standplaats op de markt.</td>
+</tr>
+<tr>
+<td><code>branche</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Groente en fruit, kaas, textiel.</td>
+</tr>
+<tr>
+<td><code>marktdagen</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Dagen waarop de vergunning geldt.</td>
+</tr>
+<tr>
+<td><code>frontbreedte</code></td>
+<td>Numeriek</td>
+<td>0..1</td>
+<td>Toegewezen frontbreedte in meters.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Relatie</th>
+<th>Naar</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vervanger</code></td>
+<td>NatuurlijkPersoon</td>
+<td>0..*</td>
+<td>Personen die de houder bij afwezigheid mogen vervangen.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gehandicaptenparkeerkaart">Gehandicaptenparkeerkaart<a class="headerlink" href="#gehandicaptenparkeerkaart" title="Permanent link">¶</a></h3>
+<p>Kaart volgens Europees model, verstrekt aan een persoon met een beperking of aan
+een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen
+(BABW art. 49–55; Regeling gehandicaptenparkeerkaart). Formeel geen vergunning
+maar een Europees erkend bewijs dat van parkeerverboden ontheft; daarom
+<code>soortToestemming</code> "ontheffing". De kaart is persoonsgebonden, niet
+voertuiggebonden, en geldt maximaal vijf jaar.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kaartnummer</code></td>
+<td>Identificatie</td>
+<td>1</td>
+<td>Nummer zoals op de kaart vermeld, uniek per kaart.</td>
+</tr>
+<tr>
+<td><code>soortKaart</code></td>
+<td>SoortGehandicaptenparkeerkaart</td>
+<td>1</td>
+<td>Bestuurder, passagier of instelling.</td>
+</tr>
+</tbody>
+</table>
+<p>Medische gegevens zoals het keuringsadvies worden niet vastgelegd.</p>
+<h3 id="parkeerontheffing">Parkeerontheffing<a class="headerlink" href="#parkeerontheffing" title="Permanent link">¶</a></h3>
+<p>Ontheffing van het college van een parkeerverbod, een parkeerschijfzone of een
+geslotenverklaring voor een bepaald voertuig (RVV 1990 art. 87; Model-APV
+art. 5:2–5:8).</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soortOntheffing</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Blauwe zone, voetgangersgebied, milieuzone, grote voertuigen, autobedrijf, reclamevoertuig.</td>
+</tr>
+<tr>
+<td><code>kenteken</code></td>
+<td>Kenteken</td>
+<td>0..1</td>
+<td>Kenteken van het voertuig waarvoor de ontheffing geldt.</td>
+</tr>
+<tr>
+<td><code>gebied</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Zone of gebied waar de ontheffing geldt.</td>
+</tr>
+<tr>
+<td><code>tijdvak</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Dagen en uren waarop de ontheffing geldt.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ligplaatsontheffing">Ligplaatsontheffing<a class="headerlink" href="#ligplaatsontheffing" title="Permanent link">¶</a></h3>
+<p>Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water
+waar een ligplaatsverbod geldt (Model-APV art. 5:25). Bestaande GGM-klasse die in
+de pilotversie van <code>Toestemming</code> gaat erven.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stickernummer</code></td>
+<td>Numeriek</td>
+<td>0..1</td>
+<td>Nummer van de afgegeven sticker of het vignet.</td>
+</tr>
+<tr>
+<td><code>ligplaatsaanduiding</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Steiger, kade of nummer van de ligplaats.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Relatie</th>
+<th>Naar</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>betreft</code></td>
+<td>Vaartuig</td>
+<td>1</td>
+<td>Het vaartuig waarvoor de ontheffing is verleend.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ondersteunende-objecttypen">Ondersteunende objecttypen<a class="headerlink" href="#ondersteunende-objecttypen" title="Permanent link">¶</a></h3>
+<p><strong>OpenbareActiviteit</strong> is een voor publiek toegankelijke activiteit in de
+openbare ruimte, met naam, tijdvak, locatie en organisator. Zij bestaat los van
+de vergunning omdat één evenement meerdere besluiten kan kennen.</p>
+<table>
+<thead>
+<tr>
+<th>Attribuut</th>
+<th>Type</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evenementnaam</code></td>
+<td>Tekst</td>
+<td>1</td>
+<td>Naam waaronder de activiteit wordt aangekondigd.</td>
+</tr>
+<tr>
+<td><code>datumStart</code></td>
+<td>Datum</td>
+<td>0..1</td>
+<td>Datum waarop de activiteit begint.</td>
+</tr>
+<tr>
+<td><code>datumEinde</code></td>
+<td>Datum</td>
+<td>0..1</td>
+<td>Datum waarop de activiteit eindigt.</td>
+</tr>
+<tr>
+<td><code>locatieOmschrijving</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Locatie van de activiteit.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Tekst</td>
+<td>0..1</td>
+<td>Status van de activiteit.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Relatie</th>
+<th>Naar</th>
+<th>Kard.</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>organisator</code></td>
+<td>NatuurlijkPersoon</td>
+<td>1</td>
+<td>De persoon die de activiteit organiseert.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Vaartuig</strong> is het vaartuig waarmee een ligplaats wordt ingenomen: <code>naamVaartuig</code>,
+<code>registratienummer</code>, <code>kleur</code>, <code>lengte</code>, <code>breedte</code> en <code>hoogte</code>. Anders dan
+<code>Voertuig</code> in het kernmodel is een vaartuig niet aan een landelijke registratie
+ontleend; de gegevens komen uit de aanvraag.</p>
+<hr>
+<h2 id="enumeraties">Enumeraties<a class="headerlink" href="#enumeraties" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Enumeratie</th>
+<th>Waarden</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SoortToestemming</code></td>
+<td>Vergunning · Ontheffing · Vrijstelling · InstemmingMetMelding · Maatwerkvoorschrift · Gedoogbeschikking · ErkenningOfRegistratie</td>
+</tr>
+<tr>
+<td><code>Productstatus</code></td>
+<td>Initieel · InAanvraag · Gereed · Actief · Ingetrokken · Geweigerd · Verlopen</td>
+</tr>
+<tr>
+<td><code>SoortStandplaats</code></td>
+<td>Vast · Seizoensgebonden · Incidenteel</td>
+</tr>
+<tr>
+<td><code>SoortMarktplaats</code></td>
+<td>VasteStandplaats · Dagplaats · Standwerkersplaats</td>
+</tr>
+<tr>
+<td><code>SoortGehandicaptenparkeerkaart</code></td>
+<td>Bestuurder · Passagier · Instelling</td>
+</tr>
+</tbody>
+</table>
+<p>De waarden van <code>Productstatus</code> zijn letterlijk afgestemd op Open Product, zodat
+een registratie in Open Product of de Objecten API dezelfde levensloop kent.</p>
+<hr>
+<h2 id="bevraging">Bevraging<a class="headerlink" href="#bevraging" title="Permanent link">¶</a></h2>
+<p>Het bron-profiel <code>vth.yaml</code> beschrijft wat een gemeentelijke VTH-registratie via
+GBO beschikbaar stelt. Daaruit genereert de pipeline een GraphQL-SDL met één
+query per vergunningsoort, elk met dezelfde twee sleutels: het bsn van de houder
+en het vergunningnummer.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="err">toestemming(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Toestemming!]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="err">overigeToestemming(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[OverigeToestemming!]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="err">evenementenvergunning(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Evenementenvergunning!]</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="err">straatartiestenontheffing(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Straatartiestenontheffing!]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="err">standplaatsvergunning(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Standplaatsvergunning!]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="err">marktvergunning(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Marktvergunning!]</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="err">gehandicaptenparkeerkaart(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Gehandicaptenparkeerkaart!]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="err">parkeerontheffing(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Parkeerontheffing!]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="err">ligplaatsontheffing(bsn:</span><span class="w"> </span><span class="err">BSN!</span><span class="p">,</span><span class="w"> </span><span class="err">identificatie:</span><span class="w"> </span><span class="err">Identificatie!):</span><span class="w"> </span><span class="err">[Ligplaatsontheffing!]</span>
+</code></pre></div>
+<p><code>toestemming</code> levert de interface en daarmee elke soort; met een fragment op de
+soort komen de typespecifieke gegevens mee. De acht andere queries leveren één
+soort, voor afnemers die geen fragment-spreads willen schrijven.</p>
+<p>De VTH-registratie is geen personenbron: van de houder levert zij alleen het bsn
+en de naam waaronder de vergunning is verleend. Omdat de aanvraag via DigiD
+loopt, is elke houder in de pilot een ingeschreven persoon.</p>
+<hr>
+<h2 id="aansluiting-op-landelijke-ontwikkelingen">Aansluiting op landelijke ontwikkelingen<a class="headerlink" href="#aansluiting-op-landelijke-ontwikkelingen" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ZGW-API's en Open Zaak.</strong> Zaak en besluit worden ongewijzigd gebruikt; de
+  toestemming verwijst ernaar. Registratie van toestemmingen kan in de Objecten
+  API (één objecttype per specialisatie) of in Open Product.</li>
+<li><strong>Uniforme Productnamenlijst (Logius).</strong> Elke uitgewerkte soort heeft een
+  uniforme productnaam met URI en grondslag. Zodra <code>Producttype</code> een objecttype
+  wordt, verwijst het daarheen, zodat gemeenten dezelfde typering gebruiken ook
+  wanneer lokale artikelnummers of de naam verschillen.</li>
+<li><strong>Model-APV, Marktverordening, RVV en BABW.</strong> De definities en attributen
+  volgen de begrippen uit deze regelingen, zodat zij herkenbaar zijn voor
+  vergunningverleners en toezichthouders in elke gemeente.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Terug naar boven
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../../gbo-voorzieningen/" class="md-footer__link md-footer__link--prev" aria-label="Vorige: Hoofdmodel">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Vorige
+              </span>
+              <div class="md-ellipsis">
+                Hoofdmodel
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../ontologie/inleiding/" class="md-footer__link md-footer__link--next" aria-label="Volgende: Inleiding">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Volgende
+              </span>
+              <div class="md-ellipsis">
+                Inleiding
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Let op: er wordt alleen gezocht binnen dit documentatie-onderdeel. Om in andere onderdelen te zoeken: ga via het hoofdmenu eerst naar het onderdeel en voer dan de zoekterm in.", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../../assets/javascripts/mermaid-init.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

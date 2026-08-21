@@ -1,0 +1,3258 @@
+<!DOCTYPE html><html lang="nl" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Gedeelde bouwstenen voor het hele model: simpele datatypes (MIM-primitieven), aanvullende datatypes (gestructureerd of domeinspecifiek) en stelselbrede codelijsten met cross-walks. Deelmodel-specifieke codelijsten staan bij het betreffende deelmodel.">
+      
+      
+        <meta name="author" content="GBO-Semantiek Werkgroep">
+      
+      
+        <link rel="canonical" href="https://ictu.github.io/GBO-Semantiek/latest/informatiemodel/gbo-kern/datatypes-en-codelijsten/">
+      
+      
+        <link rel="prev" href="../deelmodellen/voertuigen/">
+      
+      
+        <link rel="next" href="../../gbo-voorzieningen/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Datatypes en codelijsten - GBO-Semantiek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#datatypes-en-codelijsten" class="md-skip">
+          Ga naar inhoud
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="GBO-Semantiek" class="md-header__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GBO-Semantiek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Datatypes en codelijsten
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar licht thema" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Schakel naar licht thema" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Schakel naar donker thema" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Schakel naar donker thema" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Zoeken">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Delen" aria-label="Delen" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Zoeken initialiseren
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Gemeenschappelijke Bronontsluiting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Context
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Globaal Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Projectstartarchitectuur
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technisch Ontwerp
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technische Requirements
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Semantiek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Demo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigatie" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="GBO-Semantiek" class="md-nav__button md-logo" aria-label="GBO-Semantiek" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    GBO-Semantiek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICTU/GBO-Semantiek" title="Ga naar repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    ICTU/GBO-Semantiek
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemeenschappelijke Bronontsluiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/latest/context" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-GO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Globaal Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO-PSA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectstartarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_to/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technisch Ontwerp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://ictu.github.io/GBO/main/underconstruction_tr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technische Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantiek
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Semantiek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2">
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uitgangspunten
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Uitgangspunten
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../uitgangspunten/ontwerpprincipes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontwerprincipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../uitgangspunten/kaders_standaarden/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaders en standaarden
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bronnenprioritering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bronnenprioritering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3">
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectuur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architectuur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architectuur/gegevensarchitectuur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevensarchitectuur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architectuur/gegevenscomponenten/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gegevenscomponenten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4">
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Begrippenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Begrippenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../begrippen/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Kernmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hoofdmodel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hoofdmodel-compact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel (compact)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/personen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Personen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/bedrijven-en-instellingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Bedrijven en Instellingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/adressen-en-gebouwen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Adressen en Gebouwen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/waarde-onroerende-zaken/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Waarde Onroerende Zaken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/belastingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Belastingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/krediet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Krediet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/onderwijs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Onderwijs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/werk-en-inkomen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Werk en Inkomen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deelmodellen/voertuigen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deelmodel Voertuigen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datatypes en codelijsten
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datatypes en codelijsten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#simpele-datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simpele datatypes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aanvullende-datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aanvullende datatypes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codelijst-strategie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codelijst-strategie
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stelselbrede-codelijsten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stelselbrede codelijsten
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-walks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-walks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-walks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iso-3166-brp-lt-32-nationaliteit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO 3166 ↔ BRP-LT 32 (nationaliteit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iso-3166-brp-lt-34-landen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO 3166 ↔ BRP-LT 34 (landen)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ind-brp-lt-56-verblijfstitel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IND ↔ BRP-LT 56 (verblijfstitel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versionering-en-herindelingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versionering en herindelingen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versionering en herindelingen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cbs-wijk-en-buurt-jaarlijkse-herziening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CBS Wijk en Buurt: jaarlijkse herziening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbs-sbi-verplicht-versie-attribuut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CBS SBI: verplicht versie-attribuut
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onderhoudsritme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onderhoudsritme
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6">
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodel: GBO-Voorzieningenmodel
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gbo-voorzieningen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoofdmodel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Informatiemodellen Pilots
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Informatiemodellen Pilots
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilots/vergunningen-en-ontheffingen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vergunningen en Ontheffingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8">
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ontologie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ontologie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ontologie/inleiding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9">
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementatie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementatie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/uri-strategie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-strategie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/naamgeving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naamgeving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../implementatie/publicatie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publicatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10">
+        
+          
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bijlagen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/woordenlijst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Woordenlijst
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bijlagen/uri-namespace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URI-namespace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://gbo.simulatie.datastelsel.nl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Op deze pagina">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Op deze pagina
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#simpele-datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simpele datatypes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aanvullende-datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aanvullende datatypes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codelijst-strategie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codelijst-strategie
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stelselbrede-codelijsten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stelselbrede codelijsten
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-walks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-walks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-walks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iso-3166-brp-lt-32-nationaliteit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO 3166 ↔ BRP-LT 32 (nationaliteit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iso-3166-brp-lt-34-landen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO 3166 ↔ BRP-LT 34 (landen)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ind-brp-lt-56-verblijfstitel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IND ↔ BRP-LT 56 (verblijfstitel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versionering-en-herindelingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versionering en herindelingen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versionering en herindelingen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cbs-wijk-en-buurt-jaarlijkse-herziening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CBS Wijk en Buurt: jaarlijkse herziening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbs-sbi-verplicht-versie-attribuut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CBS SBI: verplicht versie-attribuut
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onderhoudsritme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onderhoudsritme
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICTU/GBO-Semantiek/edit/main/docs/informatiemodel/gbo-kern/datatypes-en-codelijsten.md" title="Wijzig deze pagina" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="datatypes-en-codelijsten">Datatypes en codelijsten<a class="headerlink" href="#datatypes-en-codelijsten" title="Permanent link">¶</a></h1>
+<p>Bindende afspraken over de <strong>typering van waarden</strong> in alle deelmodellen.
+Deze typen worden niet als objecttype gemodelleerd; ze zijn de
+bouwstenen van attribuutsoorten en relatie-eigenschappen.</p>
+<p>GBO volgt waar mogelijk het
+<a href="https://docs.geostandaarden.nl/mim/mim/">Metamodel voor Informatiemodellering (MIM) 1.2</a>
+van <a href="https://www.geonovum.nl/">Geonovum</a>:</p>
+<ul>
+<li><strong>Datatypes</strong> zijn MIM-primitieven (<code>CharacterString</code>, <code>Integer</code>,
+  <code>Date</code>, <code>Boolean</code>, enzovoort) en aanvullende gestructureerde typen
+  (<code>Geometrie</code>, <code>Codelijst~bron</code>, GBO- of BRP-specifieke typen). De
+  MIM-naam is leidend; de Nederlandse synoniem die in de
+  attribuut-tabellen van de deelmodellen wordt gebruikt staat als alias.</li>
+<li><strong>Codelijsten</strong> (MIM-stereotype <code>«Codelijst»</code>) zijn extern beheerde
+  value-sets bij houders als
+  <a href="https://www.cbs.nl/">CBS</a>,
+  <a href="https://www.iso.org/">ISO</a>,
+  <a href="https://www.kadaster.nl/">Kadaster</a>,
+  <a href="https://www.koopoverheid.nl/">KOOP</a>,
+  <a href="https://www.rvig.nl/">RvIG</a>,
+  <a href="https://www.kvk.nl/">KVK</a>,
+  <a href="https://ind.nl/">IND</a> en
+  <a href="https://www.waarderingskamer.nl/">Waarderingskamer</a>. Stelselbrede
+  codelijsten staan op deze pagina; deelmodel-specifieke codelijsten
+  staan bij het betreffende deelmodel.</li>
+<li><strong>Enumeraties</strong> (MIM-stereotype <code>«Enumeratie»</code>) zijn gesloten
+  value-sets die in dit model zelf zijn vastgelegd; zie de
+  <code>## Enumeraties</code>-sectie in elk deelmodel.</li>
+</ul>
+<h2 id="simpele-datatypes">Simpele datatypes<a class="headerlink" href="#simpele-datatypes" title="Permanent link">¶</a></h2>
+<p>Eén-op-één afgeleid van de MIM 1.2-primitieve datatypes (zie
+<a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a>).</p>
+<table>
+<thead>
+<tr>
+<th>MIM-datatype</th>
+<th>Alias (NL)</th>
+<th>Definitie</th>
+<th>Herkomst</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CharacterString</code></td>
+<td><code>Tekst</code></td>
+<td>Reeks Unicode-tekens.</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a></td>
+<td>Lengte-varianten: <code>Tekst24</code> (max. 24 tekens). De alias <code>Alfanumeriek</code> wordt gebruikt voor reeksen uit het alfabet en de cijfers zonder leestekens, met varianten <code>Alfanumeriek10</code>, <code>AN40</code>, <code>AN80</code>. De alias <code>Identificatie</code> wordt gebruikt voor object- of documentidentificaties zonder vaste structuur; de alias <code>Postcode</code> voor de Nederlandse postcode in het formaat <code>9999 XX</code> (norm NEN 5825).</td>
+</tr>
+<tr>
+<td><code>Integer</code></td>
+<td><code>Numeriek</code> (geheel)</td>
+<td>Geheel getal zonder eenheid.</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a></td>
+<td>Varianten met vaste lengte: <code>N2</code>, <code>N4</code>, <code>N5</code>, <code>N6</code> (geheel getal van precies dat aantal cijfers); varianten met maximumlengte: <code>Numeriek8</code>, <code>Numeriek9</code>, <code>Numeriek12</code>.</td>
+</tr>
+<tr>
+<td><code>Real</code></td>
+<td><code>Numeriek</code> (decimaal) / <code>Decimaal</code></td>
+<td>Decimaal getal zonder eenheid.</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a></td>
+<td>De alias <code>Decimaal</code> wordt in de deelmodellen gebruikt voor breuk-getallen zonder valuta-aanduiding, bijvoorbeeld <code>Schuld.rentepercentage</code> en <code>ModuleInschrijving.ects</code>. Voor bedragen wordt <code>Bedrag</code> gebruikt (zie aanvullende datatypes), niet <code>Real</code> direct, vanwege de verplichte valuta-aanduiding.</td>
+</tr>
+<tr>
+<td><code>Boolean</code></td>
+<td><code>Indicatie</code></td>
+<td>Logische waarde waar/onwaar.</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a></td>
+<td>GBO hanteert als NL-conventie een drie-waardig type <code>Indicatie</code> (Ja / Nee / Onbekend), zodat onbekendheid expliciet kan worden vastgelegd. De waarde Onbekend is geen MIM-Boolean-waarde maar volgt de BRP-conventie voor afwezigheid (zie <a href="https://www.rvig.nl/lo-brp">Logisch Ontwerp BRP</a>). Daarnaast bestaat de tweewaardige variant <code>IndicatieJaNee</code> (Ja / Nee) voor gegevens waarbij een afwezige waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing), zoals de BRP-kiesrechtgegevens <code>uitsluitingKiesrecht</code> en <code>europeesKiesrecht</code>.</td>
+</tr>
+<tr>
+<td><code>Date</code></td>
+<td><code>Datum</code></td>
+<td>Kalenderdatum in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>, precisie tot op de dag (<code>jjjj-mm-dd</code>).</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a> / <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a></td>
+<td>Gebruikt voor de materiële tijdlijn (geldigheid van een gegeven in de werkelijkheid).</td>
+</tr>
+<tr>
+<td><code>DateTime</code></td>
+<td><code>DatumTijd</code></td>
+<td>Datum met tijdstip in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>, precisie tot op de seconde (<code>jjjj-mm-ddThh:mm:ss</code>).</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a> / <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a></td>
+<td>Gebruikt voor de formele tijdlijn (registratiemoment in een systeem).</td>
+</tr>
+<tr>
+<td><code>Year</code></td>
+<td><code>Jaar</code></td>
+<td>Kalenderjaar in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>, vier cijfers (<code>jjjj</code>).</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a> / <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a></td>
+<td>Gebruikt voor <code>oorspronkelijkBouwjaar</code> op Pand en andere jaar-precieze gegevens.</td>
+</tr>
+<tr>
+<td><code>Duration</code></td>
+<td><code>Duur</code></td>
+<td>Tijdsduur in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>-periode-notatie (<code>P5Y</code>, <code>P3M</code>, <code>P7D</code>).</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a> / <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a></td>
+<td>Gebruikt voor bewaartermijnen en doorlooptijden, bijvoorbeeld <code>BijzonderheidsCodering.bewaartermijnPeriode</code> (vijf jaar conform Algemeen Reglement CKI).</td>
+</tr>
+<tr>
+<td><code>URI</code></td>
+<td><code>URI</code></td>
+<td>Uniform Resource Identifier conform <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a>.</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a> / <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a></td>
+<td>Gebruikt voor <code>begrip</code>-verwijzingen naar NL-SBB en andere semantische ankers.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aanvullende-datatypes">Aanvullende datatypes<a class="headerlink" href="#aanvullende-datatypes" title="Permanent link">¶</a></h2>
+<p>Samengestelde of domeinspecifieke datatypes. Waar een MIM- of
+ISO-19107-equivalent bestaat staat dat in de tweede kolom; waar geen
+MIM-equivalent bestaat is de notatie GBO-specifiek of BRP-specifiek.</p>
+<table>
+<thead>
+<tr>
+<th>Datatype</th>
+<th>MIM-equivalent</th>
+<th>Definitie</th>
+<th>Herkomst</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DatumIncompleet</code></td>
+<td>(geen)</td>
+<td>Datum waarin jaar, maand of dag elk afzonderlijk onbekend kan zijn. Formaten: <code>jjjj</code>, <code>jjjj-mm</code> of <code>jjjj-mm-dd</code>; nullen op de onbekende positie.</td>
+<td><a href="https://www.rvig.nl/lo-brp">Logisch Ontwerp BRP</a></td>
+<td>BRP-conventie voor geboortedatum, datum overlijden en datum verkrijging nationaliteit die onvolledig in de bronregistratie kunnen staan. MIM kent geen onvolledige datum als primitief. Volledige datum wordt gerepresenteerd als gewone <code>Date</code> / <code>Datum</code>.</td>
+</tr>
+<tr>
+<td><code>BAGID</code></td>
+<td><code>Identificatie</code></td>
+<td>BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10). Specialisatie van <code>NEN3610ID</code>.</td>
+<td><a href="https://www.kadaster.nl/-/bag-objecten">BAG-objecten (Kadaster)</a></td>
+<td>Gebruikt voor de BAG-objecten Pand, Verblijfsobject, Standplaats, Ligplaats, Nummeraanduiding, Openbare ruimte en Woonplaats, voor verwijzingen daarnaar (zoals <code>adresseerbaarObjectId</code>), en voor <code>Binnenlandsadres.adresId</code> (gelijk aan de identificatie van de Nummeraanduiding). Een BAG-identificatie is een stelsel-objectidentificatie met de BAG als namespace; het patroon legt de lokaalID-vorm vast zoals de BAG die uitgeeft, dus zonder het <code>NL.IMBAG.&lt;objecttype&gt;</code>-voorvoegsel.</td>
+</tr>
+<tr>
+<td><code>NEN3610ID</code></td>
+<td><code>Identificatie</code> (in <a href="https://docs.geostandaarden.nl/nen3610/">NEN 3610</a> als gestructureerd datatype)</td>
+<td>Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit <code>namespace : lokalID : versie</code>. Het algemene identificatietype; <code>BAGID</code> is de register-specifieke specialisatie ervan.</td>
+<td><a href="https://www.geonovum.nl/geo-standaarden">NEN 3610 Basismodel Geo-informatie</a> (<a href="https://docs.geostandaarden.nl/nen3610/">documentatie</a>)</td>
+<td>Gebruikt voor BRK-objecten (KadastraleOnroerendeZaak, ZakelijkRecht) en publiekrechtelijke beperkingen, waar de waarde de vorm <code>NL.IMKAD.&lt;objecttype&gt;.&lt;lokaalID&gt;</code> heeft. Garandeert uniciteit over registers heen.</td>
+</tr>
+<tr>
+<td><code>UUID</code></td>
+<td>(geen)</td>
+<td>Universally Unique Identifier conform <a href="https://datatracker.ietf.org/doc/html/rfc4122">RFC 4122</a> (128 bits, hex-genotat).</td>
+<td><a href="https://datatracker.ietf.org/doc/html/rfc4122">RFC 4122</a></td>
+<td>Interne GBO-identifier voor objecten zonder externe authentieke identifier: <code>Onderneming.identificatie</code> en het <code>adresId</code> van de niet-BAG-adresvormen (Buitenlandsadres, Locatie, Postadres, VerblijfplaatsOnbekend). <code>Partij</code> droeg zo'n UUID tot 2026-08-10; dat attribuut is verwijderd, zie <a href="../hoofdmodel/">hoofdmodel</a>.</td>
+</tr>
+<tr>
+<td><code>BSN</code></td>
+<td><code>Tekst</code> + patroon <code>^[0-9]{9}$</code></td>
+<td>Burgerservicenummer: 9 cijfers met geldige elfproef.</td>
+<td><a href="https://wetten.overheid.nl/BWBR0024466">Wet algemene bepalingen burgerservicenummer</a></td>
+<td>Zoeksleutel van <code>IngeschrevenPersoon</code> (natuurlijk persoon). Als tekst getypeerd zodat een voorloopnul behouden blijft.</td>
+</tr>
+<tr>
+<td><code>KVKnummer</code></td>
+<td><code>Tekst</code> + patroon <code>^[0-9]{8}$</code></td>
+<td>Identificatie van een inschrijving in het Handelsregister: 8 cijfers.</td>
+<td><a href="https://wetten.overheid.nl/BWBR0021777">Handelsregisterwet 2007</a></td>
+<td>Zoeksleutel van <code>Inschrijving</code> (niet-natuurlijke persoon).</td>
+</tr>
+<tr>
+<td><code>Vestigingsnummer</code></td>
+<td><code>Tekst</code> + patroon <code>^[0-9]{12}$</code></td>
+<td>Identificatie van een vestiging in het Handelsregister: 12 cijfers.</td>
+<td>Handelsregister (NHR)</td>
+<td>Zoeksleutel van <code>Vestiging</code>.</td>
+</tr>
+<tr>
+<td><code>Kenteken</code></td>
+<td><code>Tekst</code> + patroon</td>
+<td>Nederlands voertuigkenteken: zes posities (hoofdletters en cijfers) volgens het RDW-sidecodestelsel, optioneel met streepjes.</td>
+<td>RDW (BRV)</td>
+<td>Zoeksleutel van <code>Voertuig</code>.</td>
+</tr>
+<tr>
+<td><code>KadastraleAanduiding</code></td>
+<td><code>Tekst</code></td>
+<td>Kadastrale gemeente, sectie en perceelnummer (bij een appartementsrecht aangevuld met een index), uniek binnen de BRK.</td>
+<td>Kadaster (BRK)</td>
+<td>Natuurlijke sleutel van <code>Perceel</code> en <code>Appartementsrecht</code>.</td>
+</tr>
+<tr>
+<td><code>BRINcode</code></td>
+<td><code>Tekst</code> + patroon <code>^[0-9]{2}[A-Z]{2}$</code></td>
+<td>BRIN-nummer van een onderwijsinstelling: twee cijfers gevolgd door twee hoofdletters.</td>
+<td>DUO (BRIN)</td>
+<td>Natuurlijke sleutel van <code>OnderwijsInstelling</code>.</td>
+</tr>
+<tr>
+<td><code>Aangifteperiode</code></td>
+<td><code>Tekst</code> + patroon <code>^[0-9]{4}(-[MW][0-9]{2})?$</code></td>
+<td>Aanduiding van het aangiftetijdvak loonheffingen: jaar plus tijdvak-code, bijvoorbeeld <code>2026-M01</code> (maand) of <code>2026-W04</code> (vier weken); de kale jaarvorm (<code>2026</code>) duidt een jaaraggregaat aan, zoals de vooringevulde aangifte die levert.</td>
+<td>Gegevensspecificaties aangifte loonheffingen</td>
+<td>Gebruikt voor <code>Inkomstenopgave.aangifteperiode</code> en <code>LoonAangifte.aangifteperiode</code>.</td>
+</tr>
+<tr>
+<td><code>Codelijst~bron</code></td>
+<td>MIM-stereotype <code>«Codelijst»</code></td>
+<td>Verwijzing naar een waarde uit een extern beheerde codelijst. De bron staat als suffix achter de tilde.</td>
+<td><a href="https://docs.geostandaarden.nl/mim/mim/">MIM 1.2</a></td>
+<td>Voorbeelden: <code>Codelijst~ISO3166</code> (zie <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166-1 alpha-2</a>), <code>Codelijst~LT33</code> (BRP-gemeentecode, zie <a href="https://publicaties.rvig.nl/home">Landelijke Tabel 33</a>), <code>Codelijst~CBS_SBI</code> (<a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/activiteiten/standaard-bedrijfsindeling--sbi--">CBS Standaard Bedrijfsindeling</a>), <code>Codelijst~KVK_Bedrijf</code> (<a href="https://developers.kvk.nl/">KVK-rechtsvorm</a>). Stelselbrede codelijsten staan hieronder; deelmodel-specifieke codelijsten staan bij het betreffende deelmodel.</td>
+</tr>
+<tr>
+<td><code>Geometrie</code></td>
+<td><code>GM_Object</code> (<a href="https://www.iso.org/standard/66175.html">ISO 19107</a>, in MIM opgenomen als gestructureerd datatype)</td>
+<td>Ruimtelijke objectplaatsing. Abstract supertype met drie concrete subtypes: <code>Punt</code>, <code>Vlak</code> en <code>Lijn</code>.</td>
+<td><a href="https://docs.geostandaarden.nl/nen3610/">NEN 3610</a> / <a href="https://www.iso.org/standard/66175.html">ISO 19107</a></td>
+<td>Default-coördinatenstelsel: EPSG:28992 (RD-New) voor binnenlandse objecten; WGS84 (EPSG:4326) waar uitwisseling internationaal is. Het coördinatenstelsel staat als attribuut op <code>Geometrie</code> zelf, niet op elke toepassing.</td>
+</tr>
+<tr>
+<td><code>Punt</code></td>
+<td><code>GM_Point</code> (<a href="https://www.iso.org/standard/66175.html">ISO 19107</a>)</td>
+<td>Geometrie als één coördinaat (<code>x</code>, <code>y</code>, optioneel <code>z</code>).</td>
+<td><a href="https://docs.geostandaarden.nl/nen3610/">NEN 3610</a> / <a href="https://www.iso.org/standard/66175.html">ISO 19107</a></td>
+<td>Gebruikt voor <code>Verblijfsobject.geometriePunt</code> (verblijfsobjectpunt-conventie).</td>
+</tr>
+<tr>
+<td><code>Vlak</code></td>
+<td><code>GM_Surface</code> (<a href="https://www.iso.org/standard/66175.html">ISO 19107</a>)</td>
+<td>Geometrie als gesloten polygoon, eventueel met binnenringen voor uitsparingen.</td>
+<td><a href="https://docs.geostandaarden.nl/nen3610/">NEN 3610</a> / <a href="https://www.iso.org/standard/66175.html">ISO 19107</a></td>
+<td>Gebruikt voor Pand, Ligplaats, Standplaats, Perceel, Woonplaats, Gemeente, Wijk en Buurt.</td>
+</tr>
+<tr>
+<td><code>Lijn</code></td>
+<td><code>GM_Curve</code> (<a href="https://www.iso.org/standard/66175.html">ISO 19107</a>)</td>
+<td>Geometrie als reeks aaneengesloten lijnsegmenten.</td>
+<td><a href="https://docs.geostandaarden.nl/nen3610/">NEN 3610</a> / <a href="https://www.iso.org/standard/66175.html">ISO 19107</a></td>
+<td>Gebruikt voor OpenbareRuimte van het type weg of water.</td>
+</tr>
+<tr>
+<td><code>Bedrag</code></td>
+<td>(geen; in MIM als gestructureerd datatype <code>«DataType» Bedrag</code> op te nemen)</td>
+<td>Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (<a href="https://www.iso.org/iso-4217-currency-codes.html">ISO 4217</a>).</td>
+<td><a href="https://www.iso.org/iso-4217-currency-codes.html">ISO 4217</a></td>
+<td>Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling. Gebruikt voor <code>WOZWaarde.vastgesteldeWaarde</code> en <code>Zekerheidsrecht.bedrag</code>.</td>
+</tr>
+<tr>
+<td><code>Breuk</code></td>
+<td>(geen)</td>
+<td>Rationaal getal als teller / noemer.</td>
+<td>GBO</td>
+<td>Gebruikt voor <code>Tenaamstelling.aandeel</code> (bijvoorbeeld 1/2, 1/3) zodat mede-eigendom exact zonder afrondingsverlies wordt vastgelegd.</td>
+</tr>
+<tr>
+<td><code>ObjectAanduiding</code></td>
+<td>(geen)</td>
+<td>Gestandaardiseerde samenstelling van gemeentecode en objectnummer als één string.</td>
+<td><a href="https://wetten.overheid.nl/BWBR0007119">Wet WOZ</a> / <a href="https://www.waarderingskamer.nl/voor-gemeenten/gegevensbeheer">Waarderingskamer — gegevensbeheer</a></td>
+<td>Gebruikt voor <code>WOZObject.aanduiding</code>. Maakt een WOZ-object uniek identificeerbaar buiten de eigen gemeentecontext, want het ruwe <code>wozObjectnummer</code> is alleen binnen één gemeente uniek.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="codelijst-strategie">Codelijst-strategie<a class="headerlink" href="#codelijst-strategie" title="Permanent link">¶</a></h2>
+<p>GBO hanteert een <strong>hybride</strong> aanpak: internationale norm leidend voor
+<strong>semantiek</strong> waar die bestaat
+(<a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a>);
+<a href="https://publicaties.rvig.nl/home">BRP-Landelijke Tabel</a> leidend voor
+<strong>uitwisseling</strong> met de BRP-keten. Cross-walks tussen beide staan
+hieronder voor de stelselbrede gevallen; deelmodel-specifieke
+cross-walks staan bij het betreffende deelmodel.</p>
+<h2 id="stelselbrede-codelijsten">Stelselbrede codelijsten<a class="headerlink" href="#stelselbrede-codelijsten" title="Permanent link">¶</a></h2>
+<p>Alfabetisch op bron. Elke rij verwijst direct naar de actuele lijst bij
+de beheerder.</p>
+<table>
+<thead>
+<tr>
+<th>Codelijst</th>
+<th>Bron / beheerder</th>
+<th>GBO-typering</th>
+<th>Gebruikt door</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://publicaties.rvig.nl/home">BRP-Landelijke Tabel 33 Gemeenten</a></td>
+<td><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">RvIG</a> / BZK</td>
+<td><code>Codelijst~LT33</code></td>
+<td>Stelselbreed voor gemeente-codering. <a href="../deelmodellen/adressen-en-gebouwen/">Adressen en gebouwen</a>: <code>Gemeente.gemeentecode</code>. <a href="../deelmodellen/personen/">Personen</a>: <code>IngeschrevenPersoon.gemeenteVanInschrijving</code>. <a href="../deelmodellen/waarde-onroerende-zaken/">Waarde onroerende zaken</a>: <code>WOZObject.verantwoordelijkeGemeente</code>. Formeel een BRP-codelijst, feitelijk de stelselbrede gemeente-codering inclusief historische gemeenten met einddatum.</td>
+</tr>
+<tr>
+<td><a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/activiteiten/standaard-bedrijfsindeling--sbi--">CBS Standaard Bedrijfsindeling (SBI 2008 / 2025)</a> — <a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/activiteiten/standaard-bedrijfsindeling--sbi--/sbi-code-zoeken">SBI-zoektool</a></td>
+<td><a href="https://www.cbs.nl/">CBS</a></td>
+<td><code>Codelijst~CBS_SBI</code></td>
+<td>Stelselbreed voor bedrijfsindeling; primair in <a href="../deelmodellen/bedrijven-en-instellingen/">Bedrijven en instellingen</a> (<code>Activiteit.sbiCode</code>, <code>Activiteit.sbiVersie</code>, <code>NietNatuurlijkPersoon.hoofdSbiCode</code>, <code>MaatschappelijkeActiviteit.hoofdSbiCode</code>).</td>
+</tr>
+<tr>
+<td><a href="https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data">CBS Wijk- en Buurtkaart</a> (jaarlijkse uitgave; <a href="https://www.cbs.nl/nl-nl/maatwerk/2024/35/kerncijfers-wijken-en-buurten-2024">Kerncijfers wijken en buurten 2024</a>)</td>
+<td><a href="https://www.cbs.nl/">CBS</a></td>
+<td><code>Codelijst~CBS_WijkBuurt</code></td>
+<td><a href="../deelmodellen/adressen-en-gebouwen/">Adressen en gebouwen</a>: <code>Wijk.wijkcode</code>, <code>Buurt.buurtcode</code>.</td>
+</tr>
+<tr>
+<td><a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166-1 alpha-2 (landcodes)</a></td>
+<td><a href="https://www.iso.org/">ISO</a></td>
+<td><code>Codelijst~ISO3166</code></td>
+<td>Stelselbreed voor land- en nationaliteit-typering. <a href="../deelmodellen/personen/">Personen</a>: <code>Nationaliteit.nationaliteit</code>, <code>NatuurlijkPersoon.geboorteland</code>, <code>NatuurlijkPersoon.landOverlijden</code>, <code>Immigratie.landVanwaar</code>, <code>Immigratie.landBinnenkomst</code>, <code>Huwelijk.landVoltrekking</code>, <code>NietIngezetene.landVanVerblijf</code>. <a href="../deelmodellen/bedrijven-en-instellingen/">Bedrijven en instellingen</a>: <code>BuitenlandseEntiteit.landVanOprichting</code>. <a href="../deelmodellen/adressen-en-gebouwen/">Adressen en gebouwen</a>: <code>Buitenlandsadres.land</code>, <code>Locatie.land</code>.</td>
+</tr>
+<tr>
+<td><a href="https://www.kadaster.nl/zakelijk/registraties/basisregistraties/brk">Kadastrale aanduiding — kadastrale gemeente / sectie / perceelnummer</a></td>
+<td><a href="https://www.kadaster.nl/">Kadaster</a></td>
+<td><code>Codelijst~Kadaster</code></td>
+<td><a href="../deelmodellen/onroerende-zaken/">Onroerende zaken</a>: <code>Perceel.kadastraleGemeente</code>. De lijst kadastrale gemeenten is onderdeel van de <a href="https://www.kadaster.nl/zakelijk/registraties/basisregistraties/brk">Basisregistratie Kadaster (BRK)</a> en wijzigt mee met gemeentelijke herindelingen.</td>
+</tr>
+<tr>
+<td><a href="https://organisaties.overheid.nl/">TOOI-waardelijsten — Register van Overheidsorganisaties</a> (<a href="https://standaarden.overheid.nl/tooi">standaard</a>, <a href="https://standaarden.overheid.nl/tooi/doc/tooi-waardelijsten/">waardelijsten-documentatie</a>)</td>
+<td><a href="https://www.koopoverheid.nl/">KOOP</a> / <a href="https://www.logius.nl/">Logius</a></td>
+<td><code>Codelijst~TOOI</code></td>
+<td><a href="../deelmodellen/bedrijven-en-instellingen/">Bedrijven en instellingen</a>: <code>Overheidsinstelling.bevoegdGezagCode</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cross-walks">Cross-walks<a class="headerlink" href="#cross-walks" title="Permanent link">¶</a></h2>
+<p>De cross-walk-fragmenten hieronder tonen een handvol voorbeeldrijen per
+groep; de volledige lijst telt honderden codes en wordt onderhouden
+door <a href="https://www.rvig.nl/">RvIG</a> op
+<a href="https://publicaties.rvig.nl/home">publicaties.rvig.nl</a>. Volg de link
+onder elke tabel voor het feitelijke bronbestand.</p>
+<h3 id="iso-3166-brp-lt-32-nationaliteit">ISO 3166 ↔ BRP-LT 32 (nationaliteit)<a class="headerlink" href="#iso-3166-brp-lt-32-nationaliteit" title="Permanent link">¶</a></h3>
+<p><a href="https://publicaties.rvig.nl/home">BRP-Landelijke Tabel 32 Nationaliteiten</a>
+levert per nationaliteit een 4-cijferige BRP-code, een omschrijving en,
+waar van toepassing, een 2-letterige ISO-code. GBO modelleert het
+attribuut <code>Nationaliteit.nationaliteit</code> als
+<a href="https://www.iso.org/iso-3166-country-codes.html"><code>Codelijst~ISO3166</code></a>
+(semantiek leidend) met cross-walk naar LT 32 voor BRP-uitwisseling.</p>
+<table>
+<thead>
+<tr>
+<th>BRP-code (LT 32)</th>
+<th>ISO 3166-1 alpha-2</th>
+<th>Omschrijving</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0001</td>
+<td>NL</td>
+<td>Nederlandse</td>
+</tr>
+<tr>
+<td>0026</td>
+<td>DE</td>
+<td>Duitse</td>
+</tr>
+<tr>
+<td>0027</td>
+<td>BE</td>
+<td>Belgische</td>
+</tr>
+<tr>
+<td>0083</td>
+<td>FR</td>
+<td>Franse</td>
+</tr>
+<tr>
+<td>0125</td>
+<td>GB</td>
+<td>Britse</td>
+</tr>
+<tr>
+<td>0337</td>
+<td>US</td>
+<td>Amerikaanse</td>
+</tr>
+<tr>
+<td>0498</td>
+<td>(geen)</td>
+<td>Statenloos / vluchteling-status (geen ISO-equivalent)</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>LT 32 bevat codes zonder ISO-equivalent (statenloos, Behandeld als
+Nederlander, vluchteling-status). Deze blijven via BRP-code zichtbaar;
+de cross-walk-tabel registreert dit als <code>(geen)</code> aan de ISO-zijde.</p>
+<p><strong>Volledige lijsten</strong>:</p>
+<ul>
+<li><a href="https://publicaties.rvig.nl/media/13281/download">Tabel 32 Nationaliteiten — directe download (publicaties.rvig.nl)</a>.</li>
+<li><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">BRP Landelijke Tabellen — overzicht (RvIG)</a>.</li>
+<li><a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166-1 alpha-2 (iso.org)</a>.</li>
+</ul>
+<h3 id="iso-3166-brp-lt-34-landen">ISO 3166 ↔ BRP-LT 34 (landen)<a class="headerlink" href="#iso-3166-brp-lt-34-landen" title="Permanent link">¶</a></h3>
+<p><a href="https://publicaties.rvig.nl/home">BRP-Landelijke Tabel 34 Landen</a>
+gebruikt 4-cijferige BRP-codes; ISO 3166 gebruikt 2-letterige
+alpha-2-codes.</p>
+<table>
+<thead>
+<tr>
+<th>BRP-code (LT 34)</th>
+<th>ISO 3166-1 alpha-2</th>
+<th>Omschrijving</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6030</td>
+<td>NL</td>
+<td>Nederland</td>
+</tr>
+<tr>
+<td>5005</td>
+<td>DE</td>
+<td>Duitsland</td>
+</tr>
+<tr>
+<td>5010</td>
+<td>BE</td>
+<td>België</td>
+</tr>
+<tr>
+<td>4030</td>
+<td>FR</td>
+<td>Frankrijk</td>
+</tr>
+<tr>
+<td>9000</td>
+<td>(escape)</td>
+<td>Onbekend</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Volledige lijsten</strong>:</p>
+<ul>
+<li><a href="https://publicaties.rvig.nl/media/13285/download">Tabel 34 Landen — directe download (publicaties.rvig.nl)</a>.</li>
+<li><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">BRP Landelijke Tabellen — overzicht (RvIG)</a>.</li>
+<li><a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166-1 alpha-2 (iso.org)</a>.</li>
+</ul>
+<h3 id="ind-brp-lt-56-verblijfstitel">IND ↔ BRP-LT 56 (verblijfstitel)<a class="headerlink" href="#ind-brp-lt-56-verblijfstitel" title="Permanent link">¶</a></h3>
+<p><a href="https://publicaties.rvig.nl/home">BRP-Landelijke Tabel 56 Verblijfstitels</a>
+levert per verblijfstitel een BRP-code met IND-cross-link. GBO
+modelleert <code>Verblijfstitel.aanduiding</code> als
+<a href="https://ind.nl/nl/verblijfsvergunningen"><code>Codelijst~IND</code></a> (autoritatief
+vanuit <a href="https://ind.nl/">IND</a>) met cross-walk naar LT 56 voor
+BRP-uitwisseling. De cross-walk evolueert mee met IND-beleidswijzigingen.</p>
+<table>
+<thead>
+<tr>
+<th>BRP-code (LT 56)</th>
+<th>IND-aanduiding</th>
+<th>Omschrijving</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9</td>
+<td>(geen verblijfstitel)</td>
+<td>Onderdaan EU / EER, geen titel nodig</td>
+</tr>
+<tr>
+<td>10</td>
+<td>verblijf onbeperkt</td>
+<td>Verblijfsvergunning regulier voor onbepaalde tijd</td>
+</tr>
+<tr>
+<td>11</td>
+<td>verblijf bepaald</td>
+<td>Verblijfsvergunning regulier voor bepaalde tijd</td>
+</tr>
+<tr>
+<td>12</td>
+<td>asiel onbeperkt</td>
+<td>Verblijfsvergunning asiel onbepaalde tijd</td>
+</tr>
+<tr>
+<td>13</td>
+<td>asiel bepaald</td>
+<td>Verblijfsvergunning asiel bepaalde tijd</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Volledige lijsten</strong>:</p>
+<ul>
+<li><a href="https://publicaties.rvig.nl/home">BRP-LT 56 Verblijfstitel — publicaties.rvig.nl</a>, ook beschikbaar via de <a href="https://developer.rvig.nl/brp-api/">Haal Centraal BRP Tabellen-API</a>.</li>
+<li><a href="https://www.rvig.nl/lo-brp">Logisch Ontwerp BRP</a> §11.10.</li>
+<li><a href="https://ind.nl/nl/verblijfsvergunningen">IND Verblijfsvergunningen</a>.</li>
+</ul>
+<h2 id="versionering-en-herindelingen">Versionering en herindelingen<a class="headerlink" href="#versionering-en-herindelingen" title="Permanent link">¶</a></h2>
+<h3 id="cbs-wijk-en-buurt-jaarlijkse-herziening">CBS Wijk en Buurt: jaarlijkse herziening<a class="headerlink" href="#cbs-wijk-en-buurt-jaarlijkse-herziening" title="Permanent link">¶</a></h3>
+<p>CBS herziet Wijk- en Buurtgrenzen jaarlijks via de
+<a href="https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data">Wijk- en Buurtkaart</a>.
+Modellering via het <code>Voorkomen</code>-mixin op Wijk en Buurt; bij
+grens-mutatie ontstaat een nieuwe versie. Er is geen
+<code>nieuweCode</code>-mechanisme: CBS-codes zijn stabiel, alleen de geometrie
+muteert.</p>
+<h3 id="cbs-sbi-verplicht-versie-attribuut">CBS SBI: verplicht versie-attribuut<a class="headerlink" href="#cbs-sbi-verplicht-versie-attribuut" title="Permanent link">¶</a></h3>
+<p>De overgang van
+<a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/activiteiten/standaard-bedrijfsindeling--sbi--">SBI 2008 naar SBI 2025</a>
+maakt versie-aanduiding noodzakelijk. GBO modelleert <code>Activiteit.sbiCode</code>
+met een verplicht <code>sbiVersie</code> zodat code en versie samen blijven.</p>
+<h2 id="onderhoudsritme">Onderhoudsritme<a class="headerlink" href="#onderhoudsritme" title="Permanent link">¶</a></h2>
+<p>Stelselbrede codelijsten. Voor deelmodel-specifieke codelijsten staat
+het onderhoudsritme bij het betreffende deelmodel.</p>
+<table>
+<thead>
+<tr>
+<th>Codelijst</th>
+<th>Mutatieritme</th>
+<th>Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://publicaties.rvig.nl/home">BRP-LT 32 Nationaliteiten</a></td>
+<td>Halfjaarlijks</td>
+<td><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">RvIG</a></td>
+</tr>
+<tr>
+<td><a href="https://publicaties.rvig.nl/home">BRP-LT 33 Gemeenten</a></td>
+<td>Jaarlijks (1 januari, gemeentelijke herindelingen)</td>
+<td><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">RvIG</a></td>
+</tr>
+<tr>
+<td><a href="https://publicaties.rvig.nl/home">BRP-LT 34 Landen</a></td>
+<td>Halfjaarlijks</td>
+<td><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">RvIG</a></td>
+</tr>
+<tr>
+<td><a href="https://publicaties.rvig.nl/home">BRP-LT 56 Verblijfstitels</a></td>
+<td>Per IND-beleidswijziging</td>
+<td><a href="https://www.rvig.nl/landelijke-tabellen-en-besluiten">RvIG</a> (afstemming met IND)</td>
+</tr>
+<tr>
+<td><a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/activiteiten/standaard-bedrijfsindeling--sbi--">CBS SBI</a></td>
+<td>Per SBI-revisie</td>
+<td><a href="https://www.cbs.nl/">CBS</a></td>
+</tr>
+<tr>
+<td><a href="https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data">CBS Wijk- en Buurtkaart</a></td>
+<td>Jaarlijks</td>
+<td><a href="https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data">CBS Open Data</a></td>
+</tr>
+<tr>
+<td><a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a></td>
+<td>Sporadisch (paar keer per decennium)</td>
+<td><a href="https://www.iso.org/">ISO</a></td>
+</tr>
+<tr>
+<td><a href="https://www.kadaster.nl/zakelijk/registraties/basisregistraties/brk">Kadastrale Gemeenten (BRK)</a></td>
+<td>Periodiek (volgt gemeentelijke herindeling)</td>
+<td><a href="https://www.kadaster.nl/">Kadaster</a></td>
+</tr>
+<tr>
+<td><a href="https://standaarden.overheid.nl/tooi">TOOI</a></td>
+<td>Continu</td>
+<td><a href="https://organisaties.overheid.nl/">Register van Overheidsorganisaties</a></td>
+</tr>
+</tbody>
+</table>
+<p>Codelijsten worden bij afnemers als <strong>referentie-bestand</strong> gehouden,
+niet hard-gecodeerd. Synchronisatie via de bron-publicatie of de
+<a href="https://developer.rvig.nl/brp-api/">Haal Centraal BRP Tabellen-API</a>,
+met verifiërende re-resolve bij sleutelmoment (verstrekking,
+beschikking, inschrijving).</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Terug naar boven
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../deelmodellen/voertuigen/" class="md-footer__link md-footer__link--prev" aria-label="Vorige: Deelmodel Voertuigen">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Vorige
+              </span>
+              <div class="md-ellipsis">
+                Deelmodel Voertuigen
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../gbo-voorzieningen/" class="md-footer__link md-footer__link--next" aria-label="Volgende: Hoofdmodel">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Volgende
+              </span>
+              <div class="md-ellipsis">
+                Hoofdmodel
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "search.highlight", "search.share", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Let op: er wordt alleen gezocht binnen dit documentatie-onderdeel. Om in andere onderdelen te zoeken: ga via het hoofdmenu eerst naar het onderdeel en voer dan de zoekterm in.", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+        <script src="../../../assets/javascripts/mermaid-init.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
