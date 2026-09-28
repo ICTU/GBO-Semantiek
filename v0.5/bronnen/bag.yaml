@@ -1,0 +1,50 @@
+# =============================================================================
+# Bron-profiel BAG — welke onderdelen van het GBO-informatiemodel de
+# Basisregistratie Adressen en Gebouwen via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel bag.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.2/bronnen/bag.yaml
+#
+# Buiten dit profiel blijven: Buurt en Wijk (CBS) en Gemeente
+# (BRP-LT33); relaties daarheen worden sleutel-referenties. Het
+# samengestelde Binnenlandsadres hoort wél bij dit profiel: het wordt
+# gevormd door de BAG-nummeraanduiding.
+# =============================================================================
+bron: BAG
+titel: Basisregistratie Adressen en Gebouwen
+beschrijving: >-
+  Adresseerbare objecten (verblijfsobjecten, ligplaatsen,
+  standplaatsen), panden, nummeraanduidingen, openbare ruimten en
+  woonplaatsen uit de BAG, inclusief de bitemporele
+  levenscyclus-gegevens, plus het daaruit samengestelde
+  binnenlandse adres.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+ingangen:
+  - AdresseerbaarObject
+  - Pand
+  - Nummeraanduiding
+  - Binnenlandsadres
+lijstQueries: false
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+objecttypen:
+  - AdresseerbaarObject
+  - Ligplaats
+  - Standplaats
+  - Verblijfsobject
+  - Pand
+  - Nummeraanduiding
+  - OpenbareRuimte
+  - Woonplaats
+  - Binnenlandsadres
+
+# Relaties buiten het profiel krijgen de default "sleutel":
+#   AdresseerbaarObject.ligtInBuurt -> sleutel (Buurt.buurtcode)
+#   Woonplaats.inGemeente           -> sleutel (Gemeente.gemeentecode)

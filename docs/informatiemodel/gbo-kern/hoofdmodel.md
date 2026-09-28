@@ -106,7 +106,7 @@ together {
 
 ' ---- Vastgoed: Kadaster (BRK) ----
 together {
-  abstract class KadastraleOnroerendeZaak <<onroerende-zaken>>
+  abstract class OnroerendeZaak <<onroerende-zaken>>
   class Tenaamstelling <<onroerende-zaken>>
   class ZakelijkRecht <<onroerende-zaken>>
 }
@@ -148,19 +148,20 @@ NietNatuurlijkPersoon --> Vestiging
 NatuurlijkPersoon --> Adres
 Vestiging --> Adres
 AdresseerbaarObject --> Adres
-Pand --> KadastraleOnroerendeZaak
+Pand --> OnroerendeZaak
 
 ' ---- BRK + WOZ ----
-ZakelijkRecht --> KadastraleOnroerendeZaak
+ZakelijkRecht --> OnroerendeZaak
 Tenaamstelling --> ZakelijkRecht
 Partij --> Tenaamstelling
+OnroerendeZaak --> AdresseerbaarObject
 WOZWaarde --> AdresseerbaarObject
 
 ' ---- Fiscaal (BD) ----
 Verzamelinkomen --> NatuurlijkPersoon
 LoonBestanddeel --> Arbeidsverhouding
 Aftrekpost --> NatuurlijkPersoon
-Aftrekpost --> KadastraleOnroerendeZaak
+Aftrekpost --> OnroerendeZaak
 
 ' ---- Werk en inkomen (UWV) ----
 Arbeidsverhouding --> NatuurlijkPersoon
@@ -169,7 +170,7 @@ Uitkering --> NatuurlijkPersoon
 
 ' ---- Krediet (BKR) ----
 KredietOvereenkomst --> NatuurlijkPersoon
-KredietOvereenkomst --> KadastraleOnroerendeZaak
+KredietOvereenkomst --> OnroerendeZaak
 AchterstandRegistratie --> KredietOvereenkomst
 
 ' ---- Onderwijs (DUO) ----
@@ -299,7 +300,7 @@ together {
 
 ' ---- Onroerende zaken (Kadaster / BRK) ----
 together {
-  abstract class KadastraleOnroerendeZaak <<onroerende-zaken>>
+  abstract class OnroerendeZaak <<onroerende-zaken>>
   class Perceel <<onroerende-zaken>>
   class Appartementsrecht <<onroerende-zaken>>
   class ZakelijkRecht <<onroerende-zaken>>
@@ -354,8 +355,8 @@ NietNatuurlijkPersoon <|-- OnderwijsInstelling
 Adres <|-- Binnenlandsadres
 Adres <|-- Postadres
 AdresseerbaarObject <|-- Verblijfsobject
-KadastraleOnroerendeZaak <|-- Perceel
-KadastraleOnroerendeZaak <|-- Appartementsrecht
+OnroerendeZaak <|-- Perceel
+OnroerendeZaak <|-- Appartementsrecht
 KredietOvereenkomst <|-- HypothecairKredietEigenWoning
 
 ' ---- Verticale layout-hints (onzichtbaar) ----
@@ -364,7 +365,7 @@ NietNatuurlijkPersoon -[hidden]down- Inschrijving
 Inschrijving -[hidden]down- Vestiging
 Adres -[hidden]down- AdresseerbaarObject
 AdresseerbaarObject -[hidden]down- Pand
-KadastraleOnroerendeZaak -[hidden]down- ZakelijkRecht
+OnroerendeZaak -[hidden]down- ZakelijkRecht
 ZakelijkRecht -[hidden]down- Tenaamstelling
 WOZObject -[hidden]down- WOZWaarde
 Aangifte -[hidden]down- Verzamelinkomen
@@ -392,11 +393,11 @@ Verblijfsobject "1..*" --> "1..*" Pand : in
 Pand "1..*" --> "1..*" Perceel : staat op
 
 ' ---- BRK-keten ----
-ZakelijkRecht "1" --> "1..*" KadastraleOnroerendeZaak : op
+ZakelijkRecht "1" --> "1..*" OnroerendeZaak : rustOp
 Tenaamstelling "*" --> "1" ZakelijkRecht : voor
 Partij "1" --> "0..*" Tenaamstelling : tenaamgesteld
-PubliekrechtelijkeBeperking "*" --> "1" KadastraleOnroerendeZaak : op
-Appartementsrecht "0..1" --> "0..1" AdresseerbaarObject : betreft
+PubliekrechtelijkeBeperking "*" --> "1" OnroerendeZaak : rustOp
+OnroerendeZaak "*" --> "*" AdresseerbaarObject : betreft
 
 ' ---- WOZ-keten ----
 WOZObject "1" --> "1..*" WOZWaarde : kent
@@ -409,7 +410,7 @@ NatuurlijkPersoon "1" <-- "0..*" Aanslag : opgelegdAan
 NatuurlijkPersoon "1" <-- "0..*" Verzamelinkomen : gegrondvestOp
 NatuurlijkPersoon "1" <-- "0..*" Aftrekpost : opgevoerdDoor
 NatuurlijkPersoon "1" <-- "0..*" Toeslag : toegekendAan
-KadastraleOnroerendeZaak "1" <-- "1" EigenWoning : gekoppeldAan
+OnroerendeZaak "1" <-- "1" EigenWoning : gekoppeldAan
 Aftrekpost "0..*" --> "0..1" EigenWoning : betreft
 NatuurlijkPersoon "1" <-- "0..*" Inkomstenverhouding : tussenPersoon
 NietNatuurlijkPersoon "1" <-- "0..*" Inkomstenverhouding : tussenWerkgever
@@ -420,7 +421,7 @@ NietNatuurlijkPersoon "1" <-- "0..*" Renseignering : aangeleverdDoor
 ' ---- Krediet-bruggen ----
 NatuurlijkPersoon "1" <-- "0..*" KredietOvereenkomst : aangegaanDoor
 NietNatuurlijkPersoon "1" <-- "0..*" KredietOvereenkomst : verstrektDoor
-KadastraleOnroerendeZaak "1" <-- "0..*" HypothecairKredietEigenWoning : gevestigdOp
+OnroerendeZaak "1" <-- "0..*" HypothecairKredietEigenWoning : onderpand
 KredietOvereenkomst "1" <-- "0..*" AchterstandRegistratie : gemeldOp
 
 ' ---- Werk en Inkomen-bruggen ----
@@ -444,7 +445,7 @@ NatuurlijkPersoon "1" <-- "0..*" StudieLening : aangegaanDoor
 | Personen | `NatuurlijkPersoon`, `Verbintenis` | [Personen](deelmodellen/personen.md) |
 | Bedrijven en instellingen | `NietNatuurlijkPersoon`, `Inschrijving`, `Vestiging` | [Bedrijven en instellingen](deelmodellen/bedrijven-en-instellingen.md) |
 | Adressen en gebouwen | `Adres`, `Binnenlandsadres`, `Postadres`, `AdresseerbaarObject`, `Verblijfsobject`, `Pand` | [Adressen en gebouwen](deelmodellen/adressen-en-gebouwen.md) |
-| Onroerende zaken | `KadastraleOnroerendeZaak`, `Perceel`, `Appartementsrecht`, `ZakelijkRecht`, `Tenaamstelling`, `PubliekrechtelijkeBeperking` | [Onroerende zaken](deelmodellen/onroerende-zaken.md) |
+| Onroerende zaken | `OnroerendeZaak`, `Perceel`, `Appartementsrecht`, `ZakelijkRecht`, `Tenaamstelling`, `Zekerheidsrecht`, `PubliekrechtelijkeBeperking` | [Onroerende zaken](deelmodellen/onroerende-zaken.md) |
 | Waarde onroerende zaken | `WOZObject`, `WOZWaarde` | [Waarde onroerende zaken](deelmodellen/waarde-onroerende-zaken.md) |
 | Belastingen | `Aangifte`, `Aanslag`, `Verzamelinkomen`, `EigenWoning`, `Aftrekpost`, `Toeslag`, `Inkomstenverhouding`, `LoonAangifte`, `LoonBestanddeel`, `Renseignering` | [Belastingen](deelmodellen/belastingen.md) |
 | Krediet | `KredietOvereenkomst`, `HypothecairKredietEigenWoning`, `AchterstandRegistratie` | [Krediet](deelmodellen/krediet.md) |
@@ -463,7 +464,7 @@ voor een eenmanszaak (NP-eigenaar), een holding (NNP-NNP), een VOF
 De relatie hangt aan `Partij` zodat al deze vormen op één manier
 modelleerbaar zijn.
 
-**`Partij` ↔ `Tenaamstelling` ↔ `ZakelijkRecht` ↔ `KadastraleOnroerendeZaak`**.
+**`Partij` ↔ `Tenaamstelling` ↔ `ZakelijkRecht` ↔ `OnroerendeZaak`**.
 Eigendom en andere zakelijke rechten worden via een aparte
 `Tenaamstelling` aan een partij gekoppeld. Daardoor zijn meervoudige
 tenaamstelling (echtparen, mede-eigendom) en historie zonder
@@ -510,12 +511,16 @@ indirect via z'n `Vestiging`-instanties:
 
 ### Onroerend goed en WOZ
 
-**`Appartementsrecht` ↔ `AdresseerbaarObject`** (`0..1` ↔ `0..1`).
-Een appartementsrecht correspondeert typisch met één fysieke ruimte:
-meestal een verblijfsobject (appartement), soms een standplaats
-(garagebox). Niet elk AO is gesplitst als appartementsrecht, en niet
-elk appartementsrecht heeft een corresponderende BAG-AO (gedeelde
-ruimtes bij een Vereniging van Eigenaren).
+**`OnroerendeZaak` ↔ `AdresseerbaarObject`** (`*` ↔ `*`, *betreft*).
+De BRK koppelt adressen aan de onroerende zaak, aan een perceel even
+goed als aan een appartementsrecht. Een adres in een gesplitst gebouw
+leidt naar het appartementsrecht, dat typisch met één fysieke ruimte
+correspondeert: meestal een verblijfsobject (appartement), soms een
+standplaats (garagebox). Een adres in een niet gesplitst pand leidt
+naar het perceel. Niet elk appartementsrecht heeft een
+corresponderend adresseerbaar object (gedeelde ruimtes bij een
+Vereniging van Eigenaren). Tot 2026-09-28 stond deze relatie alleen op
+`Appartementsrecht` (`0..1` ↔ `0..1`).
 
 **`WOZObject` → `AdresseerbaarObject(en)` en `Perceel(en)`**.
 De fiscale eenheid van een WOZ-object is een samenstelling, niet
@@ -525,11 +530,20 @@ meerdere percelen.
 
 ### Belastingen, Krediet en Wonen
 
-**`KadastraleOnroerendeZaak` ↔ `EigenWoning` ↔ `HypothecairKredietEigenWoning`**.
+**`OnroerendeZaak` ↔ `EigenWoning` ↔ `HypothecairKredietEigenWoning`**.
 Het eigenwoning-regime in Box 1 van de inkomstenbelasting hangt aan
-precies één kadastrale onroerende zaak. Een hypothecair krediet voor
-de eigen woning is op diezelfde KOZ gevestigd. Hypotheekrenteaftrek
-in een IH-aangifte refereert via `EigenWoning` indirect aan de KOZ.
+precies één onroerende zaak. Een hypothecair krediet voor de eigen
+woning heeft diezelfde onroerende zaak als onderpand.
+Hypotheekrenteaftrek in een IH-aangifte refereert via `EigenWoning`
+indirect aan de onroerende zaak.
+
+Let op: `HypothecairKredietEigenWoning` is de **kredietovereenkomst**
+uit het CKI (Stichting BKR), niet de kadastrale hypotheek. Die laatste
+is `Zekerheidsrecht` met `typeZekerheidsrecht = Hypotheek` in
+[Onroerende zaken](deelmodellen/onroerende-zaken.md), met een eigen
+bedrag (het maximum uit de akte) en een eigen bronhouder (Kadaster).
+De relatie `onderpand` legt alleen vast op welke zaak het krediet is
+gevestigd; zij vervangt de BRK-registratie niet.
 
 **`Inkomstenverhouding`** (`NatuurlijkPersoon` ↔ `NietNatuurlijkPersoon`).
 Spil van de loonaangifteketen: per combinatie van werknemer en
@@ -556,7 +570,7 @@ de Loonheffingen-bijlagen (zie [Belastingen](deelmodellen/belastingen.md)).
 belastingplichtige in de IH-aangifte kan opvoeren: hypotheekrente-
 aftrek, lijfrentepremies, partneralimentatie, giften. Concreet
 subtype `HypotheekrenteAftrek` koppelt via `EigenWoning` aan de
-`KadastraleOnroerendeZaak`; daardoor sluit dezelfde modellering aan
+`OnroerendeZaak`; daardoor sluit dezelfde modellering aan
 op de BD-rijen 28, 31, 36 en op de eigenwoning-keten.
 
 ### Werk en Inkomen
@@ -581,9 +595,12 @@ Een achterstand op een kredietovereenkomst leidt tot een melding aan
 het Centraal Krediet Informatiesysteem. De BKR-toets in een hypotheek-
 aanvraag (DVTP-rij 15 BKR) gebruikt deze meldingen plus de
 bijzonderheidscoderingen. `HypothecairKredietEigenWoning` koppelt
-diezelfde overeenkomst aan de `KadastraleOnroerendeZaak`, zodat de
-hypotheek vanuit twee perspectieven herkenbaar is: financieel
-(Krediet) en zakelijk-rechtelijk (BRK).
+diezelfde overeenkomst via `onderpand` aan de `OnroerendeZaak`. De
+hypotheek is daarmee vanuit twee perspectieven zichtbaar, met twee
+verschillende objecttypen en twee verschillende bronhouders:
+financieel als `HypothecairKredietEigenWoning` (CKI) en
+zakelijk-rechtelijk als `Zekerheidsrecht` (BRK). Het zijn geen
+alternatieve modelleringen van hetzelfde ding.
 
 ### Onderwijs
 

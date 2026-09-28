@@ -2,7 +2,8 @@
 # GBO — Deelmodel Onroerende zaken
 # Bron (leidend): docs/informatiemodel/gbo-kern/deelmodellen/onroerende-zaken.md
 #
-# Kadastrale onroerende zaken en de zakelijke rechten daarop.
+# Onroerende zaken (kadastraal: percelen en appartementsrechten) en
+# de zakelijke rechten daarop.
 # Inclusief hypotheek/beslag (Zekerheidsrecht), kwalitatieve
 # verplichtingen (Aantekening) en publiekrechtelijke beperkingen.
 #
@@ -18,7 +19,7 @@ id: https://lod.gbo-semantiek.nl/informatiemodel/onroerende-zaken
 name: gbo-onroerende-zaken
 title: "GBO deelmodel: Onroerende zaken"
 description: >-
-  Kadastrale onroerende zaken (percelen, appartementsrechten),
+  Onroerende zaken (percelen, appartementsrechten),
   zakelijke rechten, tenaamstelling, zekerheidsrechten
   (hypotheek/beslag), aantekeningen en publiekrechtelijke
   beperkingen. WOZ-waarde valt buiten dit deelmodel; zie deelmodel
@@ -46,33 +47,46 @@ classes:
     mixins:
       - Voorkomen
     description: >-
-      Een privaatrechtelijke vermelding bij een kadastraal onroerende
-      zaak die een kwalitatieve verplichting, bewindstelling of
-      soortgelijke notarieel ontstane last vastlegt en die via de
-      Basisregistratie Kadaster kenbaar wordt gemaakt.
+      Een aanvulling op de registratie van een registergoed met
+      betrekking tot feiten die gevolgen kunnen hebben voor de
+      uitoefening van de rechten op dit registergoed.
     exact_mappings:
       - gbobegrip:Aantekening
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
-        grondslag: Kadasterwet art. 17; Burgerlijk Wetboek Boek 6
-        (kwalitatieve verplichting); BRK-Catalogus (objecttype
-        Aantekening).
+        Definitie letterlijk overgenomen uit de BRK-catalogus,
+        begrip Aantekening. Wettelijke grondslag: Kadasterwet art. 8.
+        Aanvullend voor de kwalitatieve verplichting: Burgerlijk
+        Wetboek Boek 6.
       mim:datumOpname: "2026-04-28"
+      mim:datumWijziging: "2026-08-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
-        Alle privaatrechtelijke aantekeningen die op grond van de
-        Kadasterwet bij een kadastraal onroerende zaak in de BRK zijn
-        geregistreerd.
+        Alle aantekeningen die op grond van de Kadasterwet bij een
+        registergoed in de BRK zijn geregistreerd.
+      mim:definitieHerkomst: https://catalogus.kadaster.nl/brk/nl/page/Aantekening
     comments:
+      - >-
+        De definitie is die van de BRK (art. 8 Kadasterwet) en wordt
+        letterlijk overgenomen; GBO herdefinieert het begrip niet.
+        Tot 2026-08-28 hanteerde GBO een engere eigen definitie
+        (privaatrechtelijke vermelding, kwalitatieve verplichting of
+        bewindstelling); die is teruggebracht tot de scope-notitie
+        hieronder. Review Kadaster 2026-08-20, punt R4.
+      - >-
+        Scope: de BRK onderscheidt aantekeningen op de tenaamstelling,
+        op het object, op een publiekrechtelijke beperking en op een
+        zekerheidsstelling; de waardelijst AardAantekening telt
+        honderden soorten. Voor GBO liggen de privaatrechtelijke
+        aantekeningen bij het object voorop (kwalitatieve
+        verplichting, bewindstelling); de overige soorten worden niet
+        uitgesloten maar zijn niet apart uitgewerkt.
       - >-
         Aantekening is de privaatrechtelijke tegenhanger van
         PubliekrechtelijkeBeperking: beide kunnen tegelijk op dezelfde
-        kadastrale onroerende zaak rusten. Een aantekening ontstaat
-        uit een notariële handeling (bijvoorbeeld de vestiging van een
-        kwalitatieve verplichting of een bewindstelling), niet uit een
-        bestuursbesluit.
+        onroerende zaak rusten. Een aantekening ontstaat uit een
+        notariële handeling, niet uit een bestuursbesluit.
     attributes:
       aardAantekening:
         range: CodelijstBRK
@@ -85,8 +99,11 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRK-Catalogus
+          mim:waardelijst: https://developer.kadaster.nl/schemas/waardelijsten/AardAantekening/
         comments:
-          - Codelijst-waarden afgeleid van BRK.
+          - >-
+            Waardelijst AardAantekening van het Kadaster, extern
+            beheerd. Review Kadaster 2026-08-20, punt R4.
       omschrijving:
         range: Tekst
         description: >-
@@ -106,11 +123,11 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRK-Catalogus
-      opKadastraleOnroerendeZaak:
-        range: KadastraleOnroerendeZaak
+      rustOp:
+        range: OnroerendeZaak
         required: true
         description: >-
-          Kadastrale onroerende zaak waarop de aantekening rust.
+          Onroerende zaak waarop de aantekening rust.
         annotations:
           gbo:inverseNaam: heeftAantekening
           gbo:inverseBeschrijving: >-
@@ -122,13 +139,14 @@ classes:
           mim:kardinaliteit: "* -> 1"
 
   Appartementsrecht:
-    is_a: KadastraleOnroerendeZaak
+    is_a: OnroerendeZaak
     description: >-
-      Een aandeel in een door splitsing ontstane onroerende zaak dat
-      recht geeft op het uitsluitend gebruik van een specifiek
-      aangewezen privégedeelte, samen met een aandeel in de
-      gemeenschap; geregistreerd in de Basisregistratie Kadaster als
-      kadastraal onroerende zaak.
+      Een aandeel in bij een splitsing betrokken goederen dat de
+      bevoegdheid omvat tot het uitsluitend gebruik van bepaalde
+      gedeelten van een gebouw die blijkens hun inrichting bestemd
+      zijn of worden om als afzonderlijk geheel te worden gebruikt;
+      geregistreerd in de Basisregistratie Kadaster als onroerende
+      zaak.
     exact_mappings:
       - gbobegrip:Appartementsrecht
     annotations:
@@ -139,10 +157,13 @@ classes:
         Kadasterwet; BRK-Catalogus (objecttype Appartementsrecht);
         IMKAD.
       mim:datumOpname: "2026-04-28"
-      mim:uniekeAanduiding: kadastraleAanduiding (incl. indexnummer)
+      mim:datumWijziging: "2026-08-28"
+      mim:definitieHerkomst: https://catalogus.kadaster.nl/brk/nl/page/Appartementsrecht
+      mim:uniekeAanduiding: >-
+        kadastraleAanduiding (inclusief appartementsrechtVolgnummer)
       mim:populatie: >-
         Alle appartementsrechten die in Nederland door notariële
-        splitsingsakte zijn ontstaan en als kadastraal onroerende zaak
+        splitsingsakte zijn ontstaan en als onroerende zaak
         in de BRK zijn geregistreerd.
     comments:
       - >-
@@ -151,34 +172,45 @@ classes:
         bedrijfsverzamelgebouwen. Bewoners zijn eigenaar van het
         recht, niet van de onderliggende grond, die in mede-eigendom
         is. Een appartementsrecht ontstaat uit een notariële
-        splitsingsakte (Appartementsrechtsplitsing) die één of meer
-        percelen verdeelt in één of meer appartementsrechten. Het
-        juridische begrip appartementsrecht komt ook voor als waarde
-        van AardZakelijkRecht; GBO neemt het kadastrale object hier op
-        omdat BRK het zo registreert.
+        splitsingsakte (Splitsingsakte) waarbij een zakelijk recht op
+        één of meer onroerende zaken in appartementsrechten wordt
+        gesplitst. Het juridische begrip appartementsrecht komt ook
+        voor als waarde van AardZakelijkRecht; GBO neemt het
+        kadastrale object hier op omdat BRK het zo registreert.
+      - >-
+        Tot 2026-08-28 kende dit objecttype een eigen attribuut
+        indexnummer; dat is het appartementsrechtVolgnummer binnen het
+        gestructureerde datatype KadastraleAanduiding. Review Kadaster
+        2026-08-20, punt R10.
     unique_keys:
       kadastraleAanduiding:
         unique_key_slots: [kadastraleAanduiding]
         description: >-
-          MIM unieke aanduiding (inclusief indexnummer); identificatie
-          (geërfd van KadastraleOnroerendeZaak) blijft de technische
-          identifier.
+          MIM unieke aanduiding (inclusief
+          appartementsrechtVolgnummer); identificatie (geërfd van
+          OnroerendeZaak) blijft de technische identifier.
     attributes:
-      indexnummer:
-        range: Tekst
-        required: true
+      grondperceel:
+        range: Perceel
+        multivalued: true
         description: >-
-          Volgnummer binnen een appartementsrechtsplitsing dat het
-          privégedeelte aanduidt.
+          Perceel of percelen waarop het appartementsrecht betrekking
+          heeft, afgeleid via de splitsing.
         annotations:
-          mim:authentiek: Authentiek
+          gbo:inverseNaam: heeftAppartementsrecht
+          gbo:inverseBeschrijving: >-
+            De appartementsrechten die via splitsing op dit perceel
+            betrekking hebben.
+          mim:authentiek: Afgeleid
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRK-Catalogus
+          mim:kardinaliteit: "* -> *"
         comments:
           - >-
-            Onderscheidt appartementen binnen dezelfde
-            grondaanduiding.
+            Afgeleid gegeven: het Kadaster voegt deze relatie toe in
+            de nieuwste IMKAD. Bij een ondersplitsing loopt de weg
+            naar het grondperceel via het bovenliggende
+            appartementsrecht. Review Kadaster 2026-08-20, punt R8.
       betreft:
         range: AdresseerbaarObject
         description: >-
@@ -192,25 +224,49 @@ classes:
         comments:
           - Zie deelmodel Adressen en gebouwen.
 
-  Appartementsrechtsplitsing:
+  Splitsingsakte:
+    aliases:
+      - Akte van splitsing
     description: >-
-      De notariële akte waarbij één of meer percelen worden gesplitst
-      in één of meer appartementsrechten, met vermelding van de
-      verdeling en de aandelen in de gemeenschap.
+      De notariële akte waarbij een zakelijk recht op één of meer
+      onroerende zaken wordt gesplitst in appartementsrechten, met
+      vermelding van de verdeling en de aandelen in de gemeenschap.
     exact_mappings:
-      - gbobegrip:Appartementsrechtsplitsing
+      - gbobegrip:Splitsingsakte
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
-        grondslag: Burgerlijk Wetboek Boek 5 titel 9 (art. 106 e.v.,
-        splitsing in appartementsrechten); Kadasterwet; BRK-Catalogus.
+        Wettelijke grondslag: Burgerlijk Wetboek Boek 5 titel 9
+        (art. 106 e.v., splitsing in appartementsrechten);
+        Kadasterwet. In de BRK is dit een stukdeel met AardStukdeel
+        616 (splitsing in appartementsrechten) of 617
+        (ondersplitsing).
       mim:datumOpname: "2026-04-28"
+      mim:datumWijziging: "2026-08-28"
       mim:uniekeAanduiding: documentnummer
       mim:populatie: >-
-        Alle in Nederland verleden notariële splitsingsakten waarbij
-        percelen worden gesplitst in appartementsrechten.
+        Alle in Nederland verleden notariële akten van splitsing in
+        appartementsrechten, hoofdsplitsing zowel als ondersplitsing.
     comments:
+      - >-
+        Dit objecttype heette tot 2026-08-28 Appartementsrechtsplitsing.
+        Die naam botst met het BRK-begrip AppartementsrechtSplitsing,
+        dat geen akte is maar het in appartementsrechten gesplitste
+        zakelijk recht zelf. Wat GBO hier modelleert is de akte: een
+        deelverzameling van de stukdelen met AardStukdeel 616 of 617.
+        Review Kadaster 2026-08-20, punt R7.
+      - >-
+        Gesplitst wordt een recht, niet een perceel, en dat recht is
+        niet noodzakelijk eigendom: ook erfpacht of opstal kan in
+        appartementsrechten worden gesplitst. Tot 2026-08-28 verwees
+        dit objecttype rechtstreeks naar Perceel; dat is vervangen
+        door een verwijzing naar het gesplitste zakelijk recht.
+        Review Kadaster 2026-08-20, punt R6.
+      - >-
+        Twee vormen: hoofdsplitsing (van een recht op één of meer
+        percelen) en ondersplitsing (van een recht op een bestaand
+        appartementsrecht). De onderliggende onroerende zaken volgen
+        uit ZakelijkRecht.rustOp.
       - >-
         De splitsingsakte is een eenmalige rechtshandeling die het
         ontstaan van de appartementsrechten vastlegt. Het akte-object
@@ -267,46 +323,52 @@ classes:
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
           mim:kardinaliteit: "1 -> 1..*"
-      opPerceel:
-        range: Perceel
+      splitst:
+        range: ZakelijkRecht
         required: true
-        multivalued: true
         description: >-
-          Onderliggende percelen die door de splitsing worden geraakt.
+          Het zakelijk recht dat door de akte in appartementsrechten
+          wordt gesplitst; eigendom, maar ook erfpacht of opstal.
         annotations:
-          gbo:inverseNaam: heeftAppartementsrechtsplitsing
+          gbo:inverseNaam: wordtGesplitstDoor
           gbo:inverseBeschrijving: >-
-            De appartementsrechtsplitsingen op dit perceel.
-          mim:relatienaam: op
+            De splitsingsakte waarmee dit zakelijk recht in
+            appartementsrechten is gesplitst.
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
-          mim:kardinaliteit: "1 -> 1..*"
+          mim:kardinaliteit: "* -> 1"
 
-  KadastraleOnroerendeZaak:
+  OnroerendeZaak:
     abstract: true
     mixins:
       - Voorkomen
     aliases:
+      - KadastraleOnroerendeZaak
       - KOZ
     description: >-
-      Het overkoepelende begrip voor een kadastraal afgebakend en als
-      zelfstandige eenheid in de Basisregistratie Kadaster
-      geregistreerd object: een perceel of een appartementsrecht.
+      De grond, de niet gewonnen delfstoffen, de met de grond
+      verenigde beplantingen, alsmede de gebouwen en werken die
+      duurzaam met de grond zijn verenigd, hetzij rechtstreeks, hetzij
+      door vereniging met andere gebouwen of werken.
     exact_mappings:
-      - gbobegrip:KadastraleOnroerendeZaak
+      - gbobegrip:OnroerendeZaak
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
-        grondslag: Kadasterwet art. 1; BRK-Catalogus (abstract
-        supertype KadastraalOnroerendeZaak); IMKAD.
+        Definitie letterlijk overgenomen uit de BRK-catalogus, begrip
+        OnroerendeZaak. Wettelijke grondslag: Burgerlijk Wetboek Boek
+        3 art. 3; Kadasterwet art. 1; IMKAD/CDMKAD.
       mim:datumOpname: "2026-04-28"
+      mim:datumWijziging: "2026-08-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
-        Alle kadastraal afgebakende objecten (percelen en
+        Binnen GBO: alle kadastraal afgebakende objecten (percelen en
         appartementsrechten) in Nederland zoals geregistreerd in de
-        BRK door het Kadaster.
+        BRK door het Kadaster. Netwerken en werken van algemeen belang
+        zijn juridisch eveneens onroerende zaken maar zijn in GBO
+        vooralsnog niet uitgewerkt.
+      mim:definitieHerkomst: https://catalogus.kadaster.nl/brk/nl/page/OnroerendeZaak
     comments:
       - >-
         Abstract supertype dat de gemeenschappelijke kenmerken en
@@ -315,7 +377,18 @@ classes:
         publiekrechtelijke beperkingen worden via dit supertype
         gekoppeld zodat zij even goed op een perceel als op een
         appartementsrecht kunnen rusten.
-      - Alias KOZ is de BRK-afkorting.
+      - >-
+        Tot 2026-08-28 heette dit objecttype KadastraleOnroerendeZaak,
+        met afkorting KOZ. Die naam en die afkorting komen uit het
+        RSGB, niet uit de BRK; het Kadaster kent het objecttype als
+        OnroerendeZaak. Beide oude namen blijven als alias staan.
+        Review Kadaster 2026-08-20, punt R9.
+      - >-
+        Openstaand: GBO beperkt de populatie feitelijk tot kadastraal
+        geregistreerde onroerende zaken, terwijl de overgenomen
+        definitie ruimer is. Of netwerken en werken van algemeen
+        belang binnen scope komen is een besluit voor het overleg met
+        het Kadaster in oktober 2026.
     attributes:
       identificatie:
         identifier: true
@@ -333,15 +406,20 @@ classes:
         range: KadastraleAanduiding
         required: true
         description: >-
-          Samengestelde aanduiding (kadastrale gemeente / sectie /
-          perceelnummer / eventueel indexnummer).
+          De unieke aanduiding van de onroerende zaak die door het
+          Kadaster is vastgesteld.
         annotations:
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRK-Catalogus
         comments:
-          - Menselijk leesbare aanduiding.
+          - >-
+            Gestructureerd datatype met kadastraleGemeente, sectie,
+            perceelnummer en appartementsrechtVolgnummer. Tot
+            2026-08-28 een platte tekstwaarde met de componenten los
+            als attributen op Perceel en Appartementsrecht. Review
+            Kadaster 2026-08-20, punt R10.
       soortGrootte:
         range: SoortGrootte
         required: true
@@ -353,37 +431,37 @@ classes:
           mim:herkomst: BRK-Catalogus
         comments:
           - Zie enumeratie SoortGrootte.
-      kadastraalOnroerendeZaakStatus:
-        range: KOZStatus
+      onroerendeZaakStatus:
+        range: OnroerendeZaakStatus
         required: true
         description: >-
-          Levensfase-status van de kadastrale onroerende zaak.
+          Levensfase-status van de onroerende zaak.
         annotations:
           mim:authentiek: Authentiek
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRK-Catalogus
         comments:
-          - Zie enumeratie KOZStatus.
+          - Zie enumeratie OnroerendeZaakStatus.
 
   Perceel:
-    is_a: KadastraleOnroerendeZaak
+    is_a: OnroerendeZaak
     aliases:
       - Kadastraal perceel
     description: >-
-      Een kadastraal afgebakend en als zelfstandige eenheid in de
-      Basisregistratie Kadaster geregistreerd stuk grond,
-      identificeerbaar via de kadastrale aanduiding (kadastrale
-      gemeente, sectie, perceelnummer).
+      Een begrensd deel van het Nederlands grondgebied dat kadastraal
+      geïdentificeerd is en met kadastrale grenzen begrensd is.
     exact_mappings:
       - gbobegrip:Perceel
     annotations:
       mim:herkomst: BRK (basisregistratie)
       mim:herkomstDefinitie: >-
-        Bron: BRK Catalogus, versie 1.0, 10 december 2020. Wettelijke
-        grondslag: Kadasterwet art. 1; BRK-Catalogus (objecttype
-        KadastraalPerceel); IMKAD.
+        Definitie letterlijk overgenomen uit de BRK-catalogus, begrip
+        Perceel. Wettelijke grondslag: Kadasterwet art. 1;
+        IMKAD/CDMKAD.
       mim:datumOpname: "2026-04-28"
+      mim:datumWijziging: "2026-08-28"
+      mim:definitieHerkomst: https://catalogus.kadaster.nl/brk/nl/page/Perceel
       mim:uniekeAanduiding: kadastraleAanduiding
       mim:populatie: >-
         Alle kadastraal afgebakende stukken grond in Nederland zoals
@@ -398,42 +476,20 @@ classes:
         pand dragen, of door meerdere panden gedeeltelijk worden
         bedekt; een pand kan over meerdere percelen liggen.
       - Alias Kadastraal perceel is de BRK-LO volledige naam.
+      - >-
+        Tot 2026-08-28 hanteerde GBO een eigen definitie en stonden
+        kadastraleGemeente, sectie en perceelnummer als losse
+        attributen op Perceel. Dat waren de componenten van de
+        kadastrale aanduiding; zij staan nu in het gestructureerde
+        datatype KadastraleAanduiding. Review Kadaster 2026-08-20,
+        punten R10 en R11.
     unique_keys:
       kadastraleAanduiding:
         unique_key_slots: [kadastraleAanduiding]
         description: >-
           MIM unieke aanduiding; identificatie (geërfd van
-          KadastraleOnroerendeZaak) blijft de technische identifier.
+          OnroerendeZaak) blijft de technische identifier.
     attributes:
-      kadastraleGemeente:
-        range: CodelijstKadaster
-        required: true
-        description: Kadastrale gemeente waarin het perceel ligt.
-        annotations:
-          mim:authentiek: Authentiek
-          mim:indicatieMaterieleHistorie: true
-          mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRK-Catalogus
-        comments:
-          - Kadasterwet-codering.
-      sectie:
-        range: Tekst
-        required: true
-        description: Sectie-letter binnen de kadastrale gemeente.
-        annotations:
-          mim:authentiek: Authentiek
-          mim:indicatieMaterieleHistorie: true
-          mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRK-Catalogus
-      perceelnummer:
-        range: Numeriek
-        required: true
-        description: Volgnummer van het perceel binnen de sectie.
-        annotations:
-          mim:authentiek: Authentiek
-          mim:indicatieMaterieleHistorie: true
-          mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRK-Catalogus
       oppervlakte:
         range: Numeriek
         description: Kadastrale oppervlakte in vierkante meters.
@@ -453,8 +509,8 @@ classes:
     aliases:
       - BRK-PB
     description: >-
-      Een beperking van het gebruiksrecht op een kadastraal onroerende
-      zaak die voortvloeit uit een publiekrechtelijk besluit van een
+      Een beperking van het gebruiksrecht op een onroerende zaak die
+      voortvloeit uit een publiekrechtelijk besluit van een
       bestuursorgaan en die op grond van de Wet kenbaarheid
       publiekrechtelijke beperkingen kenbaar wordt gemaakt via de
       Basisregistratie Kadaster.
@@ -482,7 +538,7 @@ classes:
         overheid (gemeente, provincie, Rijk) zonder instemming van de
         eigenaar, in tegenstelling tot privaatrechtelijke
         aantekeningen die uit notariële handelingen voortvloeien. Eén
-        besluit kan meerdere kadastrale onroerende zaken raken: in dat
+        besluit kan meerdere onroerende zaken raken: in dat
         geval ontstaan meerdere registraties die naar hetzelfde
         brondocument verwijzen.
     attributes:
@@ -562,11 +618,11 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRK-Catalogus
-      opKadastraleOnroerendeZaak:
-        range: KadastraleOnroerendeZaak
+      rustOp:
+        range: OnroerendeZaak
         required: true
         description: >-
-          Kadastrale onroerende zaak waarop de beperking rust.
+          Onroerende zaak waarop de beperking rust.
         annotations:
           gbo:inverseNaam: heeftPubliekrechtelijkeBeperking
           gbo:inverseBeschrijving: >-
@@ -582,7 +638,7 @@ classes:
       - Voorkomen
     description: >-
       De geregistreerde rechtsbetrekking tussen een rechthebbende
-      partij en een zakelijk recht op een kadastraal onroerende zaak,
+      partij en een zakelijk recht op een onroerende zaak,
       met vermelding van het aandeel waarmee de partij in het recht
       deelneemt.
     exact_mappings:
@@ -600,7 +656,7 @@ classes:
       mim:populatie: >-
         Alle in de BRK geregistreerde tenaamstellingen, historisch en
         actueel, die een rechthebbende koppelen aan een zakelijk recht
-        op een kadastraal onroerende zaak.
+        op een onroerende zaak.
     comments:
       - >-
         Tenaamstelling is een verbinding met eigen kenmerken tussen
@@ -618,7 +674,7 @@ classes:
       - "MIM-element: Relatieklasse (verdinglijkte relatie)."
     unique_keys:
       tenaamstelling:
-        unique_key_slots: [tenaamgesteldOp, voorZakelijkRecht, datumIngang]
+        unique_key_slots: [tenNameVan, van, datumIngang]
         description: >-
           MIM unieke aanduiding, samengesteld uit (Partij,
           ZakelijkRecht, datumIngang).
@@ -665,7 +721,7 @@ classes:
           mim:herkomst: BRK-Catalogus
         comments:
           - Leeg betekent lopend.
-      tenaamgesteldOp:
+      tenNameVan:
         range: Partij
         required: true
         description: Rechthebbende partij.
@@ -684,7 +740,7 @@ classes:
             De inverse maakt de BRK bevraagbaar vanaf een partij, dus
             vanaf bsn, kvkNummer of rsin; zonder die navigatie is
             eigendom alleen per onroerende zaak op te vragen.
-      voorZakelijkRecht:
+      van:
         range: ZakelijkRecht
         required: true
         description: Zakelijk recht waarvoor de tenaamstelling geldt.
@@ -719,13 +775,13 @@ classes:
       mim:datumOpname: "2026-04-28"
       mim:uniekeAanduiding: identificatie
       mim:populatie: >-
-        Alle zakelijke rechten op kadastrale onroerende zaken in
+        Alle zakelijke rechten op onroerende zaken in
         Nederland zoals geregistreerd in de BRK; vormen worden
         onderscheiden via AardZakelijkRecht.
     comments:
       - >-
         ZakelijkRecht is de koppeling tussen rechthebbende (via
-        Tenaamstelling) en kadastrale onroerende zaak. Het
+        Tenaamstelling) en onroerende zaak. Het
         onderscheidt zich van een persoonlijk recht doordat het tegen
         iedereen kan worden uitgeoefend (zaaksgebondenheid). Vormen
         worden onderscheiden via de aard-aanduiding (Eigendom,
@@ -802,12 +858,12 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRK-Catalogus
-      opKadastraleOnroerendeZaak:
-        range: KadastraleOnroerendeZaak
+      rustOp:
+        range: OnroerendeZaak
         required: true
         multivalued: true
         description: >-
-          Kadastrale onroerende zaken waarop het recht rust.
+          Onroerende zaken waarop het recht rust.
         annotations:
           gbo:inverseNaam: heeftZakelijkRecht
           gbo:inverseBeschrijving: >-
@@ -822,7 +878,7 @@ classes:
     mixins:
       - Voorkomen
     description: >-
-      Een op een kadastraal onroerende zaak rustend recht dat strekt
+      Een op een onroerende zaak rustend recht dat strekt
       tot zekerheid van een schuldvordering, te weten een hypotheek of
       een beslag.
     exact_mappings:
@@ -846,8 +902,24 @@ classes:
         eigendomstitel is maar een zekerstelling: bij hypotheek strekt
         het recht tot zekerheid van een geldlening, bij beslag tot
         zekerstelling van een vordering. Beide rusten op een
-        kadastraal onroerende zaak en bestaan zelfstandig naast de
-        zakelijke rechten op diezelfde zaak.
+        onroerende zaak en bestaan zelfstandig naast de zakelijke
+        rechten op diezelfde zaak.
+      - >-
+        Er is bewust geen relatie naar ZakelijkRecht. De
+        hypotheekregistratie was bij het Kadaster oorspronkelijk een
+        apart systeem; de BRK legt daarom geen koppeling tussen het
+        bezwaarde zakelijk recht en de zekerheidsstelling. Wat wel
+        wordt geregistreerd is de aard van het bezwaarde recht
+        (aardBezwaardRecht) en de onroerende zaak waarop het rust
+        (rustOpObject). Review Kadaster 2026-08-20, punt R3.
+      - >-
+        Wat Zekerheidsrecht niet is: de kredietovereenkomst zelf. De
+        hypothecaire lening staat in het deelmodel Krediet als
+        HypothecairKredietEigenWoning of
+        HypothecairKredietOverigeOnroerendeZaken (bron CKI, Stichting
+        BKR). De BRK registreert geen aflossingen en geen actuele
+        restschuld; dat is de administratie van de hypotheeknemer.
+        Review Kadaster 2026-08-20, punt R1/R2.
     attributes:
       typeZekerheidsrecht:
         range: TypeZekerheidsrecht
@@ -863,7 +935,9 @@ classes:
       bedrag:
         range: Bedrag
         description: >-
-          Bedrag waarvoor het zekerheidsrecht is gevestigd.
+          Bedrag waarvoor het zekerheidsrecht is gevestigd. Bij
+          hypotheek het maximaal te lenen bedrag zoals vermeld in de
+          akte, bij beslag de gevorderde som indien geregistreerd.
         annotations:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
@@ -871,8 +945,49 @@ classes:
           mim:herkomst: BRK-Catalogus
         comments:
           - >-
-            Bij hypotheek de hoofdsom; bij beslag de gevorderde som
-            indien geregistreerd.
+            Het hypotheekbedrag is het maximum uit de akte, niet het
+            daadwerkelijk geleende en niet het nog openstaande bedrag.
+            Het bedrag staat in de BRK bij het stuk geregistreerd
+            (BedragZekerheidsstellingHypotheek); GBO kent geen
+            Stuk-objecttype en neemt het hier als attribuut op.
+            Review Kadaster 2026-08-20, punt R2.
+      aardBezwaardRecht:
+        range: AardZakelijkRecht
+        description: >-
+          Aard van het zakelijk recht dat als onderpand wordt
+          bezwaard; bij hypotheek het recht van de hypotheekgever.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRK-Catalogus
+        comments:
+          - >-
+            Niet alleen eigendom kan onderpand zijn; ook erfpacht of
+            opstal kan worden bezwaard. Bewust een aard-aanduiding en
+            geen relatie naar ZakelijkRecht: de BRK legt die koppeling
+            niet, zie het klasse-commentaar. Review Kadaster
+            2026-08-20, punt R1/R3.
+      tenGunsteVan:
+        range: Partij
+        multivalued: true
+        description: >-
+          Partij ten gunste van wie het zekerheidsrecht is gevestigd;
+          bij hypotheek de hypotheeknemer, meestal een bank.
+        annotations:
+          gbo:inverseNaam: heeftZekerheidsrechtAlsBegunstigde
+          gbo:inverseBeschrijving: >-
+            De zekerheidsrechten die ten gunste van deze partij zijn
+            gevestigd.
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> *"
+        comments:
+          - >-
+            De hypotheekgever krijgt geen eigen relatie: die volgt uit
+            de tenaamstelling van het bezwaarde recht op dezelfde
+            onroerende zaak. Review Kadaster 2026-08-20, punt R1.
       datumVestiging:
         range: Datum
         required: true
@@ -895,12 +1010,12 @@ classes:
           - >-
             Alleen relevant bij typeZekerheidsrecht = Beslag. Zie
             enumeratie AardBeslag.
-      opKadastraleOnroerendeZaak:
-        range: KadastraleOnroerendeZaak
+      rustOpObject:
+        range: OnroerendeZaak
         required: true
         multivalued: true
         description: >-
-          Kadastrale onroerende zaken waarop het zekerheidsrecht rust.
+          Onroerende zaken waarop het zekerheidsrecht rust.
         annotations:
           gbo:inverseNaam: heeftZekerheidsrecht
           gbo:inverseBeschrijving: >-
@@ -915,7 +1030,7 @@ enums:
 
   AardBeslag:
     description: >-
-      Aard van een op een kadastraal onroerende zaak gelegd beslag,
+      Aard van een op een onroerende zaak gelegd beslag,
       gerelateerd aan de juridische grondslag en het doel ervan.
     exact_mappings:
       - gbobegrip:AardBeslag
@@ -964,7 +1079,7 @@ enums:
 
   AardZakelijkRecht:
     description: >-
-      Vorm van een zakelijk recht op een kadastraal onroerende zaak,
+      Vorm van een zakelijk recht op een onroerende zaak,
       bepalend voor de inhoud en de bevoegdheden van de rechthebbende.
     exact_mappings:
       - gbobegrip:AardZakelijkRecht
@@ -999,21 +1114,21 @@ enums:
           - BW Boek 5 art. 1.
       ErfdienstbaarheidHeersend:
         description: >-
-          Erfdienstbaarheid ten gunste van het kadastraal onroerende
-          zaak (het heersende erf).
+          Erfdienstbaarheid ten gunste van de onroerende zaak (het
+          heersende erf).
         comments:
           - >-
             Bijvoorbeeld een recht van overpad over een buurperceel.
       ErfdienstbaarheidLijdend:
         description: >-
-          Erfdienstbaarheid ten laste van het kadastraal onroerende
-          zaak (het dienende erf).
+          Erfdienstbaarheid ten laste van de onroerende zaak (het
+          dienende erf).
         comments:
           - De tegenkant van de heersende erfdienstbaarheid.
       Erfpacht:
         description: >-
-          Recht om het kadastraal onroerende zaak van een ander te
-          houden en te gebruiken, doorgaans tegen canon.
+          Recht om de onroerende zaak van een ander te houden en te
+          gebruiken, doorgaans tegen canon.
         comments:
           - BW Boek 5 art. 85 e.v.
       GebruikEnBewoning:
@@ -1024,9 +1139,8 @@ enums:
           - BW Boek 3 art. 226.
       Opstal:
         description: >-
-          Recht om in, op of boven een kadastraal onroerende zaak van
-          een ander gebouwen, werken of beplantingen in eigendom te
-          hebben.
+          Recht om in, op of boven een onroerende zaak van een ander
+          gebouwen, werken of beplantingen in eigendom te hebben.
         comments:
           - BW Boek 5 art. 101 e.v.
       Vruchtgebruik:
@@ -1036,14 +1150,15 @@ enums:
         comments:
           - BW Boek 3 art. 201 e.v.
 
-  KOZStatus:
+  OnroerendeZaakStatus:
     aliases:
+      - KOZStatus
       - kadastraalOnroerendeZaakStatus
     description: >-
-      Levenscyclus-status van een kadastrale onroerende zaak in de
+      Levenscyclus-status van een onroerende zaak in de
       Basisregistratie Kadaster.
     exact_mappings:
-      - gbobegrip:KOZStatus
+      - gbobegrip:OnroerendeZaakStatus
     annotations:
       mim:herkomst: BRK
       mim:herkomstDefinitie: >-
@@ -1052,7 +1167,7 @@ enums:
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
-        Een kadastrale onroerende zaak (perceel of appartementsrecht)
+        Een onroerende zaak (perceel of appartementsrecht)
         heeft op elk moment één status. Bij overgang naar Historisch
         is de zaak niet langer geldig, typisch het gevolg van
         splitsing, samenvoeging of grenscorrectie. De identificatie
@@ -1060,13 +1175,13 @@ enums:
     permissible_values:
       Actueel:
         description: >-
-          De kadastrale onroerende zaak is op dit moment geldig en
+          De onroerende zaak is op dit moment geldig en
           kent een lopende registratie.
         comments:
           - Default-toestand.
       Historisch:
         description: >-
-          De kadastrale onroerende zaak is opgevolgd of opgeheven en
+          De onroerende zaak is opgevolgd of opgeheven en
           niet meer geldig als actuele registratie.
         comments:
           - Blijft beschikbaar via BRK-Levering.
@@ -1186,7 +1301,7 @@ enums:
 
   TypeZekerheidsrecht:
     description: >-
-      Type van een op een kadastraal onroerende zaak rustend
+      Type van een op een onroerende zaak rustend
       zekerheidsrecht, onderscheidend tussen hypotheek en beslag.
     exact_mappings:
       - gbobegrip:TypeZekerheidsrecht
@@ -1208,7 +1323,7 @@ enums:
       Beslag:
         description: >-
           Zekerheidsrecht voortvloeiend uit een gerechtelijk of
-          fiscaal beslag op een kadastraal onroerende zaak.
+          fiscaal beslag op een onroerende zaak.
         comments:
           - Verdere typering via aardBeslag.
       Hypotheek:

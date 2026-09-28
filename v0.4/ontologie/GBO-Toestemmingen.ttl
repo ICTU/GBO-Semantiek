@@ -26,59 +26,59 @@ gbotm:vervanger a owl:ObjectProperty ;
 gbotm:Evenementenvergunning a owl:Class ;
     rdfs:label "Evenementenvergunning" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:soortEvenement ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:time ;
-            owl:onProperty gbotm:eindtijdMuziek ],
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:maximaalAantalBezoekers ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty gbotm:opbouwVanaf ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbotm:OpenbareActiviteit ;
-            owl:onProperty gbotm:betreft ],
+            owl:onProperty gbotm:afbouwTot ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbotm:soortEvenement ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:maximaalAantalBezoekers ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:risicoklasse ],
+            owl:allValuesFrom gbotm:OpenbareActiviteit ;
+            owl:onProperty gbotm:betreft ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbotm:tijdvakPerDag ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:risicoklasse ],
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:betreft ],
         [ a owl:Restriction ;
             owl:allValuesFrom <https://lod.gbo-semantiek.nl/datatypes/indicatie> ;
             owl:onProperty gbotm:alcoholverstrekking ],
         [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbotm:opbouwVanaf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbotm:afbouwTot ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:tijdvakPerDag ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty gbotm:alcoholverstrekking ],
+            owl:onProperty gbotm:opbouwVanaf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:soortEvenement ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Numeriek ;
             owl:onProperty gbotm:maximaalAantalBezoekers ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty gbotm:afbouwTot ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:DatumTijd ;
-            owl:onProperty gbotm:opbouwVanaf ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:tijdvakPerDag ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty gbotm:eindtijdMuziek ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:DatumTijd ;
-            owl:onProperty gbotm:afbouwTot ],
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:risicoklasse ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:betreft ],
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:alcoholverstrekking ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:risicoklasse ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:time ;
+            owl:onProperty gbotm:eindtijdMuziek ],
         gbotm:Toestemming ;
     skos:definition "Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte." ;
     skos:definitionSource "VNG Model-APV art. 2:25" ;
@@ -109,10 +109,10 @@ gbotm:Gehandicaptenparkeerkaart a owl:Class ;
             owl:cardinality 1 ;
             owl:onProperty gbotm:kaartnummer ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
+            owl:allValuesFrom gbotm:soortgehandicaptenparkeerkaart ;
             owl:onProperty gbotm:soortKaart ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbotm:soortgehandicaptenparkeerkaart ;
+            owl:cardinality 1 ;
             owl:onProperty gbotm:soortKaart ],
         gbotm:Toestemming ;
     skos:altLabel_nl_0_source "Regeling gehandicaptenparkeerkaart (Europees model)" ;
@@ -140,23 +140,23 @@ gbotm:Gehandicaptenparkeerkaart a owl:Class ;
 gbotm:Ligplaatsontheffing a owl:Class ;
     rdfs:label "Ligplaatsontheffing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Numeriek ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:betreft ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty gbotm:stickernummer ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbotm:Vaartuig ;
             owl:onProperty gbotm:betreft ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:ligplaatsaanduiding ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Numeriek ;
             owl:onProperty gbotm:stickernummer ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbotm:ligplaatsaanduiding ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:ligplaatsaanduiding ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:betreft ],
         gbotm:Toestemming ;
     skos:altLabel_nl_0_source "Uniforme Productnamenlijst (Logius)" ;
     skos:altLabel_nl_0_value "Ligplaatsvergunning" ;
@@ -182,44 +182,44 @@ gbotm:Ligplaatsontheffing a owl:Class ;
 gbotm:Marktvergunning a owl:Class ;
     rdfs:label "Marktvergunning" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:soortMarktplaats ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:marktdagen ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:marktdagen ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:branche ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:markt ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:frontbreedte ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:markt ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:standplaatsnummer ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:branche ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbotm:soortmarktplaats ;
-            owl:onProperty gbotm:soortMarktplaats ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:standplaatsnummer ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:NatuurlijkPersoon ;
             owl:onProperty gbotm:vervanger ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Numeriek ;
             owl:onProperty gbotm:frontbreedte ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:markt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:marktdagen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:markt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:standplaatsnummer ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:standplaatsnummer ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:soortMarktplaats ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:soortmarktplaats ;
+            owl:onProperty gbotm:soortMarktplaats ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:frontbreedte ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:marktdagen ],
         gbotm:Toestemming ;
     skos:definition "Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats." ;
     skos:definitionSource "VNG Model Marktverordening art. 2 e.v.; Gemeentewet art. 160" ;
@@ -243,41 +243,41 @@ gbotm:Marktvergunning a owl:Class ;
 gbotm:OpenbareActiviteit a owl:Class ;
     rdfs:label "OpenbareActiviteit" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Datum ;
-            owl:onProperty gbotm:datumStart ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:locatieOmschrijving ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:status ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:datumStart ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:status ],
+            owl:onProperty gbotm:locatieOmschrijving ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbotm:evenementnaam ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Datum ;
             owl:onProperty gbotm:datumEinde ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbotm:datumStart ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:status ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:organisator ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:status ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbotm:evenementnaam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:locatieOmschrijving ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:datumEinde ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:NatuurlijkPersoon ;
             owl:onProperty gbotm:organisator ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:organisator ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumStart ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumEinde ] ;
     skos:altLabel_nl_0_source "VNG Model-APV art. 2:24 (begrip evenement)" ;
     skos:altLabel_nl_0_value "Evenement" ;
     skos:definition "Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator." ;
@@ -318,29 +318,29 @@ gbotm:OverigeToestemming a owl:Class ;
 gbotm:Parkeerontheffing a owl:Class ;
     rdfs:label "Parkeerontheffing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbotm:tijdvak ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:gebied ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:gebied ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:soortOntheffing ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbotm:soortOntheffing ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom gbo:Kenteken ;
             owl:onProperty gbotm:kenteken ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:tijdvak ],
+            owl:onProperty gbotm:gebied ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Kenteken ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:soortOntheffing ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:gebied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty gbotm:kenteken ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvak ],
         gbotm:Toestemming ;
     skos:definition "Ontheffing van het college van een parkeerverbod, een parkeerschijfzone of een geslotenverklaring voor een bepaald voertuig." ;
     skos:definitionSource "RVV 1990 art. 87; VNG Model-APV art. 5:2-5:8" ;
@@ -363,41 +363,41 @@ gbotm:Parkeerontheffing a owl:Class ;
 gbotm:Standplaatsvergunning a owl:Class ;
     rdfs:label "Standplaatsvergunning" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:afmetingen ],
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvak ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
+            owl:maxCardinality 1 ;
             owl:onProperty gbotm:verkoopwaren ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbotm:dagen ],
+            owl:onProperty gbotm:soortStandplaats ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:branche ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:dagen ],
+            owl:onProperty gbotm:branche ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:afmetingen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:afmetingen ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbotm:soortstandplaats ;
             owl:onProperty gbotm:soortStandplaats ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:afmetingen ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:branche ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:tijdvak ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:soortStandplaats ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:branche ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbotm:tijdvak ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:dagen ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbotm:verkoopwaren ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:dagen ],
         gbotm:Toestemming ;
     skos:definition "Toestemming van het college voor het innemen of hebben van een standplaats: een vaste plaats op of aan de weg of op een andere openbare plaats, buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten." ;
     skos:definitionSource "VNG Model-APV art. 5:17-5:18" ;
@@ -421,31 +421,31 @@ gbotm:Standplaatsvergunning a owl:Class ;
 gbotm:Straatartiestenontheffing a owl:Class ;
     rdfs:label "Straatartiestenontheffing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom <https://lod.gbo-semantiek.nl/datatypes/indicatie> ;
-            owl:onProperty gbotm:versterktGeluid ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:aantalPersonen ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
+            owl:cardinality 1 ;
             owl:onProperty gbotm:soortOptreden ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:tijdvak ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbotm:soortOptreden ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Numeriek ;
             owl:onProperty gbotm:aantalPersonen ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:tijdvak ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:tijdvak ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbotm:dagen ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:aantalPersonen ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
+            owl:onProperty gbotm:versterktGeluid ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom <https://lod.gbo-semantiek.nl/datatypes/indicatie> ;
             owl:onProperty gbotm:versterktGeluid ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
@@ -475,13 +475,25 @@ gbotm:Straatartiestenontheffing a owl:Class ;
 gbotm:Vaartuig a owl:Class ;
     rdfs:label "Vaartuig" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:naamVaartuig ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbotm:hoogte ],
         [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Decimaal ;
+            owl:onProperty gbotm:hoogte ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:kleur ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty gbotm:naamVaartuig ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:lengte ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:breedte ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Decimaal ;
             owl:onProperty gbotm:breedte ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
@@ -490,26 +502,14 @@ gbotm:Vaartuig a owl:Class ;
             owl:allValuesFrom gbo:Identificatie ;
             owl:onProperty gbotm:registratienummer ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:kleur ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:naamVaartuig ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Decimaal ;
-            owl:onProperty gbotm:breedte ],
+            owl:onProperty gbotm:lengte ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbotm:registratienummer ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:lengte ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Decimaal ;
-            owl:onProperty gbotm:lengte ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Decimaal ;
-            owl:onProperty gbotm:hoogte ] ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:naamVaartuig ] ;
     skos:definition "Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is." ;
     skos:definitionSource "GGM Model VTH (bestaande klasse Vaartuig)" ;
     skos:definition_nl "Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is: naam, registratienummer, kleur en afmetingen." ;
@@ -1035,81 +1035,81 @@ gbotm:soorttoestemming a owl:Class ;
 gbotm:Toestemming a owl:Class ;
     rdfs:label "Toestemming" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:locatieOmschrijving ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:locatieOmschrijving ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Datum ;
-            owl:onProperty gbotm:datumEinde ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbotm:productstatus ;
-            owl:onProperty gbotm:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:NatuurlijkPersoon ;
-            owl:onProperty gbotm:houder ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:omschrijving ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:producttype ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbotm:besluit ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:soortToestemming ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:producttype ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:zaak ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbotm:zaak ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbotm:voorschriften ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:identificatie ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbotm:voorschriften ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty gbotm:besluit ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Identificatie ;
             owl:onProperty gbotm:document ],
         [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:houder ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:identificatie ],
+        [ owl:unionOf ( gbotm:Evenementenvergunning gbotm:Gehandicaptenparkeerkaart gbotm:Ligplaatsontheffing gbotm:Marktvergunning gbotm:OverigeToestemming gbotm:Parkeerontheffing gbotm:Standplaatsvergunning gbotm:Straatartiestenontheffing ) ],
+        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Identificatie ;
             owl:onProperty gbotm:identificatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:datumEinde ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:zaak ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:producttype ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:voorschriften ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Datum ;
             owl:onProperty gbotm:datumStart ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:omschrijving ],
+            owl:maxCardinality 1 ;
+            owl:onProperty gbotm:soortToestemming ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbotm:houder ],
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbotm:datumEinde ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty gbotm:datumEinde ],
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty gbotm:besluit ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:locatieOmschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:omschrijving ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbotm:soorttoestemming ;
             owl:onProperty gbotm:soortToestemming ],
-        [ owl:unionOf ( gbotm:Evenementenvergunning gbotm:Gehandicaptenparkeerkaart gbotm:Ligplaatsontheffing gbotm:Marktvergunning gbotm:OverigeToestemming gbotm:Parkeerontheffing gbotm:Standplaatsvergunning gbotm:Straatartiestenontheffing ) ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbotm:voorschriften ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbotm:productstatus ;
+            owl:onProperty gbotm:status ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:omschrijving ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty gbotm:datumStart ] ;
+            owl:onProperty gbotm:datumStart ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:zaak ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:producttype ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:NatuurlijkPersoon ;
+            owl:onProperty gbotm:houder ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbotm:besluit ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbotm:status ] ;
     skos:altLabel_nl_0_source "GGM-wijzigingsvoorstel \"Toestemming en Product\" (klassenaam)" ;
     skos:altLabel_nl_0_value "Toestemming" ;
     skos:altLabel_nl_1_source "VNG Model-APV" ;

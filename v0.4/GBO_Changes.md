@@ -10,30 +10,72 @@
 - `AangifteSchenkbelasting`
 - `Aanslag`
 - `FiscaleOpgave`
+- `KadastraleAanduiding`
+- `OnroerendeZaak`
+- `Splitsingsakte`
 
 ### Verwijderde objecttypen
 
 - `AangifteErf`
 - `AangifteIH`
 - `AangifteSchenk`
+- `Appartementsrechtsplitsing`
 - `BelastingAangifte`
 - `BelastingjaarAangifte`
+- `KadastraleOnroerendeZaak`
 
 ### Toegevoegde codelijsten/enumeraties
 
 - `AangifteStatus`
+- `OnroerendeZaakStatus`
 - `SoortAanslag`
+
+### Verwijderde codelijsten/enumeraties
+
+- `KOZStatus`
 
 ### Gewijzigde objecttypen (attributen)
 
+**Aantekening**
+  - + `rustOp`
+  - − `opKadastraleOnroerendeZaak`
+**Appartementsrecht**
+  - + `grondperceel`
+  - − `indexnummer`
 **EigenWoning**
   - + `onderdeelVan`
 **FiscaalFeit**
   - + `onderdeelVan`
 **FiscalePartner**
   - + `onderdeelVan`
+**HypothecairKredietEigenWoning**
+  - + `onderpand`
+  - − `gevestigdOp`
+**HypothecairKredietOverigeOnroerendeZaken**
+  - + `onderpand`
+  - − `gevestigdOp`
+**Perceel**
+  - − `kadastraleGemeente`
+  - − `perceelnummer`
+  - − `sectie`
+**PubliekrechtelijkeBeperking**
+  - + `rustOp`
+  - − `opKadastraleOnroerendeZaak`
+**Tenaamstelling**
+  - + `tenNameVan`
+  - + `van`
+  - − `tenaamgesteldOp`
+  - − `voorZakelijkRecht`
 **Toeslag**
   - + `berekeningsjaar`
+**ZakelijkRecht**
+  - + `rustOp`
+  - − `opKadastraleOnroerendeZaak`
+**Zekerheidsrecht**
+  - + `aardBezwaardRecht`
+  - + `rustOpObject`
+  - + `tenGunsteVan`
+  - − `opKadastraleOnroerendeZaak`
 
 ## Voorzieningenmodel
 

@@ -39,6 +39,11 @@ Regels:
   partijOpKvkNummer, partijOpRsin). Partij is uitsluitend zo
   bevraagbaar en mag nooit als sleutel-referentie op een technische id
   terugvallen.
+- Het profielveld toetsen declareert ja/nee-vragen die de bron
+  beantwoordt zonder de onderliggende gegevens te leveren. Ze belanden
+  als annotatie gbo:toetsen op het schema; de GraphQL-generator maakt
+  er per toets een Query-veld met antwoordtype Indicatie van, met het
+  opvraagpad en de uitkomstregel in de docstring.
 
 Gebruik:
     python3 tools/genereer_bronschema.py v0.2/bronnen/brp.yaml \
@@ -66,6 +71,13 @@ DATATYPE_STEREOTYPE = "DataType"
 NOOIT_SLEUTELREFERENTIE = {"Partij"}
 
 BEREIKEN = ("laatstBekend", "overJaar", "alles")
+
+# Het antwoord van een toets: Ja, Nee of Onbekend.
+ANTWOORDTYPE_TOETS = "Indicatie"
+
+# Veldscheiders van de querycodering in de annotaties gbo:queries en
+# gbo:toetsen; vrije tekst mag ze niet bevatten.
+VELDSCHEIDERS = (";", "|", "~", "\n")
 
 
 def melding(soort: str, tekst: str) -> None:
@@ -171,6 +183,15 @@ class Modelindex:
         annotaties = self.classes.get(klasse, {}).get("annotations") or {}
         return annotaties.get("mim:stereotype") == DATATYPE_STEREOTYPE
 
+    def is_scalaire_range(self, range_naam: str) -> bool:
+        """Kan deze range als sleutel-referentie of query-argument dienen?
+
+        Alleen een type of enum, dus geen klasse. Een gestructureerd
+        datatype als KadastraleAanduiding is in LinkML een klasse en
+        wordt in de SDL een object-type; dat is geen scalar en kan dus
+        niet als sleutel worden doorgegeven."""
+        return range_naam not in self.classes
+
     def identifier_slot(self, klasse: str) -> tuple[str, str] | None:
         """(slotnaam, range) van de identifier, eigen of geërfd."""
         for kandidaat in [klasse] + self.voorouders(klasse):
@@ -188,7 +209,12 @@ class Modelindex:
         anders (2) een enkelvoudige unique_key (eigen of geërfd) als
         natuurlijke sleutel, zo krijgt een verwijzing naar
         NietNatuurlijkPersoon de rsin in plaats van de geërfde
-        technische id; anders (3) de geërfde identifier."""
+        technische id; anders (3) de geërfde identifier.
+
+        Een unique_key op een gestructureerd datatype telt niet mee:
+        Perceel.kadastraleAanduiding is sinds 2026-08-28 een klasse en
+        kan geen scalar sleutel-referentie dragen. Zo'n verwijzing valt
+        terug op de technische identifier."""
         for naam, attr in self.eigen_attributen(klasse).items():
             if (attr or {}).get("identifier"):
                 return naam, (attr or {}).get("range", "string")
@@ -199,7 +225,10 @@ class Modelindex:
                 slots = uk.get("unique_key_slots") or []
                 if len(slots) == 1 and slots[0] in induced:
                     attr = induced[slots[0]] or {}
-                    return slots[0], attr.get("range", "string")
+                    bereik = attr.get("range", "string")
+                    if not self.is_scalaire_range(bereik):
+                        continue
+                    return slots[0], bereik
         return self.identifier_slot(klasse)
 
     def eigen_attributen(self, klasse: str) -> dict:
@@ -220,7 +249,10 @@ def natuurlijke_sleutels(klasse: str,
 
     Een eigen identifier eerst, daarna elke enkelvoudige unique_key
     (eigen of geerfd) in declaratievolgorde. NietNatuurlijkPersoon
-    levert zo rsin en kvkNummer, IngeschrevenPersoon alleen bsn."""
+    levert zo rsin en kvkNummer, IngeschrevenPersoon alleen bsn.
+
+    Een unique_key op een gestructureerd datatype telt niet mee: die
+    kan geen scalar query-argument worden."""
     resultaat: list[tuple[str, str]] = []
     for naam, attr in index.eigen_attributen(klasse).items():
         if (attr or {}).get("identifier"):
@@ -231,11 +263,40 @@ def natuurlijke_sleutels(klasse: str,
                    .get("unique_keys") or {}).values():
             slots = uk.get("unique_key_slots") or []
             if len(slots) == 1 and slots[0] in induced:
-                paar = (slots[0],
-                        (induced[slots[0]] or {}).get("range", "string"))
+                bereik = (induced[slots[0]] or {}).get("range", "string")
+                if not index.is_scalaire_range(bereik):
+                    continue
+                paar = (slots[0], bereik)
                 if paar not in resultaat:
                     resultaat.append(paar)
     return resultaat
+
+
+def weiger_veldscheiders(naam_query: str, veld: str, tekst: str) -> None:
+    """Vrije tekst gaat de querycodering in met ";", "|" en "~" als
+    veldscheiders. Die tekens in de tekst zouden de velden stilzwijgend
+    verschuiven: de rest van de zin belandt dan als parameternaam in de
+    SDL. Daarom hier weigeren."""
+    verboden = [t for t in VELDSCHEIDERS if t in tekst]
+    if verboden:
+        fout(f"{veld} van query '{naam_query}' bevat een veldscheider "
+             f"({', '.join(repr(t) for t in verboden)}); herschrijf de "
+             f"zin zonder dat teken")
+
+
+def als_lijst(waarde) -> list:
+    if waarde is None:
+        return []
+    return [waarde] if isinstance(waarde, str) else list(waarde)
+
+
+def codeer_parameter(par: dict, ptype: str | None) -> str:
+    return "~".join([
+        par["naam"], ptype or "string",
+        "meervoudig" if par.get("meervoudig") else "",
+        "" if par.get("verplicht", True) else "optioneel",
+        par.get("op") or "",
+    ])
 
 
 def dragers_van_slot(klasse: str, slot: str, profiel: dict,
@@ -256,9 +317,10 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
     for veld in ("bron", "titel", "schemabestand", "objecttypen"):
         if not profiel.get(veld):
             fout(f"verplicht profielveld '{veld}' ontbreekt of is leeg")
-    if not profiel.get("ingangen") and not profiel.get("queries"):
-        fout("profiel heeft geen ingangen en geen queries; minstens "
-             "een van beide is verplicht")
+    if not profiel.get("ingangen") and not profiel.get("queries") \
+            and not profiel.get("toetsen"):
+        fout("profiel heeft geen ingangen, queries of toetsen; minstens "
+             "een daarvan is verplicht")
     profiel.setdefault("ingangen", [])
 
     onbekend = [c for c in profiel["objecttypen"]
@@ -361,6 +423,64 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
                      f"niet af te leiden; geef 'type' op, of gebruik een "
                      f"sleutel van het subject, een attribuut van "
                      f"{doel}, of 'op'")
+        weiger_veldscheiders(naam_query, "toelichting",
+                             q.get("toelichting") or "")
+        for stap in als_lijst(q.get("opvraagpad")):
+            weiger_veldscheiders(naam_query, "opvraagpad", stap)
+
+    for t in profiel.get("toetsen") or []:
+        naam_query = t.get("naamQuery")
+        subjecten = als_lijst(t.get("vanaf"))
+        if not naam_query:
+            fout("toets zonder 'naamQuery'; de veldnaam is verplicht")
+        if naam_query in namen:
+            fout(f"toets '{naam_query}': de naam is al in gebruik door "
+                 f"een andere query of toets")
+        namen.add(naam_query)
+        if not subjecten:
+            fout(f"toets '{naam_query}': 'vanaf' ontbreekt")
+        for subject in subjecten:
+            if subject not in index.classes:
+                fout(f"toets '{naam_query}': subject '{subject}' bestaat "
+                     f"niet in het informatiemodel")
+        raadpleegt = als_lijst(t.get("raadpleegt"))
+        if not raadpleegt:
+            fout(f"toets '{naam_query}': 'raadpleegt' ontbreekt")
+        for klasse in raadpleegt:
+            if klasse not in profiel["objecttypen"]:
+                fout(f"toets '{naam_query}': raadpleegt '{klasse}' dat "
+                     f"niet in objecttypen staat")
+        if not als_lijst(t.get("opvraagpad")):
+            fout(f"toets '{naam_query}': 'opvraagpad' ontbreekt")
+        if not t.get("uitkomst"):
+            fout(f"toets '{naam_query}': 'uitkomst' ontbreekt")
+        if t.get("selectie") not in (None, "laatstBekend", "alles"):
+            fout(f"toets '{naam_query}': onbekende selectie "
+                 f"'{t['selectie']}'; kies uit laatstBekend, alles")
+        sleutels = {n for s in subjecten
+                    for n, _ in natuurlijke_sleutels(s, index)}
+        subject_attrs = {n for s in subjecten
+                         for n in index.induced_attributen(s)}
+        parameters = t.get("parameters") or []
+        if not parameters:
+            fout(f"toets '{naam_query}': 'parameters' ontbreekt")
+        for par in parameters:
+            par = {"naam": par} if isinstance(par, str) else par
+            pnaam = par.get("naam")
+            if not pnaam:
+                fout(f"toets '{naam_query}': parameter zonder naam")
+            if par.get("op"):
+                fout(f"toets '{naam_query}', parameter '{pnaam}': 'op' "
+                     f"is bij een toets niet van toepassing")
+            if not par.get("type") and pnaam not in sleutels \
+                    and pnaam not in subject_attrs:
+                fout(f"toets '{naam_query}', parameter '{pnaam}': type "
+                     f"niet af te leiden; geef 'type' op, of gebruik een "
+                     f"sleutel of attribuut van een subject")
+        for veld in ("toelichting", "uitkomst"):
+            weiger_veldscheiders(naam_query, veld, t.get(veld) or "")
+        for stap in als_lijst(t.get("opvraagpad")):
+            weiger_veldscheiders(naam_query, "opvraagpad", stap)
 
     for sleutelregel in profiel.get("zoeksleutels") or []:
         klasse = sleutelregel.get("objecttype")
@@ -596,7 +716,9 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
     # GraphQL-generator maakt er per declaratie een Query-veld van.
     # Codering: declaraties gescheiden door een newline, velden binnen
     # een declaratie door ";", parameters door "|" en parametervelden
-    # door "~".
+    # door "~". Velden: naam, selectie, toelichting, parameters en
+    # opvraagpad (stappen gescheiden door "|"). Vrije tekst is in
+    # valideer_profiel al op veldscheiders gecontroleerd.
     per_doel: dict[str, list[str]] = {}
     for q in profiel.get("queries") or []:
         doel = q["levert"]
@@ -620,25 +742,12 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
             if not ptype and par.get("op"):
                 ptype = (doel_attrs[par["op"]] or {}).get("range",
                                                           "string")
-            stukken.append("~".join([
-                pnaam, ptype or "string",
-                "meervoudig" if par.get("meervoudig") else "",
-                "" if par.get("verplicht", True) else "optioneel",
-                par.get("op") or "",
-            ]))
-        # De declaratie wordt als annotatie weggeschreven met ";", "|" en
-        # "~" als veldscheiders. Die tekens in de vrije tekst zouden de
-        # velden stilzwijgend verschuiven: de rest van de toelichting
-        # belandt dan als parameternaam in de SDL. Daarom hier weigeren.
-        toelichting = q.get("toelichting") or ""
-        verboden = [t for t in (";", "|", "~", "\n") if t in toelichting]
-        if verboden:
-            fout(f"toelichting van query '{q['naamQuery']}' bevat een "
-                 f"veldscheider ({', '.join(repr(t) for t in verboden)}); "
-                 f"herschrijf de zin zonder dat teken")
+            stukken.append(codeer_parameter(par, ptype))
         per_doel.setdefault(doel, []).append(";".join([
             q["naamQuery"], q.get("selectie") or "",
-            toelichting, "|".join(stukken)]))
+            q.get("toelichting") or "", "|".join(stukken),
+            "|".join(" ".join(str(s).split())
+                     for s in als_lijst(q.get("opvraagpad")))]))
         melding("INFO", f"query '{q['naamQuery']}' levert {doel} "
                         f"({len(stukken)} parameter(s))")
     for doel, declaraties in per_doel.items():
@@ -673,8 +782,50 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
     return resultaat
 
 
+def codeer_toetsen(profiel: dict, index: Modelindex) -> str:
+    """Toetsdeclaraties als één annotatie op het schema.
+
+    Een toets levert geen objecttype op, dus er is geen doelklasse om de
+    declaratie aan te hangen. Codering als bij gbo:queries: declaraties
+    gescheiden door een newline, velden door ";", parameters en
+    opvraagstappen door "|" en parametervelden door "~". Velden: naam,
+    selectie, toelichting, parameters, opvraagpad, uitkomst en
+    raadpleegt (objecttypen gescheiden door ", ")."""
+    declaraties = []
+    for t in profiel.get("toetsen") or []:
+        subjecten = als_lijst(t["vanaf"])
+        sleutels: dict[str, str] = {}
+        attributen: dict[str, dict] = {}
+        for subject in subjecten:
+            for n, r in natuurlijke_sleutels(subject, index):
+                sleutels.setdefault(n, r)
+            for n, a in index.induced_attributen(subject).items():
+                attributen.setdefault(n, a or {})
+        stukken = []
+        for par in t.get("parameters") or []:
+            par = {"naam": par} if isinstance(par, str) else par
+            pnaam = par["naam"]
+            ptype = par.get("type") or sleutels.get(pnaam)
+            if not ptype and pnaam in attributen:
+                ptype = attributen[pnaam].get("range", "string")
+            stukken.append(codeer_parameter(par, ptype))
+        declaraties.append(";".join([
+            t["naamQuery"], t.get("selectie") or "",
+            " ".join(str(t.get("toelichting") or "").split()),
+            "|".join(stukken),
+            "|".join(" ".join(str(s).split())
+                     for s in als_lijst(t["opvraagpad"])),
+            " ".join(str(t["uitkomst"]).split()),
+            ", ".join(als_lijst(t["raadpleegt"]))]))
+        melding("INFO", f"toets '{t['naamQuery']}' "
+                        f"({len(stukken)} parameter(s), antwoordtype "
+                        f"{ANTWOORDTYPE_TOETS})")
+    return "\n".join(declaraties)
+
+
 def verzamel_enums_en_types(klassen: dict[str, dict],
-                            index: Modelindex) -> tuple[dict, dict]:
+                            index: Modelindex,
+                            toetsen: str = "") -> tuple[dict, dict]:
     enums: dict[str, dict] = {}
     typen: dict[str, dict] = {}
 
@@ -705,11 +856,30 @@ def verzamel_enums_en_types(klassen: dict[str, dict],
                 onderdelen = par.split("~")
                 if len(onderdelen) > 1 and onderdelen[1] in index.types:
                     voeg_type_toe(onderdelen[1])
+    # Toetsen: de argumenttypen en het antwoordtype komen in de SDL,
+    # ook als geen attribuut in dit profiel ze gebruikt.
+    if toetsen:
+        if ANTWOORDTYPE_TOETS not in index.enums:
+            fout(f"antwoordtype van toetsen '{ANTWOORDTYPE_TOETS}' "
+                 f"ontbreekt in het informatiemodel")
+        enums[ANTWOORDTYPE_TOETS] = copy.deepcopy(
+            index.enums[ANTWOORDTYPE_TOETS])
+        for declaratie in toetsen.split("\n"):
+            velden = declaratie.split(";")
+            for par in velden[3].split("|"):
+                onderdelen = par.split("~")
+                if len(onderdelen) < 2:
+                    continue
+                if onderdelen[1] in index.types:
+                    voeg_type_toe(onderdelen[1])
+                elif onderdelen[1] in index.enums:
+                    enums[onderdelen[1]] = copy.deepcopy(
+                        index.enums[onderdelen[1]])
     return enums, typen
 
 
 def bouw_schema(profiel: dict, index: Modelindex, klassen: dict,
-                enums: dict, typen: dict) -> dict:
+                enums: dict, typen: dict, toetsen: str = "") -> dict:
     bron = profiel["bron"]
     schema = {
         "id": f"https://lod.gbo-semantiek.nl/bronnen/{bron.lower()}",
@@ -731,6 +901,8 @@ def bouw_schema(profiel: dict, index: Modelindex, klassen: dict,
         },
         "classes": klassen,
     }
+    if toetsen:
+        schema["annotations"]["gbo:toetsen"] = toetsen
     if enums:
         schema["enums"] = enums
     if typen:
@@ -759,8 +931,9 @@ def main() -> None:
     valideer_profiel(profiel, index)
     selectie = bepaal_selectie(profiel, index)
     klassen = verwerk_klassen(profiel, index, selectie)
-    enums, typen = verzamel_enums_en_types(klassen, index)
-    schema = bouw_schema(profiel, index, klassen, enums, typen)
+    toetsen = codeer_toetsen(profiel, index)
+    enums, typen = verzamel_enums_en_types(klassen, index, toetsen)
+    schema = bouw_schema(profiel, index, klassen, enums, typen, toetsen)
 
     kop = (f"# GEGENEREERD BESTAND — niet handmatig bewerken.\n"
            f"# Bron-profiel: {args.profiel.name}; informatiemodel: "

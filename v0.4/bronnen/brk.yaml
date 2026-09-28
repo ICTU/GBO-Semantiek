@@ -14,13 +14,13 @@
 bron: BRK
 titel: Basisregistratie Kadaster
 beschrijving: >-
-  Kadastrale onroerende zaken (percelen en appartementsrechten),
+  Onroerende zaken (percelen en appartementsrechten),
   zakelijke en zekerheidsrechten, tenaamstellingen, publiekrechtelijke
   beperkingen en aantekeningen uit het Kadaster.
 schemabestand: ../informatiemodel/linkml/gbo.yaml
 
-# Geen graafingang op KadastraleOnroerendeZaak: een NEN3610-ID van een
-# kadastrale onroerende zaak is voor een afnemer geen bruikbaar
+# Geen graafingang op OnroerendeZaak: een NEN3610-ID van een
+# onroerende zaak is voor een afnemer geen bruikbaar
 # aanknopingspunt. Alle bevraging loopt via benoemde queries.
 lijstQueries: false
 
@@ -53,10 +53,10 @@ queries:
       - naam: kvkNummer
 
 objecttypen:
-  - KadastraleOnroerendeZaak
+  - OnroerendeZaak
   - Perceel
   - Appartementsrecht
-  - Appartementsrechtsplitsing
+  - Splitsingsakte
   - ZakelijkRecht
   - Zekerheidsrecht
   - Tenaamstelling
@@ -64,8 +64,19 @@ objecttypen:
   - Aantekening
 
 # De partij zelf komt niet terug in het antwoord: de bevrager kent
-# de sleutel al, en Partij mag geen sleutel-referentie worden.
+# de sleutel al, en Partij mag geen sleutel-referentie worden
+# (zie wiki gbo-core/partij-ingang).
 relatieAfhandeling:
   - objecttype: Tenaamstelling
-    relatie: tenaamgesteldOp
+    relatie: tenNameVan
+    afhandeling: weglaten
+  # Zekerheidsrecht.tenGunsteVan wijst naar de hypotheeknemer (meestal een
+  # bank). Anders dan bij Tenaamstelling kent de bevrager die partij juist
+  # niet, dus weglaten is hier verlies. Het alternatief is Partij met haar
+  # subtypen in dit profiel opnemen, zoals de HC-BRK doet met
+  # kadasternatuurlijkpersonen en kadasternietnatuurlijkpersonen. Dat is een
+  # verstrekkingsbesluit met eigen grondslag en is bij de verwerking van de
+  # Kadaster-review (2026-08-28) bewust niet genomen; voorlopig weglaten.
+  - objecttype: Zekerheidsrecht
+    relatie: tenGunsteVan
     afhandeling: weglaten

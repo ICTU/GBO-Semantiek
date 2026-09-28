@@ -7,7 +7,7 @@
 # input vormt voor het authentieke inkomen van de Belastingdienst.
 #
 # Verwijzingen naar andere deelmodellen (NatuurlijkPersoon, Onderneming,
-# KadastraalOnroerendeZaak, InkomensOndersteuning) worden opgelost via
+# OnroerendeZaak, InkomensOndersteuning) worden opgelost via
 # gbo.yaml; valideer dus altijd via gbo.yaml.
 #
 # Aandachtspunten bij deze conversie:
@@ -850,12 +850,10 @@ classes:
         annotations:
           mim:herkomst: SBR-NT
       gekoppeldAan:
-        # Wiki schrijft KadastraalOnroerendeZaak; de canonieke naam in
-        # het deelmodel Onroerende zaken is KadastraleOnroerendeZaak.
-        range: KadastraleOnroerendeZaak
+        range: OnroerendeZaak
         required: true
         description: >-
-          De kadastraal onroerende zaak waaraan dit bezit is
+          De onroerende zaak waaraan dit bezit is
           gekoppeld.
         annotations:
           mim:kardinaliteit: "0..1 -> 1"
@@ -1262,12 +1260,10 @@ classes:
         annotations:
           mim:herkomst: Wet IB
       gekoppeldAan:
-        # Wiki schrijft KadastraalOnroerendeZaak; de canonieke naam in
-        # het deelmodel Onroerende zaken is KadastraleOnroerendeZaak.
-        range: KadastraleOnroerendeZaak
+        range: OnroerendeZaak
         required: true
         description: >-
-          De kadastraal onroerende zaak waaraan de eigen woning is
+          De onroerende zaak waaraan de eigen woning is
           gekoppeld; precies een per eigen woning.
         annotations:
           mim:kardinaliteit: "1 -> 1"

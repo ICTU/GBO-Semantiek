@@ -57,7 +57,7 @@ todos:
     (hoofdmodel: Partij) De brug-klasse Verbintenis uit hoofdmodel.md
     ontbreekt; het deelmodel Personen modelleert alleen Huwelijk —
     wiki harmoniseren. De sleutelrelatie Partij <-> Tenaamstelling is
-    gemodelleerd vanaf de Tenaamstelling-zijde (tenaamgesteldOp).
+    gemodelleerd vanaf de Tenaamstelling-zijde (tenNameVan).
   - >-
     (personen: NatuurlijkPersoon.heeftOuder) ouderAanduiding
     (Ouder1/Ouder2) is in de wiki een attribuut op de relatie;

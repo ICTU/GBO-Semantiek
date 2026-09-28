@@ -1,0 +1,75 @@
+# =============================================================================
+# Bron-profiel CKI — welke onderdelen van het GBO-informatiemodel het
+# Centraal Krediet Informatiesysteem (BKR) via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel cki.yaml
+#
+# IngeschrevenPersoon dient als persoon-ingang; relaties naar BRP-gegevens
+# vallen buiten dit profiel en worden door de snoei-tool tot sleutel herleid.
+# =============================================================================
+bron: CKI
+titel: Centraal Krediet Informatiesysteem (BKR)
+beschrijving: >-
+  Geregistreerde kredieten en financiële verplichtingen per persoon,
+  met achterstanden, herstelmeldingen, bijzonderheidscoderingen,
+  borgstellingsrollen en schuldhulpverleningstrajecten.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+lijstQueries: false
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: het CKI levert de kredietpositie, geen persoon.
+# Alleen laatstBekend: een kredietregistratie is een lopende stand.
+queries:
+  - naamQuery: kredietOvereenkomstOverJaar
+    levert: KredietOvereenkomst
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: schuldhulpverleningTrajectOverJaar
+    levert: SchuldhulpverleningTraject
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+  - naamQuery: borgstellingRolOverJaar
+    levert: BorgstellingRol
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: jaar
+        meervoudig: true
+        type: Numeriek
+
+objecttypen:
+  - IngeschrevenPersoon
+  - FinancieleVerplichting
+  - KredietOvereenkomst
+  - KredietFeit
+  - AflopendKrediet
+  - DoorlopendKrediet
+  - Saneringskrediet
+  - KortKrediet
+  - HypothecairKredietEigenWoning
+  - HypothecairKredietOverigeOnroerendeZaken
+  - RestschuldHypothecairKredietZonderNHG
+  - RestschuldHypothecairKredietMetNHG
+  - OperationalAutolease
+  - OverigeFinancieleVerplichtingPrive
+  - ZakelijkKrediet
+  - ZakelijkeOverigeFinancieleVerplichting
+  - AchterstandRegistratie
+  - HerstelMelding
+  - BijzonderheidsCodering
+  - SchuldhulpverleningTraject
+  - BorgstellingRol

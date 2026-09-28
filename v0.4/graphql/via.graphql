@@ -252,7 +252,7 @@ type EigenWoning {
   eigenwoningSchuldSaldo: Bedrag
   """Datum waarop de eigenwoning-status is ingegaan."""
   ingangsdatumRegime: Datum
-  """De kadastraal onroerende zaak waaraan de eigen woning is gekoppeld; precies een per eigen woning. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
+  """De onroerende zaak waaraan de eigen woning is gekoppeld; precies een per eigen woning. (Sleutel-referentie naar OnroerendeZaak.)"""
   gekoppeldAan: NEN3610ID!
   """De belastingplichtige voor wie de woning als hoofdverblijf onder het eigenwoning-regime valt."""
   bewoonbaarVoor: IngeschrevenPersoon!
@@ -342,7 +342,7 @@ type OnroerendeZaakOverigBezit implements VermogensBestanddeel & FiscaalFeit {
   marktwaardePeildatum: Bedrag
   """Aanduiding verhuurd of niet."""
   isVerhuurd: Indicatie
-  """De kadastraal onroerende zaak waaraan dit bezit is gekoppeld. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
+  """De onroerende zaak waaraan dit bezit is gekoppeld. (Sleutel-referentie naar OnroerendeZaak.)"""
   gekoppeldAan: NEN3610ID!
 }
 

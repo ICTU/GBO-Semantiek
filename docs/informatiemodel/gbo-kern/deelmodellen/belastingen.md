@@ -78,7 +78,7 @@ abstract class Partij <<algemeen>>
 class NatuurlijkPersoon <<personen>>
 class NietNatuurlijkPersoon <<personen>>
 class Onderneming <<bedrijven-en-instellingen>>
-class KadastraalOnroerendeZaak <<onroerende-zaken>>
+class OnroerendeZaak <<onroerende-zaken>>
 
 abstract class FiscaleOpgave <<belastingen>>
 abstract class FiscaalFeit <<belastingen>>
@@ -169,8 +169,8 @@ NietNatuurlijkPersoon "0..1" <-- "0..*" VermogensBestanddeel : bronInstelling
 NatuurlijkPersoon "1" <-- "0..*" Aftrekpost : opgevoerdDoor
 NatuurlijkPersoon "1" <-- "0..*" EigenWoning : bewoonbaarVoor
 NatuurlijkPersoon "1" <-- "0..*" Renseignering : betreft
-KadastraalOnroerendeZaak "1" <-- "0..1" OnroerendeZaakOverigBezit : gekoppeldAan
-KadastraalOnroerendeZaak "1" <-- "1" EigenWoning : gekoppeldAan
+OnroerendeZaak "1" <-- "0..1" OnroerendeZaakOverigBezit : gekoppeldAan
+OnroerendeZaak "1" <-- "1" EigenWoning : gekoppeldAan
 EigenWoning "1" <-- "0..*" Hypotheekrenteaftrek : betreft
 NatuurlijkPersoon "1" <-- "0..*" Toeslag : toegekendAan
 NatuurlijkPersoon "1" <-- "0..*" Inkomstenverhouding : tussenPersoon
@@ -200,7 +200,7 @@ end note
 note bottom of EigenWoning
   Eigenwoning-regime in Box 1,
   gebonden aan precies een
-  KadastraalOnroerendeZaak.
+  OnroerendeZaak.
 end note
 
 note right of Verzamelinkomen

@@ -1,0 +1,182 @@
+# =============================================================================
+# Bron-profiel BRK — welke onderdelen van het GBO-informatiemodel de
+# Basisregistratie Kadaster via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel brk.yaml
+#
+# Supertypen en mixins (Voorkomen) en de codelijst CodelijstBRK worden door
+# de snoei-tool automatisch meegenomen en hoeven hier niet genoemd te worden.
+# =============================================================================
+bron: BRK
+titel: Basisregistratie Kadaster
+beschrijving: >-
+  Onroerende zaken (percelen en appartementsrechten),
+  zakelijke en zekerheidsrechten, tenaamstellingen, publiekrechtelijke
+  beperkingen en aantekeningen uit het Kadaster.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Geen graafingang op OnroerendeZaak: een NEN3610-ID van een
+# onroerende zaak is voor een afnemer geen bruikbaar
+# aanknopingspunt. Alle bevraging loopt via benoemde queries.
+lijstQueries: false
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om de
+# tenaamstelling, met de sleutel van de rechthebbende als parameter.
+#
+# De onroerende zaak is bevraagbaar vanaf het adres: OnroerendeZaak
+# .betreft wijst naar AdresseerbaarObject, waarvan de identificatie een
+# BAGID is. Een adres in een gesplitst gebouw levert zo het
+# appartementsrecht, een adres in een niet gesplitst pand het perceel.
+# Tot 2026-09-28 heette deze query AppartementsrechtOpBAGID en leverde
+# zij alleen appartementsrechten.
+queries:
+  - naamQuery: onroerendeZaakOpBAGID
+    levert: OnroerendeZaak
+    vanaf: [AdresseerbaarObject]
+    parameters:
+      - naam: identificatie
+    toelichting: >-
+      De onroerende zaken, percelen en appartementsrechten, waaraan
+      dit adresseerbaar object is gekoppeld.
+    opvraagpad:
+      - >-
+        Zoek de onroerende zaken waarvan betreft het adresseerbaar
+        object met deze identificatie bevat.
+      - >-
+        Lever elke gevonden zaak als Perceel of als Appartementsrecht,
+        met via heeftZakelijkRecht de rechten die erop rusten en via
+        heeftTenaamstelling de rechthebbenden daarvan.
+  - naamQuery: tenaamstellingOpBsn
+    levert: Tenaamstelling
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: tenaamstellingOpRsin
+    levert: Tenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: tenaamstellingOpKvkNummer
+    levert: Tenaamstelling
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
+# Benoemde toetsen: is een persoon eigenaar van de onroerende zaak op
+# een adres? De bron beantwoordt de vraag met Ja, Nee of Onbekend en
+# levert geen tenaamstellingen of aandelen. Eigenaar is wie een lopende
+# tenaamstelling heeft op een lopend recht van eigendom of opstal; de
+# opstaller is eigenaar van het gebouw op andermans grond. De grootte
+# van het aandeel doet er niet toe: een mede-eigenaar is eigenaar.
+#
+# Het opvraagpad staat per toets uitgeschreven en komt in de docstring
+# van het Query-veld. Beide toetsen volgen hetzelfde pad; de adresvariant
+# zoekt eerst het adresseerbaar object bij het adres.
+toetsen:
+  - naamQuery: isEigenaarOpBAGID
+    vanaf: [IngeschrevenPersoon, AdresseerbaarObject]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+    raadpleegt: [OnroerendeZaak, ZakelijkRecht, Tenaamstelling]
+    selectie: laatstBekend
+    toelichting: >-
+      Is de ingeschreven persoon met dit bsn eigenaar van een
+      onroerende zaak waaraan dit adresseerbaar object is gekoppeld?
+    opvraagpad:
+      - >-
+        Zoek de onroerende zaken waarvan betreft het adresseerbaar
+        object met deze identificatie bevat, zoals
+        onroerendeZaakOpBAGID dat doet.
+      - >-
+        Neem van die zaken de zakelijke rechten (heeftZakelijkRecht)
+        met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde.
+      - >-
+        Neem van die rechten de tenaamstellingen (heeftTenaamstelling)
+        zonder datumEinde.
+      - >-
+        Kijk of een van die tenaamstellingen via tenNameVan naar de
+        ingeschreven persoon met dit bsn wijst, ongeacht de grootte van
+        het aandeel.
+    uitkomst: >-
+      Ja als stap 4 zo'n tenaamstelling vindt. Nee als stap 1 wel
+      onroerende zaken vindt maar stap 4 geen tenaamstelling van deze
+      persoon. Onbekend als geen enkele onroerende zaak aan dit
+      adresseerbaar object is gekoppeld.
+  - naamQuery: isEigenaarOpAdres
+    vanaf: [IngeschrevenPersoon, Nummeraanduiding]
+    parameters:
+      - naam: bsn
+      - naam: postcode
+      - naam: huisnummer
+      - naam: huisletter
+        verplicht: false
+      - naam: huisnummertoevoeging
+        verplicht: false
+    raadpleegt: [OnroerendeZaak, ZakelijkRecht, Tenaamstelling]
+    selectie: laatstBekend
+    toelichting: >-
+      Is de ingeschreven persoon met dit bsn eigenaar van een
+      onroerende zaak op dit adres?
+    opvraagpad:
+      - >-
+        Zoek de nummeraanduiding met deze postcode, dit huisnummer en
+        precies deze huisletter en huisnummertoevoeging. Een weggelaten
+        huisletter of huisnummertoevoeging betekent dat het adres er
+        geen heeft. De BRK doet dit op de BAG-adressen die zij bij de
+        onroerende zaak bijhoudt.
+      - >-
+        Neem het adresseerbaar object waartoe die nummeraanduiding
+        behoort (AdresseerbaarObject.heeftNummeraanduiding).
+      - >-
+        Zoek de onroerende zaken waarvan betreft dat adresseerbaar
+        object bevat.
+      - >-
+        Neem van die zaken de zakelijke rechten (heeftZakelijkRecht)
+        met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde.
+      - >-
+        Neem van die rechten de tenaamstellingen (heeftTenaamstelling)
+        zonder datumEinde.
+      - >-
+        Kijk of een van die tenaamstellingen via tenNameVan naar de
+        ingeschreven persoon met dit bsn wijst, ongeacht de grootte van
+        het aandeel.
+    uitkomst: >-
+      Ja als stap 6 zo'n tenaamstelling vindt. Nee als stap 3 wel
+      onroerende zaken vindt maar stap 6 geen tenaamstelling van deze
+      persoon. Onbekend als het adres niet bestaat of aan geen enkele
+      onroerende zaak is gekoppeld.
+
+objecttypen:
+  - OnroerendeZaak
+  - Perceel
+  - Appartementsrecht
+  - Splitsingsakte
+  - ZakelijkRecht
+  - Zekerheidsrecht
+  - Tenaamstelling
+  - PubliekrechtelijkeBeperking
+  - Aantekening
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden
+# (zie wiki gbo-core/partij-ingang).
+relatieAfhandeling:
+  - objecttype: Tenaamstelling
+    relatie: tenNameVan
+    afhandeling: weglaten
+  # Zekerheidsrecht.tenGunsteVan wijst naar de hypotheeknemer (meestal een
+  # bank). Anders dan bij Tenaamstelling kent de bevrager die partij juist
+  # niet, dus weglaten is hier verlies. Het alternatief is Partij met haar
+  # subtypen in dit profiel opnemen, zoals de HC-BRK doet met
+  # kadasternatuurlijkpersonen en kadasternietnatuurlijkpersonen. Dat is een
+  # verstrekkingsbesluit met eigen grondslag en is bij de verwerking van de
+  # Kadaster-review (2026-08-28) bewust niet genomen; voorlopig weglaten.
+  - objecttype: Zekerheidsrecht
+    relatie: tenGunsteVan
+    afhandeling: weglaten

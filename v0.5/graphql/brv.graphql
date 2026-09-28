@@ -1,0 +1,162 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel BRV, gegenereerd uit gbo-bron-brv.yaml.
+# Regenereer met: task generate:graphql
+#
+# Voertuigen uit de Basisregistratie Voertuigen (RDW): kerngegevens van
+# het voertuig (kenteken, soort, merk, brandstof, massa, APK) en de
+# tenaamstelling op een partij (eigenaar/houder).
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Europese voertuigcategorie (M, N, O, L, T, ...) conform het EU-kader voor voertuiggoedkeuring; gebruikt voor Voertuig.europeseVoertuigcategorie."""
+scalar CodelijstEUVoertuigcategorie
+"""Voertuigmerk uit de door de RDW beheerde open merkenlijst; gebruikt voor Voertuig.merk."""
+scalar CodelijstRDWMerk
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
+"""Nederlands voertuigkenteken: zes posities (hoofdletters en cijfers) volgens het RDW-sidecodestelsel, optioneel met streepjes ter leesbaarheid (bijv. XX-99-99)."""
+scalar Kenteken @restrictie(patroon: "^[A-Z0-9-]{6,8}$")
+
+"""Een door de RDW in de Basisregistratie Voertuigen geregistreerd vervoermiddel dat met een uniek kenteken aan het verkeer kan deelnemen, met de bij dat kenteken horende technische en administratieve kerngegevens."""
+type Voertuig {
+  """Uniek kenteken van het voertuig in de Nederlandse sidecode-notatie."""
+  kenteken: Kenteken!
+  """Wereldwijd uniek voertuigidentificatienummer (VIN / chassisnummer) toegekend door de fabrikant."""
+  voertuigidentificatienummer: String!
+  """Soort voertuig volgens de RDW-indeling."""
+  voertuigsoort: Voertuigsoort!
+  """Merk van het voertuig."""
+  merk: CodelijstRDWMerk!
+  """Handelsbenaming (type-/modelaanduiding) van het voertuig."""
+  handelsbenaming: String
+  """Europese voertuigcategorie (bijvoorbeeld M1, N1, L3e, O1)."""
+  europeseVoertuigcategorie: CodelijstEUVoertuigcategorie
+  """Datum waarop het voertuig voor het eerst (waar ook ter wereld) tot het verkeer is toegelaten."""
+  datumEersteToelating: Datum!
+  """Datum van de eerste tenaamstelling van het voertuig in Nederland."""
+  datumEersteTenaamstellingNederland: Datum
+  """Brandstof of energiedrager(s) van het voertuig; meervoudig bij hybride aandrijving."""
+  brandstof: [Brandstof!]!
+  """Cilinderinhoud van de motor in cm³."""
+  cilinderinhoud: Int
+  """Massa van het lege voertuig in kg."""
+  massaLedigVoertuig: Int
+  """Technisch toegestane maximummassa van het voertuig in kg."""
+  toegestaneMaximumMassa: Int
+  """Aantal zitplaatsen inclusief bestuurder."""
+  aantalZitplaatsen: Int
+  """Primaire kleur van het voertuig."""
+  eersteKleur: String
+  """Datum waarop de algemene periodieke keuring (APK) van het voertuig verloopt."""
+  vervaldatumApk: Datum
+  """Administratieve status van het voertuig."""
+  voertuigstatus: Voertuigstatus!
+  """De tenaamstelling(en) van dit voertuig, historisch en actueel."""
+  heeftTenaamstelling: [Kentekentenaamstelling!]
+}
+
+"""De geregistreerde rechtsbetrekking tussen een partij en een voertuig, waarmee de partij als eigenaar en/of houder van het voertuig is geregistreerd."""
+type Kentekentenaamstelling {
+  """Hoedanigheid waarin de partij is tenaamgesteld: eigenaar, houder of beide."""
+  rol: Tenaamstellingsrol!
+  """Datum waarop de tenaamstelling is ingegaan."""
+  datumTenaamstelling: Datum!
+  """Datum waarop de tenaamstelling is geëindigd."""
+  datumEinde: Datum
+  """Voertuig waarvoor de tenaamstelling geldt."""
+  voorVoertuig: Voertuig!
+}
+
+"""Soort voertuig volgens de indeling van de RDW."""
+enum Voertuigsoort {
+  """Motorvoertuig voor het vervoer van personen (categorie M1)."""
+  Personenauto
+  """Motorvoertuig voor het vervoer van goederen (categorie N)."""
+  Bedrijfsauto
+  """Motorvoertuig voor het vervoer van meer dan acht personen naast de bestuurder."""
+  Bus
+  """Tweewielig motorvoertuig (categorie L3e/L4e)."""
+  Motorfiets
+  """Licht twee- of driewielig motorvoertuig met beperkte constructiesnelheid (categorie L1e/L2e)."""
+  Bromfiets
+  """Driewielig motorrijtuig (categorie L5e)."""
+  DriewieligMotorrijtuig
+  """Niet-zelfstandig voertuig dat wordt voortbewogen."""
+  Aanhangwagen
+  """Aanhangwagen die met een deel van zijn massa op het trekkende voertuig rust."""
+  Oplegger
+  """Land- of bosbouwtrekker (categorie T)."""
+  LandOfBosbouwtrekker
+  """Zelfrijdende of getrokken mobiele machine."""
+  MobieleMachine
+}
+
+"""Brandstof of energiedrager waarmee een voertuig wordt aangedreven."""
+enum Brandstof {
+  """Aandrijving op benzine."""
+  Benzine
+  """Aandrijving op diesel."""
+  Diesel
+  """Aandrijving op lpg (autogas)."""
+  LPG
+  """Aandrijving op aardgas (CNG)."""
+  CNG
+  """Volledig elektrische aandrijving."""
+  Elektriciteit
+  """Aandrijving op waterstof (brandstofcel of verbranding)."""
+  Waterstof
+  """Aandrijving op alcohol/ethanol."""
+  Alcohol
+  """Andere brandstof of energiedrager."""
+  Overige
+}
+
+"""Administratieve status van een voertuig in de Basisregistratie Voertuigen."""
+enum Voertuigstatus {
+  """Het voertuig staat op naam van een partij."""
+  Tenaamgesteld
+  """Het voertuig staat in de bedrijfsvoorraad van een erkend bedrijf en is niet op naam gesteld."""
+  Bedrijfsvoorraad
+  """De tenaamstelling is geschorst; het voertuig mag tijdelijk niet aan het verkeer deelnemen."""
+  Geschorst
+  """Het voertuig is uit Nederland uitgevoerd."""
+  Geexporteerd
+  """Het voertuig is aantoonbaar vernietigd (gesloopt)."""
+  Gesloopt
+  """Het voertuig is als vermist of gestolen geregistreerd."""
+  Vermist
+}
+
+"""Hoedanigheid waarin een partij op een voertuig is tenaamgesteld."""
+enum Tenaamstellingsrol {
+  """De partij is eigenaar van het voertuig."""
+  Eigenaar
+  """De partij is houder van het voertuig (bijvoorbeeld lease) zonder eigenaar te zijn."""
+  Houder
+  """De partij is zowel eigenaar als houder."""
+  EigenaarEnHouder
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """Kentekentenaamstelling."""
+  kentekentenaamstellingOpBsn(bsn: BSN!): [Kentekentenaamstelling!]
+  """Kentekentenaamstelling."""
+  kentekentenaamstellingOpRsin(rsin: String!): [Kentekentenaamstelling!]
+  """Kentekentenaamstelling."""
+  kentekentenaamstellingOpKvkNummer(kvkNummer: KVKnummer!): [Kentekentenaamstelling!]
+  """Eén Voertuig op kenteken."""
+  voertuig(kenteken: Kenteken!): Voertuig
+}

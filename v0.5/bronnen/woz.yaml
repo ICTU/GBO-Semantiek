@@ -1,0 +1,65 @@
+# =============================================================================
+# Bron-profiel WOZ — welke onderdelen van het GBO-informatiemodel de
+# Basisregistratie WOZ via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel woz.yaml
+#
+# Supertypen/mixins (Voorkomen) en de codelijst CodelijstWOZ worden door de
+# snoei-tool automatisch meegenomen en hoeven hier niet genoemd te worden.
+# =============================================================================
+bron: WOZ
+titel: Basisregistratie WOZ
+beschrijving: >-
+  WOZ-objecten en -deelobjecten, de jaarlijks vastgestelde WOZ-waarden
+  en de bij een object betrokken belanghebbenden.
+schemabestand: ../informatiemodel/linkml/gbo.yaml
+
+# Query-ingangen: hiervoor genereert de pipeline GraphQL Query-velden.
+ingangen:
+  - WOZObject
+lijstQueries: false
+
+# Objecttypen die deze bron beschikbaar stelt (expliciete lijst).
+# Benoemde queries: je vraagt niet om een partij maar om het
+# belanghebbende-zijn, met de sleutel van de belanghebbende als parameter.
+# Daarnaast het WOZ-object op zijn eigen WOZ-objectnummer, naast de
+# ingang op aanduiding: het objectnummer is wat op de WOZ-beschikking
+# staat en dus wat een afnemer in handen heeft.
+queries:
+  - naamQuery: wozObjectOpWOZObjectNummer
+    levert: WOZObject
+    vanaf: [WOZObject]
+    parameters:
+      - naam: wozObjectnummer
+  - naamQuery: belanghebbendeOpBsn
+    levert: Belanghebbende
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+  - naamQuery: belanghebbendeOpRsin
+    levert: Belanghebbende
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: rsin
+  - naamQuery: belanghebbendeOpKvkNummer
+    levert: Belanghebbende
+    vanaf: [NietNatuurlijkPersoon]
+    parameters:
+      - naam: kvkNummer
+
+objecttypen:
+  - WOZObject
+  - WOZDeelobject
+  - WOZWaarde
+  - Belanghebbende
+
+# De partij zelf komt niet terug in het antwoord: de bevrager kent
+# de sleutel al, en Partij mag geen sleutel-referentie worden.
+relatieAfhandeling:
+  - objecttype: Belanghebbende
+    relatie: isPartij
+    afhandeling: weglaten

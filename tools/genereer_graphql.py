@@ -19,7 +19,11 @@ dingen mist die GBO nodig heeft:
    alleen plat overgenomen);
 4. klassen met de annotatie gbo:graphql=uitsluiten (de patroon-mixins
    Voorkomen en Datakwaliteit) blijven volledig buiten de SDL: geen
-   interface, geen implements en hun attributen worden niet uitgevlakt.
+   interface, geen implements en hun attributen worden niet uitgevlakt;
+5. benoemde toetsen (annotatie gbo:toetsen op het schema) worden
+   Query-velden met antwoordtype Indicatie!; hun docstring beschrijft de
+   vraag, het genummerde opvraagpad, de uitkomstregel en de
+   geraadpleegde objecttypen.
 
 Attributen worden per type volledig uitgevlakt (eigen plus geërfde),
 zoals GraphQL vereist.
@@ -55,6 +59,9 @@ PRIMITIEVE_SCALARS = {
     "Numeriek": "Int", "Decimaal": "Float",
 }
 
+# Het antwoord van een toets: Ja, Nee of Onbekend.
+ANTWOORDTYPE_TOETS = "Indicatie"
+
 
 def melding(soort: str, tekst: str) -> None:
     print(f"{soort}: {tekst}", file=sys.stderr)
@@ -86,6 +93,27 @@ def lcfirst(naam: str) -> str:
 
 def ucfirst(naam: str) -> str:
     return naam[0].upper() + naam[1:] if naam else naam
+
+
+def selectie_zin(selectie: str, werkwoord: str = "Levert") -> str | None:
+    if selectie == "laatstBekend":
+        return (f"{werkwoord} uitsluitend de laatst bekende situatie op "
+                f"het moment van bevragen; de peildatum is "
+                f"leveringsmetadata en staat in de antwoord-envelop van "
+                f"de levering.")
+    if selectie == "alles":
+        return (f"{werkwoord} de volledige historie, niet alleen de "
+                f"laatst bekende situatie.")
+    return None
+
+
+def opvraag_zin(rauw_pad: str) -> str | None:
+    """Genummerde opvraagstappen, gecodeerd met "|" als scheider."""
+    stappen = [s.strip() for s in rauw_pad.split("|") if s.strip()]
+    if not stappen:
+        return None
+    return "Opvragen: " + " ".join(f"({i}) {stap}"
+                                   for i, stap in enumerate(stappen, 1))
 
 
 class SDLGenerator:
@@ -201,36 +229,78 @@ class SDLGenerator:
                 if len(velden) < 4:
                     fout(f"onleesbare querydeclaratie op '{doel}'")
                 naam_query, selectie, toelichting, rauwe_pars = velden[:4]
-                argumenten, zinnen = [], []
-                for par in rauwe_pars.split("|"):
-                    onderdelen = (par.split("~") + [""] * 5)[:5]
-                    pnaam, ptype, meervoudig, optioneel, op = onderdelen
-                    basis = self.veldtype({"range": ptype}, kaal=True)
-                    typetekst = f"[{basis}!]" if meervoudig else basis
-                    if not optioneel:
-                        typetekst += "!"
-                    argumenten.append(
-                        f"{graphql_naam(pnaam)}: {typetekst}")
-                    if op:
-                        zinnen.append(f"Het argument {pnaam} selecteert "
-                                      f"op {op}.")
-                if selectie == "laatstBekend":
-                    zinnen.insert(0, "Levert uitsluitend de laatst "
-                                     "bekende situatie op het moment van "
-                                     "bevragen; de peildatum is "
-                                     "leveringsmetadata en staat in de "
-                                     "antwoord-envelop van de levering.")
-                elif selectie == "alles":
-                    zinnen.insert(0, "Levert de volledige historie, niet "
-                                     "alleen de laatst bekende situatie.")
+                rauw_pad = velden[4] if len(velden) > 4 else ""
+                argumenten, zinnen = self.argumenten(rauwe_pars)
+                zin = selectie_zin(selectie)
+                if zin:
+                    zinnen.insert(0, zin)
                 if toelichting:
                     zinnen.insert(0, toelichting)
+                zin = opvraag_zin(rauw_pad)
+                if zin:
+                    zinnen.append(zin)
                 regels.extend(docstring(
                     " ".join([f"{doel}."] + zinnen), "  "))
                 regels.append(f"  {graphql_naam(naam_query)}"
                               f"({', '.join(argumenten)}): "
                               f"[{graphql_naam(doel)}!]")
             self.query_ingangen.add(doel)
+        return regels
+
+    def argumenten(self, rauwe_pars: str) -> tuple[list[str], list[str]]:
+        """Argumentenlijst plus docstringzinnen uit gecodeerde
+        parameters ("|" tussen parameters, "~" tussen parametervelden)."""
+        argumenten, zinnen = [], []
+        for par in rauwe_pars.split("|"):
+            onderdelen = (par.split("~") + [""] * 5)[:5]
+            pnaam, ptype, meervoudig, optioneel, op = onderdelen
+            basis = self.veldtype({"range": ptype}, kaal=True)
+            typetekst = f"[{basis}!]" if meervoudig else basis
+            if not optioneel:
+                typetekst += "!"
+            argumenten.append(f"{graphql_naam(pnaam)}: {typetekst}")
+            if op:
+                zinnen.append(f"Het argument {pnaam} selecteert op {op}.")
+        return argumenten, zinnen
+
+    def benoemde_toetsen(self) -> list[str]:
+        """Query-velden uit de toetsdeclaraties (annotatie gbo:toetsen op
+        het schema).
+
+        Een toets is een ja/nee-vraag die de bron beantwoordt zonder de
+        onderliggende gegevens te leveren. Het antwoordtype is altijd
+        Indicatie! (Ja, Nee of Onbekend). De generator kan de betekenis
+        niet afleiden; de docstring neemt daarom de vraag, het
+        genummerde opvraagpad, de uitkomstregel en de geraadpleegde
+        objecttypen letterlijk uit het bron-profiel over. Een toets
+        maakt geen objecttypen bereikbaar."""
+        rauw = self.annotatie(self.schema.get("annotations"),
+                              "gbo:toetsen")
+        if not rauw:
+            return []
+        if ANTWOORDTYPE_TOETS not in self.enums:
+            fout(f"antwoordtype van toetsen '{ANTWOORDTYPE_TOETS}' "
+                 f"ontbreekt als enum in het schema")
+        antwoord = self.veldtype({"range": ANTWOORDTYPE_TOETS}, kaal=True)
+        regels: list[str] = []
+        for declaratie in str(rauw).split("\n"):
+            velden = declaratie.split(";")
+            if len(velden) < 7:
+                fout(f"onleesbare toetsdeclaratie: '{declaratie[:40]}'")
+            (naam_query, selectie, toelichting, rauwe_pars, rauw_pad,
+             uitkomst, raadpleegt) = velden[:7]
+            argumenten, zinnen = self.argumenten(rauwe_pars)
+            for zin in (toelichting or None,
+                        selectie_zin(selectie, "Toetst"),
+                        opvraag_zin(rauw_pad),
+                        f"Uitkomst: {uitkomst}" if uitkomst else None,
+                        f"Raadpleegt {raadpleegt}." if raadpleegt
+                        else None):
+                if zin:
+                    zinnen.append(zin)
+            regels.extend(docstring(" ".join(zinnen), "  "))
+            regels.append(f"  {graphql_naam(naam_query)}"
+                          f"({', '.join(argumenten)}): {antwoord}!")
         return regels
 
     def zoeksleutels_van(self, klasse: str) -> list[tuple[str, str]]:
@@ -372,10 +442,10 @@ class SDLGenerator:
         ingangen = [i.strip() for i in
                     (annotaties.get("gbo:ingangen") or "").split(",")
                     if i.strip()]
-        benoemd = self.benoemde_queries()
+        benoemd = self.benoemde_queries() + self.benoemde_toetsen()
         if not ingangen and not benoemd:
             melding("WAARSCHUWING",
-                    "geen ingangen en geen queries; Query-root blijft "
+                    "geen ingangen, queries of toetsen; Query-root blijft "
                     "leeg")
             return []
         lijsten = str(annotaties.get("gbo:lijstQueries",
@@ -472,11 +542,14 @@ class SDLGenerator:
             key=lambda c: not self.is_interface(c))
         for klasse in volgorde:
             blokken.append(self.klasse_blok(klasse))
-        # Alleen enums die door een uitgevlakt veld worden gebruikt.
+        # De Query-root eerst opbouwen: argument- en antwoordtypen van
+        # queries en toetsen tellen mee als gebruikte enums.
+        query = self.query_blok()
+        # Alleen enums die door een uitgevlakt veld, een argument of een
+        # toetsantwoord worden gebruikt.
         for naam in self.enums:
             if naam in self.gebruikte_enums:
                 blokken.append(self.enum_blok(naam))
-        query = self.query_blok()
         if query:
             blokken.append(query)
         # Regel: elk in het bron-profiel opgesomd objecttype moet

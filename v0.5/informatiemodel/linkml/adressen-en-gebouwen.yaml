@@ -1,0 +1,1753 @@
+# =============================================================================
+# GBO — Deelmodel Adressen en gebouwen
+# Bron (leidend): docs/informatiemodel/gbo-kern/deelmodellen/adressen-en-gebouwen.md
+#
+# Adres-cluster (vijf subtypen onder het abstracte Adres), de BAG-keten
+# (Nummeraanduiding, AdresseerbaarObject met Verblijfsobject, Ligplaats
+# en Standplaats, Pand) en de administratieve indeling (OpenbareRuimte,
+# Woonplaats, Gemeente, Wijk, Buurt).
+#
+# Kadastrale eigendom valt buiten dit deelmodel (zie Onroerende zaken);
+# topografische geometrie (BGT/BRT) eveneens. Verwijzingen naar andere
+# deelmodellen worden opgelost via gbo.yaml; valideer dus altijd via
+# gbo.yaml.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/informatiemodel/adressen-en-gebouwen
+name: gbo-adressen-en-gebouwen
+title: "GBO deelmodel: Adressen en gebouwen"
+description: >-
+  Adres-cluster (vijf subtypen), BAG-objecttypen (Pand,
+  AdresseerbaarObject, Nummeraanduiding, OpenbareRuimte, Woonplaats)
+  en de administratieve indeling Gemeente, Wijk, Buurt.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+default_prefix: gbo
+default_range: string
+
+imports:
+  - linkml:types
+  - datatypes
+  - hoofdmodel
+
+classes:
+
+  # --- Adres-cluster ----------------------------------------------------------
+
+  Adres:
+    abstract: true
+    description: >-
+      Een leesbare aanduiding van een locatie of correspondentiepunt
+      waarmee een persoon of organisatie kan worden bereikt of waarop
+      een rechtsbetrekking is gevestigd, samengesteld uit elementen
+      van de bronregisters BAG, RSGB en BRP.
+    exact_mappings:
+      - gbobegrip:Adres
+    annotations:
+      mim:herkomst: GBO (samengestelde view boven BAG, RSGB en BRP)
+      mim:herkomstDefinitie: >-
+        Wet basisregistraties adressen en gebouwen (binnenlandsadres
+        via de BAG-keten Nummeraanduiding, OpenbareRuimte,
+        Woonplaats); BRP Logisch Ontwerp §5.8 (woon- en
+        briefadres-context); RSGB-Kern (overkoepelend type Adres).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: adresId (op de concrete subtypen)
+      mim:populatie: >-
+        Alle adressen die voor een overheidsorganisatie als
+        adresseerbaarheid of correspondentiepunt relevant zijn.
+    comments:
+      - >-
+        Adres is een samengestelde, leesbare projectie boven BAG-data,
+        niet een zelfstandig authentiek gegeven. BAG levert de
+        authentieke onderliggende data; de adres-projectie is voor
+        afnemers in één keer leesbaar. De functionele rol (woon,
+        bezoek, post, zetel) staat in de verwijzing vanuit de
+        gebruiker (NatuurlijkPersoon, Vestiging), niet als kenmerk van
+        Adres zelf.
+    attributes:
+      volledigAdres:
+        range: Tekst
+        description: >-
+          Gedenormaliseerde, leesbare projectie van het adres.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO (afgeleid)
+        comments:
+          - Pre-formatted leesregel; afgeleid uit subtype-attributen.
+
+  Binnenlandsadres:
+    is_a: Adres
+    description: >-
+      Een Nederlands adres dat via een BAG-Nummeraanduiding en de
+      bijbehorende openbare ruimte en woonplaats wordt opgebouwd.
+    exact_mappings:
+      - gbobegrip:Binnenlandsadres
+    annotations:
+      mim:herkomst: BAG (afgeleid uit de Nummeraanduiding-keten)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1 (Nummeraanduiding, OpenbareRuimte, Woonplaats); Catalogus
+        BAG 2018; RSGB-Kern Binnenlandsadres.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: adresId (BAGID, gelijk aan de Nummeraanduiding)
+      mim:populatie: >-
+        Alle Nederlandse adressen waarvoor een Nummeraanduiding is
+        uitgegeven en die als woon-, bezoek- of correspondentieadres
+        voor een afnemer relevant zijn.
+    comments:
+      - >-
+        BAG-gekoppeld adres met een eigen instantie per
+        Nummeraanduiding (geen afgeleide view), geconstrueerd uit de
+        Nummeraanduiding en de bovenliggende keten op moment van
+        vorming.
+    attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: BAGID
+        description: >-
+          De identificatie van dit adres: de BAG-identificatie van de
+          Nummeraanduiding die het adres vormt.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (Nummeraanduiding)
+        comments:
+          - >-
+            Gelijk aan de identificatie van de Nummeraanduiding uit de
+            relatie wordtGevormdDoor; het binnenlandsadres heeft geen
+            eigen GBO-sleutel.
+      straatnaam:
+        range: Tekst
+        required: true
+        description: Volledige naam van de openbare ruimte.
+        annotations:
+          mim:lengte: 80
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (afgeleid OpenbareRuimte)
+        comments:
+          - Authentiek op OR-bron, hier gedenormaliseerd.
+      huisnummer:
+        range: Numeriek
+        required: true
+        description: Het huisnummer-deel van de Nummeraanduiding.
+        annotations:
+          mim:lengte: 5
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (Nummeraanduiding)
+      huisletter:
+        range: Tekst
+        description: De huisletter bij het huisnummer.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (Nummeraanduiding)
+      huisnummertoevoeging:
+        range: Tekst
+        description: De huisnummertoevoeging (bv. 2hg, bis).
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (Nummeraanduiding)
+      postcode:
+        range: Postcode
+        description: De postcode behorend bij het huisnummer.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (Nummeraanduiding)
+        comments:
+          - Eigen op NA, niet afgeleid van OR.
+      woonplaatsnaam:
+        range: Tekst
+        required: true
+        description: Naam van de bovenliggende woonplaats.
+        annotations:
+          mim:lengte: 80
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG (afgeleid Woonplaats)
+      wordtGevormdDoor:
+        range: Nummeraanduiding
+        required: true
+        description: >-
+          Spiegel van Nummeraanduiding vormt Binnenlandsadres.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 1"
+
+  Buitenlandsadres:
+    is_a: Adres
+    description: >-
+      Een adres buiten Nederland weergegeven als één tot drie vrije
+      adresregels samen met een landaanduiding.
+    exact_mappings:
+      - gbobegrip:Buitenlandsadres
+    annotations:
+      mim:herkomst: GBO / BRP (RNI-context)
+      mim:herkomstDefinitie: >-
+        BRP Logisch Ontwerp §5.8 (buitenlandse adresregels van een
+        niet-ingezetene); RSGB-Kern Buitenlandsadres.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
+      mim:populatie: >-
+        Alle adressen in het buitenland die voor een Nederlandse
+        afnemer als verblijf-, post- of zeteladres relevant zijn.
+    comments:
+      - >-
+        Adres voor personen of vestigingen zonder Nederlands adres.
+        Geen BAG-koppeling; geen authentieke bron in Nederland. Land
+        verwijst naar de internationale lijst ISO 3166.
+    attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
+      adresregel1:
+        range: Tekst
+        required: true
+        description: Eerste regel van het buitenlandse adres.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO / BRP
+      adresregel2:
+        range: Tekst
+        description: Tweede regel van het buitenlandse adres.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO / BRP
+      adresregel3:
+        range: Tekst
+        description: Derde regel van het buitenlandse adres.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO / BRP
+      land:
+        range: CodelijstISO3166
+        required: true
+        description: Landaanduiding volgens ISO 3166.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: ISO 3166 / LT34
+        comments:
+          - Cross-walk LT34 (BRP).
+
+  Locatie:
+    is_a: Adres
+    description: >-
+      Een adresseerbare plek zonder eigen Nummeraanduiding, beschreven
+      met een vrije omschrijving en optioneel een landaanduiding.
+    exact_mappings:
+      - gbobegrip:Locatie
+    annotations:
+      mim:herkomst: GBO / BRP (RNI-context)
+      mim:herkomstDefinitie: >-
+        BRP Logisch Ontwerp categorie 08 (verblijfplaats zonder
+        regulier vast adres); RSGB-Kern (Aanduiding vrije locatie).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
+      mim:populatie: >-
+        Plekken die als adres dienen zonder dat het bevoegde gezag er
+        een Nummeraanduiding aan heeft toegekend.
+    comments:
+      - >-
+        Adres-variant voor situaties zonder regulier vast adres,
+        bijvoorbeeld een omschrijving plus land bij sommige
+        RNI-inschrijvingen, een kraam, een bouwplaats of een tijdelijk
+        verkooppunt.
+    attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
+      omschrijving:
+        range: Tekst
+        required: true
+        description: Vrije tekstuele omschrijving van de locatie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - Max 255 tekens.
+      land:
+        range: CodelijstISO3166
+        description: Landaanduiding volgens ISO 3166.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: ISO 3166 / LT34
+        comments:
+          - Default NL als omschrijving een NL-locatie betreft.
+
+  Postadres:
+    is_a: Adres
+    description: >-
+      Een correspondentie-adres in de vorm van een postbus,
+      antwoordnummer of vergelijkbare briefbus-aanduiding bij een
+      PostNL-locatie.
+    exact_mappings:
+      - gbobegrip:Postadres
+    annotations:
+      mim:herkomst: GBO / NEN 5825 / PostNL
+      mim:herkomstDefinitie: >-
+        NEN 5825 (notatie van postadressen); PostNL Postcodeboek /
+        Postbusbesluit; BRP Logisch Ontwerp §5.8 (briefadres).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
+      mim:populatie: >-
+        Postbussen, antwoordnummers en overige briefbus-aanduidingen
+        voor correspondentie van personen of organisaties.
+    comments:
+      - >-
+        Briefadres of postbus voor correspondentie. Niet bedoeld voor
+        verblijf; afnemers gebruiken het naast een woon- of
+        bezoekadres.
+    attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
+      briefbusnummer:
+        range: Tekst
+        description: Het postbus- of antwoordnummer.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO / PostNL
+      postcode:
+        range: Postcode
+        description: Postcode behorend bij het postadres.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO / PostNL
+        comments:
+          - Pattern [1-9][0-9]{3}[A-Z]{2}.
+      plaats:
+        range: Tekst
+        required: true
+        description: Plaatsnaam van het postadres.
+        annotations:
+          mim:lengte: 80
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO / PostNL
+      soortPostadres:
+        range: SoortPostadres
+        required: true
+        description: Type postadres.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - Zie Enumeraties.
+
+  VerblijfplaatsOnbekend:
+    is_a: Adres
+    description: >-
+      Een adres-rol voor een ingeschreven persoon van wie de
+      feitelijke verblijfplaats op een bepaalde datum onbekend is
+      geworden, zonder dat een nieuw adres bekend is.
+    exact_mappings:
+      - gbobegrip:VerblijfplaatsOnbekend
+    annotations:
+      mim:herkomst: BRP cat 08
+      mim:herkomstDefinitie: >-
+        BRP Logisch Ontwerp categorie 08 (verblijfplaats; vertrek naar
+        onbekende bestemming, "Land van vertrek onbekend").
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: adresId (UUID, GBO-eigen)
+      mim:populatie: >-
+        Ingeschreven personen van wie de feitelijke verblijfplaats op
+        een bepaalde datum onbekend is geworden.
+    comments:
+      - >-
+        BRP-specifieke variant. Geen adres in strikte zin, wel een
+        geldige adres-rol bij vertrek naar onbekende bestemming.
+    attributes:
+      adresId:
+        identifier: true
+        required: true
+        range: UUID
+        description: GBO-eigen sleutel voor één adres-instantie.
+        annotations:
+          mim:authentiek: Overig
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: GBO
+        comments:
+          - >-
+            Voorkomt fragmentatie van adres-referenties; er is geen
+            externe authentieke identifier voor deze adresvorm.
+      datumIngangOnbekend:
+        range: Datum
+        required: true
+        description: >-
+          Datum waarop de verblijfplaats van de ingeschrevene onbekend
+          werd.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BRP cat 08
+
+  # --- BAG-objecten -----------------------------------------------------------
+  # Alle BAG-objecten dragen het Voorkomen-mixin (bitemporeel patroon;
+  # zie hoofdmodel.md, sectie Patronen) en de datakwaliteits-flags
+  # geconstateerd, inOnderzoek, documentdatum, documentnummer
+  # (Datakwaliteit-mixin). De mixin-attributen worden hier niet
+  # herhaald.
+
+  AdresseerbaarObject:
+    abstract: true
+    mixins:
+      - Voorkomen
+      - Datakwaliteit
+    aliases:
+      - AO
+    description: >-
+      Een object waaraan formeel één of meer adressen kunnen worden
+      toegekend door het bevoegde gemeentelijke gezag, ter
+      identificatie van een eenheid van gebruik, ligging of verblijf.
+    exact_mappings:
+      - gbobegrip:AdresseerbaarObject
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.5, §2.7; IMBAG (gedeeld patroon voor
+        Verblijfsobject, Ligplaats en Standplaats).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Alle adresseerbare objecten in Nederland zoals aangewezen en
+        geregistreerd door de bevoegde gemeente in de BAG.
+    comments:
+      - >-
+        Overkoepelend type voor de drie BAG-vormen die formeel een
+        adres krijgen: Verblijfsobject (binnen pand), Ligplaats
+        (water) en Standplaats (terrein). Een adresseerbaar object
+        heeft minstens één Nummeraanduiding (het hoofdadres) en
+        eventueel nevenadressen. Afnemers zoals HR
+        (addresseerbaarObjectId), BRP
+        (adresseerbaarObjectIdentificatie) en WOZ komen vaak via dit
+        overkoepelende type binnen.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: BAGID
+        description: >-
+          Unieke identificatie van het adresseerbaar object volgens
+          NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - >-
+            Historie zit op de concrete vormen, niet op het abstract
+            supertype.
+      typeAdresseerbaarObject:
+        range: TypeAdresseerbaarObject
+        required: true
+        description: >-
+          Aanduiding van de concrete vorm: Verblijfsobject, Ligplaats
+          of Standplaats.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - >-
+            Discriminator; ook gerepliceerd op Nummeraanduiding voor
+            HC-conformiteit.
+      heeftNummeraanduiding:
+        range: Nummeraanduiding
+        required: true
+        multivalued: true
+        description: Hoofdadres + nul of meer nevenadressen.
+        annotations:
+          mim:relatienaam: heeft
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 1..*"
+      ligtInBuurt:
+        range: Buurt
+        required: true
+        description: >-
+          Geometrische plaatsing in precies één Buurt (CBS-laag).
+        annotations:
+          mim:relatienaam: ligtIn
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:kardinaliteit: "1 -> 1"
+
+  Ligplaats:
+    is_a: AdresseerbaarObject
+    description: >-
+      Een door het bevoegde gemeentelijke gezag aangewezen plaats in
+      het water, eventueel aangevuld met een op de oever aanwezig
+      terrein of een gedeelte daarvan, bestemd voor het permanent
+      afmeren van een voor woon-, bedrijfsmatige of recreatieve
+      doeleinden geschikt drijvend object.
+    exact_mappings:
+      - gbobegrip:Ligplaats
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.6; IMBAG Ligplaats.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Door gemeenten aangewezen ligplaatsen in Nederland: woonboten,
+        drijvende woningen, recreatieve drijvende objecten.
+    comments:
+      - >-
+        Specifieke vorm van AdresseerbaarObject zonder pandcontext, in
+        het water. Krijgt minstens één Nummeraanduiding (het
+        hoofdadres) en eventueel nevenadressen.
+    attributes:
+      status:
+        range: StatusAdresseerbaarObject
+        required: true
+        description: Levenscyclus-status van de ligplaats.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Plaats-stack; zie Enumeraties.
+      geometrie:
+        range: Vlak
+        required: true
+        description: Vlakke begrenzing van de ligplaats.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - CRS RD-New EPSG:28992.
+
+  Nummeraanduiding:
+    mixins:
+      - Voorkomen
+      - Datakwaliteit
+    description: >-
+      Een door het bevoegde gemeentelijke gezag aan een adresseerbaar
+      object toegekende aanduiding bestaande uit een huisnummer met
+      eventueel een huisletter, een huisnummertoevoeging en een
+      postcode, die samen met de naam van de openbare ruimte en de
+      woonplaats het formele adres vormt.
+    exact_mappings:
+      - gbobegrip:Nummeraanduiding
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.3; IMBAG Nummeraanduiding.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Alle door gemeenten toegekende nummeraanduidingen in Nederland
+        zoals geregistreerd in de BAG, hoofd- en nevenadressen,
+        inclusief uitgegeven en ingetrokken aanduidingen.
+    comments:
+      - >-
+        Formele adres-eenheid in de BAG. Bundelt huisnummer,
+        huisletter, huisnummertoevoeging en postcode tot één
+        identificeerbaar adres, gekoppeld aan precies één adresseerbaar
+        object en geplaatst in precies één openbare ruimte. Postcode
+        is een eigen kenmerk op Nummeraanduiding, niet afgeleid van
+        openbare ruimte.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: BAGID
+        description: >-
+          Unieke identificatie van de nummeraanduiding volgens
+          NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - In KVK/HR-API als nummerAanduidingId.
+      huisnummer:
+        range: Numeriek
+        required: true
+        description: >-
+          Numerieke aanduiding van het adres binnen de openbare
+          ruimte.
+        annotations:
+          mim:lengte: 5
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      huisletter:
+        range: Tekst
+        description: Letter ter onderscheid binnen één huisnummer.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Eén letter (A-Z).
+      huisnummertoevoeging:
+        range: Tekst
+        description: >-
+          Vrije aanvulling op huisnummer en huisletter (bv. 2hg, bis).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      postcode:
+        range: Postcode
+        description: Postcode behorend bij het huisnummer.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Pattern [1-9][0-9]{3}[A-Z]{2}.
+      typeAdresseerbaarObject:
+        range: TypeAdresseerbaarObject
+        required: true
+        description: >-
+          Aanduiding van de vorm waarop de nummeraanduiding wijst
+          (Verblijfsobject, Ligplaats of Standplaats).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - HC-conform Pakket G; replica van discriminator.
+      status:
+        range: StatusNummeraanduiding
+        required: true
+        description: Levenscyclus-status van de nummeraanduiding.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Zie Enumeraties.
+      inOpenbareRuimte:
+        range: OpenbareRuimte
+        required: true
+        description: >-
+          De openbare ruimte waarin de nummeraanduiding is uitgegeven.
+        annotations:
+          mim:relatienaam: in
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+      vormt:
+        range: Binnenlandsadres
+        required: true
+        description: >-
+          Eén nummeraanduiding vormt precies één
+          Binnenlandsadres-instantie.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1 -> 1"
+
+  Pand:
+    mixins:
+      - Voorkomen
+      - Datakwaliteit
+    description: >-
+      De kleinste bij de totstandkoming functioneel en
+      bouwkundig-constructief zelfstandige eenheid die direct en
+      duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar
+      is.
+    exact_mappings:
+      - gbobegrip:Pand
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.4; IMBAG Pand.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Alle panden in Nederland zoals aangewezen en geregistreerd
+        door de bevoegde gemeente in de BAG, inclusief panden in
+        gerealiseerde, in-aanbouw- en gesloopte status.
+    comments:
+      - >-
+        Beschrijft de bouwkundige werkelijkheid: een gebouw als
+        zelfstandige constructie, los van het gebruik (dat zit op
+        Verblijfsobject) en los van het adres (dat zit op
+        Nummeraanduiding). Een pand kan nul, één of meer
+        verblijfsobjecten bevatten. Een sluis-VBO kan over meerdere
+        panden lopen, en een leeg pand kan zonder VBO bestaan.
+      - >-
+        Pand heeft geen verplichte uitgaande relaties. Inkomend:
+        Verblijfsobject in Pand (1..* <-> 1..*).
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: BAGID
+        description: Unieke identificatie van het pand volgens NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      oorspronkelijkBouwjaar:
+        range: Jaar
+        required: true
+        description: Jaar van eerste oplevering van het pand.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Bij verbouwing ongewijzigd.
+      status:
+        range: StatusPand
+        required: true
+        description: Levenscyclus-status van het pand.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Zie Enumeraties.
+      geometrie:
+        range: Vlak
+        required: true
+        description: Bovenaanzicht-geometrie van het pand.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - CRS RD-New EPSG:28992.
+
+  Standplaats:
+    is_a: AdresseerbaarObject
+    description: >-
+      Een door het bevoegde gemeentelijke gezag aangewezen terrein of
+      gedeelte daarvan dat bestemd is voor het permanent plaatsen van
+      een niet direct en niet duurzaam met de aarde verbonden en voor
+      woon-, bedrijfsmatige of recreatieve doeleinden geschikt
+      bouwwerk.
+    exact_mappings:
+      - gbobegrip:Standplaats
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.7; IMBAG Standplaats.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Door gemeenten aangewezen standplaatsen in Nederland:
+        woonwagenlocaties, recreatiewoningen op camping, vaste
+        standplaatsen van kraampjes.
+    comments:
+      - >-
+        Specifieke vorm van AdresseerbaarObject zonder pandcontext, op
+        terrein. Typisch een woonwagen, recreatiewoning op een camping
+        of een vaste standplaats van een kraam. Krijgt minstens één
+        Nummeraanduiding (het hoofdadres) en eventueel nevenadressen.
+    attributes:
+      status:
+        range: StatusAdresseerbaarObject
+        required: true
+        description: Levenscyclus-status van de standplaats.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Plaats-stack; zie Enumeraties.
+      geometrie:
+        range: Vlak
+        required: true
+        description: Vlakke begrenzing van de standplaats.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - CRS RD-New EPSG:28992.
+
+  Verblijfsobject:
+    is_a: AdresseerbaarObject
+    aliases:
+      - VBO
+    description: >-
+      De kleinste binnen één of meer panden gelegen en voor woon-,
+      bedrijfsmatige of recreatieve doeleinden geschikte eenheid van
+      gebruik die ontsloten wordt via een eigen afsluitbare toegang
+      vanaf de openbare weg, een erf of een gemeenschappelijke
+      verkeersruimte.
+    exact_mappings:
+      - gbobegrip:Verblijfsobject
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.5; IMBAG Verblijfsobject.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Alle verblijfsobjecten in Nederland zoals aangewezen en
+        geregistreerd door de bevoegde gemeente in de BAG: woningen,
+        kantoren, winkels, recreatieobjecten, bedrijfsruimten.
+    comments:
+      - >-
+        Concrete vorm van AdresseerbaarObject voor gebruiks-eenheden
+        binnen één of meer panden: een woning, kantoor, winkel,
+        recreatieobject of bedrijfsruimte. Eén verblijfsobject ligt in
+        één of meer panden; een pand kan nul of meer verblijfsobjecten
+        bevatten. Geometrie is een punt binnen het VBO
+        (verblijfsobjectpunt-conventie), geen vlak.
+    attributes:
+      gebruiksdoel:
+        range: Gebruiksdoel
+        required: true
+        multivalued: true
+        description: >-
+          Doel waarvoor het verblijfsobject geschikt is volgens het
+          gemeentelijk besluit.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Meervoudig per VBO toegestaan; zie Enumeraties.
+      oppervlakte:
+        range: Numeriek
+        required: true
+        description: >-
+          Gebruiksoppervlakte van het verblijfsobject in m² volgens
+          NEN 2580.
+        annotations:
+          mim:lengte: 6
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      aantalKamers:
+        range: Numeriek
+        description: >-
+          Aantal kamers bij een verblijfsobject met woonfunctie.
+        annotations:
+          mim:lengte: 2
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: GGM v2.5.0 (BAG-projectie)
+        comments:
+          - Alleen relevant bij Woonfunctie.
+      soortWoonobject:
+        range: Tekst
+        description: >-
+          Type woonobject (Woning, Recreatiewoning, Wooneenheid,
+          Bijzonder woongebouw).
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: GGM v2.5.0 (BAG-projectie)
+        comments:
+          - Alleen bij gebruiksdoel Woonfunctie.
+      status:
+        range: StatusAdresseerbaarObject
+        required: true
+        description: Levenscyclus-status van het verblijfsobject.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Zie Enumeraties.
+      geometriePunt:
+        range: Punt
+        required: true
+        description: >-
+          Punt-geometrie binnen het verblijfsobject
+          (verblijfsobjectpunt).
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - CRS RD-New EPSG:28992.
+      inPand:
+        range: Pand
+        required: true
+        multivalued: true
+        description: >-
+          Sluis-VBO kan over meerdere panden lopen; leeg pand zonder
+          VBO is geldig.
+        annotations:
+          mim:relatienaam: in
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "1..* -> 1..*"
+
+  # --- Administratieve indeling -----------------------------------------------
+  # OpenbareRuimte en Woonplaats zijn BAG-objecten (herkomst: BAG,
+  # basisregistratie) en dragen daarom — conform de regel dat alle
+  # BAG-objecten het Voorkomen-mixin en de datakwaliteits-flags
+  # dragen — de mixins Voorkomen en Datakwaliteit. Buurt, Wijk en
+  # Gemeente (CBS / BRP-LT33) dragen die mixins niet.
+
+  Buurt:
+    description: >-
+      Een aaneengesloten gedeelte van een wijk waarvan de grenzen
+      primair zijn gebaseerd op topografische elementen, vastgesteld
+      door het Centraal Bureau voor de Statistiek.
+    exact_mappings:
+      - gbobegrip:Buurt
+    annotations:
+      mim:herkomst: CBS Wijk- en Buurtkaart
+      mim:herkomstDefinitie: >-
+        CBS Wijk- en Buurtkaart (jaarlijkse vaststelling); NEN 3610
+        voor het algemene patroon. BAG-formeel kent geen Buurt.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: buurtcode (CBS-code)
+      mim:populatie: >-
+        Alle CBS-buurten binnen Nederland zoals jaarlijks vastgesteld
+        in de CBS Wijk- en Buurtkaart.
+    comments:
+      - >-
+        Wijk en Buurt staan formeel buiten de BAG (CBS-data); ze zijn
+        in dit deelmodel opgenomen vanwege hun gangbaarheid bij
+        beleids- en analyse-afnemers (sociaal domein, demografie). CBS
+        herziet de buurtgrenzen jaarlijks; mutaties komen via CBS Open
+        Data.
+    attributes:
+      buurtcode:
+        identifier: true
+        required: true
+        range: CodelijstCBSWijkBuurt
+        description: CBS-buurtcode binnen de Wijk- en Buurtkaart.
+        annotations:
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: CBS
+        comments:
+          - Jaarlijks herzien.
+      buurtnaam:
+        range: Tekst
+        required: true
+        description: Volledige naam van de buurt.
+        annotations:
+          mim:lengte: 40
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: CBS
+      geometrie:
+        range: Vlak
+        required: true
+        description: Vlakke begrenzing van de buurt.
+        annotations:
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: CBS
+        comments:
+          - Jaarlijks herzien.
+      inWijk:
+        range: Wijk
+        required: true
+        description: Buurt ligt in precies één Wijk (CBS-hiërarchie).
+        annotations:
+          mim:relatienaam: in
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+  Gemeente:
+    description: >-
+      Een door of krachtens de wet ingestelde territoriale openbare
+      bestuurslaag binnen Nederland, met een eigen
+      volksvertegenwoordiging en bevoegdheden over een afgebakend
+      grondgebied.
+    exact_mappings:
+      - gbobegrip:Gemeente
+    annotations:
+      mim:herkomst: BRP-LT33 / CBS Kadaster (geometrie)
+      mim:herkomstDefinitie: >-
+        Grondwet art. 123 (instelling van gemeenten); Gemeentewet;
+        BRP-Landelijke Tabel LT33 (gemeentecodes).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: gemeentecode
+      mim:populatie: >-
+        Alle Nederlandse gemeenten zoals vastgesteld door de
+        Rijksoverheid en bijgehouden in BRP-LT33, inclusief
+        historische gemeenten met einddatum.
+    comments:
+      - >-
+        Eén gemeente kan meerdere woonplaatsen bevatten;
+        gemeentegrenzen wijzigen sporadisch via herindeling. Codelijst
+        LT33 wordt door BRP onderhouden en kent een einddatum-veld
+        voor opgeheven gemeenten.
+    attributes:
+      gemeentecode:
+        identifier: true
+        required: true
+        range: CodelijstLT33
+        description: Door de Rijksoverheid vastgestelde gemeentecode.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: LT33 (BRP-tabel)
+        comments:
+          - 4-cijferige code.
+      gemeentenaam:
+        range: Tekst
+        required: true
+        description: Volledige naam van de gemeente.
+        annotations:
+          mim:lengte: 80
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: LT33
+      geometrie:
+        range: Vlak
+        required: true
+        description: Vlakke begrenzing van de gemeente.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: false
+          mim:indicatieFormeleHistorie: false
+          mim:herkomst: CBS / Kadaster
+
+  OpenbareRuimte:
+    mixins:
+      - Voorkomen
+      - Datakwaliteit
+    description: >-
+      Een door het bevoegde gemeentelijke gezag als zodanig aangewezen
+      en van een naam voorziene buitenruimte die binnen één woonplaats
+      is gelegen.
+    exact_mappings:
+      - gbobegrip:OpenbareRuimte
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.2; IMBAG Openbare ruimte; NEN 5825
+        (verkorte naam).
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Alle door gemeenten aangewezen openbare ruimten in Nederland
+        zoals geregistreerd in de BAG, inclusief uitgegeven en
+        ingetrokken openbare ruimten.
+    comments:
+      - >-
+        BAG-registratie-eenheid voor benoemde buitenruimten: typisch
+        straatnamen (typeOpenbareRuimte = Weg), maar ook waterlopen,
+        terreinen, kunstwerken en administratieve gebieden. Levert de
+        straat- of locatienaam voor het volledige adres. Geometrie kan
+        zowel een lijn (straat) als een vlak (plein/gebied) zijn.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: BAGID
+        description: >-
+          Unieke identificatie van de openbare ruimte volgens
+          NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      naamOpenbareRuimte:
+        range: Tekst
+        required: true
+        description: Volledige naam van de openbare ruimte.
+        annotations:
+          mim:lengte: 80
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      korteNaam:
+        range: Tekst
+        description: >-
+          Verkorte naam van de openbare ruimte (max 24 tekens).
+        annotations:
+          mim:lengte: 24
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG / NEN 5825
+        comments:
+          - Voor smalle weergaves (navigatie, etiketten).
+      typeOpenbareRuimte:
+        range: TypeOpenbareRuimte
+        required: true
+        description: Aanduiding van het soort openbare ruimte.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Zie Enumeraties.
+      status:
+        range: StatusOpenbareRuimte
+        required: true
+        description: Levenscyclus-status van de openbare ruimte.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Zie Enumeraties.
+      geometrie:
+        range: Geometrie
+        required: true
+        description: Geometrische begrenzing als lijn of vlak.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - CRS RD-New EPSG:28992.
+      inWoonplaats:
+        range: Woonplaats
+        required: true
+        description: >-
+          Openbare ruimte ligt in precies één Woonplaats.
+        annotations:
+          mim:relatienaam: in
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+  Wijk:
+    description: >-
+      Een aaneengesloten gedeelte van een gemeente waarvan de grenzen
+      primair zijn gebaseerd op sociaal-geografische kenmerken,
+      vastgesteld door het Centraal Bureau voor de Statistiek.
+    exact_mappings:
+      - gbobegrip:Wijk
+    annotations:
+      mim:herkomst: CBS Wijk- en Buurtkaart
+      mim:herkomstDefinitie: >-
+        CBS Wijk- en Buurtkaart (jaarlijkse vaststelling); NEN 3610
+        voor het algemene patroon. BAG-formeel kent geen Wijk.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: wijkcode (CBS-code)
+      mim:populatie: >-
+        Alle CBS-wijken binnen Nederland zoals jaarlijks vastgesteld
+        in de CBS Wijk- en Buurtkaart.
+    comments:
+      - >-
+        Wijk staat formeel buiten de BAG (CBS-data); opgenomen vanwege
+        gangbaarheid bij beleids- en analyse-afnemers. CBS herziet de
+        wijkgrenzen jaarlijks; mutaties komen via CBS Open Data.
+    attributes:
+      wijkcode:
+        identifier: true
+        required: true
+        range: CodelijstCBSWijkBuurt
+        description: CBS-wijkcode binnen de Wijk- en Buurtkaart.
+        annotations:
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: CBS
+        comments:
+          - Jaarlijks herzien.
+      wijknaam:
+        range: Tekst
+        required: true
+        description: Volledige naam van de wijk.
+        annotations:
+          mim:lengte: 40
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: CBS
+      geometrie:
+        range: Vlak
+        required: true
+        description: Vlakke begrenzing van de wijk.
+        annotations:
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: CBS
+        comments:
+          - Jaarlijks herzien.
+      inGemeente:
+        range: Gemeente
+        required: true
+        description: >-
+          Wijk ligt in precies één Gemeente (CBS-hiërarchie).
+        annotations:
+          mim:relatienaam: in
+          mim:authentiek: Landelijk kerngegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+  Woonplaats:
+    mixins:
+      - Voorkomen
+      - Datakwaliteit
+    description: >-
+      Een door het bevoegde gemeentelijke gezag als zodanig aangewezen
+      en van een naam voorzien gedeelte van het grondgebied van de
+      gemeente, dat dient als plaatsaanduiding voor adressen.
+    exact_mappings:
+      - gbobegrip:Woonplaats
+    annotations:
+      mim:herkomst: BAG (basisregistratie)
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG
+        art. 1; Catalogus BAG 2018 §2.1; IMBAG Woonplaats.
+      mim:datumOpname: "2026-04-28"
+      mim:uniekeAanduiding: identificatie (BAGID)
+      mim:populatie: >-
+        Alle door gemeenten aangewezen woonplaatsen in Nederland zoals
+        geregistreerd in de BAG, inclusief aangewezen en ingetrokken
+        woonplaatsen.
+    comments:
+      - >-
+        Plaatsaanduiding voor adressen; levert de plaatsnaam voor het
+        volledige adres. Niet gelijk aan Gemeente: één gemeente kan
+        meerdere woonplaatsen bevatten (gemeente Súdwest-Fryslân heeft
+        er 70+), en gemeentelijke herindelingen kunnen plaatsvinden
+        zonder dat woonplaatsen wijzigen.
+    attributes:
+      identificatie:
+        identifier: true
+        required: true
+        range: BAGID
+        description: >-
+          Unieke identificatie van de woonplaats volgens NEN 3610.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      woonplaatsnaam:
+        range: Tekst
+        required: true
+        description: Volledige naam van de woonplaats.
+        annotations:
+          mim:lengte: 80
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+      status:
+        range: StatusWoonplaats
+        required: true
+        description: Levenscyclus-status van de woonplaats.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - Zie Enumeraties.
+      geometrie:
+        range: Vlak
+        required: true
+        description: Vlakke begrenzing van de woonplaats.
+        annotations:
+          mim:authentiek: Authentiek
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BAG-Catalogus 2018
+        comments:
+          - CRS RD-New EPSG:28992.
+      inGemeente:
+        range: Gemeente
+        required: true
+        description: Woonplaats ligt in precies één Gemeente.
+        annotations:
+          mim:relatienaam: in
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:kardinaliteit: "* -> 1"
+
+enums:
+
+  Gebruiksdoel:
+    description: >-
+      Aanduiding van het doel waarvoor een verblijfsobject blijkens
+      het gemeentelijke besluit geschikt is.
+    exact_mappings:
+      - gbobegrip:Gebruiksdoel
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.5; IMBAG-attribuutdomein Gebruiksdoel.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Eén verblijfsobject mag meerdere gebruiksdoelen dragen
+        (bijvoorbeeld een woning met praktijkruimte). De waardenlijst
+        is gesloten en wettelijk vastgelegd.
+    permissible_values:
+      Woonfunctie:
+        description: Gebruik voor wonen.
+        comments:
+          - Reguliere woning, appartement, woonwagen.
+      Bijeenkomstfunctie:
+        description: Gebruik voor het samenkomen van mensen.
+        comments:
+          - Kerk, theater, vergaderzaal.
+      Celfunctie:
+        description: Gebruik voor het opsluiten van personen.
+        comments:
+          - Gevangenis, politiebureau-cel.
+      Gezondheidszorgfunctie:
+        description: >-
+          Gebruik voor medische verzorging of behandeling.
+        comments:
+          - Ziekenhuis, praktijk, verpleeghuis.
+      Industriefunctie:
+        description: >-
+          Gebruik voor industriële productie of opslag.
+        comments:
+          - Fabriek, werkplaats, opslagloods.
+      Kantoorfunctie:
+        description: Gebruik voor administratief werk.
+        comments:
+          - Kantoor, praktijk-administratie.
+      Logiesfunctie:
+        description: >-
+          Gebruik voor verblijf zonder zelfstandige huisvesting.
+        comments:
+          - Hotel, pension, recreatieverblijf.
+      Onderwijsfunctie:
+        description: Gebruik voor het geven van onderwijs.
+        comments:
+          - School, universiteit, opleidingscentrum.
+      Sportfunctie:
+        description: Gebruik voor sportbeoefening.
+        comments:
+          - Sporthal, zwembad, fitnesscentrum.
+      Winkelfunctie:
+        description: Gebruik voor detailhandel.
+        comments:
+          - Winkel, warenhuis, marktkraam in vast pand.
+      Overigegebruiksfunctie:
+        description: >-
+          Gebruik dat niet onder een andere functie valt.
+        comments:
+          - Restcategorie binnen de gesloten lijst.
+
+  SoortPostadres:
+    description: >-
+      Aanduiding van het type briefbus-aanduiding bij een postadres.
+    exact_mappings:
+      - gbobegrip:SoortPostadres
+    annotations:
+      mim:herkomst: GBO (geprojecteerd op NEN 5825 / PostNL)
+      mim:herkomstDefinitie: >-
+        NEN 5825; PostNL Postcodeboek; GBO-projectie ten behoeve van
+        het Postadres-objecttype.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Onderscheidt de drie gangbare PostNL-vormen waarmee een
+        correspondentie-adres wordt geleverd: een postbus, een
+        antwoordnummer of een overige variant.
+    permissible_values:
+      Postbus:
+        description: Genummerde brievenbus bij een PostNL-locatie.
+        comments:
+          - Klassieke postbus met postcode.
+      Antwoordnummer:
+        description: >-
+          Door PostNL uitgegeven nummer voor portvrije retourpost.
+        comments:
+          - Bedrijfs- en overheidsantwoorden.
+      Overig:
+        description: >-
+          Andere briefbus-aanduiding die niet onder Postbus of
+          Antwoordnummer valt.
+        comments:
+          - Restcategorie.
+
+  StatusAdresseerbaarObject:
+    description: >-
+      Aanduiding van de levenscyclus-status van een verblijfsobject,
+      ligplaats of standplaats.
+    exact_mappings:
+      - gbobegrip:StatusAdresseerbaarObject
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.5, §2.6, §2.7; IMBAG-attribuutdomein.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Bundelt de statussen van de drie concrete
+        AdresseerbaarObject-vormen. Een verblijfsobject doorloopt een
+        eigen reeks van bouw tot intrekking; ligplaatsen en
+        standplaatsen kennen een kortere reeks rond aanwijzing en
+        intrekking.
+    permissible_values:
+      Gerealiseerd:
+        description: >-
+          Het verblijfsobject is gevormd en feitelijk aanwezig.
+        comments:
+          - VBO-tak.
+      NietGerealiseerd:
+        description: >-
+          Het verblijfsobject is voorgenomen maar niet tot stand
+          gekomen.
+        comments:
+          - VBO-tak.
+      VerblijfsobjectInGebruikNietIngemeten:
+        description: >-
+          Het verblijfsobject is in gebruik maar nog niet geometrisch
+          ingemeten.
+        comments:
+          - VBO-tak.
+      VerblijfsobjectInGebruik:
+        description: >-
+          Het verblijfsobject is in gebruik en geometrisch ingemeten.
+        comments:
+          - VBO-tak.
+      VerbouwingVerblijfsobject:
+        description: Het verblijfsobject wordt verbouwd.
+        comments:
+          - VBO-tak.
+      VerblijfsobjectIngetrokken:
+        description: >-
+          De aanwijzing van het verblijfsobject is ingetrokken.
+        comments:
+          - VBO-tak.
+      VerblijfsobjectBuitenGebruik:
+        description: Het verblijfsobject is buiten gebruik gesteld.
+        comments:
+          - VBO-tak.
+      PlaatsAangewezen:
+        description: >-
+          De ligplaats of standplaats is door de gemeente aangewezen.
+        comments:
+          - Lig-/Standplaats-tak.
+      PlaatsIngetrokken:
+        description: >-
+          De aanwijzing van de lig- of standplaats is ingetrokken.
+        comments:
+          - Lig-/Standplaats-tak.
+
+  StatusNummeraanduiding:
+    description: >-
+      Aanduiding van de levenscyclus-status van een nummeraanduiding.
+    exact_mappings:
+      - gbobegrip:StatusNummeraanduiding
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.3; IMBAG-attribuutdomein.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Een nummeraanduiding kent twee statussen: uitgegeven of
+        ingetrokken. Materiële historie blijft beschikbaar via het
+        Voorkomen-mixin.
+    permissible_values:
+      NaamgevingUitgegeven:
+        description: >-
+          De nummeraanduiding is door de gemeente uitgegeven en
+          geldig.
+      NaamgevingIngetrokken:
+        description: De nummeraanduiding is ingetrokken.
+        comments:
+          - Historische instanties blijven raadpleegbaar.
+
+  StatusOpenbareRuimte:
+    description: >-
+      Aanduiding van de levenscyclus-status van een openbare ruimte.
+    exact_mappings:
+      - gbobegrip:StatusOpenbareRuimte
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.2; IMBAG-attribuutdomein.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Een openbare ruimte kent twee statussen: uitgegeven of
+        ingetrokken. De waarden delen het naamgeving-patroon met
+        Nummeraanduiding maar vormen een eigen attribuutdomein.
+    permissible_values:
+      NaamgevingUitgegeven:
+        description: >-
+          De naam van de openbare ruimte is uitgegeven en geldig.
+      NaamgevingIngetrokken:
+        description: >-
+          De naamgeving van de openbare ruimte is ingetrokken.
+        comments:
+          - Historische instanties blijven raadpleegbaar.
+
+  StatusPand:
+    description: >-
+      Aanduiding van de levenscyclus-status van een pand.
+    exact_mappings:
+      - gbobegrip:StatusPand
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.4; IMBAG-attribuutdomein.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Beschrijft de bouwkundige levensloop van een pand, van
+        vergunning tot sloop. Functioneel gebruik (gebruiksdoel) zit
+        op het verblijfsobject, niet op het pand.
+    permissible_values:
+      Bouwvergunningverleend:
+        description: Voor het pand is een bouwvergunning verleend.
+        comments:
+          - Beginstatus.
+      NietGerealiseerdPand:
+        description: >-
+          Het pand is voorgenomen maar niet tot stand gekomen.
+      BouwGestart:
+        description: De bouw van het pand is gestart.
+      PandInGebruikNietIngemeten:
+        description: >-
+          Het pand is in gebruik maar nog niet geometrisch ingemeten.
+      PandInGebruik:
+        description: >-
+          Het pand is in gebruik en geometrisch ingemeten.
+      VerbouwingPand:
+        description: Het pand wordt verbouwd.
+        comments:
+          - Geometrie en bouwjaar blijven ongewijzigd.
+      PandGesloopt:
+        description: Het pand is gesloopt.
+      PandBuitenGebruik:
+        description: Het pand is buiten gebruik gesteld.
+      PandTenOnrechteOpgevoerd:
+        description: Het pand is ten onrechte in de BAG opgenomen.
+        comments:
+          - Correctie-status.
+
+  StatusWoonplaats:
+    description: >-
+      Aanduiding van de levenscyclus-status van een woonplaats.
+    exact_mappings:
+      - gbobegrip:StatusWoonplaats
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.1; IMBAG-attribuutdomein.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Een woonplaats kent twee statussen: aangewezen of ingetrokken.
+        Historische woonplaatsen blijven raadpleegbaar via het
+        Voorkomen-mixin.
+    permissible_values:
+      WoonplaatsAangewezen:
+        description: >-
+          De woonplaats is door de gemeente aangewezen en geldig.
+      WoonplaatsIngetrokken:
+        description: De aanwijzing van de woonplaats is ingetrokken.
+        comments:
+          - Historische instanties blijven raadpleegbaar.
+
+  TypeAdresseerbaarObject:
+    description: >-
+      Aanduiding van de concrete vorm van een adresseerbaar object:
+      Verblijfsobject, Ligplaats of Standplaats.
+    annotations:
+      mim:herkomst: BAG-Catalogus 2018
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Discriminator, gebruikt door
+        AdresseerbaarObject.typeAdresseerbaarObject en (als replica
+        voor HC-conformiteit) Nummeraanduiding.typeAdresseerbaarObject.
+    permissible_values:
+      Verblijfsobject:
+        description: >-
+          Het adresseerbaar object is een verblijfsobject (binnen
+          pand).
+      Ligplaats:
+        description: >-
+          Het adresseerbaar object is een ligplaats (water).
+      Standplaats:
+        description: >-
+          Het adresseerbaar object is een standplaats (terrein).
+
+  TypeOpenbareRuimte:
+    description: >-
+      Aanduiding van het soort openbare ruimte, zoals weg, water of
+      terrein.
+    exact_mappings:
+      - gbobegrip:TypeOpenbareRuimte
+    annotations:
+      mim:herkomst: BAG
+      mim:herkomstDefinitie: >-
+        Bron: Catalogus BAG 2018 (IMBAG). Wettelijke grondslag: Wet BAG;
+        Catalogus BAG 2018 §2.2; IMBAG-attribuutdomein TypeOpenbareRuimte.
+      mim:datumOpname: "2026-04-28"
+    comments:
+      - >-
+        Gesloten waardenlijst voor de aard van de benoemde
+        buitenruimte. Bepaalt mede hoe afnemers de openbare ruimte
+        interpreteren (straatnaam, watergang, terreinaanduiding).
+    permissible_values:
+      Weg:
+        description: >-
+          Openbare ruimte primair bedoeld voor verkeer over land.
+        comments:
+          - Straat, laan, plein.
+      Water:
+        description: Openbare ruimte primair bestaand uit water.
+        comments:
+          - Gracht, rivier, kanaal.
+      Spoor:
+        description: Openbare ruimte bedoeld voor railverkeer.
+        comments:
+          - Spoorbaan, tramweg.
+      Terrein:
+        description: >-
+          Onbebouwde of beperkt bebouwde openbare ruimte op de grond.
+        comments:
+          - Park, plein zonder weg-status, sportcomplex.
+      Kunstwerk:
+        description: >-
+          Openbare ruimte gevormd door een civieltechnisch bouwwerk.
+        comments:
+          - Brug, viaduct, tunnel.
+      Landschappelijkgebied:
+        description: >-
+          Openbare ruimte met een landschappelijk karakter.
+        comments:
+          - Natuurgebied, duingebied.
+      Administratiefgebied:
+        description: >-
+          Openbare ruimte met een administratieve afbakening zonder
+          fysieke verkeersfunctie.
+        comments:
+          - Voor administratieve plaatsing van adressen.
+
+# --- «Codelijst»-typen --------------------------------------------------------
+# De enige codelijst uit de Codelijsten-sectie van dit deelmodel
+# (Codelijst~LT33 Gemeenten, gebruikt door Gemeente.gemeentecode) is
+# stelselbreed en staat al als CodelijstLT33 in datatypes.yaml; dit
+# bestand definieert daarom geen eigen codelijst-typen. De stelselbrede
+# codelijsten CodelijstCBSWijkBuurt (Wijk.wijkcode, Buurt.buurtcode) en
+# CodelijstISO3166 (Buitenlandsadres.land, Locatie.land) staan eveneens
+# in datatypes.yaml.

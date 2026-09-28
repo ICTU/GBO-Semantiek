@@ -327,8 +327,8 @@ type HypothecairKredietEigenWoning implements KredietOvereenkomst & FinancieleVe
   kent: [AchterstandRegistratie!]
   """Bijzonderheidscodes op deze overeenkomst."""
   begeleidDoor: [BijzonderheidsCodering!]
-  """Het onderpand; zie deelmodel Onroerende zaken. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
-  gevestigdOp: NEN3610ID!
+  """De onroerende zaak die als onderpand voor dit krediet dient; zie deelmodel Onroerende zaken. (Sleutel-referentie naar OnroerendeZaak.)"""
+  onderpand: NEN3610ID!
 }
 
 """Een kredietovereenkomst waarbij een hypotheekrecht is gevestigd op een onroerende zaak die niet de eigen woning van de kredietnemer is, zoals een tweede woning, een verhuurde woning of een beleggingspand, en die boven de meldingsdrempel valt."""
@@ -363,8 +363,8 @@ type HypothecairKredietOverigeOnroerendeZaken implements KredietOvereenkomst & F
   begeleidDoor: [BijzonderheidsCodering!]
   """EUR 250."""
   meldingsdrempel: Bedrag!
-  """Het onderpand; zie deelmodel Onroerende zaken. (Sleutel-referentie naar KadastraleOnroerendeZaak.)"""
-  gevestigdOp: NEN3610ID!
+  """De onroerende zaak die als onderpand voor dit krediet dient; zie deelmodel Onroerende zaken. (Sleutel-referentie naar OnroerendeZaak.)"""
+  onderpand: NEN3610ID!
 }
 
 """Een resterende schuld die overblijft na verkoop van een onroerende zaak waarop een hypothecair krediet rustte zonder dekking door de Nationale Hypotheek Garantie, voor zover de restschuld boven de meldingsdrempel valt en in CKI wordt geregistreerd."""

@@ -77,7 +77,7 @@ abstract class Partij <<algemeen>>
 class NatuurlijkPersoon <<personen>>
 class NietNatuurlijkPersoon <<personen>>
 class Onderneming <<bedrijven-en-instellingen>>
-class KadastraalOnroerendeZaak <<onroerende-zaken>>
+class OnroerendeZaak <<onroerende-zaken>>
 
 abstract class FinancieleVerplichting <<krediet>>
 abstract class KredietOvereenkomst <<krediet>>
@@ -136,8 +136,8 @@ KredietFeit <|-- BijzonderheidsCodering
 
 NatuurlijkPersoon "1" <-- "0..*" KredietOvereenkomst : aangegaanDoor
 NietNatuurlijkPersoon "1" <-- "0..*" KredietOvereenkomst : verstrektDoor
-KadastraalOnroerendeZaak "1" <-- "0..*" HypothecairKredietEigenWoning : gevestigdOp
-KadastraalOnroerendeZaak "1" <-- "0..*" HypothecairKredietOverigeOnroerendeZaken : gevestigdOp
+OnroerendeZaak "1" <-- "0..*" HypothecairKredietEigenWoning : onderpand
+OnroerendeZaak "1" <-- "0..*" HypothecairKredietOverigeOnroerendeZaken : onderpand
 HypothecairKredietEigenWoning "1" <-- "0..1" RestschuldHypothecairKredietZonderNHG : voortgekomenUit
 HypothecairKredietEigenWoning "1" <-- "0..1" RestschuldHypothecairKredietMetNHG : voortgekomenUit
 Onderneming "1" <-- "0..*" ZakelijkKrediet : tenBehoeveVan
@@ -448,7 +448,7 @@ of de eigen kredietadministratie van de geldverstrekker.
 
 | Naam | Doel | Kard. (bron→doel) | Toelichting |
 |---|---|---|---|
-| gevestigdOp | KadastraalOnroerendeZaak | n → 1 | Het onderpand; zie [Onroerende zaken](onroerende-zaken.md). |
+| onderpand | OnroerendeZaak | n → 1 | De onroerende zaak die als onderpand voor dit krediet dient; zie [Onroerende zaken](onroerende-zaken.md). Deze relatie is niet de kadastrale hypotheek zelf: dat is `Zekerheidsrecht`, met een eigen bedrag en een eigen bronhouder. |
 
 ### HypothecairKredietOverigeOnroerendeZaken
 
@@ -486,7 +486,7 @@ zit in de rol van de onroerende zaak.
 
 | Naam | Doel | Kard. (bron→doel) | Toelichting |
 |---|---|---|---|
-| gevestigdOp | KadastraalOnroerendeZaak | n → 1 | Het onderpand; zie [Onroerende zaken](onroerende-zaken.md). |
+| onderpand | OnroerendeZaak | n → 1 | De onroerende zaak die als onderpand voor dit krediet dient; zie [Onroerende zaken](onroerende-zaken.md). Deze relatie is niet de kadastrale hypotheek zelf: dat is `Zekerheidsrecht`, met een eigen bedrag en een eigen bronhouder. |
 
 ### KortKrediet
 

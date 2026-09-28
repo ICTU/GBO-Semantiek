@@ -1,0 +1,333 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel BAG, gegenereerd uit gbo-bron-bag.yaml.
+# Regenereer met: task generate:graphql
+#
+# Adresseerbare objecten (verblijfsobjecten, ligplaatsen,
+# standplaatsen), panden, nummeraanduidingen, openbare ruimten en
+# woonplaatsen uit de BAG, inclusief de bitemporele levenscyclus-
+# gegevens, plus het daaruit samengestelde binnenlandse adres.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10). Identificeert pand, verblijfsobject, standplaats, ligplaats, nummeraanduiding, openbare ruimte en woonplaats in de BAG."""
+scalar BAGID @restrictie(patroon: "^[0-9]{16}$")
+"""Wijk- en buurtcodes conform de CBS Wijk- en Buurtkaart (jaarlijkse uitgave)."""
+scalar CodelijstCBSWijkBuurt
+"""Gemeentecode conform BRP-Landelijke Tabel 33 Gemeenten. Formeel een BRP-codelijst, feitelijk de stelselbrede gemeente-codering inclusief historische gemeenten met einddatum."""
+scalar CodelijstLT33 @restrictie(patroon: "^[0-9]{4}$")
+"""Ruimtelijke objectplaatsing; abstract supertype van Punt, Vlak en Lijn. Default-coördinatenstelsel EPSG:28992 (RD-New) voor binnenlandse objecten, WGS84 (EPSG:4326) bij internationale uitwisseling."""
+scalar Geometrie
+"""Kalenderjaar in ISO 8601, vier cijfers (jjjj)."""
+scalar Jaar @restrictie(patroon: "^[0-9]{4}$")
+"""Nederlandse postcode in het formaat 9999 XX (norm NEN 5825)."""
+scalar Postcode @restrictie(patroon: "^[1-9][0-9]{3} ?[A-Z]{2}$")
+"""Geometrie als één coördinaat (x, y, optioneel z)."""
+scalar Punt
+"""Geometrie als gesloten polygoon, eventueel met binnenringen voor uitsparingen."""
+scalar Vlak
+
+"""Een object waaraan formeel één of meer adressen kunnen worden toegekend door het bevoegde gemeentelijke gezag, ter identificatie van een eenheid van gebruik, ligging of verblijf."""
+interface AdresseerbaarObject {
+  """Unieke identificatie van het adresseerbaar object volgens NEN 3610."""
+  identificatie: BAGID!
+  """Aanduiding van de concrete vorm: Verblijfsobject, Ligplaats of Standplaats."""
+  typeAdresseerbaarObject: TypeAdresseerbaarObject!
+  """Hoofdadres + nul of meer nevenadressen."""
+  heeftNummeraanduiding: [Nummeraanduiding!]!
+  """Geometrische plaatsing in precies één Buurt (CBS-laag). (Sleutel-referentie naar Buurt.)"""
+  ligtInBuurt: CodelijstCBSWijkBuurt!
+}
+
+"""Een leesbare aanduiding van een locatie of correspondentiepunt waarmee een persoon of organisatie kan worden bereikt of waarop een rechtsbetrekking is gevestigd, samengesteld uit elementen van de bronregisters BAG, RSGB en BRP."""
+interface Adres {
+  """Gedenormaliseerde, leesbare projectie van het adres."""
+  volledigAdres: String
+}
+
+"""Een door het bevoegde gemeentelijke gezag aangewezen plaats in het water, eventueel aangevuld met een op de oever aanwezig terrein of een gedeelte daarvan, bestemd voor het permanent afmeren van een voor woon-, bedrijfsmatige of recreatieve doeleinden geschikt drijvend object."""
+type Ligplaats implements AdresseerbaarObject {
+  """Unieke identificatie van het adresseerbaar object volgens NEN 3610."""
+  identificatie: BAGID!
+  """Aanduiding van de concrete vorm: Verblijfsobject, Ligplaats of Standplaats."""
+  typeAdresseerbaarObject: TypeAdresseerbaarObject!
+  """Hoofdadres + nul of meer nevenadressen."""
+  heeftNummeraanduiding: [Nummeraanduiding!]!
+  """Geometrische plaatsing in precies één Buurt (CBS-laag). (Sleutel-referentie naar Buurt.)"""
+  ligtInBuurt: CodelijstCBSWijkBuurt!
+  """Levenscyclus-status van de ligplaats."""
+  status: StatusAdresseerbaarObject!
+  """Vlakke begrenzing van de ligplaats."""
+  geometrie: Vlak!
+}
+
+"""Een door het bevoegde gemeentelijke gezag aangewezen terrein of gedeelte daarvan dat bestemd is voor het permanent plaatsen van een niet direct en niet duurzaam met de aarde verbonden en voor woon-, bedrijfsmatige of recreatieve doeleinden geschikt bouwwerk."""
+type Standplaats implements AdresseerbaarObject {
+  """Unieke identificatie van het adresseerbaar object volgens NEN 3610."""
+  identificatie: BAGID!
+  """Aanduiding van de concrete vorm: Verblijfsobject, Ligplaats of Standplaats."""
+  typeAdresseerbaarObject: TypeAdresseerbaarObject!
+  """Hoofdadres + nul of meer nevenadressen."""
+  heeftNummeraanduiding: [Nummeraanduiding!]!
+  """Geometrische plaatsing in precies één Buurt (CBS-laag). (Sleutel-referentie naar Buurt.)"""
+  ligtInBuurt: CodelijstCBSWijkBuurt!
+  """Levenscyclus-status van de standplaats."""
+  status: StatusAdresseerbaarObject!
+  """Vlakke begrenzing van de standplaats."""
+  geometrie: Vlak!
+}
+
+"""De kleinste binnen één of meer panden gelegen en voor woon-, bedrijfsmatige of recreatieve doeleinden geschikte eenheid van gebruik die ontsloten wordt via een eigen afsluitbare toegang vanaf de openbare weg, een erf of een gemeenschappelijke verkeersruimte."""
+type Verblijfsobject implements AdresseerbaarObject {
+  """Unieke identificatie van het adresseerbaar object volgens NEN 3610."""
+  identificatie: BAGID!
+  """Aanduiding van de concrete vorm: Verblijfsobject, Ligplaats of Standplaats."""
+  typeAdresseerbaarObject: TypeAdresseerbaarObject!
+  """Hoofdadres + nul of meer nevenadressen."""
+  heeftNummeraanduiding: [Nummeraanduiding!]!
+  """Geometrische plaatsing in precies één Buurt (CBS-laag). (Sleutel-referentie naar Buurt.)"""
+  ligtInBuurt: CodelijstCBSWijkBuurt!
+  """Doel waarvoor het verblijfsobject geschikt is volgens het gemeentelijk besluit."""
+  gebruiksdoel: [Gebruiksdoel!]!
+  """Gebruiksoppervlakte van het verblijfsobject in m² volgens NEN 2580."""
+  oppervlakte: Int!
+  """Aantal kamers bij een verblijfsobject met woonfunctie."""
+  aantalKamers: Int
+  """Type woonobject (Woning, Recreatiewoning, Wooneenheid, Bijzonder woongebouw)."""
+  soortWoonobject: String
+  """Levenscyclus-status van het verblijfsobject."""
+  status: StatusAdresseerbaarObject!
+  """Punt-geometrie binnen het verblijfsobject (verblijfsobjectpunt)."""
+  geometriePunt: Punt!
+  """Sluis-VBO kan over meerdere panden lopen; leeg pand zonder VBO is geldig."""
+  inPand: [Pand!]!
+}
+
+"""De kleinste bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is."""
+type Pand {
+  """Unieke identificatie van het pand volgens NEN 3610."""
+  identificatie: BAGID!
+  """Jaar van eerste oplevering van het pand."""
+  oorspronkelijkBouwjaar: Jaar!
+  """Levenscyclus-status van het pand."""
+  status: StatusPand!
+  """Bovenaanzicht-geometrie van het pand."""
+  geometrie: Vlak!
+}
+
+"""Een door het bevoegde gemeentelijke gezag aan een adresseerbaar object toegekende aanduiding bestaande uit een huisnummer met eventueel een huisletter, een huisnummertoevoeging en een postcode, die samen met de naam van de openbare ruimte en de woonplaats het formele adres vormt."""
+type Nummeraanduiding {
+  """Unieke identificatie van de nummeraanduiding volgens NEN 3610."""
+  identificatie: BAGID!
+  """Numerieke aanduiding van het adres binnen de openbare ruimte."""
+  huisnummer: Int!
+  """Letter ter onderscheid binnen één huisnummer."""
+  huisletter: String
+  """Vrije aanvulling op huisnummer en huisletter (bv. 2hg, bis)."""
+  huisnummertoevoeging: String
+  """Postcode behorend bij het huisnummer."""
+  postcode: Postcode
+  """Aanduiding van de vorm waarop de nummeraanduiding wijst (Verblijfsobject, Ligplaats of Standplaats)."""
+  typeAdresseerbaarObject: TypeAdresseerbaarObject!
+  """Levenscyclus-status van de nummeraanduiding."""
+  status: StatusNummeraanduiding!
+  """De openbare ruimte waarin de nummeraanduiding is uitgegeven."""
+  inOpenbareRuimte: OpenbareRuimte!
+  """Eén nummeraanduiding vormt precies één Binnenlandsadres-instantie."""
+  vormt: Binnenlandsadres!
+}
+
+"""Een door het bevoegde gemeentelijke gezag als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen."""
+type OpenbareRuimte {
+  """Unieke identificatie van de openbare ruimte volgens NEN 3610."""
+  identificatie: BAGID!
+  """Volledige naam van de openbare ruimte."""
+  naamOpenbareRuimte: String!
+  """Verkorte naam van de openbare ruimte (max 24 tekens)."""
+  korteNaam: String
+  """Aanduiding van het soort openbare ruimte."""
+  typeOpenbareRuimte: TypeOpenbareRuimte!
+  """Levenscyclus-status van de openbare ruimte."""
+  status: StatusOpenbareRuimte!
+  """Geometrische begrenzing als lijn of vlak."""
+  geometrie: Geometrie!
+  """Openbare ruimte ligt in precies één Woonplaats."""
+  inWoonplaats: Woonplaats!
+}
+
+"""Een door het bevoegde gemeentelijke gezag als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente, dat dient als plaatsaanduiding voor adressen."""
+type Woonplaats {
+  """Unieke identificatie van de woonplaats volgens NEN 3610."""
+  identificatie: BAGID!
+  """Volledige naam van de woonplaats."""
+  woonplaatsnaam: String!
+  """Levenscyclus-status van de woonplaats."""
+  status: StatusWoonplaats!
+  """Vlakke begrenzing van de woonplaats."""
+  geometrie: Vlak!
+  """Woonplaats ligt in precies één Gemeente. (Sleutel-referentie naar Gemeente.)"""
+  inGemeente: CodelijstLT33!
+}
+
+"""Een Nederlands adres dat via een BAG-Nummeraanduiding en de bijbehorende openbare ruimte en woonplaats wordt opgebouwd."""
+type Binnenlandsadres implements Adres {
+  """Gedenormaliseerde, leesbare projectie van het adres."""
+  volledigAdres: String
+  """De identificatie van dit adres: de BAG-identificatie van de Nummeraanduiding die het adres vormt."""
+  adresId: BAGID!
+  """Volledige naam van de openbare ruimte."""
+  straatnaam: String!
+  """Het huisnummer-deel van de Nummeraanduiding."""
+  huisnummer: Int!
+  """De huisletter bij het huisnummer."""
+  huisletter: String
+  """De huisnummertoevoeging (bv. 2hg, bis)."""
+  huisnummertoevoeging: String
+  """De postcode behorend bij het huisnummer."""
+  postcode: Postcode
+  """Naam van de bovenliggende woonplaats."""
+  woonplaatsnaam: String!
+  """Spiegel van Nummeraanduiding vormt Binnenlandsadres."""
+  wordtGevormdDoor: Nummeraanduiding!
+}
+
+"""Aanduiding van de concrete vorm van een adresseerbaar object: Verblijfsobject, Ligplaats of Standplaats."""
+enum TypeAdresseerbaarObject {
+  """Het adresseerbaar object is een verblijfsobject (binnen pand)."""
+  Verblijfsobject
+  """Het adresseerbaar object is een ligplaats (water)."""
+  Ligplaats
+  """Het adresseerbaar object is een standplaats (terrein)."""
+  Standplaats
+}
+
+"""Aanduiding van de levenscyclus-status van een verblijfsobject, ligplaats of standplaats."""
+enum StatusAdresseerbaarObject {
+  """Het verblijfsobject is gevormd en feitelijk aanwezig."""
+  Gerealiseerd
+  """Het verblijfsobject is voorgenomen maar niet tot stand gekomen."""
+  NietGerealiseerd
+  """Het verblijfsobject is in gebruik maar nog niet geometrisch ingemeten."""
+  VerblijfsobjectInGebruikNietIngemeten
+  """Het verblijfsobject is in gebruik en geometrisch ingemeten."""
+  VerblijfsobjectInGebruik
+  """Het verblijfsobject wordt verbouwd."""
+  VerbouwingVerblijfsobject
+  """De aanwijzing van het verblijfsobject is ingetrokken."""
+  VerblijfsobjectIngetrokken
+  """Het verblijfsobject is buiten gebruik gesteld."""
+  VerblijfsobjectBuitenGebruik
+  """De ligplaats of standplaats is door de gemeente aangewezen."""
+  PlaatsAangewezen
+  """De aanwijzing van de lig- of standplaats is ingetrokken."""
+  PlaatsIngetrokken
+}
+
+"""Aanduiding van het doel waarvoor een verblijfsobject blijkens het gemeentelijke besluit geschikt is."""
+enum Gebruiksdoel {
+  """Gebruik voor wonen."""
+  Woonfunctie
+  """Gebruik voor het samenkomen van mensen."""
+  Bijeenkomstfunctie
+  """Gebruik voor het opsluiten van personen."""
+  Celfunctie
+  """Gebruik voor medische verzorging of behandeling."""
+  Gezondheidszorgfunctie
+  """Gebruik voor industriële productie of opslag."""
+  Industriefunctie
+  """Gebruik voor administratief werk."""
+  Kantoorfunctie
+  """Gebruik voor verblijf zonder zelfstandige huisvesting."""
+  Logiesfunctie
+  """Gebruik voor het geven van onderwijs."""
+  Onderwijsfunctie
+  """Gebruik voor sportbeoefening."""
+  Sportfunctie
+  """Gebruik voor detailhandel."""
+  Winkelfunctie
+  """Gebruik dat niet onder een andere functie valt."""
+  Overigegebruiksfunctie
+}
+
+"""Aanduiding van de levenscyclus-status van een pand."""
+enum StatusPand {
+  """Voor het pand is een bouwvergunning verleend."""
+  Bouwvergunningverleend
+  """Het pand is voorgenomen maar niet tot stand gekomen."""
+  NietGerealiseerdPand
+  """De bouw van het pand is gestart."""
+  BouwGestart
+  """Het pand is in gebruik maar nog niet geometrisch ingemeten."""
+  PandInGebruikNietIngemeten
+  """Het pand is in gebruik en geometrisch ingemeten."""
+  PandInGebruik
+  """Het pand wordt verbouwd."""
+  VerbouwingPand
+  """Het pand is gesloopt."""
+  PandGesloopt
+  """Het pand is buiten gebruik gesteld."""
+  PandBuitenGebruik
+  """Het pand is ten onrechte in de BAG opgenomen."""
+  PandTenOnrechteOpgevoerd
+}
+
+"""Aanduiding van de levenscyclus-status van een nummeraanduiding."""
+enum StatusNummeraanduiding {
+  """De nummeraanduiding is door de gemeente uitgegeven en geldig."""
+  NaamgevingUitgegeven
+  """De nummeraanduiding is ingetrokken."""
+  NaamgevingIngetrokken
+}
+
+"""Aanduiding van het soort openbare ruimte, zoals weg, water of terrein."""
+enum TypeOpenbareRuimte {
+  """Openbare ruimte primair bedoeld voor verkeer over land."""
+  Weg
+  """Openbare ruimte primair bestaand uit water."""
+  Water
+  """Openbare ruimte bedoeld voor railverkeer."""
+  Spoor
+  """Onbebouwde of beperkt bebouwde openbare ruimte op de grond."""
+  Terrein
+  """Openbare ruimte gevormd door een civieltechnisch bouwwerk."""
+  Kunstwerk
+  """Openbare ruimte met een landschappelijk karakter."""
+  Landschappelijkgebied
+  """Openbare ruimte met een administratieve afbakening zonder fysieke verkeersfunctie."""
+  Administratiefgebied
+}
+
+"""Aanduiding van de levenscyclus-status van een openbare ruimte."""
+enum StatusOpenbareRuimte {
+  """De naam van de openbare ruimte is uitgegeven en geldig."""
+  NaamgevingUitgegeven
+  """De naamgeving van de openbare ruimte is ingetrokken."""
+  NaamgevingIngetrokken
+}
+
+"""Aanduiding van de levenscyclus-status van een woonplaats."""
+enum StatusWoonplaats {
+  """De woonplaats is door de gemeente aangewezen en geldig."""
+  WoonplaatsAangewezen
+  """De aanwijzing van de woonplaats is ingetrokken."""
+  WoonplaatsIngetrokken
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """Eén AdresseerbaarObject op identificatie."""
+  adresseerbaarObject(identificatie: BAGID!): AdresseerbaarObject
+  """Eén Pand op identificatie."""
+  pand(identificatie: BAGID!): Pand
+  """Eén Nummeraanduiding op identificatie."""
+  nummeraanduiding(identificatie: BAGID!): Nummeraanduiding
+  """Eén Binnenlandsadres op adresId."""
+  binnenlandsadres(adresId: BAGID!): Binnenlandsadres
+}

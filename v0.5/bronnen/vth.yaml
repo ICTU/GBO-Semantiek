@@ -1,0 +1,139 @@
+# =============================================================================
+# Bron-profiel VTH — welke onderdelen van het GBO-toestemmingenmodel een
+# gemeentelijke VTH-registratie via GBO beschikbaar stelt.
+#
+# Dit bestand is LinkML-data conform het schema
+# ../informatiemodel/linkml/bronprofiel.yaml (klasse Bronprofiel).
+# Valideren:
+#   linkml-validate -s ../informatiemodel/linkml/bronprofiel.yaml \
+#       -C Bronprofiel vth.yaml
+# Materialiseren:
+#   python3 tools/genereer_bronschema.py v0.3/bronnen/vth.yaml
+#
+# Anders dan de overige profielen wijst dit profiel niet naar het
+# kernschema maar naar toestemmingen.yaml: de pilot ontsluit
+# gemeentelijke vergunningen, niet een landelijke basisregistratie. Dat
+# schema importeert de kern zelf, zodat NatuurlijkPersoon oplost.
+#
+# Twee vragen staan centraal in de pilot:
+#   1. "Mijn vergunningen" — alle toestemmingen van een persoon, op bsn.
+#   2. Verificatie van een enkele vergunning op vergunningnummer, voor
+#      toezicht op straat en voor het tonen via de wallet.
+# =============================================================================
+bron: VTH
+titel: Vergunningen, Toezicht en Handhaving (gemeente)
+beschrijving: >-
+  Door een gemeentelijk bestuursorgaan verleende toestemmingen:
+  vergunningen en ontheffingen met houder, geldigheid, status en de
+  gegevens die per vergunningsoort verschillen. Pilotversie, beperkt tot
+  toestemmingen die aan een natuurlijk persoon zijn verleend. Zaak,
+  besluit, document en producttype worden als identificatie geleverd en
+  niet als eigen objecttype.
+schemabestand: ../informatiemodel/linkml/toestemmingen.yaml
+
+# Uitsluitend benoemde queries, geen ingangen: een onbegrensde lijst van
+# alle vergunningen van een gemeente hoort niet bij deze bevraging. Een
+# query per vergunningsoort, elk met dezelfde twee sleutels: het bsn van
+# de houder en het vergunningnummer. De navigatie van persoon naar
+# toestemming (heeftToestemming) materialiseert de snoei-tool uit de
+# inverse van houder.
+lijstQueries: false
+
+# Er wordt uitsluitend op concrete toestemmingen bevraagd. Het supertype
+# Toestemming heeft geen eigen query: die zou de interface leveren en
+# daarmee elke soort tegelijk, wat de soort-specifieke queries hieronder
+# dubbelt en de afnemer een ongerichte bevraging geeft. Toestemming
+# blijft wel als objecttype staan, als interface waar de concrete
+# soorten hun gedeelde velden van erven.
+queries:
+  - naamQuery: overigeToestemming
+    levert: OverigeToestemming
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: evenementenvergunning
+    levert: Evenementenvergunning
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: straatartiestenontheffing
+    levert: Straatartiestenontheffing
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: standplaatsvergunning
+    levert: Standplaatsvergunning
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: marktvergunning
+    levert: Marktvergunning
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: gehandicaptenparkeerkaart
+    levert: Gehandicaptenparkeerkaart
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: parkeerontheffing
+    levert: Parkeerontheffing
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+  - naamQuery: ligplaatsontheffing
+    levert: Ligplaatsontheffing
+    vanaf: [IngeschrevenPersoon]
+    parameters:
+      - naam: bsn
+      - naam: identificatie
+
+objecttypen:
+  - Toestemming
+  - OverigeToestemming
+  - Evenementenvergunning
+  - Straatartiestenontheffing
+  - Standplaatsvergunning
+  - Marktvergunning
+  - Gehandicaptenparkeerkaart
+  - Parkeerontheffing
+  - Ligplaatsontheffing
+  - OpenbareActiviteit
+  - Vaartuig
+  - IngeschrevenPersoon
+
+# Whitelist op de persoon: de VTH-registratie is geen personenbron. Zij
+# levert de sleutel en de naam waaronder de vergunning is verleend, meer
+# niet.
+insluitingen:
+  - objecttype: IngeschrevenPersoon
+    attributen:
+      - bsn
+      - geslachtsnaam
+      - voorvoegsel
+      - voornamen
+
+# In een gemeentelijke vergunningregistratie is elke houder een
+# ingeschreven persoon: de aanvraag loopt via DigiD en het bsn is
+# bekend. Daarmee vernauwen de drie persoonsrelaties van
+# NatuurlijkPersoon naar IngeschrevenPersoon, zoals de BRI dat doet.
+relatieAfhandeling:
+  - objecttype: Toestemming
+    relatie: houder
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: Marktvergunning
+    relatie: vervanger
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon
+  - objecttype: OpenbareActiviteit
+    relatie: organisator
+    afhandeling: vernauwen
+    naar: IngeschrevenPersoon

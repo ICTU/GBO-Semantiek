@@ -1,0 +1,135 @@
+# =============================================================================
+# GBO — Hoofdmodel: gedeelde supertypen en patronen
+# Bron (leidend): docs/informatiemodel/gbo-kern/hoofdmodel.md
+#
+# Bevat het Partij-supertype en de model-brede patronen: het
+# Voorkomen-mixin (bitemporaliteit) en de datakwaliteits-flags.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/informatiemodel/hoofdmodel
+name: gbo-hoofdmodel
+title: GBO hoofdmodel
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  mim: https://lod.gbo-semantiek.nl/def/mim#
+default_prefix: gbo
+default_range: string
+
+imports:
+  - linkml:types
+  - datatypes
+
+classes:
+
+  Partij:
+    abstract: true
+    description: >-
+      Abstract supertype van natuurlijke en niet-natuurlijke personen:
+      iedere actor die in een overheidsregistratie als rechts- of
+      handelingssubject voorkomt.
+    exact_mappings:
+      - gbobegrip:Partij
+    annotations:
+      mim:uniekeAanduiding: bsn | rsin | kvkNummer (op de subtypen)
+    comments:
+      - >-
+        Partij draagt geen eigen identifier. Een partij is uitsluitend
+        aanwijsbaar met de authentieke sleutels van haar subtypen: bsn
+        (IngeschrevenPersoon), rsin en kvkNummer
+        (NietNatuurlijkPersoon). Besluit 2026-08-10; het eerdere
+        GBO-eigen UUID-attribuut (id) is verwijderd omdat het nergens
+        uit te vragen viel en als dood veld in de bronschema's van BRK,
+        BRV en WOZ terechtkwam.
+      - >-
+        Gevolg voor bron-profielen: een relatie naar Partij mag niet
+        tot een sleutel-referentie worden herleid. Wijst een relatie
+        naar Partij, dan hoort Partij met de relevante subtypen in het
+        profiel te staan, met een zoeksleutels-opgave op de ingang. De
+        snoei-tool bewaakt dat.
+    attributes:
+      ingeschrevenAls:
+        range: MaatschappelijkeActiviteit
+        multivalued: true
+        description: >-
+          De maatschappelijke activiteit(en), de op KVK-nummer
+          geïdentificeerde inschrijvingseenheid van het
+          Handelsregister, waarbij deze partij als eigenaar of vennoot
+          betrokken is.
+        annotations:
+          mim:kardinaliteit: "1..* -> 0..*"
+        comments:
+          - >-
+            Hangt aan Partij zodat eenmanszaak (NP-eigenaar), holding
+            (NNP-vennoot), VOF (meerdere NP-vennoten) en eenvoudige BV op
+            één manier modelleerbaar zijn; zie hoofdmodel.md,
+            Sleutelrelaties. Dit is de eigenaar-/betrokkenheid-relatie,
+            niet de eigen identiteit: die loopt via
+            NietNatuurlijkPersoon.voertMaatschappelijkeActiviteit (1:1).
+            De inschrijvingseenheid is de MaatschappelijkeActiviteit in
+            het deelmodel Bedrijven en instellingen.
+
+  Voorkomen:
+    mixin: true
+    # Patroon-mixin: blijft in het semantische model (OWL/RDF) maar wordt
+    # niet als interface naar de GraphQL-SDL geprojecteerd (gbo:graphql).
+    annotations:
+      gbo:graphql: uitsluiten
+    description: >-
+      Mixin van attributen die elk basisregistratie-objecttype kan
+      dragen voor bitemporele expressiviteit conform HC-BAG en
+      BRP-Historie: twee tijdlijnen, materiële geldigheid en formele
+      registratie.
+    comments:
+      - >-
+        Voorkomen is geen klasse maar een mixin van attributen; zie
+        hoofdmodel.md, sectie Patronen.
+    attributes:
+      beginGeldigheid:
+        range: Datum
+        required: true
+        description: "Materiële tijdlijn: start van de geldigheid."
+      eindGeldigheid:
+        range: Datum
+        description: >-
+          Materiële tijdlijn: einde van de geldigheid; open betekent
+          lopend.
+      tijdstipRegistratie:
+        range: DatumTijd
+        required: true
+        description: "Formele tijdlijn: start van de registratie."
+      eindRegistratie:
+        range: DatumTijd
+        description: >-
+          Formele tijdlijn: einde van de registratie; open betekent
+          actueel.
+      versie:
+        range: Numeriek
+        required: true
+        description: Monotone versieteller.
+
+  Datakwaliteit:
+    mixin: true
+    # Patroon-mixin: blijft in het semantische model (OWL/RDF) maar wordt
+    # niet als interface naar de GraphQL-SDL geprojecteerd (gbo:graphql).
+    annotations:
+      gbo:graphql: uitsluiten
+    description: >-
+      Mixin met vier datakwaliteits-flags die los van Voorkomen kunnen
+      leven maar er vaak mee gepaard gaan.
+    attributes:
+      geconstateerd:
+        range: Datum
+        description: Datum waarop officieel geconstateerd.
+      inOnderzoek:
+        range: Indicatie
+        required: true
+        description: Markering dat de kwaliteit in onderzoek is.
+      documentdatum:
+        range: Datum
+        description: Datum van het bron-document (akte).
+      documentnummer:
+        range: Identificatie
+        description: Identificatie van het bron-document.

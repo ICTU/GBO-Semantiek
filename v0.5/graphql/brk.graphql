@@ -1,0 +1,336 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel BRK, gegenereerd uit gbo-bron-brk.yaml.
+# Regenereer met: task generate:graphql
+#
+# Onroerende zaken (percelen en appartementsrechten), zakelijke en
+# zekerheidsrechten, tenaamstellingen, publiekrechtelijke beperkingen en
+# aantekeningen uit het Kadaster.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""BAG-objectidentificatie: een 16-cijferige code, opgebouwd uit gemeentecode (4), objecttypecode (2) en objectvolgnummer (10). Identificeert pand, verblijfsobject, standplaats, ligplaats, nummeraanduiding, openbare ruimte en woonplaats in de BAG."""
+scalar BAGID @restrictie(patroon: "^[0-9]{16}$")
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Rationaal getal als teller/noemer (1/2, 1/3), zodat mede-eigendom exact zonder afrondingsverlies wordt vastgelegd; gebruikt voor Tenaamstelling.aandeel."""
+scalar Breuk @restrictie(patroon: "^[0-9]+/[0-9]+$")
+"""Waarde uit een BRK-codelijst die in de documentatie niet nader is gespecificeerd; gebruikt voor Aantekening.aardAantekening."""
+scalar CodelijstBRK
+"""Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
+scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+"""Kadastrale aanduiding (kadastrale gemeente / sectie / perceelnummer); de lijst kadastrale gemeenten is onderdeel van de BRK en wijzigt mee met gemeentelijke herindelingen."""
+scalar CodelijstKadaster
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Object- of documentidentificatie zonder vaste structuur."""
+scalar Identificatie
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
+"""Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
+scalar NEN3610ID
+"""Nederlandse postcode in het formaat 9999 XX (norm NEN 5825)."""
+scalar Postcode @restrictie(patroon: "^[1-9][0-9]{3} ?[A-Z]{2}$")
+
+"""De grond, de niet gewonnen delfstoffen, de met de grond verenigde beplantingen, alsmede de gebouwen en werken die duurzaam met de grond zijn verenigd, hetzij rechtstreeks, hetzij door vereniging met andere gebouwen of werken."""
+interface OnroerendeZaak {
+  """Objectidentificatie volgens NEN 3610."""
+  identificatie: NEN3610ID!
+  """De unieke aanduiding van de onroerende zaak die door het Kadaster is vastgesteld."""
+  kadastraleAanduiding: KadastraleAanduiding!
+  """Kwaliteit van de geometrische afbakening."""
+  soortGrootte: SoortGrootte!
+  """Levensfase-status van de onroerende zaak."""
+  onroerendeZaakStatus: OnroerendeZaakStatus!
+  """Adresseerbare objecten (verblijfsobject, standplaats of ligplaats) die aan de onroerende zaak zijn gekoppeld. (Sleutel-referentie naar AdresseerbaarObject.)"""
+  betreft: [BAGID!]
+  """De zakelijke rechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZakelijkRecht: [ZakelijkRecht!]
+  """De zekerheidsrechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZekerheidsrecht: [Zekerheidsrecht!]
+  """De publiekrechtelijke beperkingen op deze onroerende zaak."""
+  heeftPubliekrechtelijkeBeperking: [PubliekrechtelijkeBeperking!]
+  """De aantekeningen op deze onroerende zaak."""
+  heeftAantekening: [Aantekening!]
+}
+
+"""Een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is."""
+type Perceel implements OnroerendeZaak {
+  """Objectidentificatie volgens NEN 3610."""
+  identificatie: NEN3610ID!
+  """De unieke aanduiding van de onroerende zaak die door het Kadaster is vastgesteld."""
+  kadastraleAanduiding: KadastraleAanduiding!
+  """Kwaliteit van de geometrische afbakening."""
+  soortGrootte: SoortGrootte!
+  """Levensfase-status van de onroerende zaak."""
+  onroerendeZaakStatus: OnroerendeZaakStatus!
+  """Adresseerbare objecten (verblijfsobject, standplaats of ligplaats) die aan de onroerende zaak zijn gekoppeld. (Sleutel-referentie naar AdresseerbaarObject.)"""
+  betreft: [BAGID!]
+  """De zakelijke rechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZakelijkRecht: [ZakelijkRecht!]
+  """De zekerheidsrechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZekerheidsrecht: [Zekerheidsrecht!]
+  """De publiekrechtelijke beperkingen op deze onroerende zaak."""
+  heeftPubliekrechtelijkeBeperking: [PubliekrechtelijkeBeperking!]
+  """De aantekeningen op deze onroerende zaak."""
+  heeftAantekening: [Aantekening!]
+  """Kadastrale oppervlakte in vierkante meters."""
+  oppervlakte: Int
+  """De appartementsrechten die via splitsing op dit perceel betrekking hebben."""
+  heeftAppartementsrecht: [Appartementsrecht!]
+}
+
+"""Een aandeel in bij een splitsing betrokken goederen dat de bevoegdheid omvat tot het uitsluitend gebruik van bepaalde gedeelten van een gebouw die blijkens hun inrichting bestemd zijn of worden om als afzonderlijk geheel te worden gebruikt; geregistreerd in de Basisregistratie Kadaster als onroerende zaak."""
+type Appartementsrecht implements OnroerendeZaak {
+  """Objectidentificatie volgens NEN 3610."""
+  identificatie: NEN3610ID!
+  """De unieke aanduiding van de onroerende zaak die door het Kadaster is vastgesteld."""
+  kadastraleAanduiding: KadastraleAanduiding!
+  """Kwaliteit van de geometrische afbakening."""
+  soortGrootte: SoortGrootte!
+  """Levensfase-status van de onroerende zaak."""
+  onroerendeZaakStatus: OnroerendeZaakStatus!
+  """Adresseerbare objecten (verblijfsobject, standplaats of ligplaats) die aan de onroerende zaak zijn gekoppeld. (Sleutel-referentie naar AdresseerbaarObject.)"""
+  betreft: [BAGID!]
+  """De zakelijke rechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZakelijkRecht: [ZakelijkRecht!]
+  """De zekerheidsrechten die op deze onroerende zaak zijn gevestigd."""
+  heeftZekerheidsrecht: [Zekerheidsrecht!]
+  """De publiekrechtelijke beperkingen op deze onroerende zaak."""
+  heeftPubliekrechtelijkeBeperking: [PubliekrechtelijkeBeperking!]
+  """De aantekeningen op deze onroerende zaak."""
+  heeftAantekening: [Aantekening!]
+  """Perceel of percelen waarop het appartementsrecht betrekking heeft, afgeleid via de splitsing."""
+  grondperceel: [Perceel!]
+}
+
+"""De notariële akte waarbij een zakelijk recht op één of meer onroerende zaken wordt gesplitst in appartementsrechten, met vermelding van de verdeling en de aandelen in de gemeenschap."""
+type Splitsingsakte {
+  """Verwijzing naar de notariële splitsingsakte."""
+  akteverwijzing: String!
+  """Datum waarop de splitsing rechtsgeldig is geworden."""
+  datumSplitsing: Datum!
+  """Datum van het verlijden van de splitsingsakte."""
+  documentdatum: Datum!
+  """Identificatie van de splitsingsakte."""
+  documentnummer: Identificatie!
+  """Appartementsrechten die door de splitsing ontstaan."""
+  splitstIn: [Appartementsrecht!]!
+  """Het zakelijk recht dat door de akte in appartementsrechten wordt gesplitst; eigendom, maar ook erfpacht of opstal."""
+  splitst: ZakelijkRecht!
+}
+
+"""Een vermogensrecht op een zaak dat tegen iedereen kan worden uitgeoefend en dat in de Basisregistratie Kadaster wordt geregistreerd; voorbeelden zijn eigendom, erfpacht, opstal en vruchtgebruik."""
+type ZakelijkRecht {
+  """Objectidentificatie van het zakelijk recht."""
+  identificatie: NEN3610ID!
+  """Vorm van het zakelijk recht."""
+  aardZakelijkRecht: AardZakelijkRecht!
+  """Verwijzing naar de notariële akte van vestiging."""
+  akteverwijzing: String!
+  """Datum waarop het recht is ingegaan."""
+  datumIngang: Datum!
+  """Datum waarop het recht is geëindigd."""
+  datumEinde: Datum
+  """Datum van de vestigings- of wijzigingsakte."""
+  documentdatum: Datum!
+  """Akte-identificatie."""
+  documentnummer: Identificatie!
+  """Onroerende zaken waarop het recht rust."""
+  rustOp: [OnroerendeZaak!]!
+  """De splitsingsakte waarmee dit zakelijk recht in appartementsrechten is gesplitst."""
+  wordtGesplitstDoor: [Splitsingsakte!]
+  """De tenaamstellingen van dit zakelijk recht."""
+  heeftTenaamstelling: [Tenaamstelling!]
+}
+
+"""Een op een onroerende zaak rustend recht dat strekt tot zekerheid van een schuldvordering, te weten een hypotheek of een beslag."""
+type Zekerheidsrecht {
+  """Type van het zekerheidsrecht."""
+  typeZekerheidsrecht: TypeZekerheidsrecht!
+  """Bedrag waarvoor het zekerheidsrecht is gevestigd. Bij hypotheek het maximaal te lenen bedrag zoals vermeld in de akte, bij beslag de gevorderde som indien geregistreerd."""
+  bedrag: Bedrag
+  """Aard van het zakelijk recht dat als onderpand wordt bezwaard; bij hypotheek het recht van de hypotheekgever."""
+  aardBezwaardRecht: AardZakelijkRecht
+  """Datum waarop het zekerheidsrecht is gevestigd."""
+  datumVestiging: Datum!
+  """Aard van het beslag."""
+  aardBeslag: AardBeslag
+  """Onroerende zaken waarop het zekerheidsrecht rust."""
+  rustOpObject: [OnroerendeZaak!]!
+}
+
+"""De geregistreerde rechtsbetrekking tussen een rechthebbende partij en een zakelijk recht op een onroerende zaak, met vermelding van het aandeel waarmee de partij in het recht deelneemt."""
+type Tenaamstelling {
+  """Aandeel van de partij in het zakelijk recht, uitgedrukt als breuk."""
+  aandeel: Breuk!
+  """Markeert mede-eigendom met gemeenschappelijk aandeel (zoals een echtpaar in gemeenschap van goederen)."""
+  gezamenlijkAandeel: Indicatie
+  """Datum waarop de tenaamstelling is ingegaan."""
+  datumIngang: Datum!
+  """Datum waarop de tenaamstelling is geëindigd."""
+  datumEinde: Datum
+  """Zakelijk recht waarvoor de tenaamstelling geldt."""
+  van: ZakelijkRecht!
+}
+
+"""Een beperking van het gebruiksrecht op een onroerende zaak die voortvloeit uit een publiekrechtelijk besluit van een bestuursorgaan en die op grond van de Wet kenbaarheid publiekrechtelijke beperkingen kenbaar wordt gemaakt via de Basisregistratie Kadaster."""
+type PubliekrechtelijkeBeperking {
+  """Unieke beperking-identificatie volgens NEN 3610."""
+  identificatie: NEN3610ID!
+  """Type van de publiekrechtelijke beperking."""
+  typeBeperking: TypePubliekrechtelijkeBeperking!
+  """Korte vrije omschrijving van de beperking."""
+  omschrijving: String
+  """Wettelijke grondslag (artikel + wet)."""
+  grondslag: String!
+  """Datum waarop de beperking is ingegaan."""
+  datumIngang: Datum!
+  """Datum waarop de beperking is beëindigd."""
+  datumEinde: Datum
+  """Datum van het brondocument (bestuursbesluit)."""
+  documentdatum: Datum!
+  """Identificatie van het brondocument."""
+  documentnummer: Identificatie!
+  """Onroerende zaak waarop de beperking rust."""
+  rustOp: OnroerendeZaak!
+}
+
+"""Een aanvulling op de registratie van een registergoed met betrekking tot feiten die gevolgen kunnen hebben voor de uitoefening van de rechten op dit registergoed."""
+type Aantekening {
+  """Aard van de aantekening, bijvoorbeeld kwalitatieve verplichting of bewindstelling."""
+  aardAantekening: CodelijstBRK!
+  """Korte vrije omschrijving van de inhoud van de aantekening."""
+  omschrijving: String
+  """Datum waarop de aantekening van kracht is geworden."""
+  datumIngang: Datum!
+  """Onroerende zaak waarop de aantekening rust."""
+  rustOp: OnroerendeZaak!
+}
+
+"""De unieke aanduiding van een onroerende zaak die door het Kadaster is vastgesteld, bestaande uit de naam van de kadastrale gemeente, de sectie en het perceelnummer, bij een appartementsrecht aangevuld met het appartementsrechtvolgnummer."""
+type KadastraleAanduiding {
+  """Kadastrale gemeente waarbinnen de zaak ligt."""
+  kadastraleGemeente: CodelijstKadaster!
+  """Sectie-letter binnen de kadastrale gemeente."""
+  sectie: String!
+  """Volgnummer van het perceel binnen de sectie."""
+  perceelnummer: Int!
+  """Volgnummer dat het appartementsrecht binnen de grondaanduiding onderscheidt; leeg bij een perceel."""
+  appartementsrechtVolgnummer: String
+}
+
+"""Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
+type Bedrag {
+  """De numerieke waarde van het bedrag."""
+  waarde: Float!
+  """Valuta conform ISO 4217; bij afwezigheid geldt EUR."""
+  valuta: CodelijstISO4217
+}
+
+"""Vaststellingsstatus van de oppervlakte van een kadastrale onroerende zaak."""
+enum SoortGrootte {
+  """De oppervlakte is door kadastrale meting definitief vastgesteld."""
+  Vastgesteld
+  """De oppervlakte is een indicatieve waarde zonder meting."""
+  Vermoedelijk
+  """De perceelgrens is nog niet definitief vastgesteld; de oppervlakte is daarmee voorlopig."""
+  VoorlopigeKadastraleGrens
+}
+
+"""Levenscyclus-status van een onroerende zaak in de Basisregistratie Kadaster."""
+enum OnroerendeZaakStatus {
+  """De onroerende zaak is op dit moment geldig en kent een lopende registratie."""
+  Actueel
+  """De onroerende zaak is opgevolgd of opgeheven en niet meer geldig als actuele registratie."""
+  Historisch
+}
+
+"""Vorm van een zakelijk recht op een onroerende zaak, bepalend voor de inhoud en de bevoegdheden van de rechthebbende."""
+enum AardZakelijkRecht {
+  """Eeuwigdurend, overerfbaar gebruiksrecht op grond tegen een vaste jaarlijkse vergoeding."""
+  Beklemrecht
+  """Het meest omvattende recht dat een persoon op een zaak kan hebben."""
+  Eigendom
+  """Erfdienstbaarheid ten gunste van de onroerende zaak (het heersende erf)."""
+  ErfdienstbaarheidHeersend
+  """Erfdienstbaarheid ten laste van de onroerende zaak (het dienende erf)."""
+  ErfdienstbaarheidLijdend
+  """Recht om de onroerende zaak van een ander te houden en te gebruiken, doorgaans tegen canon."""
+  Erfpacht
+  """Persoonlijk recht om een zaak te gebruiken en te bewonen voor zover nodig voor de gerechtigde en zijn gezin."""
+  GebruikEnBewoning
+  """Recht om in, op of boven een onroerende zaak van een ander gebouwen, werken of beplantingen in eigendom te hebben."""
+  Opstal
+  """Recht om de zaken van een ander te gebruiken en daarvan de vruchten te genieten."""
+  Vruchtgebruik
+}
+
+"""Type van een op een onroerende zaak rustend zekerheidsrecht, onderscheidend tussen hypotheek en beslag."""
+enum TypeZekerheidsrecht {
+  """Zekerheidsrecht voortvloeiend uit een gerechtelijk of fiscaal beslag op een onroerende zaak."""
+  Beslag
+  """Zekerheidsrecht gevestigd door een hypotheekakte ter zekerstelling van een geldvordering."""
+  Hypotheek
+}
+
+"""Aard van een op een onroerende zaak gelegd beslag, gerelateerd aan de juridische grondslag en het doel ervan."""
+enum AardBeslag {
+  """Beslag ter zekerstelling vooruitlopend op een gerechtelijke uitspraak."""
+  Conservatoir
+  """Beslag op grond van een executoriale titel ter daadwerkelijke verhaal van een vordering."""
+  Executoriaal
+  """Beslag gelegd door de Belastingdienst ter invordering van een belastingschuld."""
+  Fiscaal
+  """Beslag dat niet onder een van de andere categorieën valt."""
+  OverigBeslag
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
+}
+
+"""Type van een publiekrechtelijke beperking op een kadastraal onroerende zaak, bepalend voor de wettelijke grondslag en de aard van de beperking."""
+enum TypePubliekrechtelijkeBeperking {
+  """Beperking op grond van de Wet bodembescherming, bijvoorbeeld een saneringsplicht of een gebruiksbeperking na verontreiniging."""
+  BodemBescherming
+  """Beperking op grond van de Erfgoedwet (sinds 2016 opvolger van delen van de Monumentenwet 1988), zoals archeologische bescherming."""
+  Erfgoedwet
+  """Beperking op grond van de Monumentenwet 1988, doorgaans aanwijzing als rijksmonument."""
+  Monumentenwet
+  """Beperking op grond van de Onteigeningswet, voorafgaand of leidend tot eigendomsovergang aan de overheid."""
+  Onteigening
+  """Publiekrechtelijke beperking op een andere wettelijke grondslag dan de overige genoemde categorieën."""
+  Overig
+  """Gemeentelijk voorkeursrecht op grond van de Wet voorkeursrecht gemeenten (Wro-kader)."""
+  Wro_Voorkeursrecht
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """OnroerendeZaak. De onroerende zaken, percelen en appartementsrechten, waaraan dit adresseerbaar object is gekoppeld. Opvragen: (1) Zoek de onroerende zaken waarvan betreft het adresseerbaar object met deze identificatie bevat. (2) Lever elke gevonden zaak als Perceel of als Appartementsrecht, met via heeftZakelijkRecht de rechten die erop rusten en via heeftTenaamstelling de rechthebbenden daarvan."""
+  onroerendeZaakOpBAGID(identificatie: BAGID!): [OnroerendeZaak!]
+  """Tenaamstelling."""
+  tenaamstellingOpBsn(bsn: BSN!): [Tenaamstelling!]
+  """Tenaamstelling."""
+  tenaamstellingOpRsin(rsin: String!): [Tenaamstelling!]
+  """Tenaamstelling."""
+  tenaamstellingOpKvkNummer(kvkNummer: KVKnummer!): [Tenaamstelling!]
+  """Is de ingeschreven persoon met dit bsn eigenaar van een onroerende zaak waaraan dit adresseerbaar object is gekoppeld? Toetst uitsluitend de laatst bekende situatie op het moment van bevragen; de peildatum is leveringsmetadata en staat in de antwoord-envelop van de levering. Opvragen: (1) Zoek de onroerende zaken waarvan betreft het adresseerbaar object met deze identificatie bevat, zoals onroerendeZaakOpBAGID dat doet. (2) Neem van die zaken de zakelijke rechten (heeftZakelijkRecht) met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde. (3) Neem van die rechten de tenaamstellingen (heeftTenaamstelling) zonder datumEinde. (4) Kijk of een van die tenaamstellingen via tenNameVan naar de ingeschreven persoon met dit bsn wijst, ongeacht de grootte van het aandeel. Uitkomst: Ja als stap 4 zo'n tenaamstelling vindt. Nee als stap 1 wel onroerende zaken vindt maar stap 4 geen tenaamstelling van deze persoon. Onbekend als geen enkele onroerende zaak aan dit adresseerbaar object is gekoppeld. Raadpleegt OnroerendeZaak, ZakelijkRecht, Tenaamstelling."""
+  isEigenaarOpBAGID(bsn: BSN!, identificatie: BAGID!): Indicatie!
+  """Is de ingeschreven persoon met dit bsn eigenaar van een onroerende zaak op dit adres? Toetst uitsluitend de laatst bekende situatie op het moment van bevragen; de peildatum is leveringsmetadata en staat in de antwoord-envelop van de levering. Opvragen: (1) Zoek de nummeraanduiding met deze postcode, dit huisnummer en precies deze huisletter en huisnummertoevoeging. Een weggelaten huisletter of huisnummertoevoeging betekent dat het adres er geen heeft. De BRK doet dit op de BAG-adressen die zij bij de onroerende zaak bijhoudt. (2) Neem het adresseerbaar object waartoe die nummeraanduiding behoort (AdresseerbaarObject.heeftNummeraanduiding). (3) Zoek de onroerende zaken waarvan betreft dat adresseerbaar object bevat. (4) Neem van die zaken de zakelijke rechten (heeftZakelijkRecht) met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde. (5) Neem van die rechten de tenaamstellingen (heeftTenaamstelling) zonder datumEinde. (6) Kijk of een van die tenaamstellingen via tenNameVan naar de ingeschreven persoon met dit bsn wijst, ongeacht de grootte van het aandeel. Uitkomst: Ja als stap 6 zo'n tenaamstelling vindt. Nee als stap 3 wel onroerende zaken vindt maar stap 6 geen tenaamstelling van deze persoon. Onbekend als het adres niet bestaat of aan geen enkele onroerende zaak is gekoppeld. Raadpleegt OnroerendeZaak, ZakelijkRecht, Tenaamstelling."""
+  isEigenaarOpAdres(bsn: BSN!, postcode: Postcode!, huisnummer: Int!, huisletter: String, huisnummertoevoeging: String): Indicatie!
+}

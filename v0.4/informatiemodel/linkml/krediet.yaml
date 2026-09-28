@@ -11,7 +11,7 @@
 # gebeurtenissen worden geclassificeerd.
 #
 # Verwijzingen naar andere deelmodellen (NatuurlijkPersoon,
-# NietNatuurlijkPersoon, Onderneming, KadastraalOnroerendeZaak) worden
+# NietNatuurlijkPersoon, Onderneming, OnroerendeZaak) worden
 # opgelost via gbo.yaml; valideer dus altijd via gbo.yaml.
 # =============================================================================
 id: https://lod.gbo-semantiek.nl/informatiemodel/krediet
@@ -632,14 +632,23 @@ classes:
         description: P3M (drie volledige maandtermijnen).
         annotations:
           mim:herkomst: art. 12
-      gevestigdOp:
-        # Wiki schrijft KadastraalOnroerendeZaak; de canonieke naam in
-        # het deelmodel Onroerende zaken is KadastraleOnroerendeZaak.
-        range: KadastraleOnroerendeZaak
+      onderpand:
+        range: OnroerendeZaak
         required: true
-        description: Het onderpand; zie deelmodel Onroerende zaken.
+        description: >-
+          De onroerende zaak die als onderpand voor dit krediet dient;
+          zie deelmodel Onroerende zaken.
         annotations:
           mim:kardinaliteit: "n -> 1"
+        comments:
+          - >-
+            Deze relatie legt alleen vast waarop het krediet is
+            gevestigd. Zij is niet de kadastrale hypotheek zelf: dat
+            is Zekerheidsrecht in het deelmodel Onroerende zaken, met
+            een eigen bedrag (het maximum uit de akte) en een eigen
+            bronhouder (Kadaster). Tot 2026-08-28 heette deze relatie
+            gevestigdOp, wat de verwarring met de BRK-vestiging in de
+            hand werkte. Review Kadaster 2026-08-20, punt R1.
 
     class_uri: gbobegrip:HypothecairKredietEigenWoning
     broad_mappings:
@@ -697,14 +706,23 @@ classes:
         description: EUR 250.
         annotations:
           mim:herkomst: art. 20
-      gevestigdOp:
-        # Wiki schrijft KadastraalOnroerendeZaak; de canonieke naam in
-        # het deelmodel Onroerende zaken is KadastraleOnroerendeZaak.
-        range: KadastraleOnroerendeZaak
+      onderpand:
+        range: OnroerendeZaak
         required: true
-        description: Het onderpand; zie deelmodel Onroerende zaken.
+        description: >-
+          De onroerende zaak die als onderpand voor dit krediet dient;
+          zie deelmodel Onroerende zaken.
         annotations:
           mim:kardinaliteit: "n -> 1"
+        comments:
+          - >-
+            Deze relatie legt alleen vast waarop het krediet is
+            gevestigd. Zij is niet de kadastrale hypotheek zelf: dat
+            is Zekerheidsrecht in het deelmodel Onroerende zaken, met
+            een eigen bedrag (het maximum uit de akte) en een eigen
+            bronhouder (Kadaster). Tot 2026-08-28 heette deze relatie
+            gevestigdOp, wat de verwarring met de BRK-vestiging in de
+            hand werkte. Review Kadaster 2026-08-20, punt R1.
 
     class_uri: gbobegrip:HypothecairKredietOverigeOnroerendeZaken
     broad_mappings:

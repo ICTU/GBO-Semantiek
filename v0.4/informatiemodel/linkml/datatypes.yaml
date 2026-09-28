@@ -151,7 +151,7 @@ types:
       - >-
         Het algemene stelsel-identificatietype; garandeert uniciteit
         over registers heen. Gebruikt voor BRK-objecten
-        (KadastraleOnroerendeZaak, ZakelijkRecht,
+        (OnroerendeZaak, ZakelijkRecht,
         PubliekrechtelijkeBeperking), waar de waarde de vorm
         NL.IMKAD.<objecttype>.<lokaalID> heeft.
       - >-
@@ -214,15 +214,6 @@ types:
     pattern: "^[A-Z0-9-]{6,8}$"
     annotations:
       mim:herkomst: BRV / RDW
-
-  KadastraleAanduiding:
-    typeof: Tekst
-    description: >-
-      Kadastrale aanduiding van een onroerende zaak: kadastrale
-      gemeente, sectie en perceelnummer (bij een appartementsrecht
-      aangevuld met een index), samen uniek binnen de BRK.
-    annotations:
-      mim:herkomst: BRK / Kadaster
 
   BRINcode:
     typeof: Tekst
@@ -418,6 +409,45 @@ classes:
         range: CodelijstISO4217
         description: >-
           Valuta conform ISO 4217; bij afwezigheid geldt EUR.
+
+  KadastraleAanduiding:
+    description: >-
+      De unieke aanduiding van een onroerende zaak die door het
+      Kadaster is vastgesteld, bestaande uit de naam van de kadastrale
+      gemeente, de sectie en het perceelnummer, bij een
+      appartementsrecht aangevuld met het appartementsrechtvolgnummer.
+    annotations:
+      mim:stereotype: DataType
+      mim:herkomst: BRK / Kadaster
+      mim:herkomstDefinitie: >-
+        CDMKAD (p)review juni 2026, gestructureerd datatype
+        TypeKadastraleAanduiding.
+      mim:datumOpname: "2026-08-28"
+    comments:
+      - >-
+        Tot 2026-08-28 was dit een scalair tekst-type en stonden de
+        componenten los als attributen op Perceel. Dat is dubbelop:
+        kadastraleGemeente, sectie en perceelnummer zijn de
+        componenten van de kadastrale aanduiding en horen hier.
+        Review Kadaster 2026-08-20, punt R10.
+    attributes:
+      kadastraleGemeente:
+        range: CodelijstKadaster
+        required: true
+        description: Kadastrale gemeente waarbinnen de zaak ligt.
+      sectie:
+        range: Tekst
+        required: true
+        description: Sectie-letter binnen de kadastrale gemeente.
+      perceelnummer:
+        range: Numeriek
+        required: true
+        description: Volgnummer van het perceel binnen de sectie.
+      appartementsrechtVolgnummer:
+        range: Tekst
+        description: >-
+          Volgnummer dat het appartementsrecht binnen de
+          grondaanduiding onderscheidt; leeg bij een perceel.
 
 enums:
 

@@ -106,7 +106,7 @@ together {
 
 ' ---- Vastgoed: Kadaster (BRK) ----
 together {
-  abstract class KadastraleOnroerendeZaak <<onroerende-zaken>>
+  abstract class OnroerendeZaak <<onroerende-zaken>>
   class Tenaamstelling <<onroerende-zaken>>
   class ZakelijkRecht <<onroerende-zaken>>
 }
@@ -148,10 +148,10 @@ NietNatuurlijkPersoon --> Vestiging
 NatuurlijkPersoon --> Adres
 Vestiging --> Adres
 AdresseerbaarObject --> Adres
-Pand --> KadastraleOnroerendeZaak
+Pand --> OnroerendeZaak
 
 ' ---- BRK + WOZ ----
-ZakelijkRecht --> KadastraleOnroerendeZaak
+ZakelijkRecht --> OnroerendeZaak
 Tenaamstelling --> ZakelijkRecht
 Partij --> Tenaamstelling
 WOZWaarde --> AdresseerbaarObject
@@ -160,7 +160,7 @@ WOZWaarde --> AdresseerbaarObject
 Verzamelinkomen --> NatuurlijkPersoon
 LoonBestanddeel --> Arbeidsverhouding
 Aftrekpost --> NatuurlijkPersoon
-Aftrekpost --> KadastraleOnroerendeZaak
+Aftrekpost --> OnroerendeZaak
 
 ' ---- Werk en inkomen (UWV) ----
 Arbeidsverhouding --> NatuurlijkPersoon
@@ -169,7 +169,7 @@ Uitkering --> NatuurlijkPersoon
 
 ' ---- Krediet (BKR) ----
 KredietOvereenkomst --> NatuurlijkPersoon
-KredietOvereenkomst --> KadastraleOnroerendeZaak
+KredietOvereenkomst --> OnroerendeZaak
 AchterstandRegistratie --> KredietOvereenkomst
 
 ' ---- Onderwijs (DUO) ----

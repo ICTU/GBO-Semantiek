@@ -33,8 +33,8 @@ scalar Datum
 scalar Identificatie
 """Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
 scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
-"""Kadastrale aanduiding van een onroerende zaak: kadastrale gemeente, sectie en perceelnummer (bij een appartementsrecht aangevuld met een index), samen uniek binnen de BRK."""
-scalar KadastraleAanduiding
+"""Landelijke objectidentificatie voor stelselobjecten, opgebouwd uit namespace, lokaalID en versie (NEN 3610)."""
+scalar NEN3610ID
 """Gestandaardiseerde samenstelling van gemeentecode en objectnummer als één string; maakt een WOZ-object uniek identificeerbaar buiten de eigen gemeentecontext."""
 scalar ObjectAanduiding
 
@@ -59,7 +59,7 @@ type WOZObject {
   """Eén of meer BAG-adresseerbare objecten die samen het WOZ-object vormen. (Sleutel-referentie naar AdresseerbaarObject.)"""
   refereert: [BAGID!]!
   """Eén of meer BRK-percelen waarop de fiscale eenheid ligt. (Sleutel-referentie naar Perceel.)"""
-  ligtOp: [KadastraleAanduiding!]!
+  ligtOp: [NEN3610ID!]!
   """De belanghebbenden bij dit WOZ-object."""
   heeftBelanghebbende: [Belanghebbende!]
 }

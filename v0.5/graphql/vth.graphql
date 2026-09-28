@@ -1,0 +1,523 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel VTH, gegenereerd uit gbo-bron-vth.yaml.
+# Regenereer met: task generate:graphql
+#
+# Door een gemeentelijk bestuursorgaan verleende toestemmingen:
+# vergunningen en ontheffingen met houder, geldigheid, status en de
+# gegevens die per vergunningsoort verschillen. Pilotversie, beperkt tot
+# toestemmingen die aan een natuurlijk persoon zijn verleend. Zaak,
+# besluit, document en producttype worden als identificatie geleverd en
+# niet als eigen objecttype.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Datum met tijdstip in ISO 8601, precisie tot op de seconde. Gebruikt voor de formele tijdlijn (registratiemoment)."""
+scalar DatumTijd
+"""Object- of documentidentificatie zonder vaste structuur."""
+scalar Identificatie
+"""Nederlands voertuigkenteken: zes posities (hoofdletters en cijfers) volgens het RDW-sidecodestelsel, optioneel met streepjes ter leesbaarheid (bijv. XX-99-99)."""
+scalar Kenteken @restrictie(patroon: "^[A-Z0-9-]{6,8}$")
+"""Tijdstip op de dag in ISO 8601, zonder datum (uu:mm:ss)."""
+scalar Tijd
+
+"""Een door een bestuursorgaan aan een houder verleende toestemming om een activiteit te verrichten of een situatie in stand te houden die zonder die toestemming niet is toegestaan."""
+interface Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+}
+
+"""Een toestemming van een soort waarvoor geen eigen objecttype is uitgewerkt, met uitsluitend de generieke gegevens."""
+type OverigeToestemming implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+}
+
+"""Toestemming van de burgemeester voor het organiseren van een evenement: een voor publiek toegankelijke verrichting van vermaak op of aan de weg of in de openbare ruimte."""
+type Evenementenvergunning implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Soort evenement, bijvoorbeeld muziekevenement, braderie of markt, optocht, sportevenement, buurtfeest, kermis of circus."""
+  soortEvenement: String!
+  """Tijden waarbinnen het evenement per dag mag plaatsvinden, bijvoorbeeld "12:00-23:00; zondag tot 20:00"."""
+  tijdvakPerDag: String
+  """Tijdstip vanaf wanneer de opbouw is toegestaan."""
+  opbouwVanaf: DatumTijd
+  """Tijdstip waarop de afbouw gereed moet zijn en de locatie is opgeleverd."""
+  afbouwTot: DatumTijd
+  """Maximaal toegestaan aantal gelijktijdig aanwezige bezoekers."""
+  maximaalAantalBezoekers: Int
+  """Risicoklasse volgens de regionale risicoscan: A is regulier, B is aandacht, C is risicovol."""
+  risicoklasse: String
+  """Uiterste tijdstip tot wanneer versterkte muziek is toegestaan."""
+  eindtijdMuziek: Tijd
+  """Indicatie dat zwak-alcoholhoudende drank wordt verstrekt."""
+  alcoholverstrekking: Indicatie
+  """Het evenement waarvoor de vergunning is verleend."""
+  betreft: OpenbareActiviteit!
+}
+
+"""Ontheffing van de burgemeester van het verbod om als straatartiest, straatfotograaf, tekenaar, filmoperateur of gids op te treden op door hem aangewezen wegen of op aangewezen dagen en uren."""
+type Straatartiestenontheffing implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Aard van het optreden, bijvoorbeeld muziek, zang, levend standbeeld, acrobatiek, portrettekenen, rondleiding of straatfotografie."""
+  soortOptreden: String!
+  """Dag of dagen van de week, of data, waarop mag worden opgetreden."""
+  dagen: String
+  """Tijden waarbinnen mag worden opgetreden."""
+  tijdvak: String
+  """Indicatie dat gebruik van geluidsversterking is toegestaan."""
+  versterktGeluid: Indicatie!
+  """Aantal personen dat gezamenlijk optreedt."""
+  aantalPersonen: Int
+}
+
+"""Toestemming van het college voor het innemen of hebben van een standplaats: een vaste plaats op of aan de weg of op een andere openbare plaats, buiten een markt, voor het te koop aanbieden, verkopen of afleveren van goederen of het aanbieden van diensten."""
+type Standplaatsvergunning implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Soort standplaats naar tijdsduur."""
+  soortStandplaats: SoortStandplaats!
+  """Branche of productgroep van de standplaats, bijvoorbeeld vis, bloemen, oliebollen, ijs, snacks of kerstbomen."""
+  branche: String!
+  """Nadere omschrijving van de goederen of diensten die mogen worden aangeboden."""
+  verkoopwaren: String
+  """Dag of dagen van de week waarop de standplaats mag worden ingenomen."""
+  dagen: String!
+  """Tijden waarbinnen de standplaats mag worden ingenomen."""
+  tijdvak: String
+  """Toegestane afmetingen van de verkoopinrichting: lengte, breedte en hoogte in meters."""
+  afmetingen: String
+}
+
+"""Toestemming van het college voor het innemen van een standplaats op een door de gemeente ingestelde warenmarkt, als vaste standplaats, dagplaats of standwerkersplaats."""
+type Marktvergunning implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Naam of aanduiding van de markt, bijvoorbeeld "Algemene warenmarkt Markt (donderdag)"."""
+  markt: String!
+  """Soort marktplaats waarvoor de vergunning geldt."""
+  soortMarktplaats: SoortMarktplaats!
+  """Nummer van de standplaats op de markt."""
+  standplaatsnummer: String
+  """Branche of artikelgroep, bijvoorbeeld groente en fruit, kaas of textiel."""
+  branche: String!
+  """Dag of dagen van de week waarop de vergunning geldt."""
+  marktdagen: String!
+  """Toegewezen frontbreedte in meters."""
+  frontbreedte: Int
+  """Personen die de vergunninghouder bij afwezigheid mogen vervangen."""
+  vervanger: [IngeschrevenPersoon!]
+}
+
+"""Kaart volgens Europees model, door het college verstrekt aan een persoon met een beperking of aan een instelling, die recht geeft op het gebruik van gehandicaptenparkeerplaatsen en op de daaraan verbonden uitzonderingen op parkeerverboden."""
+type Gehandicaptenparkeerkaart implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Nummer van de kaart zoals daarop vermeld, uniek per kaart."""
+  kaartnummer: Identificatie!
+  """Soort kaart naar de hoedanigheid van de houder."""
+  soortKaart: SoortGehandicaptenparkeerkaart!
+}
+
+"""Ontheffing van het college van een parkeerverbod, een parkeerschijfzone of een geslotenverklaring voor een bepaald voertuig."""
+type Parkeerontheffing implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Soort ontheffing, bijvoorbeeld blauwe zone, voetgangersgebied, milieuzone, grote voertuigen, autobedrijf of reclamevoertuig."""
+  soortOntheffing: String!
+  """Kenteken van het voertuig waarvoor de ontheffing geldt."""
+  kenteken: Kenteken
+  """Zone of gebied waar de ontheffing geldt, bijvoorbeeld blauwe zone centrum."""
+  gebied: String
+  """Tijden, in dagen of uren, waarop de ontheffing geldt."""
+  tijdvak: String
+}
+
+"""Toestemming om met een vaartuig een ligplaats in te nemen op of in openbaar water waar een ligplaatsverbod geldt."""
+type Ligplaatsontheffing implements Toestemming {
+  """Unieke identificatie (kenmerk of vergunningnummer) zoals toegekend door de gemeente."""
+  identificatie: Identificatie!
+  """Het producttype, oftewel de vergunningsoort, als code of naam uit de producten- en dienstencatalogus van de gemeente."""
+  producttype: String!
+  """De juridische soort van de toestemming."""
+  soortToestemming: SoortToestemming
+  """Status in de levensloop van de toestemming."""
+  status: Productstatus!
+  """Datum waarop de toestemming ingaat."""
+  datumStart: Datum
+  """Datum waarop de geldigheid eindigt; afwezig betekent onbepaalde tijd."""
+  datumEinde: Datum
+  """Omschrijving van de toegestane activiteit of het toegestane gebruik, zoals in het besluit verwoord."""
+  omschrijving: String!
+  """Omschrijving van de locatie of het gebied waarvoor de toestemming geldt: adres, wegvak, gebied, standplaats of ligplaats."""
+  locatieOmschrijving: String
+  """Aan de toestemming verbonden voorschriften en beperkingen, als tekst."""
+  voorschriften: String
+  """De persoon aan wie de toestemming is verleend."""
+  houder: IngeschrevenPersoon!
+  """Identificatie van de zaak waarin de toestemming is aangevraagd en verleend."""
+  zaak: Identificatie
+  """Identificaties van het verleningsbesluit en van latere wijzigings-, verlengings- of intrekkingsbesluiten."""
+  besluit: [Identificatie!]!
+  """Identificaties van de documenten waarin de toestemming is vastgelegd: de vergunning zelf, aanhangsels en tekeningen."""
+  document: [Identificatie!]
+  """Nummer van de afgegeven sticker of het vignet."""
+  stickernummer: Int
+  """Nummer of aanduiding van de ligplaats: steiger, kade of nummer."""
+  ligplaatsaanduiding: String
+  """Het vaartuig waarvoor de ontheffing is verleend."""
+  betreft: Vaartuig!
+}
+
+"""Een voor publiek toegankelijke activiteit in de openbare ruimte, met een naam, een tijdvak, een locatie en een organisator."""
+type OpenbareActiviteit {
+  """Naam waaronder de activiteit wordt aangekondigd."""
+  evenementnaam: String!
+  """Datum waarop de activiteit begint."""
+  datumStart: Datum
+  """Datum waarop de activiteit eindigt."""
+  datumEinde: Datum
+  """Omschrijving van de locatie van de activiteit."""
+  locatieOmschrijving: String
+  """Status van de activiteit."""
+  status: String
+  """De persoon die de activiteit organiseert."""
+  organisator: IngeschrevenPersoon!
+  """Inverse van Evenementenvergunning.betreft."""
+  heeftEvenementenvergunning: [Evenementenvergunning!]
+}
+
+"""Een vaartuig waarmee een ligplaats wordt ingenomen, met de kenmerken waarmee het op het water herkenbaar is."""
+type Vaartuig {
+  """Naam van het vaartuig."""
+  naamVaartuig: String
+  """Registratie- of senumnummer van het vaartuig, voor zover aanwezig."""
+  registratienummer: Identificatie
+  """Overheersende kleur van het vaartuig."""
+  kleur: String
+  """Lengte van het vaartuig in meters."""
+  lengte: Float
+  """Breedte van het vaartuig in meters."""
+  breedte: Float
+  """Hoogte van het vaartuig in meters."""
+  hoogte: Float
+  """Inverse van Ligplaatsontheffing.betreft."""
+  heeftLigplaatsontheffing: [Ligplaatsontheffing!]
+}
+
+"""Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
+type IngeschrevenPersoon {
+  """De officiële familienaam van de persoon."""
+  geslachtsnaam: String!
+  """Alle officiële voornamen van de persoon."""
+  voornamen: String
+  """Het voorvoegsel bij de geslachtsnaam."""
+  voorvoegsel: String
+  """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
+  bsn: BSN!
+  """Inverse van Toestemming.houder."""
+  heeftToestemming: [Toestemming!]
+  """Inverse van OpenbareActiviteit.organisator."""
+  organiseert: [OpenbareActiviteit!]
+}
+
+"""De juridische soort van een toestemming: de vorm waarin het bestuursorgaan haar verleent."""
+enum SoortToestemming {
+  """Toestemming binnen een verbod-behoudens-vergunningstelsel: de activiteit is verboden tenzij zij is vergund."""
+  Vergunning
+  """Individuele uitzondering op een algemeen verbod, voor een bepaald geval."""
+  Ontheffing
+  """Uitzondering op een verbod voor een categorie gevallen, bij algemeen voorschrift."""
+  Vrijstelling
+  """Instemming met een gedane melding, waar geen vergunning maar een meldingsplicht geldt."""
+  InstemmingMetMelding
+  """Op het individuele geval toegesneden voorschrift dat afwijkt van of aanvult op een algemene regel."""
+  Maatwerkvoorschrift
+  """Schriftelijke beslissing om tegen een op zichzelf verboden situatie niet handhavend op te treden."""
+  Gedoogbeschikking
+  """Erkenning of registratie waaraan de bevoegdheid tot een activiteit is verbonden."""
+  ErkenningOfRegistratie
+}
+
+"""De status van een toestemming in haar levensloop, van aanvraag tot einde."""
+enum Productstatus {
+  """Aangemaakt, nog niet in behandeling."""
+  Initieel
+  """De aanvraag is in behandeling."""
+  InAanvraag
+  """Besloten en gereed, maar nog niet ingegaan; de geldigheid begint later."""
+  Gereed
+  """Verleend en geldig."""
+  Actief
+  """Door een later besluit ingetrokken voor het einde van de geldigheid."""
+  Ingetrokken
+  """De aanvraag is afgewezen."""
+  Geweigerd
+  """De geldigheidstermijn is verstreken."""
+  Verlopen
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
+}
+
+"""De soort standplaats naar de tijdsduur waarvoor zij geldt."""
+enum SoortStandplaats {
+  """Standplaats voor onbepaalde tijd of voor een lange aaneengesloten periode."""
+  Vast
+  """Standplaats voor een deel van het jaar, zoals oliebollen of kerstbomen."""
+  Seizoensgebonden
+  """Standplaats voor een enkele gelegenheid."""
+  Incidenteel
+}
+
+"""De soort plaats op een warenmarkt waarvoor de vergunning geldt."""
+enum SoortMarktplaats {
+  """Plaats die voor onbepaalde tijd aan een marktondernemer is toegewezen."""
+  VasteStandplaats
+  """Plaats die per marktdag wordt toegewezen, doorgaans omdat een vaste standplaats niet wordt ingenomen."""
+  Dagplaats
+  """Plaats voor een standwerker, die zijn waar demonstrerend aanprijst."""
+  Standwerkersplaats
+}
+
+"""De soort gehandicaptenparkeerkaart naar de hoedanigheid van de houder."""
+enum SoortGehandicaptenparkeerkaart {
+  """Kaart voor een persoon met een beperking die zelf een voertuig bestuurt."""
+  Bestuurder
+  """Kaart voor een persoon met een beperking die als passagier wordt vervoerd."""
+  Passagier
+  """Kaart voor een instelling die personen met een beperking vervoert."""
+  Instelling
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """OverigeToestemming."""
+  overigeToestemming(bsn: BSN!, identificatie: Identificatie!): [OverigeToestemming!]
+  """Evenementenvergunning."""
+  evenementenvergunning(bsn: BSN!, identificatie: Identificatie!): [Evenementenvergunning!]
+  """Straatartiestenontheffing."""
+  straatartiestenontheffing(bsn: BSN!, identificatie: Identificatie!): [Straatartiestenontheffing!]
+  """Standplaatsvergunning."""
+  standplaatsvergunning(bsn: BSN!, identificatie: Identificatie!): [Standplaatsvergunning!]
+  """Marktvergunning."""
+  marktvergunning(bsn: BSN!, identificatie: Identificatie!): [Marktvergunning!]
+  """Gehandicaptenparkeerkaart."""
+  gehandicaptenparkeerkaart(bsn: BSN!, identificatie: Identificatie!): [Gehandicaptenparkeerkaart!]
+  """Parkeerontheffing."""
+  parkeerontheffing(bsn: BSN!, identificatie: Identificatie!): [Parkeerontheffing!]
+  """Ligplaatsontheffing."""
+  ligplaatsontheffing(bsn: BSN!, identificatie: Identificatie!): [Ligplaatsontheffing!]
+}

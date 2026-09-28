@@ -1,0 +1,732 @@
+# GEGENEREERD BESTAND — niet handmatig bewerken.
+# GraphQL SDL voor bronprofiel ROD, gegenereerd uit gbo-bron-rod.yaml.
+# Regenereer met: task generate:graphql
+#
+# Opleidingen, opleidingsdeelnames en -resultaten, module-
+# inschrijvingen, beroepspraktijkvorming, verzuim, vooropleidingen en
+# studiefinanciering per onderwijsdeelnemer en onderwijsinstelling.
+
+"""Formaatrestrictie op een scalar, afgeleid uit het LinkML-datatype."""
+directive @restrictie(
+  """Reguliere expressie waaraan de waarde voldoet."""
+  patroon: String
+  """Ondergrens (inclusief) voor numerieke waarden."""
+  minimum: Int
+  """Bovengrens (inclusief) voor numerieke waarden."""
+  maximum: Int
+) on SCALAR
+
+"""BRIN-nummer van een onderwijsinstelling: twee cijfers gevolgd door twee hoofdletters (bijv. 00AB)."""
+scalar BRINcode @restrictie(patroon: "^[0-9]{2}[A-Z]{2}$")
+"""Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
+scalar BSN @restrictie(patroon: "^[0-9]{9}$")
+"""Bedrijfsindeling conform de CBS Standaard Bedrijfsindeling (SBI 2008 / 2025). Stelselbreed; primair in Bedrijven en instellingen. Vanwege de SBI-herziening is een versie-attribuut naast de code verplicht."""
+scalar CodelijstCBSSBI
+"""Diplomasoort per sector, beheerd door DUO via PvE ROD per sector; gebruikt voor OpleidingResultaat.diplomasoort en Vooropleiding.diplomasoort. Mutatieritme: sporadisch, per sectorwet-aanpassing."""
+scalar CodelijstDiplomasoort
+"""Landcode conform ISO 3166-1 alpha-2. Stelselbreed voor land- en nationaliteit-typering; cross-walks naar BRP-LT 32 (nationaliteit) en BRP-LT 34 (landen) staan in de documentatie."""
+scalar CodelijstISO3166 @restrictie(patroon: "^[A-Z]{2}$")
+"""Valuta-aanduiding conform ISO 4217 (drieletterige code, EUR)."""
+scalar CodelijstISO4217 @restrictie(patroon: "^[A-Z]{3}$")
+"""Eén gedeelde KVK-rechtsvormcodelijst voor alle niet-natuurlijke personen, gebruikt door NietNatuurlijkPersoon.rechtsvorm. Omvat de KVK-rechtsvorm-enumeraties: RechtsvormRechtspersoon (BV, NV, Coöperatie, OWM, Stichting, Vereniging, VvE, Kerkgenootschap, EESV, SE, SCE, Publiekrechtelijke Rechtspersoon, Overige Privaatrechtelijke Rechtspersoon), RechtsvormSamenwerkingsverband (VOF, CV, Maatschap, Rederij), RechtsvormPubliekrechtelijk (Staat, Provincie, Gemeente, Waterschap, ZBO, RWT, Adviescollege, Wgr-openbaar lichaam, ...), RechtsvormOverigePrivaatrechtelijke en de eenmanszaak-rechtsvormen. De functionele classificatie (Bedrijf/Instelling/...) wordt hieruit afgeleid via een partitiefunctie; zie NietNatuurlijkPersoon.classificatie."""
+scalar CodelijstKVKRechtsvorm
+"""Gemeentecode conform BRP-Landelijke Tabel 33 Gemeenten. Formeel een BRP-codelijst, feitelijk de stelselbrede gemeente-codering inclusief historische gemeenten met einddatum."""
+scalar CodelijstLT33 @restrictie(patroon: "^[0-9]{4}$")
+"""Adellijke titel / predicaat conform BRP-Landelijke Tabel 38."""
+scalar CodelijstLT38
+"""NLQF Kwalificatieniveaus, beheerd door NCP-NLQF; gebruikt voor Opleiding.opleidingsniveau. Mutatieritme: sporadisch."""
+scalar CodelijstNLQF
+"""RedenUitschrijving per sector, beheerd door DUO via PvE ROD per sector; gebruikt voor OpleidingDeelname.redenUitschrijving. Mutatieritme: sporadisch."""
+scalar CodelijstRedenUitschrijving
+"""TOOI-waardelijsten uit het Register van Overheidsorganisaties (KOOP/Logius); gebruikt voor onder andere Overheidsinstelling.bevoegdGezagCode."""
+scalar CodelijstTOOI
+"""Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
+scalar Datum
+"""Datum waarin jaar, maand of dag elk afzonderlijk onbekend kan zijn. Formaten: jjjj, jjjj-mm of jjjj-mm-dd; nullen op de onbekende positie."""
+scalar DatumIncompleet @restrictie(patroon: "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$")
+"""Object- of documentidentificatie zonder vaste structuur."""
+scalar Identificatie
+"""Identificatie van een inschrijving in het Handelsregister: 8 cijfers."""
+scalar KVKnummer @restrictie(patroon: "^[0-9]{8}$")
+
+"""Abstract supertype van natuurlijke en niet-natuurlijke personen: iedere actor die in een overheidsregistratie als rechts- of handelingssubject voorkomt."""
+interface Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+}
+
+"""Een natuurlijke persoon die in de Basisregistratie Personen is opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als niet-ingezetene in de Registratie Niet-Ingezetenen."""
+type IngeschrevenPersoon implements Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """De officiële familienaam van de persoon."""
+  geslachtsnaam: String!
+  """Alle officiële voornamen van de persoon."""
+  voornamen: String
+  """Het voorvoegsel bij de geslachtsnaam."""
+  voorvoegsel: String
+  """Adellijke titel of predicaat."""
+  adellijkeTitelPredicaat: CodelijstLT38
+  """De datum waarop de persoon is geboren."""
+  geboortedatum: DatumIncompleet
+  """De gemeente of plaats waar de persoon is geboren."""
+  geboorteplaats: String
+  """Het land waar de persoon is geboren."""
+  geboorteland: CodelijstISO3166
+  """Het geslacht van de persoon."""
+  geslacht: Geslacht
+  """De datum waarop de persoon is overleden."""
+  datumOverlijden: DatumIncompleet
+  """De plaats waar de persoon is overleden."""
+  plaatsOverlijden: String
+  """Het land waar de persoon is overleden."""
+  landOverlijden: CodelijstISO3166
+  """De ouder(s) van deze persoon."""
+  heeftOuder: [NatuurlijkPersoon!]
+  """De opleidingsdeelnames van deze persoon."""
+  heeftOpleidingDeelname: [OpleidingDeelname!]
+  """De opleidingsresultaten die deze persoon heeft behaald."""
+  heeftOpleidingResultaat: [OpleidingResultaat!]
+  """De verzuimmeldingen over deze persoon."""
+  heeftVerzuimMelding: [VerzuimMelding!]
+  """De studiefinanciering die deze persoon ontvangt of ontving."""
+  heeftStudieFinanciering: [StudieFinanciering!]
+  """De studieleningen waarvoor deze persoon schuldenaar is."""
+  heeftStudieLening: [StudieLening!]
+  """Het door de Beheervoorziening BSN uitgegeven persoonsnummer."""
+  bsn: BSN!
+  """Het interne BRP-administratienummer."""
+  aNummer: String
+  """Het persoonsnummer dat een ander land aan deze persoon heeft toegekend."""
+  tin: String
+  """De datum waarop deze persoon voor het eerst in de BRP werd opgenomen."""
+  datumEersteInschrijving: DatumIncompleet
+  """De gemeente die de persoonslijst bijhoudt."""
+  gemeenteVanInschrijving: CodelijstLT33
+  """Reden waarom bijhouding van de persoonslijst is opgeschort."""
+  opschortingBijhouding: OpschortingBijhouding
+  """Aanduiding dat de persoon door rechterlijke uitspraak van het kiesrecht voor de Tweede Kamer en provinciale staten is uitgesloten."""
+  uitsluitingKiesrecht: IndicatieJaNee
+  """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
+  europeesKiesrecht: IndicatieJaNee
+  """Datum en bron van de laatste gegevensverificatie."""
+  verificatie: Verificatie
+  """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
+  inOnderzoek: Indicatie!
+  """Nationaliteiten conform BRP cat 04. (Sleutel-referentie naar Nationaliteit.)"""
+  heeftNationaliteit: [String!]
+  """Aanwezig bij niet-Nederlandse onderdanen. (Sleutel-referentie naar Verblijfstitel.)"""
+  heeftVerblijfstitel: String
+  """Aanwezig bij minderjarigheid of curatele. (Sleutel-referentie naar Gezagsverhouding.)"""
+  gezag: String
+  """Aanwezig bij vestiging vanuit het buitenland. (Sleutel-referentie naar Immigratie.)"""
+  heeftImmigratie: String
+}
+
+"""Een door OCW erkende rechtspersoon of bestuurlijke entiteit die onderwijs aanbiedt in een of meer Nederlandse onderwijssectoren."""
+type OnderwijsInstelling implements Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
+  rsin: String
+  """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
+  kvkNummer: KVKnummer
+  """Juridische vorm van de NNP volgens de KVK-rechtsvormtabel."""
+  rechtsvorm: CodelijstKVKRechtsvorm!
+  """Vrije-tekst-aanduiding van de rechtsvorm wanneer geen codelijst-waarde bestaat (nieuw gemelde overige privaatrechtelijke rechtsvorm)."""
+  rechtsvormOmschrijving: String
+  """Functionele indeling van de NNP, afgeleid uit de rechtsvorm."""
+  classificatie: NietNatuurlijkPersoonClassificatie!
+  """Geeft aan of de NNP een onderneming voert."""
+  heeftOnderneming: Indicatie
+  """De officiële benaming van de instelling."""
+  naam: String!
+  """Statutaire vestigingsplaats."""
+  zetel: String
+  """Afgeleide SBI-hoofdactiviteit."""
+  hoofdSbiCode: CodelijstCBSSBI
+  """Binnen- of buitenlandse herkomst."""
+  herkomst: Herkomst!
+  """Aansprakelijkheidskarakter van de rechtsvorm."""
+  aansprakelijkheid: Aansprakelijkheid!
+  """Bestuurlijke typering; van toepassing bij classificatie = Overheidsinstelling."""
+  typeOverheid: TypeOverheid
+  """URI-koppeling naar het TOOI-register; van toepassing bij classificatie = Overheidsinstelling."""
+  bevoegdGezagCode: CodelijstTOOI
+  """Sectorale typering; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  typeMaatschappelijk: TypeMaatschappelijk
+  """ANBI-erkenning door de Belastingdienst; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  anbiStatus: Indicatie
+  """Land waarin de entiteit is opgericht; van toepassing bij classificatie = BuitenlandseEntiteit."""
+  landVanOprichting: CodelijstISO3166
+  """Buitenlandse juridische vorm (vrije tekst); van toepassing bij classificatie = BuitenlandseEntiteit."""
+  rechtsvormBuitenland: String
+  """De eigen inschrijving van de NNP in het Handelsregister; één per NNP. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  voertMaatschappelijkeActiviteit: KVKnummer!
+  """Statutaire naam en alternatieve benamingen van de NNP, met geldigheidsperiode. (Sleutel-referentie naar Naamgeving.)"""
+  heeftNaamgeving: [String!]!
+  """Actuele juridische/administratieve status van de NNP. (Sleutel-referentie naar Rechtstoestand.)"""
+  heeftRechtstoestand: String!
+  """SBI-gecodeerde activiteiten van een rechtspersoon zonder vestiging (Activiteiten-Rechtspersoon-pad). (Sleutel-referentie naar Activiteit.)"""
+  heeftActiviteit: [String!]
+  """De vier-tekens-code waarmee een onderwijsinstelling historisch wordt aangeduid."""
+  brincode: BRINcode
+  """De uitgebreide instellingscode in RIO."""
+  instellingscodeRIO: Identificatie!
+  """Sector waarin de instelling actief is."""
+  onderwijssector: [Onderwijssector!]!
+  """Verwijzing naar de rechtspersoon van het schoolbestuur."""
+  heeftBestuur: NietNatuurlijkPersoon!
+  """Het aanbod aan opleidingen."""
+  biedtAan: [Opleiding!]
+}
+
+"""Een door een bevoegd gezag aangeboden, samenhangend geheel van onderwijs- en leeractiviteiten dat tot een vooraf vastgesteld kwalificatie- of diplomaniveau leidt."""
+type Opleiding {
+  """De sector-specifieke code van de opleiding."""
+  opleidingscode: String!
+  """Het identificatiestelsel waarvan de opleidingscode deel uitmaakt."""
+  codestelsel: Codestelsel!
+  """De officiële benaming van de opleiding."""
+  opleidingsnaam: String!
+  """Het kwalificatieniveau op de NLQF-schaal van een tot acht."""
+  opleidingsniveau: CodelijstNLQF
+  """De sector waarin de opleiding wordt aangeboden."""
+  onderwijssector: Onderwijssector!
+  """De instelling waar de opleiding wordt aangeboden."""
+  wordtAangebodenDoor: [OnderwijsInstelling!]!
+}
+
+"""De inschrijving van een natuurlijk persoon voor het volgen van een opleiding bij een onderwijsinstelling, geldig binnen een afgebakende periode."""
+type OpleidingDeelname {
+  """Interne identificatie van de deelname."""
+  deelnameId: Identificatie!
+  """De datum waarop de deelname is aangevangen."""
+  inschrijfdatum: Datum!
+  """De datum waarop de deelname is geëindigd."""
+  uitschrijfdatum: Datum
+  """De reden waarom de deelname is geëindigd."""
+  redenUitschrijving: CodelijstRedenUitschrijving
+  """Het soort onderwijs binnen de sector."""
+  onderwijssoort: Onderwijssoort!
+  """De leerweg waarbinnen de deelname valt, voor zover de sector dit hanteert."""
+  leerweg: Leerweg
+  """Het instroomjaar waarmee de deelname is gestart."""
+  cohort: Int
+  """De persoon die de opleiding volgt."""
+  deelnemer: NatuurlijkPersoon!
+  """De opleiding waarvoor is ingeschreven."""
+  betreft: Opleiding!
+  """De instelling die het onderwijs verzorgt."""
+  bijInstelling: OnderwijsInstelling!
+  """Onderwijseenheid-inschrijvingen binnen de deelname (HO)."""
+  omvat: [ModuleInschrijving!]
+  """BPV-periodes binnen de deelname (MBO)."""
+  kent: [BeroepspraktijkvormingPeriode!]
+  """Resultaten die uit de deelname zijn voortgekomen."""
+  leidtTot: [OpleidingResultaat!]
+  """De vooropleidingen die als toelatingsbewijs bij deze deelname gelden."""
+  heeftVooropleiding: [Vooropleiding!]
+}
+
+"""Het door een natuurlijk persoon behaalde resultaat voor een opleiding of onderdeel daarvan bij een onderwijsinstelling, blijkend uit een diploma, certificaat, deelcertificaat of vergelijkbaar bewijsstuk."""
+type OpleidingResultaat {
+  """Interne identificatie van het resultaat."""
+  resultaatId: Identificatie!
+  """De datum waarop het resultaat is behaald."""
+  behaaldatum: Datum!
+  """De aanduiding van het diploma of bewijsstuk."""
+  diplomasoort: CodelijstDiplomasoort
+  """Het type resultaat."""
+  resultaatsoort: Resultaatsoort!
+  """De academische graad bij HO-resultaten."""
+  graad: String
+  """De afstudeerrichting of track binnen de opleiding."""
+  specialisatie: String
+  """De persoon aan wie het resultaat is uitgereikt."""
+  behaaldDoor: NatuurlijkPersoon!
+  """De opleiding waarop het resultaat betrekking heeft."""
+  voorOpleiding: Opleiding!
+  """De instelling die het resultaat heeft uitgereikt."""
+  uitgereiktDoor: OnderwijsInstelling!
+  """De voorafgaande deelname waaruit het resultaat is voortgekomen, voor zover bekend."""
+  volgtOpDeelname: OpleidingDeelname
+}
+
+"""De inschrijving van een student voor een onderwijseenheid binnen een lopende opleiding-deelname in het hoger onderwijs, met een vastgestelde studielast in ECTS."""
+type ModuleInschrijving {
+  """Identificatie van de onderwijseenheid binnen de instelling."""
+  moduleIdentificatie: String!
+  """De studielast van de onderwijseenheid uitgedrukt in EC."""
+  ects: Float!
+  """De datum waarop de student zich voor de onderwijseenheid heeft ingeschreven."""
+  inschrijfdatum: Datum!
+  """De uitkomst van de moduledeelname."""
+  resultaatstatus: Resultaatstatus
+  """Het beoordelingsresultaat in numerieke of pass/fail-vorm."""
+  cijfer: String
+  """Componentbinding aan de moeder-OpleidingDeelname (HO)."""
+  binnen: OpleidingDeelname!
+}
+
+"""Een afgebakende periode waarin een MBO-student bij een erkend leerbedrijf het beroepspraktijkvorming-deel van een MBO-opleiding doorloopt."""
+type BeroepspraktijkvormingPeriode {
+  """Identificatie van de BPV-periode binnen de moederinschrijving."""
+  periodeId: String!
+  """De startdatum van de BPV-periode."""
+  begindatum: Datum!
+  """De einddatum van de BPV-periode."""
+  einddatum: Datum!
+  """De omvang van de BPV-periode in uren."""
+  omvangInUren: Int
+  """Verwijzing naar het SBB-erkende leerbedrijf."""
+  leerbedrijfIdentificatie: String!
+  """Componentbinding aan de moeder-OpleidingDeelname (MBO)."""
+  binnen: OpleidingDeelname!
+}
+
+"""Een wettelijk verplichte melding door een onderwijsinstelling van ongeoorloofd verzuim van een leerplichtige of kwalificatieplichtige leerling, of van verzuim van een achttienplus-deelnemer dat langer dan vier weken aaneengesloten duurt."""
+type VerzuimMelding {
+  """Identificatie van de melding."""
+  meldingId: Identificatie!
+  """De eerste verzuim-dag."""
+  begindatum: Datum!
+  """De einddatum van het verzuim."""
+  einddatum: Datum
+  """Het regime waaronder de melding valt."""
+  grondslag: GrondslagVerzuim!
+  """Het aantal lesuren of aaneengesloten dagen."""
+  omvang: String
+  """De persoon waarop het verzuim betrekking heeft."""
+  betreft: NatuurlijkPersoon!
+  """De instelling die de melding heeft gedaan."""
+  gemeldDoor: OnderwijsInstelling!
+}
+
+"""Een eerder behaald opleidingsresultaat dat bij een volgende onderwijsdeelname wordt aangereikt als bewijs voor de toelating tot of de instroompositionering in een opleiding."""
+type Vooropleiding {
+  """Interne identificatie van het resultaat."""
+  resultaatId: Identificatie!
+  """De datum waarop de vooropleiding is behaald."""
+  behaaldatum: Datum!
+  """De aanduiding van het instroom-bewijs."""
+  diplomasoort: CodelijstDiplomasoort!
+  """Het type resultaat."""
+  resultaatsoort: Resultaatsoort!
+  """De academische graad bij HO-resultaten."""
+  graad: String
+  """De afstudeerrichting of track binnen de opleiding."""
+  specialisatie: String
+  """De persoon aan wie het resultaat is uitgereikt."""
+  behaaldDoor: NatuurlijkPersoon!
+  """De opleiding waarop het resultaat betrekking heeft."""
+  voorOpleiding: Opleiding!
+  """De instelling die het resultaat heeft uitgereikt."""
+  uitgereiktDoor: OnderwijsInstelling!
+  """De voorafgaande deelname waaruit het resultaat is voortgekomen, voor zover bekend."""
+  volgtOpDeelname: OpleidingDeelname
+  """De BRIN of, voor buitenlandse vooropleidingen, een landcode."""
+  verstrekkendeInstellingscode: String
+  """Het land waar de vooropleiding is behaald."""
+  landVerwerving: CodelijstISO3166
+  """De binnenlandse resultaatregistratie waarop deze vooropleiding teruggrijpt, voor zover aanwezig."""
+  isBaseerd: OpleidingResultaat
+  """De volgende deelname die op grond van deze vooropleiding is toegestaan."""
+  toelatingsbewijsBij: OpleidingDeelname!
+}
+
+"""Een door DUO aan een student toegekende tegemoetkoming in de kosten van levensonderhoud en studie, in de vorm van een basisbeurs, aanvullende beurs, studentenreisproduct of bestuursbeurs."""
+type StudieFinanciering {
+  """De vorm van de tegemoetkoming."""
+  beurssoort: Beurssoort!
+  """Het maandelijks toegekende bedrag."""
+  toekenningsbedragMaand: Bedrag
+  """De datum waarop de tegemoetkoming is ingegaan."""
+  ingangsdatum: Datum!
+  """De datum waarop de tegemoetkoming is geëindigd."""
+  einddatum: Datum
+  """Administratieve status van de toekenning."""
+  status: String!
+  """De persoon aan wie de tegemoetkoming is toegekend."""
+  ontvanger: NatuurlijkPersoon!
+  """De opleiding waarbinnen de tegemoetkoming is toegekend."""
+  voorOpleiding: Opleiding!
+}
+
+"""Het door een (oud-)student bij DUO opgebouwde renteloze of laagrentende leningbedrag op grond van de Wet studiefinanciering 2000, samen met de aflosregeling waaronder het bedrag moet worden terugbetaald."""
+type StudieLening {
+  """Het bedrag dat nog openstaat ter terugbetaling."""
+  openstaandSaldo: Bedrag!
+  """Het maandelijkse aflosbedrag."""
+  maandelijkseAflossing: Bedrag
+  """De volledige aflostermijn in maanden."""
+  aflostermijnTotaalMaanden: Int!
+  """De resterende aflostermijn in maanden."""
+  aflostermijnRestantMaanden: Int
+  """Het regime waaronder de lening is opgebouwd."""
+  leenstelselCohort: LeenstelselCohort!
+  """Het renteregime dat op de lening van toepassing is."""
+  renteregime: String
+  """De (oud-)student aan wie de lening is toegekend."""
+  schuldenaar: NatuurlijkPersoon!
+}
+
+"""Een mens als drager van burgerlijke rechten en plichten."""
+type NatuurlijkPersoon implements Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """De officiële familienaam van de persoon."""
+  geslachtsnaam: String!
+  """Alle officiële voornamen van de persoon."""
+  voornamen: String
+  """Het voorvoegsel bij de geslachtsnaam."""
+  voorvoegsel: String
+  """Adellijke titel of predicaat."""
+  adellijkeTitelPredicaat: CodelijstLT38
+  """De datum waarop de persoon is geboren."""
+  geboortedatum: DatumIncompleet
+  """De gemeente of plaats waar de persoon is geboren."""
+  geboorteplaats: String
+  """Het land waar de persoon is geboren."""
+  geboorteland: CodelijstISO3166
+  """Het geslacht van de persoon."""
+  geslacht: Geslacht
+  """De datum waarop de persoon is overleden."""
+  datumOverlijden: DatumIncompleet
+  """De plaats waar de persoon is overleden."""
+  plaatsOverlijden: String
+  """Het land waar de persoon is overleden."""
+  landOverlijden: CodelijstISO3166
+  """De ouder(s) van deze persoon."""
+  heeftOuder: [NatuurlijkPersoon!]
+  """De opleidingsdeelnames van deze persoon."""
+  heeftOpleidingDeelname: [OpleidingDeelname!]
+  """De opleidingsresultaten die deze persoon heeft behaald."""
+  heeftOpleidingResultaat: [OpleidingResultaat!]
+  """De verzuimmeldingen over deze persoon."""
+  heeftVerzuimMelding: [VerzuimMelding!]
+  """De studiefinanciering die deze persoon ontvangt of ontving."""
+  heeftStudieFinanciering: [StudieFinanciering!]
+  """De studieleningen waarvoor deze persoon schuldenaar is."""
+  heeftStudieLening: [StudieLening!]
+}
+
+"""Een organisatie of rechtsfiguur, geen mens, die als rechtsdragend subject kan deelnemen aan rechtsbetrekkingen. Omvat rechtspersonen (BV, NV, stichting, vereniging, coöperatie, publiekrechtelijke rechtspersoon, kerkgenootschap), entiteiten zonder eigen rechtspersoonlijkheid (eenmanszaak, VOF, CV, maatschap) en buitenlandse entiteiten met activiteit in Nederland."""
+type NietNatuurlijkPersoon implements Partij {
+  """De maatschappelijke activiteit(en), de op KVK-nummer geïdentificeerde inschrijvingseenheid van het Handelsregister, waarbij deze partij als eigenaar of vennoot betrokken is. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  ingeschrevenAls: [KVKnummer!]
+  """Rechtspersonen- en Samenwerkingsverbanden Identificatie Nummer; de eigen fiscale identificatie van de NNP."""
+  rsin: String
+  """KVK-nummer van de NNP, enkelvoudig afgeleid via de eigen MaatschappelijkeActiviteit."""
+  kvkNummer: KVKnummer
+  """Juridische vorm van de NNP volgens de KVK-rechtsvormtabel."""
+  rechtsvorm: CodelijstKVKRechtsvorm!
+  """Vrije-tekst-aanduiding van de rechtsvorm wanneer geen codelijst-waarde bestaat (nieuw gemelde overige privaatrechtelijke rechtsvorm)."""
+  rechtsvormOmschrijving: String
+  """Functionele indeling van de NNP, afgeleid uit de rechtsvorm."""
+  classificatie: NietNatuurlijkPersoonClassificatie!
+  """Geeft aan of de NNP een onderneming voert."""
+  heeftOnderneming: Indicatie
+  """Werknaam van de NNP; bij rechtspersonen met statuten gelijk aan de statutaire naam."""
+  naam: String!
+  """Statutaire vestigingsplaats."""
+  zetel: String
+  """Afgeleide SBI-hoofdactiviteit."""
+  hoofdSbiCode: CodelijstCBSSBI
+  """Binnen- of buitenlandse herkomst."""
+  herkomst: Herkomst!
+  """Aansprakelijkheidskarakter van de rechtsvorm."""
+  aansprakelijkheid: Aansprakelijkheid!
+  """Bestuurlijke typering; van toepassing bij classificatie = Overheidsinstelling."""
+  typeOverheid: TypeOverheid
+  """URI-koppeling naar het TOOI-register; van toepassing bij classificatie = Overheidsinstelling."""
+  bevoegdGezagCode: CodelijstTOOI
+  """Sectorale typering; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  typeMaatschappelijk: TypeMaatschappelijk
+  """ANBI-erkenning door de Belastingdienst; van toepassing bij classificatie = MaatschappelijkeInstelling."""
+  anbiStatus: Indicatie
+  """Land waarin de entiteit is opgericht; van toepassing bij classificatie = BuitenlandseEntiteit."""
+  landVanOprichting: CodelijstISO3166
+  """Buitenlandse juridische vorm (vrije tekst); van toepassing bij classificatie = BuitenlandseEntiteit."""
+  rechtsvormBuitenland: String
+  """De eigen inschrijving van de NNP in het Handelsregister; één per NNP. (Sleutel-referentie naar MaatschappelijkeActiviteit.)"""
+  voertMaatschappelijkeActiviteit: KVKnummer!
+  """Statutaire naam en alternatieve benamingen van de NNP, met geldigheidsperiode. (Sleutel-referentie naar Naamgeving.)"""
+  heeftNaamgeving: [String!]!
+  """Actuele juridische/administratieve status van de NNP. (Sleutel-referentie naar Rechtstoestand.)"""
+  heeftRechtstoestand: String!
+  """SBI-gecodeerde activiteiten van een rechtspersoon zonder vestiging (Activiteiten-Rechtspersoon-pad). (Sleutel-referentie naar Activiteit.)"""
+  heeftActiviteit: [String!]
+}
+
+"""Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
+type Bedrag {
+  """De numerieke waarde van het bedrag."""
+  waarde: Float!
+  """Valuta conform ISO 4217; bij afwezigheid geldt EUR."""
+  valuta: CodelijstISO4217
+}
+
+"""Reden waarom de bijhouding van een persoonslijst in de basisregistratie is opgeschort."""
+enum OpschortingBijhouding {
+  """Bijhouding opgeschort omdat de geregistreerde is overleden."""
+  Overlijden
+  """Bijhouding opgeschort omdat de geregistreerde naar het buitenland is vertrokken zonder RNI-overgang."""
+  Emigratie
+  """Bijhouding opgeschort vanwege langdurige vermissing."""
+  Vermissing
+  """Bijhouding opgeschort vanwege foutieve aanleg, dubbele persoonslijst of vastgestelde identiteitsfraude."""
+  FoutAangelegdOfFraude
+}
+
+"""Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de afwezigheid van een waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing) en dus onderscheiden moet blijven van een expliciet Nee. Anders dan Indicatie kent dit type bewust geen waarde Onbekend."""
+enum IndicatieJaNee {
+  """Waar."""
+  Ja
+  """Expliciet onwaar; te onderscheiden van een afwezige waarde (niet vastgesteld of niet van toepassing)."""
+  Nee
+}
+
+"""Status van de meest recente identiteitsverificatie van een persoonslijst."""
+enum Verificatie {
+  """Identiteit is recent met geldig document geverifieerd."""
+  Geverifieerd
+  """Identiteit is niet recent geverifieerd."""
+  NietGeverifieerd
+  """Identiteit staat onder actief onderzoek door de gemeente of RvIG."""
+  InOnderzoek
+}
+
+"""Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
+enum Indicatie {
+  """Waar."""
+  Ja
+  """Onwaar."""
+  Nee
+  """Onbekend; volgt de BRP-conventie voor afwezigheid en is geen MIM-Boolean-waarde."""
+  Onbekend
+}
+
+"""De onderwijssector in het Nederlandse stelsel waaronder een opleiding of instelling valt."""
+enum Onderwijssector {
+  """Primair onderwijs."""
+  PO
+  """Voortgezet onderwijs."""
+  VO
+  """Voortgezet algemeen volwassenenonderwijs."""
+  VAVO
+  """Middelbaar beroepsonderwijs."""
+  MBO
+  """Hoger beroepsonderwijs."""
+  HBO
+  """Wetenschappelijk onderwijs."""
+  WO
+}
+
+"""Identificatiestelsel waarvan een opleidingscode deel uitmaakt."""
+enum Codestelsel {
+  """Centraal Register Opleidingen Hoger Onderwijs."""
+  CROHO
+  """Centraal Register Beroepsopleidingen."""
+  CREBO
+  """Sectorlijst voor primair onderwijs."""
+  SchoolsoortPO
+  """Sectorlijst voor voortgezet onderwijs."""
+  SchoolsoortVO
+}
+
+"""Het soort onderwijs binnen een onderwijssector."""
+enum Onderwijssoort {
+  """Beroepsopleidende leerweg MBO."""
+  BOL
+  """Beroepsbegeleidende leerweg MBO."""
+  BBL
+  """Voltijds HO-onderwijs."""
+  Voltijd
+  """Deeltijds HO-onderwijs."""
+  Deeltijd
+  """Duaal HO-onderwijs (combinatie werken en studeren)."""
+  Duaal
+  """Regulier primair onderwijs."""
+  Basisonderwijs
+  """Primair onderwijs voor leerlingen met extra ondersteuningsbehoefte."""
+  SpeciaalBasisonderwijs
+  """Voortgezet onderwijs op het VMBO-niveau."""
+  VMBO
+  """Voortgezet onderwijs op het HAVO-niveau."""
+  HAVO
+  """Voortgezet onderwijs op het VWO-niveau."""
+  VWO
+}
+
+"""De manier waarop een onderwijsdeelname is ingericht, voor zover de sectorregels die onderscheiden."""
+enum Leerweg {
+  """Beroepsopleidende leerweg in het MBO."""
+  BOL
+  """Beroepsbegeleidende leerweg in het MBO."""
+  BBL
+  """Basisberoepsgerichte leerweg VMBO."""
+  BB
+  """Kaderberoepsgerichte leerweg VMBO."""
+  KB
+  """Gemengde leerweg VMBO."""
+  GL
+  """Theoretische leerweg VMBO."""
+  TL
+}
+
+"""Het type onderwijsresultaat dat in ROD wordt geregistreerd."""
+enum Resultaatsoort {
+  """Afsluitend bewijsstuk in PO, VO en MBO."""
+  Diploma
+  """Afsluitend bewijsstuk in HO (bachelor, master, associate degree)."""
+  Getuigschrift
+  """Tussenliggend bewijsstuk in MBO."""
+  Certificaat
+  """Bewijsstuk voor een afgerond deel van een MBO-opleiding."""
+  Deelcertificaat
+  """Tussentijds resultaat in HO."""
+  Propedeuse
+}
+
+"""Uitkomststatus van een moduledeelname in het hoger onderwijs."""
+enum Resultaatstatus {
+  """Module met succes afgerond."""
+  Behaald
+  """Module niet succesvol afgerond."""
+  NietBehaald
+  """Module vrijgesteld op grond van eerdere prestaties."""
+  Vrijstelling
+}
+
+"""Het regime op grond waarvan een VerzuimMelding moet worden gedaan."""
+enum GrondslagVerzuim {
+  """Verzuim van een leerplichtige leerling."""
+  Leerplicht
+  """Verzuim van een kwalificatieplichtige leerling."""
+  Kwalificatieplicht
+  """Verzuim van een MBO-deelnemer van achttien jaar of ouder."""
+  Achttienplus
+}
+
+"""Type tegemoetkoming binnen de Wet studiefinanciering 2000 en de Wet tegemoetkoming onderwijsbijdrage en schoolkosten."""
+enum Beurssoort {
+  """Forfaitaire maandbeurs voor HO-studenten."""
+  Basisbeurs
+  """Inkomensafhankelijke maandbeurs."""
+  AanvullendeBeurs
+  """OV-product voor werkdagen of weekenden."""
+  Studentenreisproduct
+  """Tegemoetkoming voor bestuurlijke activiteiten aan een HO-instelling."""
+  Bestuursbeurs
+}
+
+"""Het studiefinancieringsregime waaronder een studielening is opgebouwd."""
+enum LeenstelselCohort {
+  """Studiefinanciering uit de periode tot 2015-2016."""
+  OudeRegeling
+  """Studiefinanciering uit de periode 2015-2016 tot 2022-2023."""
+  Leenstelsel
+  """Studiefinanciering vanaf 2023-2024."""
+  Hervormd
+}
+
+"""Geregistreerde geslachtsaanduiding van een natuurlijk persoon."""
+enum Geslacht {
+  """Persoon met geslachtsregistratie "Man" in BRP."""
+  Man
+  """Persoon met geslachtsregistratie "Vrouw" in BRP."""
+  Vrouw
+  """Persoon waarvan het geslacht expliciet als onbekend is vastgesteld."""
+  VastgesteldOnbekend
+}
+
+"""Functionele indeling van een niet-natuurlijke persoon, deterministisch afgeleid uit de rechtsvorm. Vervangt de vroegere subtype-hiërarchie."""
+enum NietNatuurlijkPersoonClassificatie {
+  """Commerciële entiteit (BV, NV, coöperatie, OWM, eenmanszaak, VOF, CV, maatschap, EESV, SE, SCE)."""
+  Bedrijf
+  """Publiekrechtelijke rechtspersoon met publieke taak."""
+  Overheidsinstelling
+  """Privaatrechtelijke non-profit-entiteit (stichting, vereniging, kerkgenootschap, VvE, overige niet-commerciële privaatrechtelijke rechtsvorm)."""
+  MaatschappelijkeInstelling
+  """Entiteit met een buitenlandse rechtsvorm en activiteit in Nederland."""
+  BuitenlandseEntiteit
+  """Restcategorie voor entiteiten zonder codelijst-waarde (vrije-tekst-rechtsvorm) of die niet elders landen."""
+  Overige
+}
+
+"""Aanduiding of een niet-natuurlijke persoon van Nederlandse of buitenlandse herkomst is, gemeten naar de plaats van oprichting of statutaire zetel."""
+enum Herkomst {
+  """Entiteit met statutaire zetel in Nederland."""
+  Binnenland
+  """Entiteit met statutaire zetel buiten Nederland."""
+  Buitenland
+}
+
+"""Aanduiding van het aansprakelijkheidskarakter dat voor een rechtsvorm geldt: in welke mate eigenaren, bestuurders of vennoten persoonlijk instaan voor verplichtingen van de entiteit."""
+enum Aansprakelijkheid {
+  """Aansprakelijkheid is beperkt tot het in de entiteit ingebrachte vermogen."""
+  Beperkt
+  """Eigenaar staat met het volledige privévermogen in voor verplichtingen."""
+  Onbeperkt
+  """Vennoten zijn ieder voor het geheel aansprakelijk voor verplichtingen van de entiteit."""
+  Hoofdelijk
+  """Aansprakelijkheid valt onder publiekrechtelijk regime, doorgaans met overheidsgarantie."""
+  Publiek
+}
+
+"""Bestuurlijke typering van een overheidsinstelling: het bestuurlijke niveau of de bestuursvorm waaraan zij toebehoort."""
+enum TypeOverheid {
+  """Centrale overheid als geheel."""
+  Rijksoverheid
+  """Departement van de Rijksoverheid."""
+  Ministerie
+  """Provinciaal bestuur."""
+  Provincie
+  """Gemeentelijk bestuur."""
+  Gemeente
+  """Functioneel bestuur voor waterbeheer."""
+  Waterschap
+  """Zelfstandig bestuursorgaan (Kaderwet ZBO)."""
+  ZBO
+  """Rechtspersoon met een wettelijke taak."""
+  RWT
+  """Uitvoeringsorganisatie binnen een ministerie met eigen baten-lasten-administratie."""
+  Agentschap
+  """Overige publiekrechtelijke entiteit die niet onder de overige typen valt."""
+  OverigeOverheid
+}
+
+"""Sectorale typering van een maatschappelijke instelling: het maatschappelijke veld waarin zij hoofdzakelijk werkzaam is."""
+enum TypeMaatschappelijk {
+  """Instelling werkzaam in onderwijs of onderwijsondersteuning."""
+  Onderwijs
+  """Instelling werkzaam in gezondheidszorg, jeugdzorg of langdurige zorg."""
+  Zorg
+  """Instelling met religieus of levensbeschouwelijk doel."""
+  Religie
+  """Instelling werkzaam in sport, kunst of cultuur."""
+  Sport_Cultuur
+  """Instelling werkzaam in welzijn, maatschappelijke ondersteuning of armoedebestrijding."""
+  Welzijn
+  """Instelling die belangen behartigt van een branche of beroepsgroep."""
+  BrancheBelangen
+  """Overige maatschappelijke instelling die niet onder de overige typen valt."""
+  OverigMaatschappelijk
+}
+
+"""Query-ingangen van dit bronprofiel."""
+type Query {
+  """OpleidingDeelname. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  opleidingDeelnameAlles(bsn: BSN!): [OpleidingDeelname!]
+  """OpleidingResultaat. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  opleidingResultaatAlles(bsn: BSN!): [OpleidingResultaat!]
+  """VerzuimMelding. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  verzuimMeldingAlles(bsn: BSN!): [VerzuimMelding!]
+  """StudieFinanciering. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  studieFinancieringAlles(bsn: BSN!): [StudieFinanciering!]
+  """StudieLening. Levert de volledige historie, niet alleen de laatst bekende situatie."""
+  studieLeningAlles(bsn: BSN!): [StudieLening!]
+  """Eén OnderwijsInstelling op instellingscodeRIO."""
+  onderwijsInstelling(instellingscodeRIO: Identificatie!): OnderwijsInstelling
+}
