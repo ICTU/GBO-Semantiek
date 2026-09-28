@@ -1,0 +1,169 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36">
+  <diagram name="GBO-Semantiek runtime" id="runtime">
+    <mxGraphModel dx="1664" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=16;fontColor=#222222;" value="&lt;b&gt;GBO-Semantiek in de DvTP-architectuur &amp;mdash; runtime&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px;color:#666&quot;&gt;Hoe runtime-componenten de canonieke artefacten consumeren. Het publicatieproces staat in het toolchain-diagram.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="1420" x="40" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="principle" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=#d79b00;fillColor=#fff7e6;fontSize=11;fontColor=#a86a00;spacingLeft=10;spacingRight=10;rounded=1;" value="&lt;b&gt;Ontwerpprincipe:&lt;/b&gt; semantiek wordt één keer gedefinieerd en hergebruikt via metadata en rulebooks" vertex="1">
+          <mxGeometry height="28" width="1420" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="artefacts" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fcfaff;strokeColor=#9673a6;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=11;fontColor=#6c4a85;align=left;spacingLeft=10;spacingTop=4;" value="&lt;b&gt;Canonieke artefacten (input vanuit toolchain / publicatieproces)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="80" width="1420" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ontologie" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;fontSize=11;" value="&lt;b&gt;Ontologie + SHACL shapes&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;OWL/RDF (.ttl); definities, eigenschappen, validatieregels&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="380" x="540" y="117.5" as="geometry" />
+        </mxCell>
+        <mxCell id="lane2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=12;fontColor=#a86a00;align=left;spacingLeft=10;spacingTop=4;" value="&lt;b&gt;Interpretatie- en governancelaag&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Meta-artefacten die de semantiek herbruikbaar maken voor specifieke use cases&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="1420" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="vct" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Credentialtype-metadata (vct)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;type-id, claim-definities, datatypes&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="250" x="80" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="rulebook" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Rulebook / vertrouwensraamwerk&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;issuer-eisen, verifier-regels, rechtsgrond&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="270" x="430" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="purposevocab" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" value="&lt;b&gt;GraphQL SDL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px; color: rgb(85, 85, 85);&quot;&gt;types en velden afgeleid uit informatiemodel&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="270" x="790" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="lane3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafbff;strokeColor=#6c8ebf;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=12;fontColor=#3b5b7a;align=left;spacingLeft=10;spacingTop=4;" value="&lt;b&gt;Operationele uitwisselingslaag&amp;nbsp;&lt;/b&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Vier lanes per type semantiek-afhankelijkheid&lt;/font&gt;" vertex="1">
+          <mxGeometry height="540" width="1420" x="40" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="laneA" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6c8ebf;strokeWidth=1;dashed=0;verticalAlign=top;fontSize=10;fontColor=#3b5b7a;align=center;spacingTop=4;" value="&lt;b&gt;Lane A &amp;mdash; EUDI credentials&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;identificeren en authenticeren via vct + rulebook&lt;/font&gt;" vertex="1">
+          <mxGeometry height="490" width="320" x="60" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="pubeaa" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;PubEAA Provider&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;issuer SD-JWT VC&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="240" x="100" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;EUDI Wallet&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;burger / houder&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="240" x="100" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="verifier" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Verifier&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;verifieert presentatie (FSC Manager)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="240" x="100" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="qtsp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;QTSP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;kwalificeerde vertrouwensdienst; I2 Verify&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="240" x="100" y="735" as="geometry" />
+        </mxCell>
+        <mxCell id="laneA-e1" edge="1" parent="1" source="pubeaa" style="endArrow=classic;html=1;strokeColor=#3b5b7a;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="wallet" value="SD-JWT VC">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="laneA-e2" edge="1" parent="1" source="wallet" style="endArrow=classic;html=1;strokeColor=#3b5b7a;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="verifier" value="presentatie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="laneA-e3" edge="1" parent="1" source="qtsp" style="endArrow=classic;html=1;strokeColor=#3b5b7a;strokeWidth=1;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="verifier" value="I2 Verify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="laneB" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6c8ebf;strokeWidth=1;dashed=0;verticalAlign=top;fontSize=10;fontColor=#3b5b7a;align=center;spacingTop=4;" value="&lt;b&gt;Lane B &amp;mdash; Semantische data&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;data-levering; JSON-LD/RDF als primair formaat&lt;/font&gt;" vertex="1">
+          <mxGeometry height="490" width="320" x="400" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="domibus" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Domibus Access Point&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;AS4; cross-border transport&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="260" x="430" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="asi" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Authentic Source Interface&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;contract op authentieke gegevens;&lt;br&gt;respons als JSON-LD&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="260" x="430" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="oots" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;SDG-OOTS Adapter&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;CCCEV evidence (RDF/JSON-LD);&lt;br&gt;mapping naar EU Core Vocabularies&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="260" x="430" y="625" as="geometry" />
+        </mxCell>
+        <mxCell id="pips" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Sector PIPs&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;KNB, KvK, BIG; organisatie- en beroepsattributen&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="260" x="430" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="laneC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6c8ebf;strokeWidth=1;dashed=0;verticalAlign=top;fontSize=10;fontColor=#3b5b7a;align=center;spacingTop=4;" value="&lt;b&gt;Lane C &amp;mdash; Query / bevraging&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;typed API binnen de zone; JSON-LD output&lt;/font&gt;" vertex="1">
+          <mxGeometry height="490" width="320" x="740" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="bronhouder-graphql" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Bronhouder GraphQL API&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;typed data-endpoint van bronhouder;&lt;br&gt;respons als JSON-LD (met @context)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="260" x="770" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="consumers-box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f8ff;strokeColor=#6c8ebf;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=10;fontColor=#3b5b7a;align=center;spacingTop=4;" value="&lt;b&gt;Afnemers&lt;/b&gt;" vertex="1">
+          <mxGeometry height="240" width="260" x="770" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="consumer-eu" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1;fontSize=10;" value="&lt;b&gt;EU Online Procedure&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;cross-border aanvrager&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="230" x="785" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="consumer-overheid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1;fontSize=10;" value="&lt;b&gt;Afnemer (overheid)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;binnenlandse afnemer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="230" x="785" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="consumer-hypo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1;fontSize=10;" value="&lt;b&gt;Hypotheekverlener&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;private afnemer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="230" x="785" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="laneD" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6c8ebf;strokeWidth=1;dashed=0;verticalAlign=top;fontSize=10;fontColor=#3b5b7a;align=center;spacingTop=4;" value="&lt;b&gt;Lane D &amp;mdash; Autorisatie, consent en pseudonimisatie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;via doel- en attribuut-URIs; claim-vocabulaire&lt;/font&gt;" vertex="1">
+          <mxGeometry height="490" width="360" x="1080" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="pap" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;PAP &amp;mdash; OCI Registry&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;policy author; signed OPA bundles&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="320" x="1100" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="fscmgr" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;FSC Manager (Manager PDP)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;JWT met verified claims&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="320" x="1100" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="pep" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;PEP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Policy Enforcement Point&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="150" x="1100" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="pdp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Bronhouder PDP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;OPA / Rego; beslist op attribuut-URIs&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="150" x="1270" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="toestportaal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;Toestemmingsportaal&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;consent capture; doel- en datacategorie-URIs&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="320" x="1100" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="bsnkpp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" value="&lt;b&gt;BSNk PP &amp;mdash; Pseudonymization&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;activate/transform EP ↔ BSN op basis van consent&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="320" x="1100" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="laneD-e3" edge="1" parent="1" source="pep" style="endArrow=classic;html=1;strokeColor=#3b5b7a;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="pdp" value="eval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="laneD-e4" edge="1" parent="1" source="pep" style="endArrow=classic;html=1;strokeColor=#3b5b7a;strokeWidth=1;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="toestportaal" value="consent check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="laneD-e5" edge="1" parent="1" source="toestportaal" style="endArrow=classic;html=1;strokeColor=#3b5b7a;strokeWidth=1;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="bsnkpp" value="EP in consent token">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lane4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#999999;strokeWidth=1;dashed=1;verticalAlign=top;fontSize=12;fontColor=#555555;align=left;spacingLeft=10;spacingTop=4;" value="&lt;b&gt;Bron- en registerlaag&amp;nbsp;&lt;/b&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Authentieke registers en operationele opslag&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="1420" x="40" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="reg-authentic" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#999999;strokeWidth=2;fontSize=11;fontColor=#444444;" value="&lt;b&gt;Authentieke registraties&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;BRP, KvK, BAG, RSGB ...&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="380" x="100" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="reg-bron" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#999999;strokeWidth=2;fontSize=11;fontColor=#444444;" value="&lt;b&gt;Bronsystemen / databases&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;administratieve back-ends bronhouder&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="380" x="560" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="reg-consent" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#999999;strokeWidth=2;fontSize=11;fontColor=#444444;" value="&lt;b&gt;Toestemmingsregister&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#666&quot;&gt;consent receipts met doel-URIs&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="380" x="1020" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;strokeWidth=1;verticalAlign=top;align=left;fontSize=10;spacingLeft=8;spacingTop=4;" value="&lt;b&gt;Legenda&lt;/b&gt;" vertex="1">
+          <mxGeometry height="40" width="1420" x="40" y="1015" as="geometry" />
+        </mxCell>
+        <mxCell id="lg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="15" width="20" x="110" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="lg1t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Canoniek artefact (uit toolchain)" vertex="1">
+          <mxGeometry height="20" width="220" x="135" y="1027" as="geometry" />
+        </mxCell>
+        <mxCell id="lg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="15" width="20" x="400" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="lg2t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Governance / interpretatie-artefact" vertex="1">
+          <mxGeometry height="20" width="240" x="425" y="1027" as="geometry" />
+        </mxCell>
+        <mxCell id="lg3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="15" width="20" x="740" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="lg3t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Operationele architectuurcomponent" vertex="1">
+          <mxGeometry height="20" width="240" x="765" y="1027" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#999999;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="15" width="20" x="1080" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4t" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=10;" value="Bron / register" vertex="1">
+          <mxGeometry height="20" width="160" x="1105" y="1027" as="geometry" />
+        </mxCell>
+        <mxCell id="version" parent="1" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#888888;" value="v0.7 · 2026-04-20 · runtime + GBO-GO mapping" vertex="1">
+          <mxGeometry height="20" width="220" x="1240" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="eDcQjIwWRejF96Ug6oJM-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" value="&lt;font style=&quot;color: rgb(85, 85, 85);&quot;&gt;...?????&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="270" x="1150" y="245" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

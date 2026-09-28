@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="21.0.0">
+  <diagram name="OSLO Toolchain Patroon" id="oslo-patroon">
+    <mxGraphModel dx="1000" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;OSLO Toolchain — van UML-model naar publicatie&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="270" y="15" width="400" height="25" as="geometry" />
+        </mxCell>
+        <!-- Source: UML in EA -->
+        <mxCell id="uml" value="&lt;b&gt;UML Model&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Enterprise Architect&lt;br&gt;(.qea)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="150" height="80" as="geometry" />
+        </mxCell>
+        <!-- Transformation -->
+        <mxCell id="transform" value="&lt;b&gt;Transformatie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;EA-to-RDF&lt;br&gt;crunch_uml&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="150" height="120" as="geometry" />
+        </mxCell>
+        <!-- Turtle Ontologie -->
+        <mxCell id="turtle" value="&lt;b&gt;OWL/RDF&lt;br&gt;Ontologie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;(.ttl)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="490" y="200" width="130" height="80" as="geometry" />
+        </mxCell>
+        <!-- Output: HTML docs -->
+        <mxCell id="html" value="&lt;b&gt;HTML&lt;br&gt;Documentatie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Specificatie-&lt;br&gt;pagina's&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="60" width="130" height="80" as="geometry" />
+        </mxCell>
+        <!-- Output: JSON-LD context -->
+        <mxCell id="jsonld" value="&lt;b&gt;JSON-LD&lt;br&gt;@context&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;per domein&lt;br&gt;(.jsonld)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="200" width="130" height="80" as="geometry" />
+        </mxCell>
+        <!-- Output: SKOS codelijsten -->
+        <mxCell id="skos" value="&lt;b&gt;SKOS&lt;br&gt;Codelijsten&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;ConceptScheme&lt;br&gt;(.ttl)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="340" width="130" height="80" as="geometry" />
+        </mxCell>
+        <!-- Vocabularium label -->
+        <mxCell id="vocab_label" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Vocabularium&lt;/b&gt; (generiek, stabiel)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="vocab_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="120" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vocab_text" value="&lt;font style=&quot;font-size:10px&quot;&gt;Herbruikbare klassen &amp;amp; properties&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="30" y="125" width="200" height="20" as="geometry" />
+        </mxCell>
+        <!-- Applicatieprofiel label -->
+        <mxCell id="ap_label" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Applicatieprofiel&lt;/b&gt; (use-case, uitbreidbaar)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="320" width="230" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9673a6;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="340" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_text" value="&lt;font style=&quot;font-size:10px&quot;&gt;Beperkingen &amp;amp; uitbreidingen&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="37" y="345" width="160" height="20" as="geometry" />
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="a1" value="" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="uml" target="transform">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="transform" target="turtle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="" style="endArrow=classic;html=1;strokeColor=#82b366;strokeWidth=2;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="turtle" target="html">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" value="" style="endArrow=classic;html=1;strokeColor=#9673a6;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="turtle" target="jsonld">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" value="" style="endArrow=classic;html=1;strokeColor=#6c8ebf;strokeWidth=2;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="turtle" target="skos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- De-referenceable label -->
+        <mxCell id="deref" value="&lt;font style=&quot;font-size:9px;color:#999&quot;&gt;Alle outputs de-referenceable via HTTP&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="660" y="460" width="210" height="20" as="geometry" />
+        </mxCell>
+        <!-- GBO label -->
+        <mxCell id="gbo_label" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;GBO past hetzelfde patroon toe:&lt;/b&gt;&lt;br&gt;QEA → crunch_uml → Turtle + JSON-LD + SKOS&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#FFF9E6;fontColor=#333333;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="460" width="280" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

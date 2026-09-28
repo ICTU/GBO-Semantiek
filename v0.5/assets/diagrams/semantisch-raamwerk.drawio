@@ -1,0 +1,103 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="21.0.0">
+  <diagram name="GBO Semantisch Raamwerk" id="semantisch-raamwerk">
+    <mxGraphModel dx="1200" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Outer frame -->
+        <mxCell id="frame" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=2;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="1040" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="&lt;b&gt;GBO Semantisch Raamwerk&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="400" y="35" width="300" height="30" as="geometry" />
+        </mxCell>
+        <!-- Begrippenkader -->
+        <mxCell id="begrippen" value="&lt;b&gt;Begrippenkader&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;SKOS Thesaurus&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Definities, hiërarchie, associaties&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;arcSize=10;verticalAlign=middle;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="90" width="260" height="80" as="geometry" />
+        </mxCell>
+        <!-- Informatiemodel Generiek -->
+        <mxCell id="im_generiek" value="&lt;b&gt;Informatiemodel&lt;/b&gt;&lt;br&gt;&lt;b&gt;Generiek (GBO-kern)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;MIM niveau II/III&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;arcSize=10;verticalAlign=middle;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="90" width="260" height="80" as="geometry" />
+        </mxCell>
+        <!-- Informatiemodel Use-case -->
+        <mxCell id="im_usecase" value="&lt;b&gt;Informatiemodel&lt;/b&gt;&lt;br&gt;&lt;b&gt;Use-case specifiek&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Applicatieprofielen&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;arcSize=10;verticalAlign=middle;spacingTop=5;spacingBottom=5;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="90" width="260" height="80" as="geometry" />
+        </mxCell>
+        <!-- Ontologie -->
+        <mxCell id="ontologie" value="&lt;b&gt;Gepubliceerde Ontologie&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;OWL/RDF (Turtle)&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Klassen, properties, constraints&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;arcSize=10;verticalAlign=middle;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="280" width="260" height="80" as="geometry" />
+        </mxCell>
+        <!-- JSON-LD @context -->
+        <mxCell id="context" value="&lt;b&gt;JSON-LD @context&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Mapping JSON-keys → ontologie-URI's&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;arcSize=10;verticalAlign=middle;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="450" width="260" height="70" as="geometry" />
+        </mxCell>
+        <!-- JSON-LD Payload -->
+        <mxCell id="payload" value="&lt;b&gt;JSON-LD Data Payload&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;API-responses met semantische context&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;arcSize=10;verticalAlign=middle;spacingTop=5;spacingBottom=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="590" width="260" height="70" as="geometry" />
+        </mxCell>
+        <!-- Arrow: Begrippen → IM Generiek -->
+        <mxCell id="arrow1" value="&lt;font style=&quot;font-size:10px&quot;&gt;definieert betekenis&lt;br&gt;skos:exactMatch&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=2;fontColor=#333333;" edge="1" parent="1" source="begrippen" target="im_generiek">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Arrow: IM Generiek → IM Use-case -->
+        <mxCell id="arrow2" value="&lt;font style=&quot;font-size:10px&quot;&gt;uitbreidt / beperkt&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;fontColor=#333333;" edge="1" parent="1" source="im_generiek" target="im_usecase">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Arrow: IM Generiek → Ontologie -->
+        <mxCell id="arrow3" value="&lt;font style=&quot;font-size:10px&quot;&gt;transformatie&lt;br&gt;MIM → OWL&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;fontColor=#333333;" edge="1" parent="1" source="im_generiek" target="ontologie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Arrow: IM Use-case → Ontologie -->
+        <mxCell id="arrow3b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;dashed=1;" edge="1" parent="1" source="im_usecase" target="ontologie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Arrow: Ontologie → Context -->
+        <mxCell id="arrow4" value="&lt;font style=&quot;font-size:10px&quot;&gt;@context keys&lt;br&gt;→ ontologie-URI's&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#d6b656;strokeWidth=2;fontColor=#333333;" edge="1" parent="1" source="ontologie" target="context">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Arrow: Context → Payload -->
+        <mxCell id="arrow5" value="&lt;font style=&quot;font-size:10px&quot;&gt;@context verwijzing&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#9673a6;strokeWidth=2;fontColor=#333333;" edge="1" parent="1" source="context" target="payload">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Arrow: Begrippen → Payload (URI's als waarden) -->
+        <mxCell id="arrow6" value="&lt;font style=&quot;font-size:10px&quot;&gt;SKOS-concept URI's&lt;br&gt;als attribuutwaarden&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=2;dashed=1;fontColor=#333333;" edge="1" parent="1" source="begrippen" target="payload">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- Arrow: Begrippen → Ontologie (rdfs:isDefinedBy) -->
+        <mxCell id="arrow7" value="&lt;font style=&quot;font-size:10px&quot;&gt;rdfs:isDefinedBy&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=1;dashed=1;fontColor=#666666;" edge="1" parent="1" source="begrippen" target="ontologie">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- Legend -->
+        <mxCell id="leg_title" value="&lt;b&gt;Legenda&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="800" y="430" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" value="" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="460" as="sourcePoint" />
+            <mxPoint x="860" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg1t" value="&lt;font style=&quot;font-size:10px&quot;&gt;Directe relatie&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="870" y="450" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" value="" style="endArrow=classic;html=1;strokeColor=#333333;strokeWidth=2;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="485" as="sourcePoint" />
+            <mxPoint x="860" y="485" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg2t" value="&lt;font style=&quot;font-size:10px&quot;&gt;Indirecte relatie&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="870" y="475" width="110" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
