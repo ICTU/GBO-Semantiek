@@ -67,3 +67,10 @@
   padding: 2rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
+
+/* standaard kleuren overschrijven met ICTU kleuren */
+[data-md-color-scheme="default"][data-md-color-primary="indigo"], [data-md-color-scheme=slate][data-md-color-primary="indigo"] {
+--md-primary-fg-color: #2e62e6; /* de headerkleur zelf */
+--md-footer-bg-color: #2e62e6; /* achtergrondkleur footer */
+--md-footer-bg-color--dark: #2e62e6; /* achtergrondkleur footer */
+}
