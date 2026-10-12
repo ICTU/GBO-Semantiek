@@ -1,0 +1,192 @@
+# =============================================================================
+# GBO — Attestatieprofiel Inkomensverklaring
+#
+# Legt de Inkomensverklaring vast uit de GBO-demo
+# (ICTU/GBO-demo, services/graphql-server/config/gbo-source-metadata.json):
+# een verklaring van aangegeven inkomen over één belastingjaar, uitgegeven
+# aan de EUDI-wallet op basis van een GraphQL-query op de bron.
+#
+# Het demo-document is met de hand geschreven tegen het v0.3-model
+# (ingeschrevenPersoon.heeftBelastingjaarAangifte, AangifteIH). In v0.5 levert
+# het VIA-profiel dezelfde gegevens via aangifteOverJaar, met
+# AangifteInkomstenbelasting als concreet type. tools/genereer_attestatie.py
+# bouwt daaruit de query, controleert die tegen v0.5/graphql/via.graphql en
+# schrijft het attestation-blok voor /.well-known/gbo uit.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/attestaties/inkomensverklaring
+name: gbo-attestatie-inkomensverklaring
+title: "GBO attestatieprofiel: Inkomensverklaring"
+description: >-
+  Attestatieprofiel voor de Inkomensverklaring: aangegeven inkomen over
+  één belastingjaar, uit de aangifte inkomstenbelasting.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gboat: https://lod.gbo-semantiek.nl/attestaties/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+default_prefix: gboat
+default_range: string
+
+imports:
+  - linkml:types
+  - attestatie
+
+classes:
+
+  Inkomensverklaring:
+    is_a: Attestatie
+    title: Inkomensverklaring
+    description: >-
+      Verklaring van het inkomen dat in de aangifte inkomstenbelasting over
+      één belastingjaar is aangegeven, volgens de Belastingdienst.
+    related_mappings:
+      - gbobegrip:AangifteInkomstenbelasting
+    comments:
+      - >-
+        Bron: de aangifte inkomstenbelasting zoals het VIA-profiel die
+        levert. De status geeft aan in welk stadium de aangifte is:
+        vooringevuld, ingediend of herzien. Een vastgesteld inkomen staat
+        niet in deze verklaring; dat komt uit de aanslag (bri-plus) of,
+        als authentiek gegeven, uit de BRI.
+      - >-
+        Typeversie 3.0. De demo publiceert 2.3; de Type Metadata van een
+        versie is onveranderlijk, en dit profiel wijkt af: de query volgt
+        het v0.5-model, aangifte_status is verplicht en indieningsdatum en
+        de box-inkomens zijn optioneel.
+    annotations:
+      gbo:typeId: inkomensverklaring
+      gbo:typeVersie: "3.0"
+      gbo:bronprofiel: via
+      gbo:serviceReferentie: bri
+      gbo:query: aangifteOverJaar
+      gbo:bronType: AangifteInkomstenbelasting
+      gbo:subject: bsn
+      gbo:aanbiedingParameter: jaar
+      gbo:aanbiedingWaarden: "2024, 2025"
+      gbo:aanbiedingLabel: "Inkomensverklaring {jaar}"
+      gbo:aanbiedingOmschrijving: "Inkomensverklaring over belastingjaar {jaar}"
+      gbo:weergaveNaam: Inkomensverklaring
+      gbo:weergaveOmschrijving: Verklaring van aangegeven inkomen
+      gbo:typeOmschrijving: Aangifte inkomstenbelasting volgens de Belastingdienst
+      gbo:samenvatting: "€{{verzamelinkomen}} ({{belastingjaar}})"
+      gbo:achtergrondkleur: "#0b5394"
+      gbo:tekstkleur: "#ffffff"
+    slot_usage:
+      attestation_legal_category:
+        equals_string: PuB-EAA
+      issuing_country:
+        equals_string: NL
+    attributes:
+      belastingjaar:
+        title: Belastingjaar
+        range: integer
+        required: true
+        in_subset: [attribuut]
+        description: >-
+          Het belastingjaar waarop de aangifte betrekking heeft.
+        exact_mappings:
+          - gbo:belastingen/fiscaleopgave/belastingjaar
+        examples:
+          - value: "2024"
+        annotations:
+          gbo:bronpad: belastingjaar
+          gbo:formaat: gYear
+      indieningsdatum:
+        title: Indieningsdatum
+        range: date
+        in_subset: [attribuut]
+        description: >-
+          De datum waarop de aangifte is ingediend.
+        exact_mappings:
+          - gbo:belastingen/aangifte/indieningsdatum
+        examples:
+          - value: "2025-04-15"
+        annotations:
+          gbo:bronpad: indieningsdatum
+        comments:
+          - >-
+            Optioneel: een vooringevulde aangifte is nog niet ingediend en
+            heeft geen indieningsdatum. In de demo is deze claim verplicht,
+            waardoor uitgifte bij een voorinvulling mislukt.
+      verzamelinkomen:
+        title: Verzamelinkomen
+        range: integer
+        required: true
+        in_subset: [attribuut]
+        description: >-
+          Het in de aangifte aangegeven verzamelinkomen, in hele euro's.
+        close_mappings:
+          - gbo:belastingen/aangifteinkomstenbelasting/verzamelinkomen
+        examples:
+          - value: "43000"
+        annotations:
+          gbo:bronpad: verzamelinkomen.waarde
+          gbo:eenheid: EUR
+          gbo:weergaveOmschrijving: Bedrag in euro's
+          gbo:geheleWaarde: >-
+            De bron levert het bedrag als Float; nl-wallet v0.5 kent alleen
+            gehele getallen. De vertaling rondt niet af, dus een bedrag met
+            centen breekt de uitgifte af.
+      inkomen_box1:
+        title: Inkomen box 1
+        range: integer
+        in_subset: [attribuut]
+        description: >-
+          Het in de aangifte aangegeven inkomen uit werk en woning, in hele
+          euro's.
+        close_mappings:
+          - gbo:belastingen/aangifteinkomstenbelasting/box1inkomen
+        examples:
+          - value: "41000"
+        annotations:
+          gbo:bronpad: box1Inkomen.waarde
+          gbo:eenheid: EUR
+          gbo:weergaveOmschrijving: Bedrag in euro's
+          gbo:geheleWaarde: Zie verzamelinkomen.
+      inkomen_box2:
+        title: Inkomen box 2
+        range: integer
+        in_subset: [attribuut]
+        description: >-
+          Het in de aangifte aangegeven inkomen uit aanmerkelijk belang, in
+          hele euro's.
+        close_mappings:
+          - gbo:belastingen/aangifteinkomstenbelasting/box2inkomen
+        examples:
+          - value: "0"
+        annotations:
+          gbo:bronpad: box2Inkomen.waarde
+          gbo:eenheid: EUR
+          gbo:weergaveOmschrijving: Bedrag in euro's
+          gbo:geheleWaarde: Zie verzamelinkomen.
+      inkomen_box3:
+        title: Inkomen box 3
+        range: integer
+        in_subset: [attribuut]
+        description: >-
+          Het in de aangifte aangegeven inkomen uit sparen en beleggen, in
+          hele euro's.
+        close_mappings:
+          - gbo:belastingen/aangifteinkomstenbelasting/box3inkomen
+        examples:
+          - value: "2000"
+        annotations:
+          gbo:bronpad: box3Inkomen.waarde
+          gbo:eenheid: EUR
+          gbo:weergaveOmschrijving: Bedrag in euro's
+          gbo:geheleWaarde: Zie verzamelinkomen.
+      aangifte_status:
+        title: Status
+        range: string
+        required: true
+        in_subset: [attribuut]
+        description: >-
+          Het stadium van de aangifte: Voorinvulling, Ingediend of Herzien.
+        exact_mappings:
+          - gbo:belastingen/aangifte/status
+        examples:
+          - value: Ingediend
+        annotations:
+          gbo:bronpad: status

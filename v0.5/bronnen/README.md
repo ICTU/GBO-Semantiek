@@ -150,6 +150,50 @@ natuurlijke sleutel of een attribuut van een subject in `vanaf`
 dan is `type` verplicht. Het veld `op` is bij een toets niet van
 toepassing, en een toets maakt geen objecttypen bereikbaar.
 
+## Invoertypen
+
+Een parameter mag een objecttype uit het informatiemodel als `type`
+hebben. GraphQL staat een objecttype niet als argument toe; de
+generator maakt er daarom een input-type van met de naam van het
+objecttype plus `Invoer`. `velden` kiest welke attributen het
+invoertype draagt, met per veld de verplichting:
+
+```yaml
+parameters:
+  - naam: bsn
+  - naam: adres
+    type: Binnenlandsadres
+    velden:
+      - naam: postcode
+      - naam: huisnummer
+      - naam: huisletter
+        verplicht: false
+      - naam: huisnummertoevoeging
+        verplicht: false
+```
+
+levert
+
+```graphql
+input BinnenlandsadresInvoer {
+  postcode: Postcode!
+  huisnummer: Int!
+  huisletter: String
+  huisnummertoevoeging: String
+}
+
+isEigenaarOpAdres(bsn: BSN!, adres: BinnenlandsadresInvoer!): Indicatie!
+```
+
+De verplichting staat in het profiel en niet in het model: een
+zoekvraag heeft andere eisen dan een registratie. `Binnenlandsadres`
+heeft in het model een verplichte straatnaam en woonplaatsnaam,
+terwijl een adres voor een toets met postcode en huisnummer vastligt.
+Een invoerveld moet een datatype of enumeratie als range hebben; een
+relatie naar een ander objecttype kan geen invoerveld zijn. Gebruiken
+twee parameters in één profiel hetzelfde objecttype, dan moeten ze
+dezelfde velden kiezen.
+
 ## Commando's
 
 ```bash

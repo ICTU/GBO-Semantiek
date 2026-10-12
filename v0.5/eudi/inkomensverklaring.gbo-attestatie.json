@@ -1,0 +1,250 @@
+{
+  "type_id": "inkomensverklaring",
+  "type_version": "3.0",
+  "offers": [
+    {
+      "id": "inkomensverklaring_2024",
+      "label": "Inkomensverklaring 2024",
+      "description": "Inkomensverklaring over belastingjaar 2024",
+      "parameters": {
+        "jaar": 2024
+      }
+    },
+    {
+      "id": "inkomensverklaring_2025",
+      "label": "Inkomensverklaring 2025",
+      "description": "Inkomensverklaring over belastingjaar 2025",
+      "parameters": {
+        "jaar": 2025
+      }
+    }
+  ],
+  "graphql": {
+    "service_reference": "bri",
+    "endpoint": "/graphql",
+    "document": "query Inkomensverklaring($bsn: BSN!, $jaar: Int!) {\n  aangifteOverJaar(bsn: $bsn, jaar: [$jaar]) {\n    belastingjaar\n    indieningsdatum\n    status\n    ... on AangifteInkomstenbelasting {\n      verzamelinkomen {\n        waarde\n      }\n      box1Inkomen {\n        waarde\n      }\n      box2Inkomen {\n        waarde\n      }\n      box3Inkomen {\n        waarde\n      }\n    }\n  }\n}",
+    "subject_variable": "bsn",
+    "parameters": {
+      "jaar": {
+        "type": "integer",
+        "required": true
+      }
+    },
+    "result_pointer": "/data/aangifteOverJaar"
+  },
+  "mapping_profile": "gbo-simple-v1",
+  "mapping": {
+    "belastingjaar": {
+      "pointer": "/belastingjaar",
+      "datatype": "gYear"
+    },
+    "indieningsdatum": {
+      "pointer": "/indieningsdatum",
+      "datatype": "date",
+      "optional": true
+    },
+    "verzamelinkomen": {
+      "pointer": "/verzamelinkomen/waarde",
+      "datatype": "integer"
+    },
+    "inkomen_box1": {
+      "pointer": "/box1Inkomen/waarde",
+      "datatype": "integer",
+      "optional": true
+    },
+    "inkomen_box2": {
+      "pointer": "/box2Inkomen/waarde",
+      "datatype": "integer",
+      "optional": true
+    },
+    "inkomen_box3": {
+      "pointer": "/box3Inkomen/waarde",
+      "datatype": "integer",
+      "optional": true
+    },
+    "aangifte_status": {
+      "pointer": "/status",
+      "datatype": "string"
+    }
+  },
+  "attribute_schema": {
+    "belastingjaar": {
+      "type": "integer",
+      "format": "gYear"
+    },
+    "indieningsdatum": {
+      "type": "string",
+      "format": "date"
+    },
+    "verzamelinkomen": {
+      "type": "integer",
+      "unit": "EUR"
+    },
+    "inkomen_box1": {
+      "type": "integer",
+      "unit": "EUR"
+    },
+    "inkomen_box2": {
+      "type": "integer",
+      "unit": "EUR"
+    },
+    "inkomen_box3": {
+      "type": "integer",
+      "unit": "EUR"
+    },
+    "aangifte_status": {
+      "type": "string"
+    }
+  },
+  "type_metadata": {
+    "name": "Inkomensverklaring",
+    "description": "Aangifte inkomstenbelasting volgens de Belastingdienst",
+    "display": [
+      {
+        "lang": "nl-NL",
+        "name": "Inkomensverklaring",
+        "description": "Verklaring van aangegeven inkomen",
+        "summary": "€{{verzamelinkomen}} ({{belastingjaar}})",
+        "rendering": {
+          "simple": {
+            "background_color": "#0b5394",
+            "text_color": "#ffffff"
+          }
+        }
+      }
+    ],
+    "claims": [
+      {
+        "path": [
+          "belastingjaar"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Belastingjaar"
+          }
+        ],
+        "sd": "always",
+        "svg_id": "belastingjaar"
+      },
+      {
+        "path": [
+          "indieningsdatum"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Indieningsdatum"
+          }
+        ],
+        "sd": "always"
+      },
+      {
+        "path": [
+          "verzamelinkomen"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Verzamelinkomen",
+            "description": "Bedrag in euro's"
+          }
+        ],
+        "sd": "always",
+        "svg_id": "verzamelinkomen"
+      },
+      {
+        "path": [
+          "inkomen_box1"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Inkomen box 1",
+            "description": "Bedrag in euro's"
+          }
+        ],
+        "sd": "always"
+      },
+      {
+        "path": [
+          "inkomen_box2"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Inkomen box 2",
+            "description": "Bedrag in euro's"
+          }
+        ],
+        "sd": "always"
+      },
+      {
+        "path": [
+          "inkomen_box3"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Inkomen box 3",
+            "description": "Bedrag in euro's"
+          }
+        ],
+        "sd": "always"
+      },
+      {
+        "path": [
+          "aangifte_status"
+        ],
+        "display": [
+          {
+            "lang": "nl-NL",
+            "label": "Status"
+          }
+        ],
+        "sd": "always"
+      }
+    ],
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "Inkomensverklaring",
+      "type": "object",
+      "properties": {
+        "belastingjaar": {
+          "description": "Het belastingjaar waarop de aangifte betrekking heeft.",
+          "type": "integer"
+        },
+        "indieningsdatum": {
+          "description": "De datum waarop de aangifte is ingediend.",
+          "format": "date",
+          "type": "string"
+        },
+        "verzamelinkomen": {
+          "description": "Het in de aangifte aangegeven verzamelinkomen, in hele euro's.",
+          "type": "integer"
+        },
+        "inkomen_box1": {
+          "description": "Het in de aangifte aangegeven inkomen uit werk en woning, in hele euro's.",
+          "type": "integer"
+        },
+        "inkomen_box2": {
+          "description": "Het in de aangifte aangegeven inkomen uit aanmerkelijk belang, in hele euro's.",
+          "type": "integer"
+        },
+        "inkomen_box3": {
+          "description": "Het in de aangifte aangegeven inkomen uit sparen en beleggen, in hele euro's.",
+          "type": "integer"
+        },
+        "aangifte_status": {
+          "description": "Het stadium van de aangifte: Voorinvulling, Ingediend of Herzien.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "belastingjaar",
+        "verzamelinkomen",
+        "aangifte_status"
+      ]
+    }
+  }
+}

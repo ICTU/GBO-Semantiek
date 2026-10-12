@@ -332,11 +332,46 @@ classes:
           dan een attribuut van levert, dan het attribuut waar op naar
           wijst. Bij een toets: een natuurlijke sleutel of een
           attribuut van een subject. Lukt dat niet, dan is type
-          verplicht.
+          verplicht. Een objecttype uit het informatiemodel mag ook,
+          bijvoorbeeld Binnenlandsadres: dan wordt het argument een
+          invoertype met de velden uit velden.
       op:
         description: >-
           Attribuut van het doel-objecttype waarop dit argument een
           gelijkheid is, bijvoorbeeld belastingjaar.
+      velden:
+        multivalued: true
+        range: Invoerveld
+        inlined_as_list: true
+        description: >-
+          Alleen wanneer type een objecttype is, en dan verplicht: de
+          attributen van dat objecttype die het invoertype draagt, in
+          volgorde. De generator maakt er een GraphQL input-type van met
+          de naam van het objecttype plus Invoer, zoals
+          BinnenlandsadresInvoer. GraphQL staat een objecttype niet als
+          argument toe; het invoertype is de afspiegeling ervan.
+        comments:
+          - >-
+            De verplichting per veld staat in het profiel en niet in het
+            model: een zoekvraag heeft andere eisen dan een registratie.
+            Binnenlandsadres heeft in het model een verplichte
+            straatnaam en woonplaatsnaam, terwijl een adres voor een
+            toets met postcode en huisnummer vastligt.
+
+  Invoerveld:
+    description: >-
+      Eén veld van een invoertype: een attribuut van het objecttype uit
+      Queryparameter.type.
+    attributes:
+      naam:
+        required: true
+        description: >-
+          Naam van het attribuut, eigen of geërfd. Het attribuut moet
+          een datatype of enumeratie als range hebben, geen objecttype.
+      verplicht:
+        range: boolean
+        description: >-
+          Of het veld verplicht is. Zonder vermelding verplicht.
 
   Zoeksleutel:
     description: >-

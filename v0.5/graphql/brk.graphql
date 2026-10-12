@@ -235,6 +235,18 @@ type Bedrag {
   valuta: CodelijstISO4217
 }
 
+"""Een Nederlands adres dat via een BAG-Nummeraanduiding en de bijbehorende openbare ruimte en woonplaats wordt opgebouwd."""
+input BinnenlandsadresInvoer {
+  """De postcode behorend bij het huisnummer."""
+  postcode: Postcode!
+  """Het huisnummer-deel van de Nummeraanduiding."""
+  huisnummer: Int!
+  """De huisletter bij het huisnummer."""
+  huisletter: String
+  """De huisnummertoevoeging (bv. 2hg, bis)."""
+  huisnummertoevoeging: String
+}
+
 """Vaststellingsstatus van de oppervlakte van een kadastrale onroerende zaak."""
 enum SoortGrootte {
   """De oppervlakte is door kadastrale meting definitief vastgesteld."""
@@ -331,6 +343,6 @@ type Query {
   tenaamstellingOpKvkNummer(kvkNummer: KVKnummer!): [Tenaamstelling!]
   """Is de ingeschreven persoon met dit bsn eigenaar van een onroerende zaak waaraan dit adresseerbaar object is gekoppeld? Toetst uitsluitend de laatst bekende situatie op het moment van bevragen; de peildatum is leveringsmetadata en staat in de antwoord-envelop van de levering. Opvragen: (1) Zoek de onroerende zaken waarvan betreft het adresseerbaar object met deze identificatie bevat, zoals onroerendeZaakOpBAGID dat doet. (2) Neem van die zaken de zakelijke rechten (heeftZakelijkRecht) met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde. (3) Neem van die rechten de tenaamstellingen (heeftTenaamstelling) zonder datumEinde. (4) Kijk of een van die tenaamstellingen via tenNameVan naar de ingeschreven persoon met dit bsn wijst, ongeacht de grootte van het aandeel. Uitkomst: Ja als stap 4 zo'n tenaamstelling vindt. Nee als stap 1 wel onroerende zaken vindt maar stap 4 geen tenaamstelling van deze persoon. Onbekend als geen enkele onroerende zaak aan dit adresseerbaar object is gekoppeld. Raadpleegt OnroerendeZaak, ZakelijkRecht, Tenaamstelling."""
   isEigenaarOpBAGID(bsn: BSN!, identificatie: BAGID!): Indicatie!
-  """Is de ingeschreven persoon met dit bsn eigenaar van een onroerende zaak op dit adres? Toetst uitsluitend de laatst bekende situatie op het moment van bevragen; de peildatum is leveringsmetadata en staat in de antwoord-envelop van de levering. Opvragen: (1) Zoek de nummeraanduiding met deze postcode, dit huisnummer en precies deze huisletter en huisnummertoevoeging. Een weggelaten huisletter of huisnummertoevoeging betekent dat het adres er geen heeft. De BRK doet dit op de BAG-adressen die zij bij de onroerende zaak bijhoudt. (2) Neem het adresseerbaar object waartoe die nummeraanduiding behoort (AdresseerbaarObject.heeftNummeraanduiding). (3) Zoek de onroerende zaken waarvan betreft dat adresseerbaar object bevat. (4) Neem van die zaken de zakelijke rechten (heeftZakelijkRecht) met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde. (5) Neem van die rechten de tenaamstellingen (heeftTenaamstelling) zonder datumEinde. (6) Kijk of een van die tenaamstellingen via tenNameVan naar de ingeschreven persoon met dit bsn wijst, ongeacht de grootte van het aandeel. Uitkomst: Ja als stap 6 zo'n tenaamstelling vindt. Nee als stap 3 wel onroerende zaken vindt maar stap 6 geen tenaamstelling van deze persoon. Onbekend als het adres niet bestaat of aan geen enkele onroerende zaak is gekoppeld. Raadpleegt OnroerendeZaak, ZakelijkRecht, Tenaamstelling."""
-  isEigenaarOpAdres(bsn: BSN!, postcode: Postcode!, huisnummer: Int!, huisletter: String, huisnummertoevoeging: String): Indicatie!
+  """Is de ingeschreven persoon met dit bsn eigenaar van een onroerende zaak op dit adres? Toetst uitsluitend de laatst bekende situatie op het moment van bevragen; de peildatum is leveringsmetadata en staat in de antwoord-envelop van de levering. Opvragen: (1) Zoek de nummeraanduiding die het opgegeven adres vormt (Binnenlandsadres.wordtGevormdDoor): die met dezelfde postcode, hetzelfde huisnummer en precies dezelfde huisletter en huisnummertoevoeging. Een weggelaten huisletter of huisnummertoevoeging betekent dat het adres er geen heeft. De BRK doet dit op de BAG-adressen die zij bij de onroerende zaak bijhoudt. (2) Neem het adresseerbaar object waartoe die nummeraanduiding behoort (AdresseerbaarObject.heeftNummeraanduiding). (3) Zoek de onroerende zaken waarvan betreft dat adresseerbaar object bevat. (4) Neem van die zaken de zakelijke rechten (heeftZakelijkRecht) met aardZakelijkRecht Eigendom of Opstal en zonder datumEinde. (5) Neem van die rechten de tenaamstellingen (heeftTenaamstelling) zonder datumEinde. (6) Kijk of een van die tenaamstellingen via tenNameVan naar de ingeschreven persoon met dit bsn wijst, ongeacht de grootte van het aandeel. Uitkomst: Ja als stap 6 zo'n tenaamstelling vindt. Nee als stap 3 wel onroerende zaken vindt maar stap 6 geen tenaamstelling van deze persoon. Onbekend als het adres niet bestaat of aan geen enkele onroerende zaak is gekoppeld. Raadpleegt OnroerendeZaak, ZakelijkRecht, Tenaamstelling."""
+  isEigenaarOpAdres(bsn: BSN!, adres: BinnenlandsadresInvoer!): Indicatie!
 }

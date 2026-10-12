@@ -23,7 +23,10 @@ dingen mist die GBO nodig heeft:
 5. benoemde toetsen (annotatie gbo:toetsen op het schema) worden
    Query-velden met antwoordtype Indicatie!; hun docstring beschrijft de
    vraag, het genummerde opvraagpad, de uitkomstregel en de
-   geraadpleegde objecttypen.
+   geraadpleegde objecttypen;
+6. klassen met de annotatie gbo:graphql=invoer (invoertypen die de
+   snoei-tool afleidt voor een objecttype als query-argument, zoals
+   BinnenlandsadresInvoer) worden GraphQL input-types.
 
 Attributen worden per type volledig uitgevlakt (eigen plus geërfde),
 zoals GraphQL vereist.
@@ -148,6 +151,12 @@ class SDLGenerator:
         wel in het semantische model, geen GraphQL-interface."""
         ann = (self.classes.get(klasse) or {}).get("annotations") or {}
         return ann.get("gbo:graphql") == "uitsluiten"
+
+    def is_invoer(self, klasse: str) -> bool:
+        """Invoertype (annotatie gbo:graphql=invoer): wordt een
+        input-type en geen object-type."""
+        ann = (self.classes.get(klasse) or {}).get("annotations") or {}
+        return ann.get("gbo:graphql") == "invoer"
 
     def heeft_concrete_afstammeling(self, klasse: str) -> bool:
         return any(
@@ -427,6 +436,19 @@ class SDLGenerator:
         regels += [kop + " {", *self.velden(klasse), "}"]
         return regels
 
+    def invoer_blok(self, klasse: str) -> list[str]:
+        d = self.classes.get(klasse) or {}
+        regels = docstring(d.get("description"))
+        regels.append(f"input {graphql_naam(klasse)} {{")
+        for naam, attr in (d.get("attributes") or {}).items():
+            if (attr or {}).get("range") in self.classes:
+                fout(f"invoertype '{klasse}': veld '{naam}' verwijst naar "
+                     f"een objecttype")
+            regels.extend(docstring((attr or {}).get("description"), "  "))
+            regels.append(f"  {graphql_naam(naam)}: {self.veldtype(attr)}")
+        regels.append("}")
+        return regels
+
     def enum_blok(self, naam: str) -> list[str]:
         d = self.enums.get(naam) or {}
         regels = docstring(d.get("description"))
@@ -538,10 +560,16 @@ class SDLGenerator:
         # Interfaces eerst, daarna types, in schema-volgorde; uitgesloten
         # klassen (patroon-mixins) blijven buiten de SDL.
         volgorde = sorted(
-            (c for c in self.classes if not self.is_uitgesloten(c)),
+            (c for c in self.classes
+             if not self.is_uitgesloten(c) and not self.is_invoer(c)),
             key=lambda c: not self.is_interface(c))
         for klasse in volgorde:
             blokken.append(self.klasse_blok(klasse))
+        # Invoertypen na de object-types, vóór de enums: hun veldtypen
+        # tellen mee als gebruikte scalars en enums.
+        for klasse in self.classes:
+            if self.is_invoer(klasse):
+                blokken.append(self.invoer_blok(klasse))
         # De Query-root eerst opbouwen: argument- en antwoordtypen van
         # queries en toetsen tellen mee als gebruikte enums.
         query = self.query_blok()

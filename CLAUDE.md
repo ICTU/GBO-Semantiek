@@ -15,8 +15,9 @@ Dit bestand helpt Claude (en andere AI-assistenten) om efficiënt en consistent 
 ### Kernprincipe: model komt uit de wiki-repo
 
 Het informatiemodel is **niet** in deze repo de bron van waarheid. De canonieke
-LinkML (`v{VERSION}/informatiemodel/linkml/`), de bron- en client-profielen
-(`v{VERSION}/bronnen/`, `v{VERSION}/clients/`) en de model-documentatie
+LinkML (`v{VERSION}/informatiemodel/linkml/`), de bron-, client- en
+attestatieprofielen (`v{VERSION}/bronnen/`, `v{VERSION}/clients/`,
+`v{VERSION}/attestaties/`) en de model-documentatie
 (`docs/informatiemodel/gbo-kern/`) worden via `task import:copy` gekopieerd uit
 de modelleer-/bronrepo **`llm-wiki-GBI-core-model`**. Bewerk ze hier niet met de hand.
 
@@ -46,7 +47,9 @@ gbo-semantiek/
 │   ├── informatiemodel/linkml/  LinkML-model — GEKOPIEERD uit de wiki-repo
 │   ├── bronnen/         Bron-profielen (aanbod) — GEKOPIEERD uit de wiki-repo
 │   ├── clients/         Client-profielen (vraag) — GEKOPIEERD uit de wiki-repo
+│   ├── attestaties/     Attestatieprofielen (EUDI) — GEKOPIEERD uit de wiki-repo
 │   ├── graphql/         GraphQL SDL's (gegenereerd)
+│   ├── eudi/            Uitgifteconfiguratie + rulebook-hoofdstuk 3 per attestatie (gegenereerd)
 │   └── ontologie/       OWL + SHACL (gegenereerd)
 ├── tools/               Hulpscripts (generatoren, changelog, deploy)
 ├── site/                Gebouwde MkDocs-site (NIET handmatig bewerken)
@@ -84,7 +87,7 @@ Een documentatie-update vereist niet altijd een nieuwe modelversie en omgekeerd.
 - **Lees eerst de relevante bestanden** voordat je voorstellen doet. Vermijd aannames over de inhoud.
 - **Volg bestaande conventies** in dit repository (Markdown-stijl, mappenstructuur, naamgeving). Wijk alleen af met goede reden.
 - **Eén ding tegelijk:** liever een kleine, gefocuste wijziging dan een grote refactor. Stel grote refactors altijd eerst voor.
-- **Bewerk nooit handmatig wat door tooling of de copy-slag komt.** Gegenereerd via `Taskfile.yml`: `site/`, `v{VERSION}/graphql/`, `v{VERSION}/ontologie/`, `v{VERSION}/begrippen/`, `v{VERSION}/GBO_Changes.md`. Gekopieerd uit de wiki-repo (`task import:copy`): `v{VERSION}/informatiemodel/linkml/`, `v{VERSION}/bronnen/`, `v{VERSION}/clients/`, `docs/informatiemodel/gbo-kern/` en `docs/informatiemodel/gbo-voorzieningen.md`.
+- **Bewerk nooit handmatig wat door tooling of de copy-slag komt.** Gegenereerd via `Taskfile.yml`: `site/`, `v{VERSION}/graphql/`, `v{VERSION}/ontologie/`, `v{VERSION}/begrippen/`, `v{VERSION}/eudi/`, `v{VERSION}/GBO_Changes.md`. Gekopieerd uit de wiki-repo (`task import:copy`): `v{VERSION}/informatiemodel/linkml/`, `v{VERSION}/bronnen/`, `v{VERSION}/clients/`, `v{VERSION}/attestaties/`, `docs/informatiemodel/gbo-kern/` en `docs/informatiemodel/gbo-voorzieningen.md`.
 - **Diagrammen** komen als PlantUML-fences mee in de gekopieerde model-docs en worden door mkdocs gerenderd. Het oude drawio→SVG-spoor (`task generate:diagrams`) is **voorlopig uitgeschakeld** (Fase 1).
 
 ### Wat NIET doen
@@ -105,7 +108,7 @@ Dit repository gebruikt [go-task](https://taskfile.dev/) als task-runner. Alle t
 |------|---------------------|------|
 | `prepare` | `prepare:check-tools`, `prepare:check-vars` | Voorwaarden valideren |
 | `import` | `import:copy` | Model + bron-/client-profielen kopiëren uit de wiki-repo |
-| `generate` | `generate:docs`, `generate:lod`, `generate:voorzieningen-lod`, `generate:begrippen`, `generate:diff` | Artefacten uit het model genereren |
+| `generate` | `generate:docs`, `generate:lod`, `generate:voorzieningen-lod`, `generate:begrippen`, `generate:attestaties`, `generate:diff` | Artefacten uit het model genereren |
 | `build` | `build:validate`, `build:site`, `build:serve` | MkDocs valideren, bouwen, serveren |
 | `publish` | `publish:local`, `publish:github` | Mike-deploy lokaal of naar gh-pages |
 | — | `full-deploy` | Volledige pipeline van import t/m publish |

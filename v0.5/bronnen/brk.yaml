@@ -108,16 +108,24 @@ toetsen:
       onroerende zaken vindt maar stap 4 geen tenaamstelling van deze
       persoon. Onbekend als geen enkele onroerende zaak aan dit
       adresseerbaar object is gekoppeld.
+  # Het adres komt binnen als Binnenlandsadres. GraphQL staat geen
+  # objecttype als argument toe; de generator maakt er het invoertype
+  # BinnenlandsadresInvoer van, met alleen de velden hieronder. Postcode
+  # en huisnummer leggen het adres vast; de verplichting staat hier en
+  # niet in het model, waar straatnaam en woonplaatsnaam verplicht zijn.
   - naamQuery: isEigenaarOpAdres
-    vanaf: [IngeschrevenPersoon, Nummeraanduiding]
+    vanaf: [IngeschrevenPersoon, Binnenlandsadres]
     parameters:
       - naam: bsn
-      - naam: postcode
-      - naam: huisnummer
-      - naam: huisletter
-        verplicht: false
-      - naam: huisnummertoevoeging
-        verplicht: false
+      - naam: adres
+        type: Binnenlandsadres
+        velden:
+          - naam: postcode
+          - naam: huisnummer
+          - naam: huisletter
+            verplicht: false
+          - naam: huisnummertoevoeging
+            verplicht: false
     raadpleegt: [OnroerendeZaak, ZakelijkRecht, Tenaamstelling]
     selectie: laatstBekend
     toelichting: >-
@@ -125,11 +133,13 @@ toetsen:
       onroerende zaak op dit adres?
     opvraagpad:
       - >-
-        Zoek de nummeraanduiding met deze postcode, dit huisnummer en
-        precies deze huisletter en huisnummertoevoeging. Een weggelaten
-        huisletter of huisnummertoevoeging betekent dat het adres er
-        geen heeft. De BRK doet dit op de BAG-adressen die zij bij de
-        onroerende zaak bijhoudt.
+        Zoek de nummeraanduiding die het opgegeven adres vormt
+        (Binnenlandsadres.wordtGevormdDoor): die met dezelfde postcode,
+        hetzelfde huisnummer en precies dezelfde huisletter en
+        huisnummertoevoeging. Een weggelaten huisletter of
+        huisnummertoevoeging betekent dat het adres er geen heeft. De
+        BRK doet dit op de BAG-adressen die zij bij de onroerende zaak
+        bijhoudt.
       - >-
         Neem het adresseerbaar object waartoe die nummeraanduiding
         behoort (AdresseerbaarObject.heeftNummeraanduiding).

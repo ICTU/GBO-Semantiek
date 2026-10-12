@@ -78,6 +78,10 @@ vars:
   BRONNEN_DIR: "{{.VERSION_DIR}}/bronnen"
   CLIENTS_DIR: "{{.VERSION_DIR}}/clients"
   GRAPHQL_DIR: "{{.VERSION_DIR}}/graphql"
+  # Attestatieprofielen (gekopieerd) en de daaruit gegenereerde
+  # uitgifteconfiguratie en rulebook-hoofdstukken voor de EUDI-wallet.
+  ATTESTATIES_DIR: "{{.VERSION_DIR}}/attestaties"
+  EUDI_DIR: "{{.VERSION_DIR}}/eudi"
   SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Shapes.ttl"
 
 tasks:
@@ -163,7 +167,7 @@ tasks:
   # Import — Model + profielen kopiëren uit de wiki-repo (modelleer-/bronrepo)
   # ==========================================================================
   import:copy:
-    desc: "Kopieer LinkML-model + bron-/client-profielen uit de wiki-repo ({{.WIKI_REPO}})."
+    desc: "Kopieer LinkML-model + bron-, client- en attestatieprofielen uit de wiki-repo ({{.WIKI_REPO}})."
     deps: [prepare:check-tools, prepare:check-vars]
     cmds:
       - |
@@ -177,6 +181,7 @@ tasks:
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/linkml/"  "{{.LINKML_DIR}}/"
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/bronnen/" "{{.BRONNEN_DIR}}/"
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/clients/" "{{.CLIENTS_DIR}}/"
+      - rsync -a --delete "{{.WIKI_REPO}}/publicatie/attestaties/" "{{.ATTESTATIES_DIR}}/"
       # Fase 1: de publicatie-.md's (incl. bronnenprioritering) worden nog in de
       # wiki-repo (AI) geschreven en hier mee gekopieerd. Vervalt in Fase 2 (dan
       # genereert 'generate:docs' ze zelf uit de LinkML). bronnenprioritering
@@ -199,6 +204,7 @@ tasks:
       - "{{.LINKML_DIR}}/*.yaml"
       - "{{.BRONNEN_DIR}}/*.yaml"
       - "{{.CLIENTS_DIR}}/*.yaml"
+      - "{{.ATTESTATIES_DIR}}/*.yaml"
     run: when_changed
 
   # ==========================================================================
@@ -290,6 +296,32 @@ tasks:
         {{.VENV}}/python -c "import yaml; s=yaml.safe_load(open('/tmp/gbo-merged.yaml')); s.pop('imports',None); yaml.dump(s, open('/tmp/gbo-merged-noimports.yaml','w'), sort_keys=False, allow_unicode=True)"
         {{.VENV}}/gen-shacl /tmp/gbo-merged-noimports.yaml > "{{.SHACL}}"
       - echo "Linked Data gegenereerd."
+
+
+  generate:attestaties:
+    desc: "Genereer per attestatieprofiel de uitgifteconfiguratie (/.well-known/gbo) en rulebook-hoofdstuk 3 in {{.EUDI_DIR}}."
+    # De query wordt tegen de gegenereerde SDL gevalideerd en de semantische
+    # ankers tegen de ontologie en het begrippenkader; die moeten er dus zijn.
+    deps: [generate:graphql, generate:lod, generate:begrippen]
+    sources:
+      - "{{.ATTESTATIES_DIR}}/*.yaml"
+      - "{{.GRAPHQL_DIR}}/*.graphql"
+      - ./tools/genereer_attestatie.py
+    generates:
+      - "{{.EUDI_DIR}}/*"
+    cmds:
+      - |
+        mkdir -p "{{.EUDI_DIR}}"
+        for profiel in "{{.ATTESTATIES_DIR}}"/*.yaml; do
+          # Het basisschema is geen attestatietype.
+          [ "$(basename "$profiel")" = "attestatie.yaml" ] && continue
+          echo "== Attestatieprofiel: $(basename "$profiel" .yaml) =="
+          {{.VENV}}/linkml lint --config .linkmllint.yaml "$profiel"
+          {{.VENV}}/python tools/genereer_attestatie.py "$profiel" \
+            --graphql-dir "{{.GRAPHQL_DIR}}" -o "{{.EUDI_DIR}}" \
+            --ontologie "{{.LOD}}" "{{.BEGRIPPEN}}"
+        done
+        echo "Attestatie-artefacten gegenereerd in {{.EUDI_DIR}}"
 
 
   generate:voorzieningen-lod:
@@ -527,6 +559,7 @@ tasks:
       - task: generate:voorzieningen-lod
       - task: generate:toestemmingen-lod
       - task: generate:begrippen
+      - task: generate:attestaties
       - task: generate:diff
       - echo "Deploying documentation with Mike..."
       - '{{.VENV}}/mkdocs build --clean'
@@ -540,7 +573,7 @@ tasks:
 
   publish:main:
     desc: "Publiceer de huidige werkversie als 'main' in het mike-versiemenu."
-    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:toestemmingen-lod, generate:begrippen]
+    deps: [generate:docs, generate:graphql, generate:lod, generate:voorzieningen-lod, generate:toestemmingen-lod, generate:begrippen, generate:attestaties]
     cmds:
       # Naast de vastgestelde versies staat 'main' voor de stand van de
       # hoofdbranch: wat er nu in de documentatie zit, nog niet vastgesteld.

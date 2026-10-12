@@ -1,0 +1,117 @@
+# =============================================================================
+# GBO — Attestatieprofielen: basisschema
+#
+# Een attestatieprofiel beschrijft één attestatietype als LinkML-klasse:
+# welke claims de attestatie draagt, wat ze betekenen, welke verplicht zijn en
+# uit welk gegeven van GBO-Kern ze komen. Het is het semantische deel van een
+# Attestation Rulebook (hoofdstuk 3 van het ARF-sjabloon: attributen en
+# metadata). Codering, vertrouwensankers, intrekking en compliance staan niet
+# in het profiel; die horen bij het rulebook van het scheme.
+#
+# Elk attestatietype is een subklasse van Attestatie in een eigen bestand in
+# deze map, met de koppeling aan de bron als annotaties. De conventies staan
+# in README.md; tools/genereer_attestatie.py in gbo-semantiek leest ze.
+# =============================================================================
+id: https://lod.gbo-semantiek.nl/attestaties
+name: gbo-attestatie
+title: GBO attestatieprofielen
+description: >-
+  Basisschema voor attestatieprofielen: per attestatietype één
+  LinkML-klasse die de claims van een elektronische attestatie van
+  attributen beschrijft, met hun betekenis, verplichting en herkomst in
+  GBO-Kern.
+license: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  gbo: https://lod.gbo-semantiek.nl/
+  gboat: https://lod.gbo-semantiek.nl/attestaties/
+  gbobegrip: https://begrippen.gbo-semantiek.nl/id/begrip/
+  gbovz: https://lod.gbo-semantiek.nl/voorzieningen/
+default_prefix: gboat
+default_range: string
+
+imports:
+  - linkml:types
+
+subsets:
+  attribuut:
+    description: >-
+      Claim met een gegeven over het subject van de attestatie; rulebook
+      §3.2 tot en met §3.4. Gevuld uit de bron.
+  metadata:
+    description: >-
+      Claim over de attestatie zelf; rulebook §3.5 tot en met §3.7.
+      Gevuld door de uitgever, niet uit de bron.
+
+slots:
+
+  attestation_legal_category:
+    title: Juridische categorie
+    required: true
+    in_subset: [metadata]
+    equals_string_in: [PID, QEAA, PuB-EAA, EAA]
+    description: >-
+      De juridische categorie waaronder de attestatie is uitgegeven.
+    annotations:
+      gbo:gevuldDoor: uitgever
+    comments:
+      - Claimnaam volgens het ARF en de ARC-rulebooks.
+      - >-
+        PID: persoonsidentificatiegegevens, uitgegeven door of namens een
+        lidstaat. QEAA: gekwalificeerde elektronische attestatie van
+        attributen, van een gekwalificeerde vertrouwensdienstverlener.
+        PuB-EAA: elektronische attestatie van attributen uitgegeven door of
+        namens een overheidsorgaan dat verantwoordelijk is voor een
+        authentieke bron. EAA: niet-gekwalificeerde elektronische
+        attestatie van attributen.
+      - >-
+        Ruimer dan Attestatiesoort in het voorzieningenmodel, dat alleen
+        PubEAA en QEAA kent. Een attestatietype legt zijn categorie vast
+        met equals_string in slot_usage.
+  issuing_authority:
+    title: Uitgevende instantie
+    required: true
+    in_subset: [metadata]
+    description: >-
+      De naam van de instantie die de attestatie uitgeeft.
+    annotations:
+      gbo:gevuldDoor: uitgever
+  issuing_country:
+    title: Land van uitgifte
+    required: true
+    in_subset: [metadata]
+    pattern: "^[A-Z]{2}$"
+    description: >-
+      Landcode (ISO 3166-1 alpha-2) van de uitgevende instantie.
+    annotations:
+      gbo:gevuldDoor: uitgever
+
+classes:
+
+  Attestatie:
+    abstract: true
+    description: >-
+      De inhoud van een elektronische attestatie van attributen: de claims
+      die een wallet bewaart en aan een vertrouwende partij presenteert.
+    close_mappings:
+      - gbovz:Attestatie
+    comments:
+      - >-
+        Het voorzieningenmodel beschrijft dezelfde attestatie als levering:
+        herkomst, uitgever en geldigheid. Deze klasse beschrijft haar
+        inhoud. Een instantie van een subklasse is de claimset van één
+        uitgegeven attestatie.
+      - >-
+        Verplicht (required) is in het rulebook mandatory, optioneel
+        (recommended of niets) is optional. Een conditionele claim krijgt
+        een regel in rules. Een vaste waarde, zoals de juridische
+        categorie, staat als equals_string in slot_usage.
+      - >-
+        Een subtype (is_a) mag een claim aanscherpen, bijvoorbeeld van
+        optioneel naar verplicht, maar niet verruimen. LinkML dwingt dat
+        niet af; de generator controleert het.
+    slots:
+      - attestation_legal_category
+      - issuing_authority
+      - issuing_country

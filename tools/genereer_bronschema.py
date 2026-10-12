@@ -44,6 +44,11 @@ Regels:
   als annotatie gbo:toetsen op het schema; de GraphQL-generator maakt
   er per toets een Query-veld met antwoordtype Indicatie van, met het
   opvraagpad en de uitkomstregel in de docstring.
+- Een query- of toetsparameter mag een objecttype als type hebben, met
+  een selectie van zijn attributen in velden. De snoei-tool maakt daar
+  een invoerklasse <Objecttype>Invoer van (annotatie
+  gbo:graphql=invoer), die de GraphQL-generator als input-type
+  uitschrijft: GraphQL staat geen objecttype als argument toe.
 
 Gebruik:
     python3 tools/genereer_bronschema.py v0.2/bronnen/brp.yaml \
@@ -78,6 +83,10 @@ ANTWOORDTYPE_TOETS = "Indicatie"
 # Veldscheiders van de querycodering in de annotaties gbo:queries en
 # gbo:toetsen; vrije tekst mag ze niet bevatten.
 VELDSCHEIDERS = (";", "|", "~", "\n")
+
+# Achtervoegsel van het invoertype dat een objecttype als argument
+# afspiegelt: Binnenlandsadres wordt BinnenlandsadresInvoer.
+INVOER_ACHTERVOEGSEL = "Invoer"
 
 
 def melding(soort: str, tekst: str) -> None:
@@ -290,7 +299,49 @@ def als_lijst(waarde) -> list:
     return [waarde] if isinstance(waarde, str) else list(waarde)
 
 
-def codeer_parameter(par: dict, ptype: str | None) -> str:
+def invoernaam(klasse: str) -> str:
+    return f"{klasse}{INVOER_ACHTERVOEGSEL}"
+
+
+def valideer_invoerparameter(naam_query: str, par: dict,
+                             index: "Modelindex") -> None:
+    """Een parameter met een objecttype als type wordt een invoertype;
+    velden kiest de attributen daarvan."""
+    ptype = par.get("type")
+    velden = par.get("velden") or []
+    pnaam = par.get("naam")
+    if ptype not in index.classes:
+        if velden:
+            fout(f"query '{naam_query}', parameter '{pnaam}': velden "
+                 f"alleen bij een objecttype als type")
+        return
+    if not velden:
+        fout(f"query '{naam_query}', parameter '{pnaam}': type "
+             f"'{ptype}' is een objecttype; kies de attributen van het "
+             f"invoertype in velden")
+    induced = index.induced_attributen(ptype)
+    gezien = set()
+    for veld in velden:
+        veld = {"naam": veld} if isinstance(veld, str) else veld
+        vnaam = veld.get("naam")
+        if vnaam in gezien:
+            fout(f"query '{naam_query}', parameter '{pnaam}': veld "
+                 f"'{vnaam}' staat dubbel in velden")
+        gezien.add(vnaam)
+        if vnaam not in induced:
+            fout(f"query '{naam_query}', parameter '{pnaam}': veld "
+                 f"'{vnaam}' is geen attribuut van {ptype}")
+        bereik = (induced[vnaam] or {}).get("range", "string")
+        if bereik in index.classes:
+            fout(f"query '{naam_query}', parameter '{pnaam}': veld "
+                 f"'{vnaam}' verwijst naar objecttype '{bereik}'; een "
+                 f"invoerveld moet een datatype of enumeratie zijn")
+
+
+def codeer_parameter(par: dict, ptype: str | None,
+                     index: "Modelindex") -> str:
+    if ptype in index.classes:
+        ptype = invoernaam(ptype)
     return "~".join([
         par["naam"], ptype or "string",
         "meervoudig" if par.get("meervoudig") else "",
@@ -423,6 +474,7 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
                      f"niet af te leiden; geef 'type' op, of gebruik een "
                      f"sleutel van het subject, een attribuut van "
                      f"{doel}, of 'op'")
+            valideer_invoerparameter(naam_query, par, index)
         weiger_veldscheiders(naam_query, "toelichting",
                              q.get("toelichting") or "")
         for stap in als_lijst(q.get("opvraagpad")):
@@ -477,6 +529,7 @@ def valideer_profiel(profiel: dict, index: Modelindex) -> None:
                 fout(f"toets '{naam_query}', parameter '{pnaam}': type "
                      f"niet af te leiden; geef 'type' op, of gebruik een "
                      f"sleutel of attribuut van een subject")
+            valideer_invoerparameter(naam_query, par, index)
         for veld in ("toelichting", "uitkomst"):
             weiger_veldscheiders(naam_query, veld, t.get(veld) or "")
         for stap in als_lijst(t.get("opvraagpad")):
@@ -742,7 +795,7 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
             if not ptype and par.get("op"):
                 ptype = (doel_attrs[par["op"]] or {}).get("range",
                                                           "string")
-            stukken.append(codeer_parameter(par, ptype))
+            stukken.append(codeer_parameter(par, ptype, index))
         per_doel.setdefault(doel, []).append(";".join([
             q["naamQuery"], q.get("selectie") or "",
             q.get("toelichting") or "", "|".join(stukken),
@@ -782,6 +835,61 @@ def verwerk_klassen(profiel: dict, index: Modelindex,
     return resultaat
 
 
+def maak_invoertypen(profiel: dict, index: Modelindex,
+                     klassen: dict[str, dict]) -> dict[str, dict]:
+    """Invoerklassen voor parameters met een objecttype als type.
+
+    GraphQL staat geen objecttype als argument toe. Een parameter met
+    type Binnenlandsadres en een selectie in velden wordt daarom de
+    klasse BinnenlandsadresInvoer: alleen de gekozen attributen, met de
+    verplichting uit het profiel in plaats van die uit het model. De
+    annotatie gbo:graphql=invoer laat de GraphQL-generator er een
+    input-type van maken."""
+    invoer: dict[str, dict] = {}
+    parameters = [(q["naamQuery"], p)
+                  for q in (profiel.get("queries") or [])
+                  + (profiel.get("toetsen") or [])
+                  for p in q.get("parameters") or []
+                  if isinstance(p, dict) and p.get("type") in index.classes]
+    for naam_query, par in parameters:
+        klasse = par["type"]
+        naam = invoernaam(klasse)
+        if naam in index.classes or naam in klassen:
+            fout(f"query '{naam_query}': invoertype '{naam}' botst met "
+                 f"een bestaand objecttype")
+        induced = index.induced_attributen(klasse)
+        attributen = {}
+        for veld in par["velden"]:
+            veld = {"naam": veld} if isinstance(veld, str) else veld
+            bron = induced[veld["naam"]] or {}
+            attr = {"range": bron.get("range", "string")}
+            if bron.get("description"):
+                attr["description"] = bron["description"]
+            if bron.get("multivalued"):
+                attr["multivalued"] = True
+            if veld.get("verplicht", True):
+                attr["required"] = True
+            attributen[veld["naam"]] = attr
+        if naam in invoer:
+            if invoer[naam]["attributes"] != attributen:
+                fout(f"query '{naam_query}': invoertype '{naam}' wordt "
+                     f"elders met andere velden gebruikt; kies dezelfde "
+                     f"velden of een eigen type")
+            continue
+        invoer[naam] = {
+            "description": index.classes[klasse].get("description"),
+            "annotations": {"gbo:graphql": "invoer",
+                            "gbo:invoerVan": klasse},
+            "comments": [f"Invoertype met een selectie van de attributen "
+                         f"van {klasse}; verplichting volgens het "
+                         f"bron-profiel."],
+            "attributes": attributen,
+        }
+        melding("INFO", f"invoertype '{naam}' uit {klasse} "
+                        f"({len(attributen)} velden)")
+    return invoer
+
+
 def codeer_toetsen(profiel: dict, index: Modelindex) -> str:
     """Toetsdeclaraties als één annotatie op het schema.
 
@@ -808,7 +916,7 @@ def codeer_toetsen(profiel: dict, index: Modelindex) -> str:
             ptype = par.get("type") or sleutels.get(pnaam)
             if not ptype and pnaam in attributen:
                 ptype = attributen[pnaam].get("range", "string")
-            stukken.append(codeer_parameter(par, ptype))
+            stukken.append(codeer_parameter(par, ptype, index))
         declaraties.append(";".join([
             t["naamQuery"], t.get("selectie") or "",
             " ".join(str(t.get("toelichting") or "").split()),
@@ -931,6 +1039,7 @@ def main() -> None:
     valideer_profiel(profiel, index)
     selectie = bepaal_selectie(profiel, index)
     klassen = verwerk_klassen(profiel, index, selectie)
+    klassen.update(maak_invoertypen(profiel, index, klassen))
     toetsen = codeer_toetsen(profiel, index)
     enums, typen = verzamel_enums_en_types(klassen, index, toetsen)
     schema = bouw_schema(profiel, index, klassen, enums, typen, toetsen)
