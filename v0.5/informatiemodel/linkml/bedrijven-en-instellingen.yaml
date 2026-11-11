@@ -62,6 +62,15 @@ classes:
       maatschap) en buitenlandse entiteiten met activiteit in Nederland.
     exact_mappings:
       - gbobegrip:NietNatuurlijkPersoon
+    broad_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Partij
+    close_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/Rechtspersoon
+    related_mappings:
+      - https://begrippen.gbo-semantiek.nl/id/begrip/MaatschappelijkeActiviteit
+    aliases:
+      - NNP
+      - Non-natural Person
     annotations:
       mim:herkomst: >-
         NHR (basis); semantische verbreding buiten-KVK-scope
@@ -80,6 +89,25 @@ classes:
         een overheidsorganisatie, KVK-ingeschreven én entiteiten
         buiten KVK-scope (overheidsorganen via TOOI/OIN, buitenlandse
         entiteiten zonder NL-vestiging).
+      skos:status: proposed
+      skos:prefLabel_nl: Niet Natuurlijk Persoon
+      skos:altLabel_nl_0_value: NNP
+      skos:altLabel_nl_0_source: '[[gbo-core/sources/opzetje-np-nnp-westbroek]]'
+      skos:altLabel_en_0_value: Non-natural Person
+      skos:altLabel_en_0_source: '[[gbo-core/sources/opzetje-np-nnp-westbroek]]'
+      skos:definition_nl: 'Een niet-natuurlijke persoon is een deelnemer aan het rechtsverkeer die rechten en plichten kan dragen en die geen mens is: een organisatie of rechtsfiguur zoals een BV, een stichting, een vereniging, een eenmanszaak, een VOF of een buitenlandse onderneming met activiteit in Nederland.'
+      skos:definitionSource: Stelselcatalogus; BW boek 2; Handelsregisterwet 2007 art. 10 lid 3 en art. 12
+      skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0021777
+      skos:additional_0_as: scopeNote
+      skos:additional_0_nl: 'Rechtspersoonlijkheid is geen voorwaarde: ook entiteiten zonder eigen rechtspersoonlijkheid (VOF, CV, maatschap, eenmanszaak) vallen eronder wanneer zij als wederpartij in een rechtsbetrekking optreden.'
+      skos:additional_0_source: '[[gbo-core/sources/opzetje-np-nnp-westbroek]]'
+      skos:additional_1_as: scopeNote
+      skos:additional_1_nl: De functionele indeling in bedrijf, overheidsinstelling, maatschappelijke instelling, buitenlandse entiteit of overige is een afgeleide classificatie op de juridische vorm, geen aparte soort.
+      skos:additional_1_source: publicatie/linkml/bedrijven-en-instellingen.yaml
+      skos:closeMatch_0_reviewed: 'false'
+      skos:relatedMatch_0_reviewed: 'false'
+      skos:needsReview_0: 'closeMatch Rechtspersoon: scope-verhouding (NNP breder dan Rechtspersoon) vaststellen vóór promotie naar exactMatch/broaderMatch.'
+      skos:needsReview_1: 'Buitenlandse entiteiten zonder NHR-vestiging: identifier-strategie (geen RSIN, geen kvk-nummer) nog open.'
     comments:
       - >-
         NietNatuurlijkPersoon is een concreet objecttype (geen abstract

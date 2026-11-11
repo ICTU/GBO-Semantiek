@@ -65,7 +65,10 @@ objecttypen:
 uitsluitingen:
   - objecttype: IngeschrevenPersoon
     attributen:
-      - aNummer    # intern BRP-administratienummer, niet voor afnemers
+      - aNummer
+    toelichting: >-
+      Het A-nummer is een intern BRP-administratienummer en is niet
+      bestemd voor afnemers; het bsn is de sleutel.
 
 # Afwijkende afhandeling van relaties buiten het profiel; zonder
 # vermelding geldt de default "sleutel".
@@ -75,12 +78,16 @@ uitsluitingen:
 relatieAfhandeling:
   - objecttype: Ingezetene
     relatie: heeftBriefadres
-    afhandeling: weglaten    # briefadres wordt via de adressen-bron ontsloten
+    afhandeling: weglaten
+    toelichting: >-
+      Het briefadres wordt via de adressen-bron ontsloten en niet via
+      de BRP-bron.
   - objecttype: Binnenlandsadres
     relatie: wordtGevormdDoor
     afhandeling: weglaten
-    # Zou als sleutel-referentie exact dezelfde BAG-code dragen als
-    # adresId (dat per definitie gelijk is aan de identificatie van de
-    # Nummeraanduiding); de dubbeling verwart afnemers. In de
-    # BAG-bron, waar Nummeraanduiding wél in het profiel zit, blijft
-    # het een echte relatie.
+    toelichting: >-
+      Zou als sleutel-referentie exact dezelfde BAG-code dragen als
+      adresId (dat per definitie gelijk is aan de identificatie van de
+      Nummeraanduiding); de dubbeling verwart afnemers. In de
+      BAG-bron, waar Nummeraanduiding wél in het profiel zit, blijft
+      het een echte relatie.

@@ -60,6 +60,7 @@ classes:
           betrokken is.
         annotations:
           mim:kardinaliteit: "1..* -> 0..*"
+          mim:herkomst: NHR
         comments:
           - >-
             Hangt aan Partij zodat eenmanszaak (NP-eigenaar), holding

@@ -1407,7 +1407,7 @@ classes:
       skos:altLabel_nl_0_value: Authentiek inkomen gegeven
       skos:altLabel_nl_0_source: Stelselcatalogus BRI
       skos:altLabel_nl_1_value: Authentiek inkomen
-      skos:altLabel_nl_1_source: Wet BRI
+      skos:altLabel_nl_1_source: Wet BRI art. 4
       skos:definition_nl: Het door de Belastingdienst vastgestelde verzamelinkomen of belastbaar loon van een natuurlijk persoon over een belastingjaar, aangewezen als authentiek gegeven in de Basisregistratie Inkomen.
       skos:definitionSource: Wet basisregistratie inkomen art. 1 jo. art. 4
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0028058
@@ -1465,7 +1465,7 @@ classes:
     class_uri: gbobegrip:Verzamelinkomen
     aliases:
       - Authentiek inkomen gegeven
-      - Verzamelinkomen (in BRI-context)
+      - Authentiek inkomen
   Toeslag:
     # InkomensOndersteuning is gedefinieerd in het deelmodel Werk en
     # inkomen; belastingen.md documenteert hetzelfde objecttype.
@@ -2219,6 +2219,8 @@ enums:
       Het stadium waarin een aangifte verkeert: vooringevuld door de
       Belastingdienst, ingediend door of namens de belastingplichtige,
       of na indiening herzien.
+    exact_mappings:
+      - gbobegrip:AangifteStatus
     annotations:
       mim:herkomst: AWR
       mim:herkomstDefinitie: >-
@@ -2229,6 +2231,8 @@ enums:
       mim:datumOpname: "2026-08-21"
       skos:status: proposed
       skos:prefLabel_nl: Aangifte status
+      skos:definition_nl: "Het stadium waarin een aangifte verkeert: vooringevuld door de Belastingdienst, ingediend door of namens de belastingplichtige, of na indiening herzien."
+      skos:definitionSource: GBO-Kern, afgeleid uit AWR art. 8
     comments:
       - >-
         Het onderscheid is juridisch relevant: een vooringevulde
@@ -2864,6 +2868,8 @@ enums:
   SoortAanslag:
     description: >-
       De soort belastingaanslag die de inspecteur heeft vastgesteld.
+    exact_mappings:
+      - gbobegrip:SoortAanslag
     annotations:
       mim:herkomst: AWR
       mim:herkomstDefinitie: >-
@@ -2874,6 +2880,8 @@ enums:
       mim:datumOpname: "2026-08-21"
       skos:status: proposed
       skos:prefLabel_nl: Soort aanslag
+      skos:definition_nl: De soort belastingaanslag die de inspecteur heeft vastgesteld.
+      skos:definitionSource: GBO-Kern, afgeleid uit AWR art. 2 lid 3 sub e, art. 11, 13 en 16
     comments:
       - >-
         De bevraging levert de laatst vastgestelde aanslag over een

@@ -46,7 +46,7 @@ classes:
         BRP cat 01 (basis); semantische verbreding voor personen buiten
         de Nederlandse persoonsregistratie
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §1
         (operationele invulling binnen de basisregistratie). Wettelijke
         grondslag: Burgerlijk Wetboek art. 1:1 BW (algemene grondslag
         voor het rechtssubject mens).
@@ -74,7 +74,7 @@ classes:
       skos:definitionSourceUri: https://wetten.overheid.nl/BWBR0002656
       skos:additional_0_as: scopeNote
       skos:additional_0_nl: De natuurlijke persoon zoals geregistreerd in de Basisregistratie Personen, met identificerende, naam-, geboorte-, geslachts- en overlijdensgegevens.
-      skos:additional_0_source: '[[gbo-core/sources/logisch-ontwerp-brp]] v4.3.0 §1'
+      skos:additional_0_source: '[[gbo-core/sources/logisch-ontwerp-brp]] 2026.Q3 §1'
       skos:closeMatch_0_reviewed: 'false'
       skos:needsReview_0: closeMatch op cpv:Person nog niet handmatig geverifieerd qua scope
       skos:needsReview_1: altLabel 'Mens' bron-citatie controleren (art. 1:1 BW gebruikt 'allen die zich in Nederland bevinden', niet letterlijk 'mens')
@@ -239,7 +239,7 @@ classes:
     annotations:
       mim:herkomst: BRP
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §1
         (registratiedomein BRP). Wettelijke grondslag: Wet BRP art. 1.2
         en art. 2.1.
       mim:datumOpname: "2026-04-28"
@@ -313,7 +313,9 @@ classes:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRP cat 07 grp 67
+          mim:herkomst: BRP cat 07 grp 68
+        comments:
+          - LO-element 68.10 Datum eerste inschrijving BRP.
       gemeenteVanInschrijving:
         range: CodelijstLT33
         description: De gemeente die de persoonslijst bijhoudt.
@@ -321,11 +323,12 @@ classes:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRP cat 07 grp 67
+          mim:herkomst: BRP cat 08 grp 09
         comments:
           - >-
-            Voor RNI-inschrijvingen leeg of gevuld met een
-            RNI-deelnemer-equivalent.
+            LO-element 09.10 Gemeente van inschrijving. Op een
+            RNI-persoonslijst bevat dit element de code 1999
+            (Registratie Niet-Ingezetenen) uit Tabel 33.
       opschortingBijhouding:
         range: OpschortingBijhouding
         description: >-
@@ -337,8 +340,9 @@ classes:
           mim:herkomst: BRP cat 07 grp 67
         comments:
           - >-
-            Bijhouding stopt bij overlijden, emigratie of opname in
-            RNI.
+            LO-element 67.20 Omschrijving reden opschorting bijhouding.
+            De datum van opschorting (67.10) is nog niet opgenomen; zie
+            werkpakket P2 van de BRP-dekkingsanalyse.
       uitsluitingKiesrecht:
         range: IndicatieJaNee
         description: >-
@@ -351,7 +355,7 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRP cat 13
           mim:herkomstDefinitie: >-
-            Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023),
+            Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026),
             cat 13 Kiesrecht. Wettelijke grondslag: Kieswet art. B 5
             en J 25.
         comments:
@@ -370,7 +374,7 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRP cat 13
           mim:herkomstDefinitie: >-
-            Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023),
+            Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026),
             cat 13 Kiesrecht. Wettelijke grondslag: Kieswet hoofdstuk Y
             (registratie EU-burgers).
         comments:
@@ -379,14 +383,41 @@ classes:
             kiesrecht uitoefenen. Tweewaardig (IndicatieJaNee): een
             afwezige waarde betekent "niet van toepassing of niet
             vastgesteld" en is te onderscheiden van Nee.
-      verificatie:
-        range: Verificatie
-        description: Datum en bron van de laatste gegevensverificatie.
+      indicatieGeheim:
+        range: Indicatie
+        required: true
+        description: >-
+          Aanduiding dat verstrekking van gegevens over deze persoon aan
+          derden is beperkt.
         annotations:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRP cat 07
+          mim:herkomst: BRP cat 07 grp 70
+        comments:
+          - >-
+            LO-element 70.10 Indicatie geheim kent de niveaus 0 (geen
+            beperking) tot en met 7; hier samengevat tot één indicatie
+            (0 = Nee, 1 tot en met 7 = Ja). Verfijning naar niveau is
+            beslispunt B.5. Groep 70 staat op elke persoonslijst, ook
+            in de RNI; daarom staat het attribuut op IngeschrevenPersoon
+            en niet op Ingezetene.
+      verificatie:
+        range: Verificatie
+        description: >-
+          Datum en wijze van de laatste verificatie van de gegevens op
+          de persoonslijst in de RNI.
+        annotations:
+          mim:authentiek: Basisgegeven
+          mim:indicatieMaterieleHistorie: true
+          mim:indicatieFormeleHistorie: true
+          mim:herkomst: BRP cat 07 grp 71
+        comments:
+          - >-
+            Gestructureerd datatype met datum (71.10) en omschrijving
+            (71.20). Alleen gevuld voor personen die in de RNI zijn of
+            waren ingeschreven; op een gemeentelijke persoonslijst
+            zonder RNI-verleden afwezig.
       inOnderzoek:
         range: Indicatie
         required: true
@@ -410,6 +441,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..*"
+          mim:herkomst: BRP cat 04
       heeftVerblijfstitel:
         range: Verblijfstitel
         description: Aanwezig bij niet-Nederlandse onderdanen.
@@ -419,6 +451,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..1"
+          mim:herkomst: BRP cat 10
       gezag:
         range: Gezagsverhouding
         description: Aanwezig bij minderjarigheid of curatele.
@@ -427,6 +460,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..1"
+          mim:herkomst: BRP cat 11
       heeftImmigratie:
         range: Immigratie
         description: Aanwezig bij vestiging vanuit het buitenland.
@@ -436,6 +470,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..1"
+          mim:herkomst: BRP cat 08 grp 14
 
   Ingezetene:
     is_a: IngeschrevenPersoon
@@ -448,7 +483,7 @@ classes:
     annotations:
       mim:herkomst: BRP
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1.5
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §1.5
         (BRP-GBA-spoor). Wettelijke grondslag: Wet BRP art. 1.1 onder e
         (definitie ingezetene) en art. 2.4.
       mim:datumOpname: "2026-04-28"
@@ -475,22 +510,9 @@ classes:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRP cat 07 grp 67
-      indicatieGeheim:
-        range: Indicatie
-        required: true
-        description: >-
-          Aanduiding dat de gemeente verstrekking van gegevens aan
-          derden heeft beperkt.
-        annotations:
-          mim:authentiek: Basisgegeven
-          mim:indicatieMaterieleHistorie: true
-          mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRP cat 07 grp 70
+          mim:herkomst: BRP cat 08 grp 09
         comments:
-          - >-
-            Verfijning naar 7-niveau-geheimhouding is een open
-            onderwerp; in dit deelmodel staat het als enkele indicatie.
+          - LO-element 09.20 Datum inschrijving.
       woontOp:
         range: Binnenlandsadres
         description: >-
@@ -500,6 +522,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..1"
+          mim:herkomst: BRP cat 08 grp 10/11
       heeftBriefadres:
         range: Postadres
         description: Briefadres bij ontbreken regulier woonadres.
@@ -508,6 +531,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..1"
+          mim:herkomst: BRP cat 08 grp 10/11
 
   NietIngezetene:
     is_a: IngeschrevenPersoon
@@ -520,7 +544,7 @@ classes:
     annotations:
       mim:herkomst: BRP
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §1.5
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §1.5
         (BRP-RNI-spoor). Wettelijke grondslag: Wet BRP art. 1.1 onder f
         en art. 2.1.
       mim:datumOpname: "2026-04-28"
@@ -549,7 +573,12 @@ classes:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
-          mim:herkomst: BRP cat 07 grp 88
+          mim:herkomst: BRP cat 08 grp 09
+        comments:
+          - >-
+            LO-element 09.20 Datum inschrijving op een
+            RNI-persoonslijst (gemeente van inschrijving 1999). Groep 88
+            RNI-deelnemer bevat geen datum.
       landVanVerblijf:
         range: CodelijstISO3166
         description: >-
@@ -560,17 +589,23 @@ classes:
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRP cat 08 grp 13
       deelnemerCodeRNI:
-        range: CodelijstLT88
+        range: CodelijstLT60
         description: >-
-          De RNI-deelnemer die de inschrijving heeft aangemaakt of
-          bijgehouden.
+          De RNI-deelnemer die (een deel van) de gegevens op de
+          persoonslijst heeft aangeleverd.
         annotations:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:herkomst: BRP cat 07 grp 88
         comments:
-          - Codelijst LT 88.
+          - >-
+            LO-element 88.10 RNI-deelnemer: code uit Tabel 60
+            RNI-deelnemerstabel (88 is het groepsnummer, geen
+            tabelnummer). In het LO komt groep 88 per categorie voor
+            (01, 04, 06, 08, 16, 17); GBO vereenvoudigt dit tot één
+            code per persoon. De omschrijving van het verdrag (88.20)
+            is niet opgenomen.
       woontOp:
         range: Buitenlandsadres
         description: >-
@@ -581,6 +616,7 @@ classes:
           mim:indicatieMaterieleHistorie: true
           mim:indicatieFormeleHistorie: true
           mim:kardinaliteit: "1 -> 0..1"
+          mim:herkomst: BRP cat 08 grp 13
 
   # --- BRP-persoonslijst-categorieën -----------------------------------------
 
@@ -594,7 +630,7 @@ classes:
     annotations:
       mim:herkomst: BRP cat 11
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 11
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 11
         Gezagsverhouding. Wettelijke grondslag: Burgerlijk Wetboek Boek 1
         titel 14 (ouderlijk gezag) en BW art. 1:378 (curatele).
       mim:datumOpname: "2026-04-28"
@@ -644,7 +680,7 @@ classes:
     annotations:
       mim:herkomst: BRP cat 05
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 05
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 05
         Huwelijk/Geregistreerd Partnerschap. Wettelijke grondslag:
         Burgerlijk Wetboek Boek 1 titel 5 (huwelijk) en titel 5A
         (geregistreerd partnerschap).
@@ -706,7 +742,7 @@ classes:
           mim:indicatieFormeleHistorie: false
           mim:herkomst: BRP cat 05 grp 07
       redenOntbinding:
-        range: CodelijstBRP
+        range: CodelijstLT41
         description: >-
           De reden van ontbinding (echtscheiding, overlijden,
           nietigverklaring).
@@ -715,6 +751,11 @@ classes:
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
           mim:herkomst: BRP cat 05 grp 07
+        comments:
+          - >-
+            LO-element 07.40, code uit Tabel 41 Reden
+            ontbinding/nietigverklaring huwelijk/geregistreerd
+            partnerschap.
       partners:
         range: NatuurlijkPersoon
         multivalued: true
@@ -728,6 +769,7 @@ classes:
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
           mim:kardinaliteit: "1 -> 2"
+          mim:herkomst: BRP cat 05
         comments:
           - >-
             Precies 2 partners; LinkML kent geen exacte kardinaliteit,
@@ -750,8 +792,8 @@ classes:
     annotations:
       mim:herkomst: BRP cat 08
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 08
-        grp 14 Inschrijving. Wettelijke grondslag: Wet BRP art. 2.39
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 08
+        grp 14 Immigratie. Wettelijke grondslag: Wet BRP art. 2.39
         (aangifte van vestiging vanuit het buitenland).
       mim:datumOpname: "2026-04-28"
       mim:populatie: >-
@@ -784,16 +826,11 @@ classes:
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
           mim:herkomst: BRP cat 08 grp 14
-      landBinnenkomst:
-        range: CodelijstISO3166
-        description: >-
-          Het land via welke grens de persoon Nederland is
-          binnengekomen.
-        annotations:
-          mim:authentiek: Basisgegeven
-          mim:indicatieMaterieleHistorie: false
-          mim:indicatieFormeleHistorie: false
-          mim:herkomst: BRP cat 08 grp 14
+        comments:
+          - >-
+            LO-element 14.10 Land vanwaar ingeschreven. Een "land van
+            binnenkomst" kent het LO niet; dat attribuut is op
+            2026-10-30 verwijderd (BRP-dekkingsanalyse K3).
 
   Nationaliteit:
     description: >-
@@ -804,7 +841,7 @@ classes:
     annotations:
       mim:herkomst: BRP cat 04
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 04
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 04
         Nationaliteit. Wettelijke grondslag: Rijkswet op het
         Nederlanderschap voor de Nederlandse nationaliteit.
       mim:datumOpname: "2026-04-28"
@@ -876,7 +913,7 @@ classes:
     annotations:
       mim:herkomst: BRP cat 10
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 10
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 10
         Verblijfstitel. Wettelijke grondslag: Vreemdelingenwet 2000.
         Codelijst gebaseerd op IND-aanduidingen, met cross-walk naar
         landelijke tabel LT 56.
@@ -906,22 +943,75 @@ classes:
         comments:
           - Cross-walk naar LT 56.
       datumIngang:
-        range: Datum
-        required: true
+        range: DatumIncompleet
         description: De datum waarop het verblijfsrecht is ingegaan.
         annotations:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
           mim:herkomst: BRP cat 10 grp 39
+        comments:
+          - >-
+            LO-element 39.30 Ingangsdatum verblijfstitel; deeldatums en
+            de standaardwaarde 00000000 zijn toegestaan, daarom
+            DatumIncompleet en niet verplicht.
       datumEinde:
-        range: Datum
+        range: DatumIncompleet
         description: De datum waarop het verblijfsrecht is geëindigd.
         annotations:
           mim:authentiek: Basisgegeven
           mim:indicatieMaterieleHistorie: false
           mim:indicatieFormeleHistorie: false
           mim:herkomst: BRP cat 10 grp 39
+        comments:
+          - >-
+            LO-element 39.20 Datum einde verblijfstitel; alleen bij een
+            verblijfstitel voor bepaalde tijd.
+
+  # --- Gestructureerd datatype (MIM «DataType») --------------------------------
+
+  Verificatie:
+    description: >-
+      Datum en wijze waarop de gegevens op een persoonslijst in de
+      Registratie Niet-Ingezetenen zijn geverifieerd.
+    exact_mappings:
+      - gbobegrip:Verificatie
+    annotations:
+      mim:stereotype: DataType
+      mim:herkomst: BRP cat 07 grp 71 Verificatie
+      mim:herkomstDefinitie: >-
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §4.6
+        elementen 71.10 Datum verificatie en 71.20 Omschrijving
+        verificatie. Wettelijke grondslag: Wet BRP.
+      mim:datumOpname: "2026-04-28"
+      mim:datumWijziging: "2026-10-30"
+    comments:
+      - >-
+        Tot 2026-10-30 een enumeratie (Geverifieerd, NietGeverifieerd,
+        InOnderzoek) zonder LO-bron. Het LO kent geen
+        verificatiestatus, alleen een datum en een vrije omschrijving;
+        Haal Centraal BRP Personen levert dezelfde twee velden als
+        verificatie.datum en verificatie.omschrijving. Onderzoek naar
+        gegevens loopt via inOnderzoek, niet via dit datatype.
+    attributes:
+      datum:
+        range: DatumIncompleet
+        description: >-
+          De datum waarop de verificatie van de gegevens op de
+          persoonslijst in de RNI heeft plaatsgevonden.
+        annotations:
+          mim:herkomst: BRP cat 07 grp 71
+        comments:
+          - LO-element 71.10; deeldatums toegestaan.
+      omschrijving:
+        range: Tekst
+        description: >-
+          De omschrijving van de wijze waarop de verificatie van de
+          gegevens op de persoonslijst in de RNI heeft plaatsgevonden.
+        annotations:
+          mim:herkomst: BRP cat 07 grp 71
+        comments:
+          - LO-element 71.20; alfanumeriek, lengte 1 tot 50.
 
 enums:
 
@@ -933,34 +1023,35 @@ enums:
     annotations:
       mim:herkomst: BRP cat 01 grp 04 Geslacht
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §4.6
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §4.6
         element 04.10 (groep 04 Geslacht op de persoonslijst).
         Wettelijke grondslag: Wet BRP en Burgerlijk Wetboek Boek 1.
       mim:datumOpname: "2026-04-28"
     comments:
       - >-
-        Driewaardige keuzelijst conform BRP-praktijk. GBO volgt
-        expliciet BRP en niet ISO 5218. VastgesteldOnbekend is een
-        BRP-specifieke waarde voor situaties waarin het geslacht
-        expliciet als onbekend is vastgesteld, niet voor het ontbreken
-        van registratie.
+        Driewaardige keuzelijst conform LO-element 04.10
+        Geslachtsaanduiding (M, V, O). GBO volgt expliciet BRP en niet
+        ISO 5218. De waarde O betekent in het LO "(nog) onbekend" en is
+        tevens de standaardwaarde; de naam VastgesteldOnbekend is
+        behouden om bestaande verwijzingen niet te breken, maar omvat
+        dus ook het geval dat het geslacht nog niet is vastgesteld.
     permissible_values:
       Man:
-        description: Persoon met geslachtsregistratie "Man" in BRP.
+        description: Persoon met geslachtsaanduiding "Man" in de BRP.
         comments:
-          - BRP-code M of 1.
+          - LO-code M.
       Vrouw:
-        description: Persoon met geslachtsregistratie "Vrouw" in BRP.
+        description: Persoon met geslachtsaanduiding "Vrouw" in de BRP.
         comments:
-          - BRP-code V of 2.
+          - LO-code V.
       VastgesteldOnbekend:
         description: >-
-          Persoon waarvan het geslacht expliciet als onbekend is
-          vastgesteld.
+          Persoon van wie het geslacht (nog) onbekend is.
         comments:
           - >-
-            BRP-code O of 9; afwijkend van "geen waarde" (ontbreken
-            registratie).
+            LO-code O (= Onbekend), tevens standaardwaarde van element
+            04.10. Een afwezige waarde in GBO betekent dat het gegeven
+            niet is geleverd, niet dat het geslacht onbekend is.
 
   IndicatieGezag:
     description: >-
@@ -970,7 +1061,7 @@ enums:
     annotations:
       mim:herkomst: BRP cat 11 Gezagsverhouding
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 11
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 11
         Gezagsverhouding. Wettelijke grondslag: Burgerlijk Wetboek
         Boek 1 titel 14 (gezag over minderjarigen).
       mim:datumOpname: "2026-04-28"
@@ -1008,45 +1099,65 @@ enums:
   OpschortingBijhouding:
     description: >-
       Reden waarom de bijhouding van een persoonslijst in de
-      basisregistratie is opgeschort.
+      basisregistratie geheel of gedeeltelijk is opgeschort.
     exact_mappings:
       - gbobegrip:OpschortingBijhouding
     annotations:
       mim:herkomst: BRP cat 07 grp 67 Opschorting
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §4.6
-        cat 07 grp 67 Opschorting bijhouding. Wettelijke grondslag:
-        Wet BRP.
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), §4.6
+        element 67.20 Omschrijving reden opschorting bijhouding.
+        Wettelijke grondslag: Wet BRP.
       mim:datumOpname: "2026-04-28"
+      mim:datumWijziging: "2026-10-30"
     comments:
       - >-
         Een opgeschorte persoonslijst wordt niet langer bijgewerkt maar
         blijft beschikbaar voor historisch en juridisch gebruik. De
         reden van opschorting is een belangrijk
         datakwaliteits-signaal voor afnemers.
+      - >-
+        De waardenset volgt sinds 2026-10-30 letterlijk LO-element
+        67.20 (codes O, E, M, R, F). De eerdere waarden Vermissing en
+        FoutAangelegdOfFraude kwamen niet in het LO voor. De
+        standaardwaarde "." (onbekend) wordt in GBO als afwezige
+        waarde weergegeven.
     permissible_values:
       Overlijden:
         description: >-
-          Bijhouding opgeschort omdat de geregistreerde is overleden.
+          Bijhouding opgeschort omdat de ingeschrevene is overleden.
         comments:
-          - Meest voorkomende reden; mapping met cat 06 Overlijden.
+          - LO-code O. Bij deze reden komt groep 08 Overlijden voor.
       Emigratie:
         description: >-
-          Bijhouding opgeschort omdat de geregistreerde naar het
-          buitenland is vertrokken zonder RNI-overgang.
+          Bijhouding opgeschort omdat de ingeschrevene naar het
+          buitenland is vertrokken.
         comments:
-          - Te onderscheiden van overgang naar RNI.
-      Vermissing:
+          - >-
+            LO-code E. Bij deze reden komt groep 13 Adres buitenland
+            voor.
+      MinisterieelBesluit:
         description: >-
-          Bijhouding opgeschort vanwege langdurige vermissing.
+          Bijhouding opgeschort op grond van een ministerieel besluit,
+          bij vertrek zonder bekend buitenlands adres.
         comments:
-          - Juridische status, geen bewezen overlijden.
-      FoutAangelegdOfFraude:
+          - >-
+            LO-code M. Groep 13 bevat dan de standaardwaarde en
+            element 72.10 Aangifte adreshouding de waarde B.
+      RNI:
         description: >-
-          Bijhouding opgeschort vanwege foutieve aanleg, dubbele
-          persoonslijst of vastgestelde identiteitsfraude.
+          Persoonslijst aangelegd in de Registratie Niet-Ingezetenen.
         comments:
-          - Restwaarde voor administratieve correcties.
+          - >-
+            LO-code R. Komt uitsluitend voor op een RNI-persoonslijst
+            of op een persoonslijst die van de RNI naar een gemeente
+            verhuist.
+      Fout:
+        description: >-
+          Bijhouding opgeschort omdat de persoonslijst ten onrechte is
+          aangelegd.
+        comments:
+          - LO-code F.
 
   SoortVerbintenis:
     description: >-
@@ -1057,7 +1168,7 @@ enums:
     annotations:
       mim:herkomst: BRP cat 05 Huwelijk/Geregistreerd partnerschap
       mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), cat 05.
+        Bron: Logisch Ontwerp BRP 2026.Q3 (RvIG, 1 juli 2026), cat 05.
         Wettelijke grondslag: Burgerlijk Wetboek Boek 1 titel 5
         (huwelijk) en titel 5A (geregistreerd partnerschap).
       mim:datumOpname: "2026-04-28"
@@ -1074,42 +1185,6 @@ enums:
         description: Verbintenis volgens BW Boek 1 titel 5A.
         comments:
           - Sinds 1998 in Nederland mogelijk.
-
-  Verificatie:
-    description: >-
-      Status van de meest recente identiteitsverificatie van een
-      persoonslijst.
-    exact_mappings:
-      - gbobegrip:Verificatie
-    annotations:
-      mim:herkomst: BRP cat 07 grp 71 Verificatie
-      mim:herkomstDefinitie: >-
-        Bron: Logisch Ontwerp BRP v4.3.0 (RvIG, 15 mei 2023), §4.6
-        cat 07 grp 71 Verificatie. Wettelijke grondslag: Wet BRP
-        (verplichting tot periodieke identiteitscontrole).
-      mim:datumOpname: "2026-04-28"
-    comments:
-      - >-
-        Datakwaliteits-aanduiding die aangeeft of identiteitsbewijzen
-        recent zijn gecontroleerd. De keuzelijst levert alleen de
-        status; datum en omschrijving van de verificatie worden elders
-        op de persoonslijst vastgelegd.
-    permissible_values:
-      Geverifieerd:
-        description: >-
-          Identiteit is recent met geldig document geverifieerd.
-      NietGeverifieerd:
-        description: Identiteit is niet recent geverifieerd.
-        comments:
-          - Geen actief signaal van onderzoek.
-      InOnderzoek:
-        description: >-
-          Identiteit staat onder actief onderzoek door de gemeente of
-          RvIG.
-        comments:
-          - >-
-            Te onderscheiden van het generieke inOnderzoek-attribuut
-            op groepsniveau.
 
 types:
 
@@ -1161,11 +1236,26 @@ types:
     annotations:
       mim:stereotype: Codelijst
 
-  CodelijstLT88:
+  CodelijstLT41:
     typeof: string
-    aliases: ["Codelijst~LT88"]
+    aliases: ["Codelijst~LT41"]
     description: >-
-      RNI-deelnemer conform BRP-Landelijke Tabel 88.
+      Reden ontbinding of nietigverklaring van een huwelijk of
+      geregistreerd partnerschap conform BRP-Landelijke Tabel 41
+      (LO-element 07.40).
+    see_also:
+      - https://publicaties.rvig.nl/home
+    annotations:
+      mim:stereotype: Codelijst
+
+  CodelijstLT60:
+    typeof: string
+    aliases: ["Codelijst~LT60"]
+    description: >-
+      RNI-deelnemer conform BRP-Landelijke Tabel 60
+      RNI-deelnemerstabel (LO-element 88.10). Tot 2026-10-30 ten
+      onrechte CodelijstLT88 genoemd, naar het groepsnummer.
+    pattern: "^[0-9]{4}$"
     see_also:
       - https://publicaties.rvig.nl/home
     annotations:

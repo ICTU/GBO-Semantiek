@@ -12,35 +12,31 @@
 gbovz:Dienstencatalogus a owl:Class ;
     rdfs:label "Dienstencatalogus" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbovz:geldigVanaf ],
+        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:vastgesteldDoor ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Datum ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:versie ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
             owl:onProperty gbovz:geldigVanaf ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:vastgesteldDoor ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:geldigVanaf ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:versie ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Dienst ;
-            owl:onProperty gbovz:registreert ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:versie ] ;
+            owl:onProperty gbovz:registreert ] ;
     skos:definition "Het register van alle beschikbare diensten met hun scopes." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "Het register van alle beschikbare diensten met hun scopes." ;
     skos:exactMatch gbobegrip:Dienstencatalogus,
         gbovz:Dienstencatalogus ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Nadrukkelijk een register van diensten, niet van losse gegevens." ;
-    skos:prefLabel_nl "Dienstencatalogus" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:bevat a owl:ObjectProperty ;
@@ -66,32 +62,28 @@ gbovz:registreert a owl:ObjectProperty ;
 gbovz:Attestatie a owl:Class ;
     rdfs:label "Attestatie" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom gbo:DatumTijd ;
             owl:onProperty gbovz:geldigTot ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:uitgever ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:attestatiesoort ;
             owl:onProperty gbovz:attestatiesoort ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:attestatiesoort ],
+            owl:onProperty gbovz:uitgever ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:geldigTot ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:uitgever ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Rol ;
-            owl:onProperty gbovz:uitgever ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:DatumTijd ;
-            owl:onProperty gbovz:geldigTot ],
+            owl:onProperty gbovz:attestatiesoort ],
         gbovz:Levering ;
     skos:definition "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is." ;
-    skos:definitionSource "eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework" ;
-    skos:definition_nl "Levering als gekwalificeerde verklaring die in een EUDI-wallet kan worden opgeslagen en later zelfstandig verifieerbaar is." ;
     skos:exactMatch gbobegrip:Attestatie,
         gbovz:Attestatie ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Attestatie" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:herkomst "eIDAS2 / ARF" .
 
@@ -101,37 +93,33 @@ gbovz:Bron a owl:Class ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:identificatie ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
+            owl:maxCardinality 1 ;
             owl:onProperty gbovz:wettelijkeGrondslag ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Rol ;
-            owl:onProperty gbovz:bronhouder ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Gegevenselement ;
             owl:onProperty gbovz:bevat ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbovz:wettelijkeGrondslag ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ],
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:bronhouder ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:bronhouder ] ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:wettelijkeGrondslag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:bronhouder ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ] ;
     skos:definition "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "Een registratie of gegevensverzameling bij een bronhouder, met een wettelijke grondslag." ;
     skos:exactMatch gbobegrip:Bron,
         gbovz:Bron ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Bron" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:BuitenlandseBetrokkene a owl:Class ;
@@ -143,27 +131,23 @@ gbovz:BuitenlandseBetrokkene a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:matchStatus ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:eidasIdentificatie ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:matchStatus ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:CodelijstISO3166 ;
             owl:onProperty gbovz:lidstaat ],
         [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:eidasIdentificatie ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:eidasIdentificatie ],
         gbovz:Betrokkene ;
     skos:definition "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een BSN beschikbaar hoeft te zijn." ;
-    skos:definitionSource "GBO (voorstel), afgeleid uit de SDG-verordening en het OOTS-identity-matching-patroon" ;
-    skos:definition_nl "De persoon om wiens gegevens het gaat en die door een EU-overheidsdienst is geidentificeerd, zonder dat een burgerservicenummer beschikbaar hoeft te zijn." ;
     skos:exactMatch gbobegrip:BuitenlandseBetrokkene,
         gbovz:BuitenlandseBetrokkene ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Het koppelen van de buitenlandse identiteit aan een persoon in een Nederlandse registratie gebeurt via identity matching. Dat proces is een voorziening; hier wordt alleen het resultaat vastgelegd." ;
-    skos:prefLabel_nl "Buitenlandse betrokkene" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:herkomst "OOTS (SDG-verordening)" .
 
@@ -176,20 +160,16 @@ gbovz:Burger a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:bsn ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:pseudoniem ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:BSN ;
             owl:onProperty gbovz:bsn ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:pseudoniem ],
         gbovz:Betrokkene ;
     skos:definition "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een BSN." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "De persoon om wiens gegevens het gaat en die deze wil gebruiken om een dienst af te nemen; in de Nederlandse context altijd identificeerbaar met een burgerservicenummer." ;
     skos:exactMatch gbobegrip:Burger,
         gbovz:Burger ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Burger" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:herkomst "GBO PSA" .
 
@@ -199,42 +179,41 @@ gbovz:Dienst a owl:Class ;
             owl:allValuesFrom gbovz:Scope ;
             owl:onProperty gbovz:maximaleScope ],
         [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:wettelijkeVerankering ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:maximaleScope ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:wettelijkeVerankering ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Bron ;
             owl:onProperty gbovz:ontsluit ],
         [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:wettelijkeVerankering ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:identificatie ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbovz:wettelijkeVerankering ] ;
+            owl:onProperty gbovz:identificatie ] ;
     skos:definition "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "Een afgebakend doel waarvoor gegevens mogen worden opgevraagd, wettelijk verankerd en met een maximale scope." ;
     skos:exactMatch gbobegrip:Dienst,
         gbovz:Dienst ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Dienst" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:Evidence a owl:Class ;
     rdfs:label "Evidence" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:evidenceType ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:aanvragendeLidstaat ],
         [ a owl:Restriction ;
@@ -243,20 +222,11 @@ gbovz:Evidence a owl:Class ;
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:CodelijstISO3166 ;
             owl:onProperty gbovz:aanvragendeLidstaat ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:evidenceType ],
         gbovz:Levering ;
-    skos:altLabel_nl_0_source "Nederlandse aanduiding in de SDG-context" ;
-    skos:altLabel_nl_0_value "Bewijsstuk" ;
     skos:definition "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat." ;
-    skos:definitionSource "SDG-verordening (EU) 2018/1724 en het OOTS Evidence Broker" ;
-    skos:definition_nl "Levering als bewijsstuk in de vorm die het Once-Only Technical System voorschrijft, bestemd voor een bevoegde autoriteit in een andere lidstaat." ;
     skos:exactMatch gbobegrip:Evidence,
         gbovz:Evidence ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Evidence" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:herkomst "OOTS (SDG-verordening)" .
 
@@ -264,171 +234,155 @@ gbovz:Gegevensset a owl:Class ;
     rdfs:label "Gegevensset" ;
     rdfs:subClassOf gbovz:Levering ;
     skos:definition "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking." ;
-    skos:definitionSource "GBO (voorstel)" ;
-    skos:definition_nl "Levering als verzameling gegevenselementen in het GBO-formaat, zonder juridische waarmerking." ;
     skos:exactMatch gbobegrip:Gegevensset,
         gbovz:Gegevensset ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Dit is de leveringsvorm in het patroon waarin een private dienstverlener met toestemming gegevens ophaalt." ;
-    skos:prefLabel_nl "Gegevensset" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:Gegevensverzoek a owl:Class ;
     rdfs:label "Gegevensverzoek" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:status ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
             owl:onProperty gbovz:initiatiefnemer ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:DatumTijd ;
-            owl:onProperty gbovz:tijdstip ],
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:betrokkene ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ],
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:beantwoordDoor ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:gevraagdeScope ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Betrokkene ;
-            owl:onProperty gbovz:betrokkene ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Rol ;
-            owl:onProperty gbovz:initiatiefnemer ],
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:volgtPatroon ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:grondslag ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Rol ;
-            owl:onProperty gbovz:beantwoordDoor ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbovz:beantwoordDoor ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
             owl:onProperty gbovz:tijdstip ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Interactiepatroon ;
+            owl:onProperty gbovz:volgtPatroon ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Scope ;
             owl:onProperty gbovz:gevraagdeScope ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:volgtPatroon ],
+            owl:onProperty gbovz:status ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Grondslag ;
+            owl:onProperty gbovz:grondslag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:beantwoordDoor ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Betrokkene ;
             owl:onProperty gbovz:betrokkene ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:identificatie ],
+            owl:onProperty gbovz:tijdstip ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Interactiepatroon ;
-            owl:onProperty gbovz:volgtPatroon ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Grondslag ;
-            owl:onProperty gbovz:grondslag ] ;
+            owl:allValuesFrom gbovz:Rol ;
+            owl:onProperty gbovz:initiatiefnemer ] ;
     skos:definition "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "De transactie waarmee brondata wordt opgevraagd, op basis van precies een grondslag." ;
     skos:exactMatch gbobegrip:Gegevensverzoek,
         gbovz:Gegevensverzoek ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "De initiatiefnemer is een Rol en geen vast objecttype. Daarmee kan het verzoek worden gestart door een dienstverlener, door de betrokkene zelf (wallet) of door een EU-overheidsdienst (OOTS)." ;
-    skos:prefLabel_nl "Gegevensverzoek" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:Interactiepatroon a owl:Class ;
     rdfs:label "Interactiepatroon" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:toegestaneGrondslag ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:ontvangerRolsoort ],
+            owl:onProperty gbovz:naam ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:identificatie ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:toegestaneGrondslag ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
+            owl:onProperty gbovz:leveringsvorm ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:leveringsvorm ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:rolsoort ;
             owl:onProperty gbovz:ontvangerRolsoort ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:toegestaneGrondslag ],
+            owl:onProperty gbovz:ontvangerRolsoort ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:initiatorRolsoort ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:rolsoort ;
+            owl:onProperty gbovz:initiatorRolsoort ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:patroonsoort ;
             owl:onProperty gbovz:identificatie ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:rolsoort ;
-            owl:onProperty gbovz:initiatorRolsoort ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:initiatorRolsoort ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:leveringsvorm ] ;
+            owl:onProperty gbovz:naam ] ;
     skos:definition "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt." ;
-    skos:definitionSource "GBO PSA, hoofdstuk Interactiepatronen" ;
-    skos:definition_nl "Een van de manieren waarop een gegevensverzoek tot stand komt en wordt beantwoord, met vaste afspraken over wie initieert, wie ontvangt en welke grondslag geldt." ;
     skos:exactMatch gbobegrip:Interactiepatroon,
         gbovz:Interactiepatroon ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Het patroon is geexpliciteerd als objecttype zodat de verschillen tussen de drie kanalen in gegevens vastliggen in plaats van in de structuur van het model. Een nieuw kanaal is dan een nieuw voorkomen, geen modelwijziging." ;
-    skos:prefLabel_nl "Interactiepatroon" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:herkomst "GBO PSA, hoofdstuk Interactiepatronen" .
 
 gbovz:Mapping a owl:Class ;
     rdfs:label "Mapping" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Gegevenselement ;
-            owl:onProperty gbovz:bronElement ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbovz:transformatie ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:identificatie ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:URI ;
             owl:onProperty gbovz:doelschema ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:transformatie ],
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:doelschema ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:transformatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:transformatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevenselement ;
+            owl:onProperty gbovz:bronElement ] ;
     skos:definition "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft." ;
-    skos:definitionSource "GBO (voorstel); de PSA benoemt de semantische mapping expliciet bij OOTS" ;
-    skos:definition_nl "De vastgelegde omzetting tussen gegevenselementen uit een bron en de structuur die een leveringsvorm voorschrijft." ;
     skos:exactMatch gbobegrip:Mapping,
         gbovz:Mapping ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "De PSA benoemt bij OOTS expliciet een semantische mapping tussen het SDG-formaat en het bronformaat. Dezelfde behoefte speelt bij EUDI-attestatieschema's. Door de mapping te benoemen is traceerbaar welk brongegeven achter een geleverd veld zit." ;
-    skos:prefLabel_nl "Mapping" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:Toestemming a owl:Class ;
@@ -438,25 +392,25 @@ gbovz:Toestemming a owl:Class ;
             owl:onProperty gbovz:betrokkene ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:geldigTot ],
+            owl:onProperty gbovz:aanvrager ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:scope ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Rol ;
             owl:onProperty gbovz:aanvrager ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:betrokkene ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:aanvrager ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:scope ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:DatumTijd ;
             owl:onProperty gbovz:geldigTot ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Scope ;
             owl:onProperty gbovz:scope ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:betrokkene ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbovz:geldigTot ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:toestemmingsstatus ;
             owl:onProperty gbovz:status ],
@@ -465,15 +419,11 @@ gbovz:Toestemming a owl:Class ;
             owl:onProperty gbovz:status ],
         gbovz:Grondslag ;
     skos:definition "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur." ;
-    skos:definitionSource "GBO PSA; AVG art. 4 lid 11 voor het toestemmingsbegrip" ;
-    skos:definition_nl "Het expliciete akkoord van de betrokkene dat een specifieke partij een specifieke set gegevens mag opvragen, gebonden aan een scope en een geldigheidsduur." ;
     skos:exactMatch gbobegrip:Toestemming,
         gbovz:Toestemming ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "De aanvrager is een Rol en geen Dienstverlener: in het wallet-patroon vraagt een QTSP of PubEAA-provider de toestemming, niet een private dienstverlener.",
         "Een toestemming is niet overdraagbaar. Wanneer een andere partij de gegevens uiteindelijk gebruikt, is daarvoor een eigen toestemming nodig." ;
-    skos:prefLabel_nl "Toestemming" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:herkomst "GBO PSA" .
 
@@ -493,14 +443,10 @@ gbovz:WettelijkeVerplichting a owl:Class ;
             owl:onProperty gbovz:regelingURI ],
         gbovz:Grondslag ;
     skos:definition "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt." ;
-    skos:definitionSource "GBO (voorstel); voor OOTS de SDG-verordening (EU) 2018/1724" ;
-    skos:definition_nl "De wettelijke bepaling op grond waarvan gegevens zonder toestemming van de betrokkene mogen of moeten worden verstrekt." ;
     skos:exactMatch gbobegrip:WettelijkeVerplichting,
         gbovz:WettelijkeVerplichting ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Dit is de grondslag in het OOTS-patroon: de SDG-verordening verplicht tot verstrekking op verzoek van een bevoegde EU-overheidsdienst." ;
-    skos:prefLabel_nl "Wettelijke verplichting" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:aanvragendeLidstaat a owl:DatatypeProperty ;
@@ -814,13 +760,16 @@ gbovz:Gegevenselement a owl:Class ;
     rdfs:label "Gegevenselement" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:kardinaliteit ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:datatype ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:URI ;
+            owl:onProperty gbovz:begrip ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:begrip ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:datatype ],
@@ -828,28 +777,21 @@ gbovz:Gegevenselement a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:kardinaliteit ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:begrip ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ],
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:naam ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:identificatie ],
+            owl:onProperty gbovz:naam ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:URI ;
-            owl:onProperty gbovz:begrip ],
+            owl:allValuesFrom gbo:Tekst ;
+            owl:onProperty gbovz:kardinaliteit ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:naam ] ;
+            owl:onProperty gbovz:identificatie ] ;
     skos:definition "De kleinste adresseerbare eenheid van data. Verwijst naar precies een begrip in het begrippenkader en voegt structuurinformatie toe." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "De kleinste adresseerbare eenheid van data, die naar precies een begrip verwijst en daar structuurinformatie aan toevoegt." ;
     skos:exactMatch gbobegrip:Gegevenselement,
         gbovz:Gegevenselement ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Gegevenselement" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:Grondslag a owl:Class ;
@@ -859,31 +801,33 @@ gbovz:Grondslag a owl:Class ;
             owl:allValuesFrom gbo:UUID ;
             owl:onProperty gbovz:id ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Tekst ;
+            owl:maxCardinality 1 ;
             owl:onProperty gbovz:toelichting ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:toelichting ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:id ] ;
     skos:definition "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "De juridische basis voor gegevensuitwisseling: toestemming van de betrokkene of een wettelijke verplichting." ;
     skos:exactMatch gbobegrip:Grondslag,
         gbovz:Grondslag ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Grondslag is het supertype; Toestemming is een van de twee vormen, niet de enige. Een gegevensverzoek verwijst naar precies een grondslag. Dat maakt het OOTS-patroon modelleerbaar, waar de grondslag de SDG-verordening is en er geen toestemming aan te pas komt." ;
-    skos:prefLabel_nl "Grondslag" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:indicatieAbstractObject "Ja" .
 
 gbovz:Levering a owl:Class ;
     rdfs:label "Levering" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Mapping ;
-            owl:onProperty gbovz:gebaseerdOp ],
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:identificatie ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevensverzoek ;
+            owl:onProperty gbovz:beantwoordt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:DatumTijd ;
+            owl:onProperty gbovz:tijdstip ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:gebaseerdOp ],
@@ -892,72 +836,58 @@ gbovz:Levering a owl:Class ;
             owl:onProperty gbovz:ontvanger ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty gbovz:beantwoordt ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ],
-        [ owl:unionOf ( gbovz:Attestatie gbovz:Evidence gbovz:Gegevensset ) ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:identificatie ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
             owl:onProperty gbovz:tijdstip ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Gegevensverzoek ;
-            owl:onProperty gbovz:beantwoordt ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbovz:Rol ;
             owl:onProperty gbovz:ontvanger ],
+        [ owl:unionOf ( gbovz:Attestatie gbovz:Evidence gbovz:Gegevensset ) ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:DatumTijd ;
-            owl:onProperty gbovz:tijdstip ] ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:beantwoordt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Mapping ;
+            owl:onProperty gbovz:gebaseerdOp ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ] ;
     skos:definition "Het resultaat dat op een gegevensverzoek wordt teruggegeven." ;
-    skos:definitionSource "GBO (voorstel), afgeleid uit de drie leveringsvormen in de GBO PSA" ;
-    skos:definition_nl "Het resultaat dat op een gegevensverzoek wordt teruggegeven." ;
     skos:exactMatch gbobegrip:Levering,
         gbovz:Levering ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Het model stopte eerder bij het verzoek. Zonder Levering is niet uit te drukken dat hetzelfde brongegeven de ene keer als platte gegevensset en de andere keer als gekwalificeerde attestatie of als SDG-evidence het stelsel verlaat." ;
-    skos:prefLabel_nl "Levering" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:indicatieAbstractObject "Ja" .
 
 gbovz:Scope a owl:Class ;
     rdfs:label "Scope" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty gbovz:omvat ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Identificatie ;
-            owl:onProperty gbovz:identificatie ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:identificatie ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:doelbeschrijving ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbovz:Gegevenselement ;
+            owl:onProperty gbovz:omvat ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:naam ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty gbovz:omvat ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:doelbeschrijving ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:naam ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:naam ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:Gegevenselement ;
-            owl:onProperty gbovz:omvat ] ;
+            owl:allValuesFrom gbo:Identificatie ;
+            owl:onProperty gbovz:identificatie ] ;
     skos:definition "Een benoemde verzameling gegevenselementen. De maximale scope wordt bepaald door wetgeving; een afnemer kan een kleinere scope vragen." ;
-    skos:definitionSource "GBO PSA" ;
-    skos:definition_nl "Een benoemde verzameling gegevenselementen; de maximale scope wordt bepaald door wetgeving, een afnemer kan een kleinere scope vragen." ;
     skos:exactMatch gbobegrip:Scope,
         gbovz:Scope ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Scope" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" .
 
 gbovz:betrokkene a owl:ObjectProperty ;
@@ -976,12 +906,8 @@ gbovz:patroonsoort a owl:Class ;
     rdfs:label "Patroonsoort" ;
     owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#WalletAttestatie> <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#OOTSEvidence> <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#ToestemmingPrivatePartij> ) ;
     skos:definition "De drie interactiepatronen die de GBO PSA onderscheidt." ;
-    skos:definitionSource "GBO PSA, hoofdstuk Interactiepatronen" ;
-    skos:definition_nl "De drie interactiepatronen die de GBO PSA onderscheidt." ;
     skos:exactMatch gbobegrip:Patroonsoort ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Patroonsoort" ;
-    skos:status "proposed" ;
     mim:herkomst "GBO PSA, hoofdstuk Interactiepatronen" ;
     linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#OOTSEvidence>,
         <https://lod.gbo-semantiek.nl/voorzieningen/patroonsoort#ToestemmingPrivatePartij>,
@@ -1003,21 +929,17 @@ gbovz:tijdstip a owl:DatatypeProperty ;
 gbovz:Betrokkene a owl:Class ;
     rdfs:label "Betrokkene" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbo:UUID ;
+            owl:cardinality 1 ;
             owl:onProperty gbovz:id ],
         [ owl:unionOf ( gbovz:BuitenlandseBetrokkene gbovz:Burger ) ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
+            owl:allValuesFrom gbo:UUID ;
             owl:onProperty gbovz:id ] ;
     skos:definition "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat." ;
-    skos:definitionSource "GBO (voorstel); term ontleend aan de AVG, waar de betrokkene degene is op wie persoonsgegevens betrekking hebben" ;
-    skos:definition_nl "De natuurlijke persoon om wiens gegevens het in een gegevensverzoek gaat." ;
     skos:exactMatch gbobegrip:Betrokkene,
         gbovz:Betrokkene ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Betrokkene is bewust abstract. In het Nederlandse patroon is de betrokkene een burger met een BSN; bij OOTS gaat het om een persoon die door een buitenlandse overheid is geidentificeerd en die geen BSN hoeft te hebben. Beide moeten in hetzelfde gegevensverzoek passen." ;
-    skos:prefLabel_nl "Betrokkene" ;
-    skos:status "proposed" ;
     mim:elementtype "Objecttype" ;
     mim:indicatieAbstractObject "Ja" .
 
@@ -1028,12 +950,8 @@ gbovz:attestatiesoort a owl:Class,
     owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#PubEAA> <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#QEAA> ) ;
     skos:definition "De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden.",
         "Of het een PubEAA is, uitgegeven onder verantwoordelijkheid van een overheidsorgaan, of een QEAA van een gekwalificeerde vertrouwensdienstverlener." ;
-    skos:definitionSource "eIDAS2 (verordening (EU) 2024/1183) en het Architecture and Reference Framework" ;
-    skos:definition_nl "De twee manieren waarop een attestatie onder eIDAS2 gekwalificeerd kan worden." ;
     skos:exactMatch gbobegrip:Attestatiesoort ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Attestatiesoort" ;
-    skos:status "proposed" ;
     mim:herkomst "eIDAS2 / ARF" ;
     linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#PubEAA>,
         <https://lod.gbo-semantiek.nl/voorzieningen/attestatiesoort#QEAA> .
@@ -1042,12 +960,8 @@ gbovz:toestemmingsstatus a owl:Class ;
     rdfs:label "Toestemmingsstatus" ;
     owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Aangevraagd> <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Verleend> <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Ingetrokken> <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Vervallen> ) ;
     skos:definition "De statussen die een toestemming kan doorlopen." ;
-    skos:definitionSource "GBO (voorstel)" ;
-    skos:definition_nl "De statussen die een toestemming kan doorlopen." ;
     skos:exactMatch gbobegrip:Toestemmingsstatus ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Toestemmingsstatus" ;
-    skos:status "proposed" ;
     linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Aangevraagd>,
         <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Ingetrokken>,
         <https://lod.gbo-semantiek.nl/voorzieningen/toestemmingsstatus#Verleend>,
@@ -1063,50 +977,46 @@ gbovz:id a owl:DatatypeProperty ;
 gbovz:Rol a owl:Class ;
     rdfs:label "Rol" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gbovz:rolsoort ;
-            owl:onProperty gbovz:rolsoort ],
+            owl:allValuesFrom gbo:Datum ;
+            owl:onProperty gbovz:datumIngang ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:id ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty gbovz:datumIngang ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:UUID ;
-            owl:onProperty gbovz:id ],
+            owl:maxCardinality 1 ;
+            owl:onProperty gbovz:context ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty gbovz:datumEinde ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Partij ;
+            owl:cardinality 1 ;
             owl:onProperty gbovz:partij ],
         [ a owl:Restriction ;
             owl:allValuesFrom gbo:Tekst ;
             owl:onProperty gbovz:context ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty gbovz:partij ],
-        [ a owl:Restriction ;
             owl:allValuesFrom gbo:Datum ;
             owl:onProperty gbovz:datumEinde ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
+            owl:allValuesFrom gbo:Partij ;
+            owl:onProperty gbovz:partij ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gbo:UUID ;
             owl:onProperty gbovz:id ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gbo:Datum ;
-            owl:onProperty gbovz:datumIngang ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
+            owl:allValuesFrom gbovz:rolsoort ;
             owl:onProperty gbovz:rolsoort ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty gbovz:context ] ;
+            owl:cardinality 1 ;
+            owl:onProperty gbovz:rolsoort ] ;
     skos:definition "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering." ;
-    skos:definitionSource "GBO (voorstel), afgeleid uit de DvTP-functionele requirements en de rolverdeling in de GBO PSA" ;
-    skos:definition_nl "De functie die een partij in een specifieke context vervult, zoals bronhouder van een register, dienstverlener in een transactie of afnemer van een levering." ;
     skos:exactMatch gbobegrip:Rol,
         gbovz:Rol ;
     skos:inScheme gbo:voorzieningen ;
     skos:note "Rol staat los van Partij: een partij is een rechtsdragend subject, een rol is wat die partij in een bepaalde context doet. Dezelfde niet-natuurlijke persoon kan tegelijk dienstverlener in het ene verzoek en afnemer in het andere zijn. Door rol en partij gescheiden te houden vermijdt het model een wildgroei aan subtypes van Partij voor elke nieuwe actor die een kanaal introduceert." ;
-    skos:prefLabel_nl "Rol" ;
-    skos:status "proposed" ;
     mim:elementtype "Relatieklasse" ;
     mim:herkomst "GBO" ;
     mim:populatie "Alle voorkomens waarin een partij in de bronontsluiting een gedefinieerde functie vervult." ;
@@ -1129,12 +1039,8 @@ gbovz:rolsoort a owl:Class,
     owl:unionOf ( <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Betrokkene> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Bronhouder> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Dienstverlener> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Afnemer> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#QTSP> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#PubEAAProvider> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#EUOverheidsdienst> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Toestemmingsvoorziening> <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Pseudonimiseringsdienst> ) ;
     skos:definition "De functie die de partij in deze context vervult.",
         "De functies die een partij binnen de bronontsluiting kan vervullen." ;
-    skos:definitionSource "GBO PSA, hoofdstuk Interactiepatronen" ;
-    skos:definition_nl "De functies die een partij binnen de bronontsluiting kan vervullen." ;
     skos:exactMatch gbobegrip:Rolsoort ;
     skos:inScheme gbo:voorzieningen ;
-    skos:prefLabel_nl "Rolsoort" ;
-    skos:status "proposed" ;
     mim:herkomst "GBO PSA, hoofdstuk Interactiepatronen" ;
     linkml:permissible_values <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Afnemer>,
         <https://lod.gbo-semantiek.nl/voorzieningen/rolsoort#Betrokkene>,

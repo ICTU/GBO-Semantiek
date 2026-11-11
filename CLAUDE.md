@@ -50,6 +50,7 @@ gbo-semantiek/
 │   ├── attestaties/     Attestatieprofielen (EUDI) — GEKOPIEERD uit de wiki-repo
 │   ├── graphql/         GraphQL SDL's (gegenereerd)
 │   ├── eudi/            Uitgifteconfiguratie + rulebook-hoofdstuk 3 per attestatie (gegenereerd)
+│   ├── bronspecificaties/ Toetsbare bronspecificatie per bron (.md + .docx, gegenereerd); teksten/ GEKOPIEERD uit de wiki-repo
 │   └── ontologie/       OWL + SHACL (gegenereerd)
 ├── tools/               Hulpscripts (generatoren, changelog, deploy)
 ├── site/                Gebouwde MkDocs-site (NIET handmatig bewerken)
@@ -87,7 +88,7 @@ Een documentatie-update vereist niet altijd een nieuwe modelversie en omgekeerd.
 - **Lees eerst de relevante bestanden** voordat je voorstellen doet. Vermijd aannames over de inhoud.
 - **Volg bestaande conventies** in dit repository (Markdown-stijl, mappenstructuur, naamgeving). Wijk alleen af met goede reden.
 - **Eén ding tegelijk:** liever een kleine, gefocuste wijziging dan een grote refactor. Stel grote refactors altijd eerst voor.
-- **Bewerk nooit handmatig wat door tooling of de copy-slag komt.** Gegenereerd via `Taskfile.yml`: `site/`, `v{VERSION}/graphql/`, `v{VERSION}/ontologie/`, `v{VERSION}/begrippen/`, `v{VERSION}/eudi/`, `v{VERSION}/GBO_Changes.md`. Gekopieerd uit de wiki-repo (`task import:copy`): `v{VERSION}/informatiemodel/linkml/`, `v{VERSION}/bronnen/`, `v{VERSION}/clients/`, `v{VERSION}/attestaties/`, `docs/informatiemodel/gbo-kern/` en `docs/informatiemodel/gbo-voorzieningen.md`.
+- **Bewerk nooit handmatig wat door tooling of de copy-slag komt.** Gegenereerd via `Taskfile.yml`: `site/`, `v{VERSION}/graphql/`, `v{VERSION}/ontologie/`, `v{VERSION}/begrippen/`, `v{VERSION}/eudi/`, `v{VERSION}/bronspecificaties/*.md|*.docx|assets/`, `v{VERSION}/GBO_Changes.md`. Gekopieerd uit de wiki-repo (`task import:copy`): `v{VERSION}/informatiemodel/linkml/`, `v{VERSION}/bronnen/`, `v{VERSION}/clients/`, `v{VERSION}/attestaties/`, `v{VERSION}/bronspecificaties/teksten/`, `docs/informatiemodel/gbo-kern/` en `docs/informatiemodel/gbo-voorzieningen.md`.
 - **Diagrammen** komen als PlantUML-fences mee in de gekopieerde model-docs en worden door mkdocs gerenderd. Het oude drawio→SVG-spoor (`task generate:diagrams`) is **voorlopig uitgeschakeld** (Fase 1).
 
 ### Wat NIET doen
@@ -106,9 +107,10 @@ Dit repository gebruikt [go-task](https://taskfile.dev/) als task-runner. Alle t
 
 | Fase | Belangrijkste taken | Doel |
 |------|---------------------|------|
+| — | `install` | Projecteigen Python-omgeving (`.venv`) opbouwen of bijwerken |
 | `prepare` | `prepare:check-tools`, `prepare:check-vars` | Voorwaarden valideren |
 | `import` | `import:copy` | Model + bron-/client-profielen kopiëren uit de wiki-repo |
-| `generate` | `generate:docs`, `generate:lod`, `generate:voorzieningen-lod`, `generate:begrippen`, `generate:attestaties`, `generate:diff` | Artefacten uit het model genereren |
+| `generate` | `generate:docs`, `generate:lod`, `generate:voorzieningen-lod`, `generate:begrippen`, `generate:attestaties`, `generate:bronspecificaties`, `generate:diff` | Artefacten uit het model genereren |
 | `build` | `build:validate`, `build:site`, `build:serve` | MkDocs valideren, bouwen, serveren |
 | `publish` | `publish:local`, `publish:github` | Mike-deploy lokaal of naar gh-pages |
 | — | `full-deploy` | Volledige pipeline van import t/m publish |
@@ -117,6 +119,7 @@ Veelgebruikte commando's:
 
 ```bash
 task --list              # alle beschikbare taken
+task install             # Python-omgeving (.venv) opbouwen of bijwerken
 task build:serve         # lokale documentatieserver
 task generate:docs       # documentatie regenereren uit het model
 task full-deploy         # volledige pipeline draaien
@@ -135,10 +138,13 @@ De `.env` wordt geladen door Taskfile.yml en bevat onder andere:
 
 ### Vereiste tools
 
-De Python-afhankelijkheden staan in `requirements.txt`:
+De Python-afhankelijkheden staan in `requirements.txt`. `task install` bouwt
+daarmee de projecteigen omgeving in `.venv/` op, of werkt haar bij; alle taken
+gebruiken het gereedschap uit die omgeving. `.venv/` staat in `.gitignore`,
+dus draai de taak opnieuw na een verse clone of een teruggezette kopie:
 
 ```bash
-pip install -r requirements.txt
+task install
 ```
 
 Daarnaast zijn nodig, buiten pip om:
@@ -146,6 +152,7 @@ Daarnaast zijn nodig, buiten pip om:
 - `go-task`
 - `rsync` (voor `task import:copy`)
 - `jq`
+- `pandoc` en `plantuml` (alleen voor `task generate:bronspecificaties`)
 
 ---
 

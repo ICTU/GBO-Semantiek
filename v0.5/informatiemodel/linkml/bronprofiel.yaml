@@ -162,6 +162,11 @@ classes:
           Een uitsluiting geldt op het objecttype waar het attribuut is
           gedeclareerd; geërfde attributen kunnen niet per subtype
           worden uitgesloten.
+      toelichting:
+        description: >-
+          Waarom de bron deze attributen niet levert, in één of twee
+          zinnen. De bronspecificatie neemt de tekst over in de
+          afbakening, zodat een bronhouder de reden kan toetsen.
 
   Insluiting:
     description: >-
@@ -425,6 +430,11 @@ classes:
             aangifterubrieken onder de aanslag; de navigatie
             persoon -> rubriek zou daarnaast een tweede, afwijkend
             pad naar dezelfde gegevens openen.
+      toelichting:
+        description: >-
+          Waarom de relatie zo wordt afgehandeld, in één of twee
+          zinnen. De bronspecificatie neemt de tekst over in de
+          afbakening, zodat een bronhouder de reden kan toetsen.
 
 enums:
 

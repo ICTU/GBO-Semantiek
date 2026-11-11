@@ -2,10 +2,24 @@
 
 ## Kernmodel
 
+### Toegevoegde objecttypen
+
+- `Verificatie`
+
+### Verwijderde codelijsten/enumeraties
+
+- `Verificatie`
+
 ### Gewijzigde objecttypen (attributen)
 
 **Appartementsrecht**
   - − `betreft`
+**Immigratie**
+  - − `landBinnenkomst`
+**IngeschrevenPersoon**
+  - + `indicatieGeheim`
+**Ingezetene**
+  - − `indicatieGeheim`
 **OnroerendeZaak**
   - + `betreft`
 

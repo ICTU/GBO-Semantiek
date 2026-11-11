@@ -16,7 +16,11 @@ plantuml-markdown>=3.9
 
 # Model: valideren en afgeleide artefacten genereren
 # (levert gen-owl, gen-shacl, gen-yaml en linkml-validate)
-linkml>=1.11
+# Vastgezet op de 1.11-reeks: vanaf 1.12 schrijft gen-owl de eigen datatypes
+# als owl:intersectionOf in plaats van een directe owl:equivalentClass. Dat
+# wijzigt de ontologie zonder dat het model wijzigt. Upgrade bewust, met een
+# inhoudelijke vergelijking van v*/ontologie/ voor en na.
+linkml>=1.11,<1.12
 
 # Gebruikt door de scripts in tools/
 PyYAML>=6.0

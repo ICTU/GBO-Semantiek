@@ -12,6 +12,7 @@
 #
 # Environment:
 # - A `.env` file is used to load configuration variables like `VERSION`.
+# - Run `task install` once to build the project's Python environment (.venv).
 # - Ensure required tools are installed before running (`task prepare:check-tools`).
 #
 # Examples:
@@ -82,9 +83,41 @@ vars:
   # uitgifteconfiguratie en rulebook-hoofdstukken voor de EUDI-wallet.
   ATTESTATIES_DIR: "{{.VERSION_DIR}}/attestaties"
   EUDI_DIR: "{{.VERSION_DIR}}/eudi"
+  # Bronspecificaties: per bron een toetsbaar Word-document voor bronhouders.
+  # De handgeschreven delen (context, toetsvragen) komen uit de wiki-repo
+  # (publicatie/bronspecificaties/) en landen in teksten/; de generator
+  # schrijft het .md en .docx ernaast.
+  BRONSPEC_DIR: "{{.VERSION_DIR}}/bronspecificaties"
+  BRONSPEC_TEKSTEN_DIR: "{{.BRONSPEC_DIR}}/teksten"
   SHACL: "{{.VERSION_DIR}}/{{.ONTOLOGIE}}/GBO-Shapes.ttl"
 
 tasks:
+  # ==========================================================================
+  # Install — Projecteigen Python-omgeving opbouwen
+  # ==========================================================================
+  install:
+    desc: "Bouw de projecteigen Python-omgeving (.venv) op uit requirements.txt, of werk haar bij."
+    # Herhaalbaar: de eerste keer maakt de taak .venv/ aan, daarna werkt zij
+    # de pakketten bij naar wat requirements.txt vraagt. .venv/ staat in
+    # .gitignore en komt dus niet mee met een clone of een teruggezette kopie.
+    # Volledig opnieuw opbouwen: verwijder .venv/ en draai de taak opnieuw.
+    silent: true
+    cmds:
+      - |
+        if ! command -v python3 &> /dev/null; then
+          echo "Error: python3 ontbreekt (https://www.python.org/downloads/)."
+          exit 1
+        fi
+        if [ ! -x "{{.VENV}}/python" ]; then
+          echo "Virtuele omgeving aanmaken in .venv/ ($(python3 --version)) ..."
+          python3 -m venv "{{.ROOT_DIR}}/.venv"
+        fi
+        echo "Afhankelijkheden installeren uit requirements.txt (kan een paar minuten duren) ..."
+        "{{.VENV}}/python" -m pip install --quiet --disable-pip-version-check --upgrade pip
+        "{{.VENV}}/python" -m pip install --quiet --disable-pip-version-check -r "{{.ROOT_DIR}}/requirements.txt"
+      - task: prepare:check-tools
+
+
   # ==========================================================================
   # Prepare — Voorwaarden valideren
   # ==========================================================================
@@ -118,9 +151,7 @@ tasks:
         # Python-gereedschap: komt uit de projecteigen venv.
         if [ ! -x "{{.VENV}}/python" ]; then
           echo "Error: geen virtuele omgeving gevonden in .venv/"
-          echo "Aanmaken met:"
-          echo "  python3 -m venv .venv"
-          echo "  .venv/bin/python -m pip install -r requirements.txt"
+          echo "Aanmaken met: task install"
           exit 1
         fi
 
@@ -133,7 +164,7 @@ tasks:
 
         if [ ${#missing_venv[@]} -ne 0 ]; then
           echo "Error: de venv mist: ${missing_venv[*]}"
-          echo "Bijwerken met: .venv/bin/python -m pip install -r requirements.txt"
+          echo "Bijwerken met: task install"
           exit 1
         fi
 
@@ -182,6 +213,11 @@ tasks:
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/bronnen/" "{{.BRONNEN_DIR}}/"
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/clients/" "{{.CLIENTS_DIR}}/"
       - rsync -a --delete "{{.WIKI_REPO}}/publicatie/attestaties/" "{{.ATTESTATIES_DIR}}/"
+      # Handgeschreven delen van de bronspecificaties (per bron één .md met
+      # frontmatter). Alleen de submap teksten/ wordt gespiegeld; de
+      # gegenereerde .docx/.md ernaast blijven staan.
+      - mkdir -p "{{.BRONSPEC_TEKSTEN_DIR}}"
+      - rsync -a --delete "{{.WIKI_REPO}}/publicatie/bronspecificaties/" "{{.BRONSPEC_TEKSTEN_DIR}}/"
       # Fase 1: de publicatie-.md's (incl. bronnenprioritering) worden nog in de
       # wiki-repo (AI) geschreven en hier mee gekopieerd. Vervalt in Fase 2 (dan
       # genereert 'generate:docs' ze zelf uit de LinkML). bronnenprioritering
@@ -205,6 +241,7 @@ tasks:
       - "{{.BRONNEN_DIR}}/*.yaml"
       - "{{.CLIENTS_DIR}}/*.yaml"
       - "{{.ATTESTATIES_DIR}}/*.yaml"
+      - "{{.BRONSPEC_TEKSTEN_DIR}}/*.md"
     run: when_changed
 
   # ==========================================================================
@@ -269,6 +306,8 @@ tasks:
     deps: [generate:check-model]
     sources:
       - "{{.LINKML_DIR}}/*.yaml"
+      - tools/filter_hulpannotaties.py
+      - tools/kwalificeer_uris.py
     generates:
       - "{{.LOD}}"
       - "{{.SHACL}}"
@@ -284,6 +323,7 @@ tasks:
           stem=$(basename "$f" .yaml)
           case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
           {{.VENV}}/python tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+          {{.VENV}}/python tools/filter_hulpannotaties.py "$f" --in-place
         done
         echo "Generating OWL-ontologie '{{.LOD}}' ..."
         {{.VENV}}/gen-owl --no-use-native-uris --skip-vacuous-min-zero-cardinality-axioms \
@@ -324,12 +364,60 @@ tasks:
         echo "Attestatie-artefacten gegenereerd in {{.EUDI_DIR}}"
 
 
+  generate:bronspecificaties:
+    desc: "Genereer per bron de GBO Bronspecificatie (consultatieversie, .md + .docx) in {{.BRONSPEC_DIR}}."
+    # Zelfde uitsnede als de GraphQL-SDL (de generator materialiseert het
+    # bronschema in-process). Alleen bronnen met een tekstbestand in
+    # teksten/ krijgen een document: de context en toetsvragen zijn
+    # handwerk en zonder die delen is het document niet toetsbaar.
+    deps: [generate:check-model, generate:diff]
+    sources:
+      - "{{.BRONNEN_DIR}}/*.yaml"
+      - "{{.LINKML_DIR}}/*.yaml"
+      - "{{.BRONSPEC_TEKSTEN_DIR}}/*.md"
+      - "{{.CHANGES_MD}}"
+      - ./tools/genereer_bronschema.py
+      - ./tools/genereer_bronspecificatie.py
+    generates:
+      - "{{.BRONSPEC_DIR}}/*.md"
+      - "{{.BRONSPEC_DIR}}/*.docx"
+    cmds:
+      - |
+        for tool in pandoc plantuml; do
+          if ! command -v "$tool" &> /dev/null; then
+            echo "Error: '$tool' ontbreekt; nodig voor generate:bronspecificaties (brew install $tool)."
+            exit 1
+          fi
+        done
+        mkdir -p "{{.BRONSPEC_DIR}}"
+        aantal=0
+        for tekst in "{{.BRONSPEC_TEKSTEN_DIR}}"/*.md; do
+          [ -e "$tekst" ] || continue
+          bron=$(basename "$tekst" .md)
+          [ "$bron" = "README" ] && continue
+          profiel="{{.BRONNEN_DIR}}/$bron.yaml"
+          if [ ! -f "$profiel" ]; then
+            echo "Error: tekstbestand $tekst zonder bronprofiel $profiel."
+            exit 1
+          fi
+          echo "== Bronspecificatie: $bron =="
+          {{.VENV}}/python tools/genereer_bronspecificatie.py "$profiel" \
+            --tekst "$tekst" --output-dir "{{.BRONSPEC_DIR}}" \
+            --versie "{{.VERSION}}" --vorige-versie "{{.PREVIOUS_VERSION}}" \
+            --changelog "{{.CHANGES_MD}}" --wiki-repo "{{.WIKI_REPO}}" \
+            --plantuml "$(command -v plantuml)"
+          aantal=$((aantal + 1))
+        done
+        echo "$aantal bronspecificatie(s) gegenereerd in {{.BRONSPEC_DIR}}"
+
+
   generate:voorzieningen-lod:
     desc: "Genereer OWL en SHACL voor het voorzieningenmodel in zijn eigen namespace."
     deps: [generate:check-model]
     sources:
       - "{{.LINKML_DIR}}/*.yaml"
       - tools/filter_namespace.py
+      - tools/filter_hulpannotaties.py
       - tools/kwalificeer_uris.py
     generates:
       - "{{.VOORZIENINGEN_LOD}}"
@@ -344,6 +432,7 @@ tasks:
           stem=$(basename "$f" .yaml)
           case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
           {{.VENV}}/python tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+          {{.VENV}}/python tools/filter_hulpannotaties.py "$f" --in-place
         done
         # gen-owl/gen-shacl nemen het geimporteerde kernmodel mee; de
         # filterstap houdt alleen over wat voorzieningen.yaml zelf declareert.
@@ -369,6 +458,7 @@ tasks:
     sources:
       - "{{.LINKML_DIR}}/*.yaml"
       - tools/filter_namespace.py
+      - tools/filter_hulpannotaties.py
       - tools/kwalificeer_uris.py
     generates:
       - "{{.TOESTEMMINGEN_LOD}}"
@@ -383,6 +473,7 @@ tasks:
           stem=$(basename "$f" .yaml)
           case "$stem" in gbo|bronprofiel|clientprofiel) continue;; esac
           {{.VENV}}/python tools/kwalificeer_uris.py "$f" --deelmodel "$stem" --in-place
+          {{.VENV}}/python tools/filter_hulpannotaties.py "$f" --in-place
         done
         # gen-owl/gen-shacl nemen het geimporteerde kernmodel mee; de
         # filterstap houdt alleen over wat toestemmingen.yaml zelf declareert.

@@ -71,10 +71,6 @@ todos:
     (coördinatenstelsel als attribuut, GeoSPARQL-binding) is een
     openstaand punt; voorlopig WKT-notatie als string.
   - >-
-    (datatypes: CodelijstBRP) Per gebruik bepalen welke Landelijke
-    Tabel bedoeld is (zoals Huwelijk.redenOntbinding) en een specifiek
-    type introduceren.
-  - >-
     (adressen-en-gebouwen: Pand) Stelselkoppeling "Pand staat op
     Perceel(en)" toevoegen zodra de wiki er een relatiesoort voor
     definieert; het deelmodel Onroerende zaken is inmiddels

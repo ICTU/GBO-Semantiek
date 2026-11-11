@@ -100,7 +100,7 @@ opgenomen, hetzij als ingezetene van een Nederlandse gemeente, hetzij als
 niet-ingezetene in de Registratie Niet-Ingezetenen.
 
 **Herkomst definitie**: Wet BRP art. 1.2 en art. 2.1; Logisch Ontwerp BRP
-v4.3.0 §1 (registratiedomein BRP).
+2026.Q3 §1 (registratiedomein BRP).
 
 **Toelichting**: IngeschrevenPersoon is de drager van de
 BRP-persoonslijst-gegevens (identificatienummers, bijhouding-status,
@@ -129,12 +129,13 @@ objecttype.
 | (../datatypes-en-codelijsten.md#aanvullende-datatypes) | 1 | Authentiek | Ja | Ja | Het door de Beheervoorziening BSN uitgegeven persoonsnummer. | BRP cat 01 grp 01 | Geërfd van NatuurlijkPersoon; in de BRP-laag verplicht (1). |
 | `aNummer` | [Alfanumeriek10](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | Het interne BRP-administratienummer. | BRP cat 01 grp 01 | Intern BRP, niet als externe identifier gebruikt. |
 | `tin` | [Alfanumeriek](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | Het persoonsnummer dat een ander land aan deze persoon heeft toegekend. | BRP cat 04 grp 73 | Alleen aanwezig binnen een EU-nationaliteit-stapel. |
-| `datumEersteInschrijving` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop deze persoon voor het eerst in de BRP werd opgenomen. | BRP cat 07 grp 67 | |
-| `gemeenteVanInschrijving` | [`Codelijst~LT33`](adressen-en-gebouwen.md#codelijsten) | 0..1 | Basisgegeven | Ja | Ja | De gemeente die de persoonslijst bijhoudt. | BRP cat 07 grp 67 | Voor RNI-inschrijvingen leeg of gevuld met een RNI-deelnemer-equivalent. |
-| `opschortingBijhouding` | [`OpschortingBijhouding`](#opschortingbijhouding) | 0..1 | Basisgegeven | Ja | Ja | Reden waarom bijhouding van de persoonslijst is opgeschort. | BRP cat 07 grp 67 | Bijhouding stopt bij overlijden, emigratie of opname in RNI. |
+| `datumEersteInschrijving` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop deze persoon voor het eerst in de BRP werd opgenomen. | BRP cat 07 grp 68 | LO-element 68.10. |
+| `gemeenteVanInschrijving` | [`Codelijst~LT33`](adressen-en-gebouwen.md#codelijsten) | 0..1 | Basisgegeven | Ja | Ja | De gemeente die de persoonslijst bijhoudt. | BRP cat 08 grp 09 | LO-element 09.10; op een RNI-persoonslijst de code 1999 (RNI) uit Tabel 33. |
+| `opschortingBijhouding` | [`OpschortingBijhouding`](#opschortingbijhouding) | 0..1 | Basisgegeven | Ja | Ja | Reden waarom bijhouding van de persoonslijst is opgeschort. | BRP cat 07 grp 67 | LO-element 67.20; de datum van opschorting (67.10) is niet opgenomen. |
 | `uitsluitingKiesrecht` | [`IndicatieJaNee`](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | Aanduiding dat de persoon van het kiesrecht is uitgesloten. | BRP cat 13 | Rechterlijke uitspraak conform Kieswet. |
 | `europeesKiesrecht` | [`IndicatieJaNee`](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland. | BRP cat 13 | Relevant voor EU-onderdanen die in Nederland het Europees kiesrecht uitoefenen. |
-| `verificatie` | [`Verificatie`](#verificatie) | 0..1 | Basisgegeven | Ja | Ja | Datum en bron van de laatste gegevensverificatie. | BRP cat 07 | |
+| `indicatieGeheim` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Ja | Aanduiding dat verstrekking van gegevens over deze persoon aan derden is beperkt. | BRP cat 07 grp 70 | LO-element 70.10 kent de niveaus 0 (geen beperking) tot en met 7; hier één indicatie (0 = Nee, 1 tot en met 7 = Ja). Groep 70 staat op elke persoonslijst, ook in de RNI. |
+| `verificatie` | [`Verificatie`](#verificatie) | 0..1 | Basisgegeven | Ja | Ja | Datum en wijze van de laatste verificatie van de gegevens op de persoonslijst in de RNI. | BRP cat 07 grp 71 | Gestructureerd datatype (datum, omschrijving); alleen gevuld voor personen die in de RNI zijn of waren ingeschreven. |
 | `inOnderzoek` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Ja | Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek. | BRP cat 07 | Datakwaliteits-flag. |
 
 **Relatiesoorten** (uitgaand):
@@ -153,7 +154,7 @@ grondgebied van een Nederlandse gemeente en daar door die gemeente in de
 basisregistratie wordt bijgehouden.
 
 **Herkomst definitie**: Wet BRP art. 1.1 onder e (definitie ingezetene)
-en art. 2.4; Logisch Ontwerp BRP v4.3.0 §1.5 (BRP-GBA-spoor).
+en art. 2.4; Logisch Ontwerp BRP 2026.Q3 §1.5 (BRP-GBA-spoor).
 
 **Toelichting**: Ingezetene is het BRP-GBA-spoor, de gemeentelijk
 bijgehouden tak van de basisregistratie. Een Ingezetene woont op een
@@ -176,8 +177,7 @@ verblijfshistorie.
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
-| `datumInschrijvingGemeente` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop de persoon zich in de huidige gemeente heeft ingeschreven. | BRP cat 07 grp 67 | |
-| `indicatieGeheim` | [Indicatie](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Ja | Ja | Aanduiding dat de gemeente verstrekking van gegevens aan derden heeft beperkt. | BRP cat 07 grp 70 | Verfijning naar 7-niveau-geheimhouding is een open onderwerp; in dit deelmodel staat het als enkele indicatie. |
+| `datumInschrijvingGemeente` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop de persoon zich in de huidige gemeente heeft ingeschreven. | BRP cat 08 grp 09 | LO-element 09.20. |
 
 **Relatiesoorten** (uitgaand):
 
@@ -191,7 +191,7 @@ verblijfshistorie.
 **Definitie**: Een mens als drager van burgerlijke rechten en plichten.
 
 **Herkomst definitie**: Burgerlijk Wetboek art. 1:1 BW (algemene
-grondslag voor het rechtssubject mens); Logisch Ontwerp BRP v4.3.0 §1
+grondslag voor het rechtssubject mens); Logisch Ontwerp BRP 2026.Q3 §1
 voor de operationele invulling binnen de basisregistratie.
 
 **Toelichting**: NatuurlijkPersoon omvat zowel mensen die in een
@@ -245,7 +245,7 @@ Nederlandse gemeente is geregistreerd en wiens persoonslijst centraal
 wordt bijgehouden in de Registratie Niet-Ingezetenen.
 
 **Herkomst definitie**: Wet BRP art. 1.1 onder f en art. 2.1; Logisch
-Ontwerp BRP v4.3.0 §1.5 (BRP-RNI-spoor).
+Ontwerp BRP 2026.Q3 §1.5 (BRP-RNI-spoor).
 
 **Toelichting**: NietIngezetene is het BRP-RNI-spoor: centraal
 bijgehouden onder verantwoordelijkheid van de Minister van BZK voor
@@ -269,9 +269,9 @@ kiesrecht.
 
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
-| `datumInschrijvingRNI` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop de persoon in de RNI is ingeschreven. | BRP cat 07 grp 88 | |
+| `datumInschrijvingRNI` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Ja | Ja | De datum waarop de persoon in de RNI is ingeschreven. | BRP cat 08 grp 09 | LO-element 09.20 op een RNI-persoonslijst (gemeente van inschrijving 1999); groep 88 bevat geen datum. |
 | `landVanVerblijf` | [`Codelijst~ISO3166`](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 0..1 | Basisgegeven | Ja | Ja | Het land waarin de niet-ingezetene zijn verblijfplaats heeft. | BRP cat 08 grp 13 | |
-| `deelnemerCodeRNI` | [`Codelijst~LT88`](#codelijsten) | 0..1 | Basisgegeven | Ja | Ja | De RNI-deelnemer die de inschrijving heeft aangemaakt of bijgehouden. | BRP cat 07 grp 88 | Codelijst LT 88. |
+| `deelnemerCodeRNI` | [`Codelijst~LT60`](#codelijsten) | 0..1 | Basisgegeven | Ja | Ja | De RNI-deelnemer die (een deel van) de gegevens op de persoonslijst heeft aangeleverd. | BRP cat 07 grp 88 | LO-element 88.10, Tabel 60 RNI-deelnemerstabel (88 is het groepsnummer). In het LO per categorie; in GBO één code per persoon. |
 
 **Relatiesoorten** (uitgaand):
 
@@ -289,7 +289,7 @@ meerderjarigheid.
 
 **Herkomst definitie**: Burgerlijk Wetboek Boek 1 titel 14 (ouderlijk
 gezag) en BW art. 1:378 (curatele); BRP cat 11 Gezagsverhouding;
-Logisch Ontwerp BRP v4.3.0.
+Logisch Ontwerp BRP 2026.Q3.
 
 **Toelichting**: Gezagsverhouding hangt aan IngeschrevenPersoon en is
 aanwezig bij minderjarigen (`indicatieGezagMinderjarige`) of bij
@@ -321,7 +321,7 @@ geregistreerd partnerschap.
 
 **Herkomst definitie**: Burgerlijk Wetboek Boek 1 titel 5 (huwelijk) en
 titel 5A (geregistreerd partnerschap); BRP cat 05 Huwelijk/Geregistreerd
-Partnerschap; Logisch Ontwerp BRP v4.3.0.
+Partnerschap; Logisch Ontwerp BRP 2026.Q3.
 
 **Toelichting**: Huwelijk koppelt twee NatuurlijkPersonen symmetrisch
 via één `partners 2..2`-relatie, ongeacht hun BRP-inschrijfstatus. Dit
@@ -348,7 +348,7 @@ op het huwelijk zelf.
 | `plaatsVoltrekking` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Nee | Nee | De plaats waar de verbintenis is aangegaan. | BRP cat 05 grp 06 | |
 | `landVoltrekking` | [`Codelijst~ISO3166`](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 0..1 | Basisgegeven | Nee | Nee | Het land waarin de verbintenis is aangegaan. | BRP cat 05 grp 06 | |
 | `datumOntbinding` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Basisgegeven | Nee | Nee | De datum waarop de verbintenis is ontbonden. | BRP cat 05 grp 07 | |
-| `redenOntbinding` | `Codelijst~BRP` | 0..1 | Basisgegeven | Nee | Nee | De reden van ontbinding (echtscheiding, overlijden, nietigverklaring). | BRP cat 05 grp 07 | |
+| `redenOntbinding` | [`Codelijst~LT41`](#codelijsten) | 0..1 | Basisgegeven | Nee | Nee | De reden van ontbinding (echtscheiding, overlijden, nietigverklaring). | BRP cat 05 grp 07 | LO-element 07.40, Tabel 41. |
 
 **Relatiesoorten** (uitgaand):
 
@@ -363,8 +363,8 @@ het buitenland in Nederland vestigt en daarmee in de BRP wordt
 opgenomen of zijn inschrijving wordt heractiveerd.
 
 **Herkomst definitie**: Wet BRP art. 2.39 (aangifte van vestiging
-vanuit het buitenland); BRP cat 08 grp 14 Inschrijving;
-Logisch Ontwerp BRP v4.3.0.
+vanuit het buitenland); BRP cat 08 grp 14 Immigratie;
+Logisch Ontwerp BRP 2026.Q3.
 
 **Toelichting**: Immigratie hangt eenmalig (0..1) aan IngeschrevenPersoon
 en legt vast wanneer en waarvandaan de persoon zich in Nederland heeft
@@ -386,7 +386,6 @@ adresrelaties.
 |---|---|---|---|---|---|---|---|---|
 | `datumVestigingInNederland` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Nee | Nee | De datum waarop de persoon zich in Nederland heeft gevestigd. | BRP cat 08 grp 14 | |
 | `landVanwaar` | [`Codelijst~ISO3166`](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 0..1 | Basisgegeven | Nee | Nee | Het land waarvandaan de persoon zich in Nederland heeft gevestigd. | BRP cat 08 grp 14 | |
-| `landBinnenkomst` | [`Codelijst~ISO3166`](../datatypes-en-codelijsten.md#stelselbrede-codelijsten) | 0..1 | Basisgegeven | Nee | Nee | Het land via welke grens de persoon Nederland is binnengekomen. | BRP cat 08 grp 14 | |
 
 ### Nationaliteit
 
@@ -395,7 +394,7 @@ toegekend, inclusief de gebeurtenis van verkrijging en eventueel verlies.
 
 **Herkomst definitie**: Rijkswet op het Nederlanderschap voor de
 Nederlandse nationaliteit; BRP cat 04 Nationaliteit; Logisch Ontwerp
-BRP v4.3.0.
+BRP 2026.Q3.
 
 **Toelichting**: Een ingeschreven persoon kan meerdere nationaliteiten
 hebben. Elke nationaliteit is een zelfstandig objecttype zodat
@@ -427,7 +426,7 @@ landelijke tabel LT 32 voor BRP-equivalentie.
 persoon die niet de Nederlandse nationaliteit bezit.
 
 **Herkomst definitie**: Vreemdelingenwet 2000; BRP cat 10
-Verblijfstitel; Logisch Ontwerp BRP v4.3.0. Codelijst gebaseerd op
+Verblijfstitel; Logisch Ontwerp BRP 2026.Q3. Codelijst gebaseerd op
 IND-aanduidingen, met cross-walk naar landelijke tabel LT 56.
 
 **Toelichting**: Verblijfstitel hangt 0..1 aan IngeschrevenPersoon en
@@ -448,8 +447,8 @@ IND-codelijst; de cross-walk naar LT 56 ondersteunt BRP-equivalentie.
 | Naam | Type | Kard. | Authentiek | Mat. hist. | Form. hist. | Definitie | Herkomst | Toelichting |
 |---|---|---|---|---|---|---|---|---|
 | `aanduiding` | [`Codelijst~IND`](#codelijsten) | 1 | Basisgegeven | Nee | Nee | De aanduiding van het verblijfsrecht (IND-codelijst). | BRP cat 10 grp 39 | Cross-walk naar LT 56. |
-| `datumIngang` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 1 | Basisgegeven | Nee | Nee | De datum waarop het verblijfsrecht is ingegaan. | BRP cat 10 grp 39 | |
-| `datumEinde` | [Datum](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | Basisgegeven | Nee | Nee | De datum waarop het verblijfsrecht is geëindigd. | BRP cat 10 grp 39 | |
+| `datumIngang` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Basisgegeven | Nee | Nee | De datum waarop het verblijfsrecht is ingegaan. | BRP cat 10 grp 39 | LO-element 39.30; deeldatums en de standaardwaarde 00000000 zijn toegestaan. |
+| `datumEinde` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | Basisgegeven | Nee | Nee | De datum waarop het verblijfsrecht is geëindigd. | BRP cat 10 grp 39 | LO-element 39.20; alleen bij een verblijfstitel voor bepaalde tijd. |
 
 ## Adres-subtypen specifiek voor Personen
 
@@ -458,15 +457,48 @@ IND-codelijst; de cross-walk naar LT 56 ondersteunt BRP-equivalentie.
 ingeschreven persoon geen regulier adres heeft. Beide zijn formeel
 gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 
+## Gestructureerde datatypen
+
+### Verificatie
+
+**Definitie**: Datum en wijze waarop de gegevens op een persoonslijst in de
+Registratie Niet-Ingezetenen zijn geverifieerd.
+
+**Herkomst definitie**: Logisch Ontwerp BRP 2026.Q3 §4.6 elementen 71.10
+Datum verificatie en 71.20 Omschrijving verificatie; Wet BRP.
+
+**Toelichting**: Gestructureerd datatype (MIM «DataType») met een datum en
+een vrije omschrijving van de wijze van verificatie. Het LO kent geen
+verificatiestatus; Haal Centraal BRP Personen levert dezelfde twee velden
+als `verificatie.datum` en `verificatie.omschrijving`. Het gegeven is
+alleen gevuld voor personen die in de RNI zijn of waren ingeschreven.
+Onderzoek naar gegevens loopt via `inOnderzoek`, niet via dit datatype.
+
+| MIM-veld | Waarde |
+|---|---|
+| Naam | Verificatie |
+| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Verificatie` |
+| Herkomst | BRP cat 07 grp 71 Verificatie |
+| Datum opname | 2026-04-28 |
+
+**Gebruikt door**: `IngeschrevenPersoon.verificatie`.
+
+**Attribuutsoorten**:
+
+| Naam | Type | Kard. | Definitie | Herkomst | Toelichting |
+|---|---|---|---|---|---|
+| `datum` | [DatumIncompleet](../datatypes-en-codelijsten.md#aanvullende-datatypes) | 0..1 | De datum waarop de verificatie van de gegevens op de persoonslijst in de RNI heeft plaatsgevonden. | BRP cat 07 grp 71 | LO-element 71.10; deeldatums toegestaan. |
+| `omschrijving` | [Tekst](../datatypes-en-codelijsten.md#simpele-datatypes) | 0..1 | De omschrijving van de wijze waarop de verificatie van de gegevens op de persoonslijst in de RNI heeft plaatsgevonden. | BRP cat 07 grp 71 | LO-element 71.20; alfanumeriek, lengte 1 tot 50. |
+
 ## Enumeraties
 
 ### Geslacht
 
 **Definitie**: Geregistreerde geslachtsaanduiding van een natuurlijk persoon.
 
-**Herkomst definitie**: Logisch Ontwerp BRP v4.3.0 §4.6 element 04.10 (groep 04 Geslacht op de persoonslijst); juridische grondslag Wet BRP en Burgerlijk Wetboek Boek 1.
+**Herkomst definitie**: Logisch Ontwerp BRP 2026.Q3 §4.6 element 04.10 (groep 04 Geslacht op de persoonslijst); juridische grondslag Wet BRP en Burgerlijk Wetboek Boek 1.
 
-**Toelichting**: Driewaardige keuzelijst conform BRP-praktijk. GBO volgt expliciet BRP en niet ISO 5218 (dat een vier-waarde-codering 0/1/2/9 kent). `VastgesteldOnbekend` is een BRP-specifieke waarde voor situaties waarin het geslacht expliciet als onbekend is vastgesteld, niet voor het ontbreken van registratie.
+**Toelichting**: Driewaardige keuzelijst conform LO-element 04.10 Geslachtsaanduiding (codes M, V, O). GBO volgt expliciet BRP en niet ISO 5218 (dat een vier-waarde-codering 0/1/2/9 kent). De waarde O betekent in het LO "(nog) onbekend" en is tevens de standaardwaarde; de naam `VastgesteldOnbekend` omvat dus ook het geval dat het geslacht nog niet is vastgesteld. Een afwezige waarde betekent dat het gegeven niet is geleverd.
 
 | MIM-veld | Waarde |
 |---|---|
@@ -481,15 +513,15 @@ gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 
 | Naam | Definitie | Toelichting |
 |---|---|---|
-| Man | Persoon met geslachtsregistratie "Man" in BRP. | BRP-code M of 1. |
-| Vrouw | Persoon met geslachtsregistratie "Vrouw" in BRP. | BRP-code V of 2. |
-| VastgesteldOnbekend | Persoon waarvan het geslacht expliciet als onbekend is vastgesteld. | BRP-code O of 9; afwijkend van "geen waarde" (ontbreken registratie). |
+| Man | Persoon met geslachtsaanduiding "Man" in de BRP. | LO-code M. |
+| Vrouw | Persoon met geslachtsaanduiding "Vrouw" in de BRP. | LO-code V. |
+| VastgesteldOnbekend | Persoon van wie het geslacht (nog) onbekend is. | LO-code O (= Onbekend), tevens standaardwaarde van element 04.10. |
 
 ### IndicatieGezag
 
 **Definitie**: Vorm van het ouderlijk gezag of de voogdij over een minderjarige.
 
-**Herkomst definitie**: Burgerlijk Wetboek Boek 1 titel 14 (gezag over minderjarigen: ouderlijk gezag, gezamenlijk gezag, voogdij, ondertoezichtstelling); Logisch Ontwerp BRP v4.3.0 cat 11 Gezagsverhouding.
+**Herkomst definitie**: Burgerlijk Wetboek Boek 1 titel 14 (gezag over minderjarigen: ouderlijk gezag, gezamenlijk gezag, voogdij, ondertoezichtstelling); Logisch Ontwerp BRP 2026.Q3 cat 11 Gezagsverhouding.
 
 **Toelichting**: Platte keuzelijst die de gezagssituatie van een minderjarige typeert. De koppeling met de BRP-vormen van gezag (ouderlijk gezag, voogdij) verloopt via deze waardenset; cluster-modellering met datums en betrokkenen ligt op `Gezagsverhouding` zelf.
 
@@ -514,11 +546,11 @@ gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 
 ### OpschortingBijhouding
 
-**Definitie**: Reden waarom de bijhouding van een persoonslijst in de basisregistratie is opgeschort.
+**Definitie**: Reden waarom de bijhouding van een persoonslijst in de basisregistratie geheel of gedeeltelijk is opgeschort.
 
-**Herkomst definitie**: Logisch Ontwerp BRP v4.3.0 §4.6 cat 07 grp 67 Opschorting bijhouding; Wet BRP (opgenomen gegevens blijven opgenomen, ook na opschorting).
+**Herkomst definitie**: Logisch Ontwerp BRP 2026.Q3 §4.6 element 67.20 Omschrijving reden opschorting bijhouding; Wet BRP (opgenomen gegevens blijven opgenomen, ook na opschorting).
 
-**Toelichting**: Een opgeschorte persoonslijst wordt niet langer bijgewerkt maar blijft beschikbaar voor historisch en juridisch gebruik. De reden van opschorting is een belangrijk datakwaliteits-signaal voor afnemers: een persoonslijst met opschorting Overlijden is bijvoorbeeld niet meer geldig als adresreferentie.
+**Toelichting**: Een opgeschorte persoonslijst wordt niet langer bijgewerkt maar blijft beschikbaar voor historisch en juridisch gebruik. De reden van opschorting is een belangrijk datakwaliteits-signaal voor afnemers: een persoonslijst met opschorting Overlijden is bijvoorbeeld niet meer geldig als adresreferentie. De waardenset volgt letterlijk LO-element 67.20 (codes O, E, M, R, F); de standaardwaarde "." (onbekend) wordt als afwezige waarde weergegeven.
 
 | MIM-veld | Waarde |
 |---|---|
@@ -533,16 +565,17 @@ gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 
 | Naam | Definitie | Toelichting |
 |---|---|---|
-| Overlijden | Bijhouding opgeschort omdat de geregistreerde is overleden. | Meest voorkomende reden; mapping met cat 06 Overlijden. |
-| Emigratie | Bijhouding opgeschort omdat de geregistreerde naar het buitenland is vertrokken zonder RNI-overgang. | Te onderscheiden van overgang naar RNI. |
-| Vermissing | Bijhouding opgeschort vanwege langdurige vermissing. | Juridische status, geen bewezen overlijden. |
-| FoutAangelegdOfFraude | Bijhouding opgeschort vanwege foutieve aanleg, dubbele persoonslijst of vastgestelde identiteitsfraude. | Restwaarde voor administratieve correcties. |
+| Overlijden | Bijhouding opgeschort omdat de ingeschrevene is overleden. | LO-code O; bij deze reden komt groep 08 Overlijden voor. |
+| Emigratie | Bijhouding opgeschort omdat de ingeschrevene naar het buitenland is vertrokken. | LO-code E; bij deze reden komt groep 13 Adres buitenland voor. |
+| MinisterieelBesluit | Bijhouding opgeschort op grond van een ministerieel besluit, bij vertrek zonder bekend buitenlands adres. | LO-code M; groep 13 bevat dan de standaardwaarde en element 72.10 de waarde B. |
+| RNI | Persoonslijst aangelegd in de Registratie Niet-Ingezetenen. | LO-code R; alleen op een RNI-persoonslijst of een persoonslijst die van de RNI naar een gemeente verhuist. |
+| Fout | Bijhouding opgeschort omdat de persoonslijst ten onrechte is aangelegd. | LO-code F. |
 
 ### SoortVerbintenis
 
 **Definitie**: Juridisch type van een formele verbintenis tussen twee natuurlijke personen.
 
-**Herkomst definitie**: Burgerlijk Wetboek Boek 1 titel 5 (huwelijk) en titel 5A (geregistreerd partnerschap); Logisch Ontwerp BRP v4.3.0 cat 05 Huwelijk/Geregistreerd partnerschap.
+**Herkomst definitie**: Burgerlijk Wetboek Boek 1 titel 5 (huwelijk) en titel 5A (geregistreerd partnerschap); Logisch Ontwerp BRP 2026.Q3 cat 05 Huwelijk/Geregistreerd partnerschap.
 
 **Toelichting**: Het objecttype `Huwelijk` omvat beide vormen van formele verbintenis; deze keuzelijst onderscheidt huwelijk van geregistreerd partnerschap. Informele samenwoning (samenlevingscontract bij notaris) wordt in BRP niet als verbintenis geregistreerd en is geen waarde in deze keuzelijst.
 
@@ -561,31 +594,6 @@ gedefinieerd in [Adressen en gebouwen](adressen-en-gebouwen.md).
 |---|---|---|
 | Huwelijk | Verbintenis volgens BW Boek 1 titel 5 (burgerlijk huwelijk). | |
 | GeregistreerdPartnerschap | Verbintenis volgens BW Boek 1 titel 5A. | Sinds 1998 in Nederland mogelijk. |
-
-### Verificatie
-
-**Definitie**: Status van de meest recente identiteitsverificatie van een persoonslijst.
-
-**Herkomst definitie**: Logisch Ontwerp BRP v4.3.0 §4.6 cat 07 grp 71 Verificatie; Wet BRP (verplichting tot periodieke identiteitscontrole).
-
-**Toelichting**: Datakwaliteits-aanduiding die aangeeft of identiteitsbewijzen recent zijn gecontroleerd (paspoort- of ID-kaart-controle aan het gemeenteloket). De keuzelijst levert alleen de status; datum en omschrijving van de verificatie worden elders op de persoonslijst vastgelegd.
-
-| MIM-veld | Waarde |
-|---|---|
-| Naam | Verificatie |
-| Begrip (URI) | `https://begrippen.gbo-semantiek.nl/id/begrip/Verificatie` |
-| Herkomst | BRP cat 07 grp 71 Verificatie |
-| Datum opname | 2026-04-28 |
-
-**Gebruikt door**: `IngeschrevenPersoon.verificatie`.
-
-**Waarden**:
-
-| Naam | Definitie | Toelichting |
-|---|---|---|
-| Geverifieerd | Identiteit is recent met geldig document geverifieerd. | |
-| NietGeverifieerd | Identiteit is niet recent geverifieerd. | Geen actief signaal van onderzoek. |
-| InOnderzoek | Identiteit staat onder actief onderzoek door de gemeente of RvIG. | Te onderscheiden van het generieke `inOnderzoek`-attribuut op groepsniveau. |
 
 ## Codelijsten
 
@@ -606,7 +614,8 @@ op te halen via de
 | [BRP-LT 36 Voorvoegsels](https://publicaties.rvig.nl/home) | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) / BZK | `Codelijst~LT36` | `NatuurlijkPersoon.voorvoegsel` (validatie). |
 | [BRP-LT 37 Reden opnemen / beëindigen nationaliteit](https://publicaties.rvig.nl/home) | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) / BZK | `Codelijst~LT37` | `Nationaliteit.redenVerkrijging`, `Nationaliteit.redenVerlies`. |
 | [BRP-LT 38 Adellijke titel / predicaat](https://publicaties.rvig.nl/home) | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) / BZK | `Codelijst~LT38` | `NatuurlijkPersoon.adellijkeTitelPredicaat`. |
-| [BRP-LT 88 RNI-deelnemer](https://publicaties.rvig.nl/home) | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) / BZK | `Codelijst~LT88` | `NietIngezetene.deelnemerCodeRNI`. |
+| [BRP-LT 41 Reden ontbinding / nietigverklaring huwelijk / geregistreerd partnerschap](https://publicaties.rvig.nl/home) | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) / BZK | `Codelijst~LT41` | `Huwelijk.redenOntbinding`. |
+| [BRP-LT 60 RNI-deelnemers](https://publicaties.rvig.nl/home) | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) / BZK | `Codelijst~LT60` | `NietIngezetene.deelnemerCodeRNI`. |
 
 ### Cross-walk: IND-codelijst ↔ BRP-LT 56 (verblijfstitel)
 
@@ -643,7 +652,7 @@ De cross-walk evolueert mee met IND-beleidswijzigingen.
 | [BRP-LT 36 / LT 38](https://publicaties.rvig.nl/home) | Sporadisch | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) |
 | [BRP-LT 37](https://publicaties.rvig.nl/home) | Sporadisch | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) |
 | [BRP-LT 56](https://publicaties.rvig.nl/home) | Per IND-beleidswijziging | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) (afstemming met IND) |
-| [BRP-LT 88](https://publicaties.rvig.nl/home) | Sporadisch | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) |
+| [BRP-LT 41 / LT 60](https://publicaties.rvig.nl/home) | Sporadisch | [RvIG](https://www.rvig.nl/landelijke-tabellen-en-besluiten) |
 
 ## Stelselkoppelingen
 
@@ -660,7 +669,7 @@ De cross-walk evolueert mee met IND-beleidswijzigingen.
 ## Bron
 
 Autoritatieve bron: **BRP** (Basisregistratie Personen), beheerd door de
-Rijksdienst voor Identiteitsgegevens (RvIG). Logisch Ontwerp BRP v4.3.0
+Rijksdienst voor Identiteitsgegevens (RvIG). Logisch Ontwerp BRP 2026.Q3
 is normatief; primaire identifier is het BSN. Onder Haal Centraal levert
 RvIG zes API's (Personen Bevragen, Historie Bevragen, Bewoning,
 Reisdocumenten, Landelijke Tabellen, Update) met mTLS-authenticatie en

@@ -628,7 +628,6 @@ classes:
       skos:needsReview_0: Concrete XSD-elementnaam per sector nog te bevestigen tegen lokale PvE-XSD-bijlage.
       skos:needsReview_1: altLabel 'Onderwijsdeelname' bron-citatie afhankelijk van Gegevenswoordenboek-DUO-publicatie (zie [[gbo-core/sources/duo-gegevenswoordenboek]], DVTP-DUO-OQ-001).
       skos:needsReview_2: closeMatch op ELMO-enrollment scope-vergelijking nog niet handmatig geverifieerd.
-      skos:needsReview_3: Generalisatie naar [[gbo-core/concepts/bedrijven-en-instellingen/inschrijving]] te bevestigen als concrete modeleerkeuze.
     comments:
       - >-
         OpleidingDeelname is de centrale registratie van het feit
@@ -777,8 +776,6 @@ classes:
           mim:kardinaliteit: "0..1 -> 0..*"
 
     class_uri: gbobegrip:OpleidingDeelname
-    broad_mappings:
-      - https://begrippen.gbo-semantiek.nl/id/begrip/Inschrijving
     narrow_mappings:
       - https://begrippen.gbo-semantiek.nl/id/begrip/ModuleInschrijving
       - https://begrippen.gbo-semantiek.nl/id/begrip/BeroepspraktijkvormingPeriode

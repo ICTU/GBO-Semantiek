@@ -5,11 +5,15 @@ Het GBO-Begrippenkader definieert de **betekenis** van de objecttypen uit het
 [GBO-Voorzieningenmodel](../informatiemodel/gbo-voorzieningen.md). Elk objecttype
 verwijst via `class_uri` naar precies een concept in dit begrippenkader.
 
-Het begrippenkader wordt **gegenereerd** uit de `skos:`-annotaties in de
-LinkML-modelbron en gepubliceerd als [SKOS ConceptScheme](https://www.w3.org/2004/02/skos/)
+Het begrippenkader wordt **gegenereerd** uit de `skos:`-annotaties en de
+mapping-slots in de LinkML-modelbron en gepubliceerd als [SKOS ConceptScheme](https://www.w3.org/2004/02/skos/)
 in Turtle-formaat: `v0.5/begrippen/GBO-Begrippenkader.ttl`. Bewerk dat bestand
 niet met de hand; pas de annotaties in het model aan en draai
-`task generate:begrippen`.
+`task generate:begrippen`. De hiërarchie (`skos:broader`, `skos:narrower`) en de
+matches naar andere begrippen komen uit de mapping-slots van het model
+(`broad_mappings`, `narrow_mappings`, `close_mappings`, `related_mappings`,
+`exact_mappings`); toelichtingen (`skos:scopeNote`) uit de aanvullende
+`skos:`-annotaties.
 
 Zie [Structuur en publicatie](structuur.md) voor de technische SKOS-structuur en
 [Relatie tot het informatiemodel](relatie_informatiemodel.md) voor het
@@ -22,9 +26,10 @@ Dit begrippenkader is een **voorstel (concept)**. Alle begrippen dragen
 
 | | Aantal |
 |---|---|
-| Begrippen uit het kernmodel (de inhoudelijke deelmodellen) | 78 |
+| Begrippen uit het kernmodel (de inhoudelijke deelmodellen) | 82 |
 | Begrippen uit het voorzieningenmodel | 23 |
-| **Totaal** | **101** |
+| Begrippen uit het [toestemmingenmodel](../informatiemodel/pilots/vergunningen-en-ontheffingen.md) (pilot) | 16 |
+| **Totaal** | **121** |
 
 Attribuutsoorten en relatiesoorten krijgen nog geen eigen begrip; die volgen in
 een latere versie.

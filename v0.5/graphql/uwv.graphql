@@ -129,7 +129,9 @@ type IngeschrevenPersoon implements Partij {
   uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
   europeesKiesrecht: IndicatieJaNee
-  """Datum en bron van de laatste gegevensverificatie."""
+  """Aanduiding dat verstrekking van gegevens over deze persoon aan derden is beperkt."""
+  indicatieGeheim: Indicatie!
+  """Datum en wijze van de laatste verificatie van de gegevens op de persoonslijst in de RNI."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
   inOnderzoek: Indicatie!
@@ -469,6 +471,14 @@ type NatuurlijkPersoon implements Partij {
   heeftBeslissing: [Beslissing!]
 }
 
+"""Datum en wijze waarop de gegevens op een persoonslijst in de Registratie Niet-Ingezetenen zijn geverifieerd."""
+type Verificatie {
+  """De datum waarop de verificatie van de gegevens op de persoonslijst in de RNI heeft plaatsgevonden."""
+  datum: DatumIncompleet
+  """De omschrijving van de wijze waarop de verificatie van de gegevens op de persoonslijst in de RNI heeft plaatsgevonden."""
+  omschrijving: String
+}
+
 """Geldbedrag: numerieke waarde met expliciete valuta-aanduiding (ISO 4217). Voor binnenlandse toepassingen impliciet EUR; de valuta wordt expliciet bij internationale uitwisseling."""
 type Bedrag {
   """De numerieke waarde van het bedrag."""
@@ -477,16 +487,18 @@ type Bedrag {
   valuta: CodelijstISO4217
 }
 
-"""Reden waarom de bijhouding van een persoonslijst in de basisregistratie is opgeschort."""
+"""Reden waarom de bijhouding van een persoonslijst in de basisregistratie geheel of gedeeltelijk is opgeschort."""
 enum OpschortingBijhouding {
-  """Bijhouding opgeschort omdat de geregistreerde is overleden."""
+  """Bijhouding opgeschort omdat de ingeschrevene is overleden."""
   Overlijden
-  """Bijhouding opgeschort omdat de geregistreerde naar het buitenland is vertrokken zonder RNI-overgang."""
+  """Bijhouding opgeschort omdat de ingeschrevene naar het buitenland is vertrokken."""
   Emigratie
-  """Bijhouding opgeschort vanwege langdurige vermissing."""
-  Vermissing
-  """Bijhouding opgeschort vanwege foutieve aanleg, dubbele persoonslijst of vastgestelde identiteitsfraude."""
-  FoutAangelegdOfFraude
+  """Bijhouding opgeschort op grond van een ministerieel besluit, bij vertrek zonder bekend buitenlands adres."""
+  MinisterieelBesluit
+  """Persoonslijst aangelegd in de Registratie Niet-Ingezetenen."""
+  RNI
+  """Bijhouding opgeschort omdat de persoonslijst ten onrechte is aangelegd."""
+  Fout
 }
 
 """Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de afwezigheid van een waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing) en dus onderscheiden moet blijven van een expliciet Nee. Anders dan Indicatie kent dit type bewust geen waarde Onbekend."""
@@ -495,16 +507,6 @@ enum IndicatieJaNee {
   Ja
   """Expliciet onwaar; te onderscheiden van een afwezige waarde (niet vastgesteld of niet van toepassing)."""
   Nee
-}
-
-"""Status van de meest recente identiteitsverificatie van een persoonslijst."""
-enum Verificatie {
-  """Identiteit is recent met geldig document geverifieerd."""
-  Geverifieerd
-  """Identiteit is niet recent geverifieerd."""
-  NietGeverifieerd
-  """Identiteit staat onder actief onderzoek door de gemeente of RvIG."""
-  InOnderzoek
 }
 
 """Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
@@ -625,11 +627,11 @@ enum BeslissingSoort {
 
 """Geregistreerde geslachtsaanduiding van een natuurlijk persoon."""
 enum Geslacht {
-  """Persoon met geslachtsregistratie "Man" in BRP."""
+  """Persoon met geslachtsaanduiding "Man" in de BRP."""
   Man
-  """Persoon met geslachtsregistratie "Vrouw" in BRP."""
+  """Persoon met geslachtsaanduiding "Vrouw" in de BRP."""
   Vrouw
-  """Persoon waarvan het geslacht expliciet als onbekend is vastgesteld."""
+  """Persoon van wie het geslacht (nog) onbekend is."""
   VastgesteldOnbekend
 }
 

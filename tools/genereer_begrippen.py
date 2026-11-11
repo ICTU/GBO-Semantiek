@@ -1,10 +1,27 @@
 #!/usr/bin/env python3
 """Genereer het GBO-begrippenkader als NL-SBB-compatibele SKOS-Turtle.
 
-Bron zijn de `skos:`-annotaties op klassen en enums in de gekopieerde
-LinkML-schema's. Dit is de Fase-2-route: de SKOS-semantiek staat in de
-modelbron, niet meer in losse concept-pagina's, en de TTL wordt hier
-gebouwd in plaats van in de wiki-repo.
+Bron zijn de `skos:`-annotaties en de mapping-slots op klassen en enums in
+de gekopieerde LinkML-schema's. Dit is de Fase-2-route: de SKOS-semantiek
+staat in de modelbron, niet meer in losse concept-pagina's, en de TTL wordt
+hier gebouwd in plaats van in de wiki-repo.
+
+De modelbron gebruikt de hybride codering uit de wiki-repo
+(`scripts/migrate-skos-to-linkml.py`):
+
+- platte annotaties `skos:status`, `skos:prefLabel_<taal>`,
+  `skos:definition_<taal>`, `skos:altLabel_<taal>_<n>_value`;
+- `skos:additional_<n>_as|nl|en` voor toelichtingen (`scopeNote`) en extra
+  definities (`definition`);
+- bronvermeldingen in `skos:definitionSource`, `skos:definitionSourceUri`,
+  `skos:altLabel_<taal>_<n>_source` en `skos:additional_<n>_source`; ze
+  worden `dcterms:source` op het begrip. Een bron die naar de interne wiki
+  verwijst (`[[...]]`) wordt niet gepubliceerd en als aandachtspunt gemeld;
+- de mapping-slots van LinkML voor relaties tussen begrippen:
+  `broad_mappings` (skos:broader), `narrow_mappings` (skos:narrower),
+  `close_mappings` (skos:closeMatch), `related_mappings`
+  (skos:relatedMatch) en `exact_mappings` (skos:exactMatch, behalve de
+  verwijzing naar het eigen begrip).
 
 Gebruik:
     genereer_begrippen.py --linkml-dir v0.3/informatiemodel/linkml \\
@@ -33,6 +50,21 @@ GELDIGE_STATUS = {"concept", "proposed", "accepted", "deprecated"}
 
 ALT_LABEL_RE = re.compile(r"^skos:altLabel_([a-z]{2})_(\d+)_value$")
 MATCH_RE = re.compile(r"^skos:(exactMatch|closeMatch|relatedMatch|broader|narrower)_(\d+)$")
+ALT_SOURCE_RE = re.compile(r"^skos:altLabel_([a-z]{2})_(\d+)_source$")
+ADDITIONAL_RE = re.compile(r"^skos:additional_(\d+)_(as|nl|en|source)$")
+REVIEWED_RE = re.compile(r"^skos:(exactMatch|closeMatch|relatedMatch|broader|narrower)_(\d+)_reviewed$")
+
+# Mapping-slots van LinkML en het SKOS-predicaat dat de modelbron ermee
+# bedoelt. De hiërarchie en de matches staan in deze slots, niet in
+# annotaties; de sleutel is de naam die de `_reviewed`-annotaties gebruiken.
+MAPPING_SLOTS = {
+    "broader": ("broad_mappings", SKOS.broader),
+    "narrower": ("narrow_mappings", SKOS.narrower),
+    "exactMatch": ("exact_mappings", SKOS.exactMatch),
+    "closeMatch": ("close_mappings", SKOS.closeMatch),
+    "relatedMatch": ("related_mappings", SKOS.relatedMatch),
+}
+RELATIES = tuple(predicaat for _, predicaat in MAPPING_SLOTS.values())
 
 
 def begrip_uri(element: dict) -> URIRef | None:
@@ -59,6 +91,42 @@ def begrip_uri(element: dict) -> URIRef | None:
     return None
 
 
+def verwijzing(waarde, prefixes: dict) -> URIRef | None:
+    """Zet een mapping-waarde om naar een URI: een volledige URI of een CURIE."""
+    tekst = str(waarde)
+    if tekst.startswith(("http://", "https://")):
+        return URIRef(tekst)
+    prefix, scheiding, lokaal = tekst.partition(":")
+    if not scheiding:
+        return None
+    if prefix == "gbobegrip":
+        return BEGRIP[lokaal]
+    basis = prefixes.get(prefix)
+    if isinstance(basis, dict):
+        basis = basis.get("prefix_reference")
+    return URIRef(f"{basis}{lokaal}") if basis else None
+
+
+def relaties(element: dict, eigen: URIRef, prefixes: dict,
+             naam: str, meldingen: list[str]) -> dict[str, list[URIRef]]:
+    """Lees de mapping-slots als relaties van het begrip.
+
+    Modellen met een eigen ontologie-namespace noteren ook het eigen begrip
+    in `exact_mappings`; dat is identiteit en geen exactMatch, en valt hier
+    dus weg.
+    """
+    gevonden: dict[str, list[URIRef]] = {}
+    for sleutel, (slot, _) in MAPPING_SLOTS.items():
+        for waarde in element.get(slot) or []:
+            doel = verwijzing(waarde, prefixes)
+            if doel is None:
+                meldingen.append(
+                    f"{naam}: waarde '{waarde}' in {slot} is geen URI of bekende CURIE, overgeslagen.")
+            elif doel != eigen:
+                gevonden.setdefault(sleutel, []).append(doel)
+    return gevonden
+
+
 def annotatiewaarde(annotations: dict, sleutel: str):
     """LinkML normaliseert annotaties soms naar {'tag':..,'value':..}."""
     waarde = annotations.get(sleutel)
@@ -67,7 +135,25 @@ def annotatiewaarde(annotations: dict, sleutel: str):
     return waarde
 
 
-def emit_element(g: Graph, naam: str, element: dict, meldingen: list[str]) -> bool:
+def bronvermelding(g: Graph, uri: URIRef, waarde, naam: str, meldingen: list[str]) -> None:
+    """Schrijf een bronvermelding als `dcterms:source` op het begrip.
+
+    De modelbron verwijst soms naar een pagina in de interne wiki
+    (`[[...]]`). Zo'n verwijzing is buiten de wiki niet te volgen en hoort
+    niet in de publicatie; ze wordt gemeld in plaats van geschreven.
+    """
+    tekst = str(waarde).strip()
+    if not tekst:
+        return
+    if "[[" in tekst:
+        meldingen.append(
+            f"{naam}: bron '{tekst}' verwijst naar de interne wiki en is niet gepubliceerd.")
+        return
+    g.add((uri, DCTERMS.source, Literal(tekst)))
+
+
+def emit_element(g: Graph, naam: str, element: dict, meldingen: list[str],
+                 prefixes: dict | None = None) -> bool:
     annotations = element.get("annotations") or {}
     annotations = {
         k: annotatiewaarde(annotations, k) for k in annotations
@@ -97,18 +183,46 @@ def emit_element(g: Graph, naam: str, element: dict, meldingen: list[str]) -> bo
             g.add((uri, SKOS.scopeNote, Literal(notitie, lang=taal)))
 
     if bron := annotations.get("skos:definitionSource"):
-        g.add((uri, DCTERMS.source, Literal(bron)))
+        bronvermelding(g, uri, bron, naam, meldingen)
     if bron_uri := annotations.get("skos:definitionSourceUri"):
         g.add((uri, DCTERMS.source, URIRef(bron_uri)))
 
     for sleutel, waarde in annotations.items():
         if (m := ALT_LABEL_RE.match(sleutel)) and waarde:
             g.add((uri, SKOS.altLabel, Literal(waarde, lang=m.group(1))))
+        elif ALT_SOURCE_RE.match(sleutel) and waarde:
+            bronvermelding(g, uri, waarde, naam, meldingen)
         elif (m := MATCH_RE.match(sleutel)) and waarde:
             predicaat = getattr(SKOS, m.group(1))
             g.add((uri, predicaat, URIRef(waarde)))
         elif sleutel.startswith("skos:needsReview_") and waarde:
             meldingen.append(f"{naam}: {waarde}")
+
+    # Toelichtingen en extra definities: per volgnummer een soort en een
+    # tekst per taal.
+    aanvullend: dict[int, dict] = {}
+    for sleutel, waarde in annotations.items():
+        if (m := ADDITIONAL_RE.match(sleutel)) and waarde:
+            aanvullend.setdefault(int(m.group(1)), {})[m.group(2)] = waarde
+    for _, deel in sorted(aanvullend.items()):
+        predicaat = SKOS.definition if deel.get("as") == "definition" else SKOS.scopeNote
+        for taal in ("nl", "en"):
+            if tekst := deel.get(taal):
+                g.add((uri, predicaat, Literal(tekst, lang=taal)))
+        if bron := deel.get("source"):
+            bronvermelding(g, uri, bron, naam, meldingen)
+
+    # Hiërarchie en matches uit de mapping-slots.
+    gevonden = relaties(element, uri, prefixes or {}, naam, meldingen)
+    for sleutel, doelen in gevonden.items():
+        for doel in doelen:
+            g.add((uri, MAPPING_SLOTS[sleutel][1], doel))
+    for sleutel, waarde in annotations.items():
+        if (m := REVIEWED_RE.match(sleutel)) and str(waarde).lower() == "false":
+            doelen = gevonden.get(m.group(1)) or []
+            index = int(m.group(2))
+            doel = doelen[index] if index < len(doelen) else "onbekend"
+            meldingen.append(f"{naam}: {m.group(1)} naar {doel} is nog niet beoordeeld.")
 
     if not annotations.get("skos:prefLabel_nl"):
         meldingen.append(f"{naam}: geen Nederlandse voorkeursterm.")
@@ -147,10 +261,26 @@ def main() -> int:
             continue
         schema = yaml.safe_load(pad.read_text(encoding="utf-8")) or {}
         bestanden += 1
+        prefixes = schema.get("prefixes") or {}
         for soort in ("classes", "enums"):
             for naam, element in (schema.get(soort) or {}).items():
-                if isinstance(element, dict) and emit_element(g, naam, element, meldingen):
+                if isinstance(element, dict) and emit_element(g, naam, element, meldingen, prefixes):
                     aantal += 1
+
+    # Een relatie naar een GBO-begrip dat zelf niet in het kader staat, is een
+    # losse verwijzing: het doel heeft dan nog geen skos-annotaties in het model.
+    begrippen = set(g.subjects(RDF.type, SKOS.Concept))
+    los: dict[URIRef, int] = {}
+    for predicaat in RELATIES:
+        for _, doel in g.subject_objects(predicaat):
+            if str(doel).startswith(str(BEGRIP)) and doel not in begrippen:
+                los[doel] = los.get(doel, 0) + 1
+    # Vooraan in de lijst: de uitvoer toont alleen de eerste meldingen.
+    meldingen[:0] = [
+        f"{str(doel).rsplit('/', 1)[-1]}: {keren} relatie(s) verwijzen naar dit begrip, "
+        "maar het staat niet in het begrippenkader."
+        for doel, keren in sorted(los.items())
+    ]
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     g.serialize(destination=str(args.output), format="turtle")

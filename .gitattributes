@@ -21,3 +21,6 @@
 # Het begrippenkader onder v*/begrippen/ valt hier bewust buiten: dat
 # bevat geen anonieme knopen en is wel regel-voor-regel stabiel.
 v*/ontologie/*.ttl -diff
+
+# Gegenereerde Word-documenten (bronspecificaties).
+*.docx binary

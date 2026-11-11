@@ -20,8 +20,6 @@ directive @restrictie(
 scalar BAGID @restrictie(patroon: "^[0-9]{16}$")
 """Burgerservicenummer: 9 cijfers met geldige elfproef. Als tekst getypeerd zodat een eventuele voorloopnul behouden blijft."""
 scalar BSN @restrictie(patroon: "^[0-9]{9}$")
-"""Waarde uit een BRP-Landelijke Tabel die in de documentatie niet nader is gespecificeerd."""
-scalar CodelijstBRP
 """Aanduiding verblijfsrecht conform de IND-codelijst verblijfstitels; cross-walk naar BRP-LT 56."""
 scalar CodelijstIND
 """Landcode conform ISO 3166-1 alpha-2. Stelselbreed voor land- en nationaliteit-typering; cross-walks naar BRP-LT 32 (nationaliteit) en BRP-LT 34 (landen) staan in de documentatie."""
@@ -32,8 +30,10 @@ scalar CodelijstLT33 @restrictie(patroon: "^[0-9]{4}$")
 scalar CodelijstLT37
 """Adellijke titel / predicaat conform BRP-Landelijke Tabel 38."""
 scalar CodelijstLT38
-"""RNI-deelnemer conform BRP-Landelijke Tabel 88."""
-scalar CodelijstLT88
+"""Reden ontbinding of nietigverklaring van een huwelijk of geregistreerd partnerschap conform BRP-Landelijke Tabel 41 (LO-element 07.40)."""
+scalar CodelijstLT41
+"""RNI-deelnemer conform BRP-Landelijke Tabel 60 RNI-deelnemerstabel (LO-element 88.10). Tot 2026-10-30 ten onrechte CodelijstLT88 genoemd, naar het groepsnummer."""
+scalar CodelijstLT60 @restrictie(patroon: "^[0-9]{4}$")
 """Kalenderdatum in ISO 8601, precisie tot op de dag (jjjj-mm-dd). Gebruikt voor de materiële tijdlijn."""
 scalar Datum
 """Datum waarin jaar, maand of dag elk afzonderlijk onbekend kan zijn. Formaten: jjjj, jjjj-mm of jjjj-mm-dd; nullen op de onbekende positie."""
@@ -89,7 +89,9 @@ interface IngeschrevenPersoon implements Partij {
   uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
   europeesKiesrecht: IndicatieJaNee
-  """Datum en bron van de laatste gegevensverificatie."""
+  """Aanduiding dat verstrekking van gegevens over deze persoon aan derden is beperkt."""
+  indicatieGeheim: Indicatie!
+  """Datum en wijze van de laatste verificatie van de gegevens op de persoonslijst in de RNI."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
   inOnderzoek: Indicatie!
@@ -191,7 +193,9 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
   uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
   europeesKiesrecht: IndicatieJaNee
-  """Datum en bron van de laatste gegevensverificatie."""
+  """Aanduiding dat verstrekking van gegevens over deze persoon aan derden is beperkt."""
+  indicatieGeheim: Indicatie!
+  """Datum en wijze van de laatste verificatie van de gegevens op de persoonslijst in de RNI."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
   inOnderzoek: Indicatie!
@@ -205,8 +209,6 @@ type Ingezetene implements IngeschrevenPersoon & Partij {
   heeftImmigratie: Immigratie
   """De datum waarop de persoon zich in de huidige gemeente heeft ingeschreven."""
   datumInschrijvingGemeente: Datum
-  """Aanduiding dat de gemeente verstrekking van gegevens aan derden heeft beperkt."""
-  indicatieGeheim: Indicatie!
   """Verblijfadres; zie deelmodel Adressen en gebouwen."""
   woontOp: Binnenlandsadres
 }
@@ -255,7 +257,9 @@ type NietIngezetene implements IngeschrevenPersoon & Partij {
   uitsluitingKiesrecht: IndicatieJaNee
   """Aanduiding dat de persoon kiesgerechtigd is voor het Europees Parlement vanuit Nederland."""
   europeesKiesrecht: IndicatieJaNee
-  """Datum en bron van de laatste gegevensverificatie."""
+  """Aanduiding dat verstrekking van gegevens over deze persoon aan derden is beperkt."""
+  indicatieGeheim: Indicatie!
+  """Datum en wijze van de laatste verificatie van de gegevens op de persoonslijst in de RNI."""
   verificatie: Verificatie
   """Indicatie dat een of meer gegevens van de persoonslijst onderwerp zijn van onderzoek."""
   inOnderzoek: Indicatie!
@@ -271,8 +275,8 @@ type NietIngezetene implements IngeschrevenPersoon & Partij {
   datumInschrijvingRNI: Datum
   """Het land waarin de niet-ingezetene zijn verblijfplaats heeft."""
   landVanVerblijf: CodelijstISO3166
-  """De RNI-deelnemer die de inschrijving heeft aangemaakt of bijgehouden."""
-  deelnemerCodeRNI: CodelijstLT88
+  """De RNI-deelnemer die (een deel van) de gegevens op de persoonslijst heeft aangeleverd."""
+  deelnemerCodeRNI: CodelijstLT60
   """Verblijfadres in het buitenland; zie deelmodel Adressen en gebouwen."""
   woontOp: Buitenlandsadres
 }
@@ -304,7 +308,7 @@ type Huwelijk {
   """De datum waarop de verbintenis is ontbonden."""
   datumOntbinding: DatumIncompleet
   """De reden van ontbinding (echtscheiding, overlijden, nietigverklaring)."""
-  redenOntbinding: CodelijstBRP
+  redenOntbinding: CodelijstLT41
   """Symmetrisch; geen aangaande/partner-onderscheid."""
   partners: [NatuurlijkPersoon!]!
 }
@@ -314,9 +318,9 @@ type Verblijfstitel {
   """De aanduiding van het verblijfsrecht (IND-codelijst)."""
   aanduiding: CodelijstIND!
   """De datum waarop het verblijfsrecht is ingegaan."""
-  datumIngang: Datum!
+  datumIngang: DatumIncompleet
   """De datum waarop het verblijfsrecht is geëindigd."""
-  datumEinde: Datum
+  datumEinde: DatumIncompleet
 }
 
 """De juridische gezagssituatie van een ingeschreven persoon: ouderlijk gezag bij minderjarigheid of onder-curatele-stelling bij meerderjarigheid."""
@@ -333,8 +337,6 @@ type Immigratie {
   datumVestigingInNederland: Datum
   """Het land waarvandaan de persoon zich in Nederland heeft gevestigd."""
   landVanwaar: CodelijstISO3166
-  """Het land via welke grens de persoon Nederland is binnengekomen."""
-  landBinnenkomst: CodelijstISO3166
 }
 
 """Een Nederlands adres dat via een BAG-Nummeraanduiding en de bijbehorende openbare ruimte en woonplaats wordt opgebouwd."""
@@ -373,26 +375,36 @@ type Buitenlandsadres implements Adres {
   land: CodelijstISO3166!
 }
 
+"""Datum en wijze waarop de gegevens op een persoonslijst in de Registratie Niet-Ingezetenen zijn geverifieerd."""
+type Verificatie {
+  """De datum waarop de verificatie van de gegevens op de persoonslijst in de RNI heeft plaatsgevonden."""
+  datum: DatumIncompleet
+  """De omschrijving van de wijze waarop de verificatie van de gegevens op de persoonslijst in de RNI heeft plaatsgevonden."""
+  omschrijving: String
+}
+
 """Geregistreerde geslachtsaanduiding van een natuurlijk persoon."""
 enum Geslacht {
-  """Persoon met geslachtsregistratie "Man" in BRP."""
+  """Persoon met geslachtsaanduiding "Man" in de BRP."""
   Man
-  """Persoon met geslachtsregistratie "Vrouw" in BRP."""
+  """Persoon met geslachtsaanduiding "Vrouw" in de BRP."""
   Vrouw
-  """Persoon waarvan het geslacht expliciet als onbekend is vastgesteld."""
+  """Persoon van wie het geslacht (nog) onbekend is."""
   VastgesteldOnbekend
 }
 
-"""Reden waarom de bijhouding van een persoonslijst in de basisregistratie is opgeschort."""
+"""Reden waarom de bijhouding van een persoonslijst in de basisregistratie geheel of gedeeltelijk is opgeschort."""
 enum OpschortingBijhouding {
-  """Bijhouding opgeschort omdat de geregistreerde is overleden."""
+  """Bijhouding opgeschort omdat de ingeschrevene is overleden."""
   Overlijden
-  """Bijhouding opgeschort omdat de geregistreerde naar het buitenland is vertrokken zonder RNI-overgang."""
+  """Bijhouding opgeschort omdat de ingeschrevene naar het buitenland is vertrokken."""
   Emigratie
-  """Bijhouding opgeschort vanwege langdurige vermissing."""
-  Vermissing
-  """Bijhouding opgeschort vanwege foutieve aanleg, dubbele persoonslijst of vastgestelde identiteitsfraude."""
-  FoutAangelegdOfFraude
+  """Bijhouding opgeschort op grond van een ministerieel besluit, bij vertrek zonder bekend buitenlands adres."""
+  MinisterieelBesluit
+  """Persoonslijst aangelegd in de Registratie Niet-Ingezetenen."""
+  RNI
+  """Bijhouding opgeschort omdat de persoonslijst ten onrechte is aangelegd."""
+  Fout
 }
 
 """Tweewaardige ja/nee-keuzelijst voor gegevens waarbij de afwezigheid van een waarde zelf betekenis draagt (niet vastgesteld of niet van toepassing) en dus onderscheiden moet blijven van een expliciet Nee. Anders dan Indicatie kent dit type bewust geen waarde Onbekend."""
@@ -401,16 +413,6 @@ enum IndicatieJaNee {
   Ja
   """Expliciet onwaar; te onderscheiden van een afwezige waarde (niet vastgesteld of niet van toepassing)."""
   Nee
-}
-
-"""Status van de meest recente identiteitsverificatie van een persoonslijst."""
-enum Verificatie {
-  """Identiteit is recent met geldig document geverifieerd."""
-  Geverifieerd
-  """Identiteit is niet recent geverifieerd."""
-  NietGeverifieerd
-  """Identiteit staat onder actief onderzoek door de gemeente of RvIG."""
-  InOnderzoek
 }
 
 """Logische waarde met expliciete onbekendheid. GBO hanteert als NL-conventie een drie-waardig type in plaats van MIM-Boolean, zodat onbekendheid expliciet kan worden vastgelegd."""
